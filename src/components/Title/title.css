@@ -1,0 +1,10 @@
+.primary-title {
+    font-family: var(--font-text);
+    font-size: 80px;
+    color: var(--color-gray-900);
+    text-transform: uppercase;
+}
+
+.white {
+    color: var(--color-gray-200);
+}

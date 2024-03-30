@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './title.css';
+import * as S from './title.styled';
 
 type Props = {
     children: string | JSX.Element | JSX.Element[];
@@ -9,9 +9,9 @@ type Props = {
 
 const Title: React.FC<Props> = ({children, classes}) => {
   return (
-    <div className={classes}>
+    <S.PrimaryTitle className={classes}>
       {children}
-    </div>
+    </S.PrimaryTitle>
   );
 };
 

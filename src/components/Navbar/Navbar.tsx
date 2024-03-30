@@ -1,18 +1,48 @@
 import React from "react";
-import './navbar.css';
+import { NavLink as RouterNavLink } from 'react-router-dom';
+
+import * as S from './navbar.styled';
+
 import Container from '../Container/Container';
 import Logo from '../Logo/Logo';
 
-const Navbar: React.FC = () => (
-	<div className="nav-container">
-        <Container className="container">
-            <Logo></Logo>
-            <div className="nav-link"></div>
-            <div className="nav-login">
-                <button className="btn-entrar">ENTRAR</button>
-            </div>
-        </Container>
-    </div>
-);
+
+const Navbar: React.FC = () => {
+    return (
+        <S.NavContainer>
+            <Container className="container">
+                <S.Row>
+                    <RouterNavLink to="/">
+                        <Logo />
+                    </RouterNavLink>
+
+                    <S.NavList>
+                        <S.NavItem>
+                            <RouterNavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                Início
+                            </RouterNavLink>
+                        </S.NavItem>
+                        <S.NavItem>
+                            <RouterNavLink to="/about" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                O que é
+                            </RouterNavLink>
+                        </S.NavItem>
+                        <S.NavItem className="nav-item">
+                            <RouterNavLink to="/services" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                Serviços
+                            </RouterNavLink>
+                        </S.NavItem>
+                    </S.NavList>
+
+                </S.Row>
+                
+                
+                <S.NavLogin>
+                    <S.BtnEntrar>ENTRAR</S.BtnEntrar>
+                </S.NavLogin>
+            </Container>
+        </S.NavContainer>
+    );
+};
 
 export default Navbar;

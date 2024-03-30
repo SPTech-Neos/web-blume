@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './container.css';
+import * as S from './container.styled';
 
 type Props = {
     children: string | JSX.Element | JSX.Element[],
@@ -9,9 +9,9 @@ type Props = {
 
 const Container: React.FC<Props> = ({children, className}) => {
   return (
-    <div className={className}>
+    <S.Container className={className}>
       {children}
-    </div>
+    </S.Container>
   );
 };
 

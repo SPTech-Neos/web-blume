@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink as RouterNavLink } from 'react-router-dom';
 
+
 import * as S from './navbar.styled';
 
 import Container from '../Container/Container';
+import BtnEntrar from "../Button/Button";
 import Logo from '../Logo/Logo';
 
 
@@ -36,9 +38,8 @@ const Navbar: React.FC = () => {
 
                 </S.Row>
                 
-                
                 <S.NavLogin>
-                    <S.BtnEntrar>ENTRAR</S.BtnEntrar>
+                    <BtnEntrar />   
                 </S.NavLogin>
             </Container>
         </S.NavContainer>

@@ -31,7 +31,7 @@ export const NavItem = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: "Josefin Sans";
     font-weight: light;
     font-size: 20px;
 `;
@@ -47,13 +47,3 @@ export const NavLogin = styled.div`
     justify-content: center;
 `;
 
-export const BtnEntrar = styled.button`
-    padding: 0;
-    max-width: 200px;
-    width: 60%;
-    background-color: #8F93EC;
-    font-weight: 600;
-    font-size: 20px;
-    font-family: "Poppins";
-    box-shadow: 0px 0px 20px #8F93EC;  
-`;

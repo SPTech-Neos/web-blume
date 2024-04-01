@@ -28,9 +28,12 @@ export const ButtonSearchBar = styled.button`
     color: var(--color-gray-700);
     background: none;
     border: none;
-    font-size: 18px;
+    
+    font-size: 14px;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
+    text-transform: uppercase;
+
     position: relative;
     cursor: pointer;
     transition: .25s;

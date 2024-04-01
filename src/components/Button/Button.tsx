@@ -1,12 +1,11 @@
 import React from "react";
+import * as S from './button.styled';
 
-import *  as S from './button.styled';
 
-const Button: React.FC = () =>{
+const PrimaryButton: React.FC<S.PrimaryButtonProps> = ({ width, size, children }) => {
     return (
-        <S.BtnEntrar>ENTRAR</S.BtnEntrar>
-    )
+        <S.PrimaryButton width={width} size={size}>{children}</S.PrimaryButton>
+    );
 }
 
-
-export default Button;
+export default PrimaryButton;

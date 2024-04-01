@@ -3,8 +3,8 @@ import React from 'react';
 import * as S from './container.styled';
 
 type Props = {
-    children: string | JSX.Element | JSX.Element[],
-    className?: string
+    children: string | JSX.Element | JSX.Element[];
+    className?: string;
 }
 
 const Container: React.FC<Props> = ({children, className}) => {

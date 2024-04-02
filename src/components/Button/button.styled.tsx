@@ -9,13 +9,13 @@ export interface PrimaryButtonProps {
 const sizeVariants = {
    sm: {
       fontSize: '0.7rem',
-      borderRadius: '0.5rem',
+      borderRadius: '0.4rem',
       border: '2px solid var(--color-violet-300)'
    },
    md: {
       fontSize: '1.1rem',
       padding: '0.2rem 3.3rem',
-      borderRadius: '0.6rem',
+      borderRadius: '0.5rem',
       border: '3px solid var(--color-violet-300)'
    },
    lg: {
@@ -38,7 +38,7 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
    cursor: pointer;
 
    text-transform: uppercase;
-   font-weight: bold;
+   font-weight: 500;
    font-family: 'Poppins', sans-serif;
 
    transition: background-color .2s ease-in;

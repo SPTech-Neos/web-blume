@@ -3,40 +3,40 @@ import styled, { css } from 'styled-components';
 export interface PrimaryTitleProps {
   children: string;
   size?: 'sm' | 'md' | 'lg';
-  width?: string;
+  theme?: 'light' | 'dark';
+  outline?: boolean | null;
 }
 
 const sizeVariants = {
   sm: {
-    fontSize: '0.7rem',
-    borderRadius: '0.5rem',
-    border: '2px solid var(--color-violet-300)'
+     fontSize: '3rem',
   },
   md: {
-    fontSize: '1.1rem',
-    padding: '0.2rem 3.3rem',
-    borderRadius: '0.6rem',
-    border: '3px solid var(--color-violet-300)'
+     fontSize: '4.125rem',
   },
   lg: {
-    fontSize: '1.5rem',
-    borderRadius: '0.8rem',
-    border: '4px solid var(--color-violet-300)'
+     fontSize: '5rem',
   }
 };
 
-export const PrimaryTitle = styled.div.attrs(({ className }) => ({
-    className: className ? `primary-title ${className}` : 'primary-title',
-  }))`
-    font-family: var(--font-text);
-    font-size: 80px;
-    font-weight: bold;
-    color: var(--color-gray-900);
-    text-transform: uppercase;
+const themeVariants = {
+   light: {
+      color: 'var(--color-black-100)',
+   },
+   dark: {
+      color: 'var(--color-black-900)',
+   }
+ };
 
-    ${({ className }) => className && css`
-    &.white {  /* Target class directly */
-        color: var(--color-gray-200);
-    }
-  `}
+
+export const PrimaryTitle = styled.h1<PrimaryTitleProps>`
+    font-family: var(--font-text);
+    font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
+    color: ${(props)=> props.color ? props.color : themeVariants.light.color };
+    font-weight: bold;
+    text-transform: uppercase;
+    position: 'relative';
+
+    ${(props) => props.outline ? css`
+      background-image: url('../../assets/title-svg.svg');` : ""}
 `;

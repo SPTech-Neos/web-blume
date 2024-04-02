@@ -42,7 +42,7 @@ export const NavLink = styled(RouterNavLink)`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     position: relative;
 
     &::before {

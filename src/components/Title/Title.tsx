@@ -1,18 +1,12 @@
 import React from 'react';
-
 import * as S from './title.styled';
 
-type Props = {
-    children: string | JSX.Element | JSX.Element[];
-    classes: string;
-}
-
-const Title: React.FC<Props> = ({children, classes}) => {
+const PrimaryTitle: React.FC<S.PrimaryTitleProps> = ({children, size, theme, outline}) => {
   return (
-    <S.PrimaryTitle className={classes}>
+    <S.PrimaryTitle size={size} theme={theme} outline={outline}>
       {children}
     </S.PrimaryTitle>
   );
 };
 
-export default Title;
+export default PrimaryTitle;

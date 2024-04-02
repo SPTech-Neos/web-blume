@@ -7,7 +7,7 @@ export const PrimarySubtitle = styled.div.attrs(({ className }) => ({
     font-size: 24px;
     font-weight: regular;
     color: var(--color-gray-900);
-    text-transform: uppercase;
+    
 
     ${({ className }) => className && css`
     &.white {  /* Target class directly */

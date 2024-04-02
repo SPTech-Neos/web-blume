@@ -10,7 +10,7 @@ import Logo from '../Logo/Logo';
 const Navbar: React.FC = () => {
     return (
         <S.NavContainer>
-            <Container className="container">
+            <Container direction="row">
                 <S.Row>
                     <S.NavLink to="/">
                         <Logo />
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
                 </S.Row>
                 
                 <S.NavLogin>
-                    <PrimaryButton width="200px" size="md">Entrar</PrimaryButton>
+                    <PrimaryButton width="160px" size="md">Entrar</PrimaryButton>
                 </S.NavLogin>
             </Container>
         </S.NavContainer>

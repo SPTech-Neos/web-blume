@@ -2,14 +2,9 @@ import React from 'react';
 
 import * as S from './container.styled';
 
-type Props = {
-    children: string | JSX.Element | JSX.Element[];
-    className?: string;
-}
-
-const Container: React.FC<Props> = ({children, className}) => {
+const Container: React.FC<S.Props> = ({direction, children, className}) => {
   return (
-    <S.Container className={className}>
+    <S.Container direction={direction} className={`container ${className}`}>
       {children}
     </S.Container>
   );

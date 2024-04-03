@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components';
-
+import Container from '../../components/Container/Container';
 
 export const About = styled.section`
     width: 100%;
@@ -9,17 +9,18 @@ export const About = styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-
-    &>.container {
-        justify-content: flex-end;
-    }
+    background-color: var(--color-gray-100)
 
 `
-// coloquei esse height pra testar a cor
+
+export const AboutContainer = styled(Container)`
+    justify-content: right;
+
+`;
+
 export const AsideRounded = styled.div`
     position: absolute;
     left: 0;
-
     width: 45vw;
     height: 200px;
     display: flex;
@@ -54,7 +55,7 @@ export const AboutSvg = styled.img`
 
     &.about-svg-02{
         width: 160px;
-        right: 23vw;
+        right: 20vw;
         bottom: -40vhpx;
         position: absolute;
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as S from './about.styled';
-import Container from '../../components/Container/Container';
+// import Container from '../../components/Container/Container';
 import Title from '../../components/Title/Title';
 import Subtitle from '../../components/Subtitle/Subtitle';
 import svg01 from '../../assets/Itens Produtos.png';
@@ -10,7 +10,7 @@ import svg02 from '../../assets/pentagono-blume.png';
 const About: React.FC = () => (
 	<S.About>
 		<Title> Tudo em um só lugar </Title>
-		<Container direction='row'>
+		<S.AboutContainer direction='row'>
 			<S.AsideRounded>
 				<div className="subtitle">
 					<Subtitle classes=''>Opa</Subtitle>
@@ -30,7 +30,7 @@ const About: React.FC = () => (
 				
 			</div>
 			
-		</Container>
+		</S.AboutContainer>
 	</S.About>
 		
 );

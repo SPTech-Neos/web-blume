@@ -6,8 +6,8 @@ export interface TitleProps {
   children: string;
   size?: 'sm' | 'md' | 'lg';
   theme?: 'light' | 'dark';
-  outline: boolean;
-  lines: boolean;
+  outline: boolean | string;
+  lines: boolean | string;
 }
 
 const PrimarySizeVariants = {

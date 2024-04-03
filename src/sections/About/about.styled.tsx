@@ -4,15 +4,23 @@ import styled, {keyframes} from 'styled-components';
 export const About = styled.section`
     width: 100%;
     height: 80vh;
+    max-height: 750px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 
+    &>.container {
+        justify-content: flex-end;
+    }
+
 `
 // coloquei esse height pra testar a cor
 export const AsideRounded = styled.div`
-    width: 60%;
+    position: absolute;
+    left: 0;
+
+    width: 45vw;
     height: 200px;
     display: flex;
     background-color: #31335F;
@@ -46,8 +54,8 @@ export const AboutSvg = styled.img`
 
     &.about-svg-02{
         width: 160px;
-        right: 330px;
-        bottom: -430px;
+        right: 23vw;
+        bottom: -40vhpx;
         position: absolute;
     }
 ` 

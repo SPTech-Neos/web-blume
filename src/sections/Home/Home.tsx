@@ -5,7 +5,7 @@ import Container from '../../components/Container/Container';
 import Logo from '../../components/Logo/Logo';
 import Searchbar from '../../components/Searchbar/Searchbar';
 
-import PrimaryTitle from '../../components/Title/Title';
+import { PrimaryTitle } from '../../components/Title/Title';
 import Subtitle from '../../components/Subtitle/Subtitle';
 
 import * as S from './home.styled';
@@ -30,8 +30,8 @@ const Home: React.FC = () => (
 
 				<S.TextCabecalho>
 					<Logo />
-					<PrimaryTitle>Belo e Direto</PrimaryTitle>
-					<Subtitle classes="primary-subtitle">Pesquise aqui tudo que precisa, de cabelo à sobrancelha, de maquiagem à unhas. Aqui tem!</Subtitle>
+					<PrimaryTitle size='lg' outline={false} lines={false}>Belo e Direto</PrimaryTitle>
+					<Subtitle>Pesquise aqui tudo que precisa, de cabelo à sobrancelha, de maquiagem à unhas. Aqui tem!</Subtitle>
 				</S.TextCabecalho>
 
 				{/* <S.HomeSvg classes="home-svg-02" imgURL={svg02} imgTitle='svg com detalhes de formas geométricas no fundo'/> */}

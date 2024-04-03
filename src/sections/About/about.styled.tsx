@@ -1,6 +1,11 @@
 import styled, {keyframes} from 'styled-components';
 import Container from '../../components/Container/Container';
 
+
+const itemVariants = {
+    
+}
+
 export const About = styled.section`
     width: 100%;
     height: 80vh;
@@ -9,7 +14,7 @@ export const About = styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color-gray-100)
+    background-color: var(--color-gray-100);
 
 `
 
@@ -21,11 +26,33 @@ export const AboutContainer = styled(Container)`
 export const AsideRounded = styled.div`
     position: absolute;
     left: 0;
+
     width: 45vw;
-    height: 200px;
+    height: 280px;
+
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
     background-color: #31335F;
-    border-radius: 0px 100px 100px 0px;
+    border-radius: 0px 400px 400px 0px;
+`;
+
+export const Limiter = styled.div` /* #TODO transformar em componente */
+    margin-right: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 80%;
+    max-width: 630px;
+    height: 90%;
+    max-height: 166px;
+`;
+
+export const SvgGroup = styled.div`
+    display: flex;
+    position: relative;
 `;
 
 const rotate = keyframes`
@@ -51,13 +78,15 @@ export const AboutSvg = styled.img`
     
     &.about-svg-01{
         animation: ${rotate} 5s infinite;
+        z-index: 2;
     }
 
     &.about-svg-02{
         width: 160px;
-        right: 20vw;
-        bottom: -40vhpx;
+        right:  180px;
+        top: 20px;
         position: absolute;
+        z-index: 1;
     }
 ` 
 

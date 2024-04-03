@@ -2,21 +2,30 @@ import React from 'react';
 
 import * as S from './about.styled';
 // import Container from '../../components/Container/Container';
-import Title from '../../components/Title/Title';
 import Subtitle from '../../components/Subtitle/Subtitle';
 import svg01 from '../../assets/Itens Produtos.png';
 import svg02 from '../../assets/pentagono-blume.png';
+import { PrimaryTitle, SecondaryTitle } from '../../components/Title/title.styled';
 
 const About: React.FC = () => (
 	<S.About>
-		<Title> Tudo em um só lugar </Title>
+		<PrimaryTitle size='md' outline={true} lines={false}> Tudo em um só lugar </PrimaryTitle>
 		<S.AboutContainer direction='row'>
 			<S.AsideRounded>
-				<div className="subtitle">
-					<Subtitle classes=''>Opa</Subtitle>
-				</div>
+				<S.Limiter>
+					<SecondaryTitle size='sm' theme='light' outline={false} lines={true}>De agenda a produtos</SecondaryTitle>
+
+					<Subtitle size='sm' theme='light'>
+						Na Blume, você encontra o lugar que você precisa, o serviço que quer, o produto que gostou e agenda tudo isso. 
+					</Subtitle>
+					<Subtitle size='sm' theme='light'>
+						Feche tudo em um único pacote e pronto!
+					</Subtitle>
+				</S.Limiter>
+				
 			</S.AsideRounded>
-			<div>
+	
+			<S.SvgGroup>
 				<S.AboutSvg
 					className="about-svg-01"
 					src={svg01}
@@ -27,8 +36,7 @@ const About: React.FC = () => (
 					src={svg02}
 					alt={`Pentagono roxo`}
 				/>
-				
-			</div>
+			</S.SvgGroup>
 			
 		</S.AboutContainer>
 	</S.About>

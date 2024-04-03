@@ -59,12 +59,11 @@ export const HomeSvg = styled.img`
   &.home-svg-01 {
     top: -40%;
     right: 10%;
-  },
+  }
 
   &.home-svg-02 {
     top: 0;
     left: 0;
-    
   }
 
   &.home-svg-03 {

@@ -1,12 +1,26 @@
 import React from 'react';
 import * as S from './title.styled';
 
-const PrimaryTitle: React.FC<S.PrimaryTitleProps> = ({children, size, theme, outline}) => {
+export const PrimaryTitle: React.FC<S.TitleProps> = ({children, size, theme, outline, lines}) => {
   return (
-    <S.PrimaryTitle size={size} theme={theme} outline={outline}>
+    <S.PrimaryTitle 
+      size={size} 
+      theme={theme} 
+      outline={outline}
+      lines={lines}>
       {children}
     </S.PrimaryTitle>
   );
 };
 
-export default PrimaryTitle;
+export const SecondaryTitle: React.FC<S.TitleProps> = ({children, size, theme, outline, lines}) => {
+  return (
+    <S.SecondaryTitle 
+      size={size} 
+      theme={theme} 
+      outline={outline}
+      lines={lines}>
+      {children}
+    </S.SecondaryTitle>
+  );
+};

@@ -180,35 +180,35 @@ export const AboutSvg = styled.img`
         bottom: 0;
         right: 50%;
         transform: translate(calc(-800px * cos(85deg)), calc(-110px * sin(45deg)));
-        animation: ${svgVariants.item01.rotate} 8s infinite;
+        animation: ${svgVariants.item01.rotate} 8s ease-in-out infinite;
     }
 
     &.about-svg-item02{
         bottom: 0;
         right: 50%;
         transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
-        animation: ${svgVariants.item02.rotate} 8s infinite;
+        animation: ${svgVariants.item02.rotate} 8s ease-in-out infinite;
     }
 
     &.about-svg-item03{
         bottom: 0;
         right: 50%;
         transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
-        animation: ${svgVariants.item03.rotate} 8s infinite;
+        animation: ${svgVariants.item03.rotate} 8s ease-in-out infinite;
     }
 
     &.about-svg-item04{
         bottom: 0;
         right: 50%;
         transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
-        animation: ${svgVariants.item04.rotate} 8s infinite;
+        animation: ${svgVariants.item04.rotate} 8s ease-in-out infinite;
     }
 
     &.about-svg-item05{
         bottom: 0;
         right: 50%;
         transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
-        animation: ${svgVariants.item05.rotate} 8s infinite;
+        animation: ${svgVariants.item05.rotate} 8s ease-in-out infinite;
     }
 
     &.about-svg-02{

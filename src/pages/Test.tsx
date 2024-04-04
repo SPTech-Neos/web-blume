@@ -1,10 +1,14 @@
 import React from 'react';
 
-import { InputText } from '../components/Input/InputText/InputText.styled';
+import Label from '../components/Input/Label/Label';
+import InputText from '../components/Input/InputText/InputText';
+import InputContainer from '../components/Input/InputContainer/InputContainer';
 
 const LandingPage: React.FC = () => (
 	<>
-		<InputText></InputText>
+		{/* <InputText></InputText>
+        <Label text='Label'></Label> */}
+        <InputContainer text='Label'></InputContainer>
 	</>
 );
 

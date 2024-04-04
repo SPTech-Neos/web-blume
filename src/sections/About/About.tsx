@@ -3,8 +3,17 @@ import React from 'react';
 import * as S from './about.styled';
 // import Container from '../../components/Container/Container';
 import Subtitle from '../../components/Subtitle/Subtitle';
-import svg01 from '../../assets/Itens Produtos.png';
+
+import item01 from '../../assets/item01.svg';
+import item02 from '../../assets/item02.svg';
+import item03 from '../../assets/item03.svg';
+import item04 from '../../assets/item04.svg';
+import item05 from '../../assets/item05.svg';
+
+
 import svg02 from '../../assets/pentagono-blume.png';
+
+
 import { PrimaryTitle, SecondaryTitle } from '../../components/Title/title.styled';
 
 const About: React.FC = () => (
@@ -27,8 +36,28 @@ const About: React.FC = () => (
 	
 			<S.SvgGroup>
 				<S.AboutSvg
-					className="about-svg-01"
-					src={svg01}
+					className="about-svg-item01"
+					src={item01}
+					alt={`Imagem svg com detalhes de circulos no fundo`}
+				/>
+				<S.AboutSvg
+					className="about-svg-item02"
+					src={item02}
+					alt={`Imagem svg com detalhes de circulos no fundo`}
+				/>
+				<S.AboutSvg
+					className="about-svg-item03"
+					src={item03}
+					alt={`Imagem svg com detalhes de circulos no fundo`}
+				/>
+				<S.AboutSvg
+					className="about-svg-item04"
+					src={item04}
+					alt={`Imagem svg com detalhes de circulos no fundo`}
+				/>
+				<S.AboutSvg
+					className="about-svg-item05"
+					src={item05}
 					alt={`Imagem svg com detalhes de circulos no fundo`}
 				/>
 				<S.AboutSvg

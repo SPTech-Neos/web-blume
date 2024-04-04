@@ -2,13 +2,127 @@ import styled, {keyframes} from 'styled-components';
 import Container from '../../components/Container/Container';
 
 
-const itemVariants = {
-    
-}
+const svgVariants = {
+    item01: {
+        rotate: keyframes`
+            0% {
+                transform: translate(calc(-800px * cos(85deg)), calc(-110px * sin(45deg)));
+            }
+            20% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+            }
+            40% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+            60% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+            }
+            80% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+            }
+            100% {
+                transform: translate(calc(-800px * cos(85deg)), calc(-110px * sin(45deg)));
+            }
+        `,
+    },
+    item02: {
+        rotate: keyframes`
+            0% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+            }
+            20% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+            40% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+            }
+            60% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+            }
+            80% {
+                transform: translate(calc(-500px * cos(85deg)), calc(-120px * sin(45deg)));
+            }
+            100% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+            }
+      `,
+      
+    },
+    item03: {
+        rotate: keyframes`
+            0% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+            20% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+            }
+            40% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+            }
+            60% {
+                transform: translate(calc(-550px * cos(85deg)), calc(-150px * sin(45deg)));
+            }
+            80% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+            }
+            100% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+        `,
+
+    },
+    item04: {
+        rotate: keyframes`
+            0% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg))); 
+            }
+            20% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg))); 
+                
+            }
+            40% {
+                transform: translate(calc(-500px * cos(85deg)), calc(-120px * sin(45deg)));
+                
+            }
+            60% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+                
+            }
+            80% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+            100% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+            }
+        `,
+      },
+    item05: {
+        rotate: keyframes`
+          0% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+            }
+            20% {
+                transform: translate(calc(-500px * cos(85deg)), calc(-120px * sin(45deg)));
+            }
+            40% {
+                transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+            }
+            60% {
+                transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+            }
+            80% {
+                transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+            }
+            100% {
+                transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+            }
+        `,
+      },
+  };
 
 export const About = styled.section`
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     max-height: 750px;
     display: flex;
     flex-direction: column;
@@ -53,38 +167,53 @@ export const Limiter = styled.div` /* #TODO transformar em componente */
 export const SvgGroup = styled.div`
     display: flex;
     position: relative;
+    width: 50%;
+    height: 100%;
+    min-height: 280px;
 `;
 
-const rotate = keyframes`
-    0% {
-        transform: rotate(0deg)
-    }
-    8.33%, 25% {
-        transform: rotate(90deg)
-    }
-    33.33%, 50% {
-        transform: rotate(180deg)
-    }
-    58.33%, 75% {
-        transform: rotate(270deg)
-    }
-    83.33%, 100% {
-        transform: rotate(360deg)
-    }
-`
-
 export const AboutSvg = styled.img`
-    width: 300px;
-    
-    &.about-svg-01{
-        animation: ${rotate} 5s infinite;
-        z-index: 2;
+    z-index: 2;
+    position: absolute;
+
+    &.about-svg-item01{
+        bottom: 0;
+        right: 50%;
+        transform: translate(calc(-800px * cos(85deg)), calc(-110px * sin(45deg)));
+        animation: ${svgVariants.item01.rotate} 8s infinite;
+    }
+
+    &.about-svg-item02{
+        bottom: 0;
+        right: 50%;
+        transform: translate(calc(230px * cos(60deg)), calc(-280px * sin(45deg)));
+        animation: ${svgVariants.item02.rotate} 8s infinite;
+    }
+
+    &.about-svg-item03{
+        bottom: 0;
+        right: 50%;
+        transform: translate(calc(-320px * cos(135deg)), calc(-130px * sin(45deg)));
+        animation: ${svgVariants.item03.rotate} 8s infinite;
+    }
+
+    &.about-svg-item04{
+        bottom: 0;
+        right: 50%;
+        transform: translate(calc(-250px * cos(220deg)), calc(100px * sin(45deg)));
+        animation: ${svgVariants.item04.rotate} 8s infinite;
+    }
+
+    &.about-svg-item05{
+        bottom: 0;
+        right: 50%;
+        transform: translate(calc(20px * cos(20deg)), calc(120px * sin(45deg)));
+        animation: ${svgVariants.item05.rotate} 8s infinite;
     }
 
     &.about-svg-02{
-        width: 160px;
-        right:  180px;
-        top: 20px;
+        left:  10%;
+        top: 0;
         position: absolute;
         z-index: 1;
     }

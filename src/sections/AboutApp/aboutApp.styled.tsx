@@ -2,22 +2,20 @@ import styled, {keyframes} from 'styled-components';
 
 import importedContainer from '../../components/Container/Container';
 
-const lightBallAnimation = keyframes`
+const lightAnimationCombined = keyframes`
     0% {
         top: 5%;
-        box-shadow: 0 0 10px 10px var(--color-violet-100);
+        height: 0;
+        background-color: var(--color-violet-100);
     }
-    25% {
-        top: 30%;
-        box-shadow: 0 0 20px 20px var(--color-violet-100);
-    }
-    75% {
-        top: 70%;
-        box-shadow: 0 0 20px 20px var(--color-violet-100);
+    50% {
+        height: 40%;
+        background-color: var(--color-violet-100);
     }
     100% {
-        top: 95%;
-        box-shadow: 0 0 10px 10px var(--color-violet-100);
+        top: 85%;
+        height: 10%;
+        background-color: var(--color-violet-100);
     }
 `;
 
@@ -54,24 +52,46 @@ export const ContainerWrapper = styled(importedContainer)`
         right: 0;
     }
 
-    .light-ball {
+    &::before,
+    &::after {
+        content: "";
         position: absolute;
         top: 5%;
-        width: 10px;
-        height: 10px;
-        background-color: var(--color-violet-100);
-        z-index: 2;
-        border-radius: 50%;
-        box-shadow: 0 0 10px 10px var(--color-violet-100);
-        animation: ${lightBallAnimation} 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        width: 2px;
+        height: 90%;
+        background-color: var(--color-violet-300);
     }
 
-    .light-ball.left {
-        left: calc(0% - 5px);
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+
+    .light-ball-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .light-ball {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        animation: ${lightAnimationCombined} 3s 1s linear infinite;
     }
 
     .light-ball.right {
-        left: calc(100% - 5px);
+        right: 0;
+    }
+
+    .light-ball.left {
+        left: 0;
     }
 
 `;

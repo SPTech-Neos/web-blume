@@ -14,7 +14,7 @@ const sizeVariants = {
      fontSize: '1rem',
   },
   lg: {
-     fontSize: '1.125rem',
+     fontSize: '1.5rem',
   }
 };
 

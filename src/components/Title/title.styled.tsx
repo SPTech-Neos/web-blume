@@ -6,8 +6,8 @@ export interface TitleProps {
   children: string;
   size?: 'sm' | 'md' | 'lg';
   theme?: 'light' | 'dark';
-  outline: boolean | string;
-  lines: boolean | string;
+  outline?: boolean;
+  lines?: boolean;
 }
 
 const PrimarySizeVariants = {
@@ -30,7 +30,6 @@ const themeVariants = {
       color: 'var(--color-gray-900)',
    }
  };
-
 
 export const PrimaryTitle = styled.h1<TitleProps>`
     font-family: var(--font-text);
@@ -60,7 +59,6 @@ export const PrimaryTitle = styled.h1<TitleProps>`
         background-image: url(${outlineSrc});
       `} 
     }
-      
 `;
 
 const SecondarySizeVariants = {
@@ -109,10 +107,10 @@ export const SecondaryTitle = styled.h2<TitleProps>`
       transform: translateY(-50%);
     }
 
-    ${(props) => props.lines && css`
-      &::before,
-      &::after {
-        display: block;
-      }
+    ${(props) => props.lines === false && css`
+        &::before,
+        &::after {
+          display: none;
+        }
     `} 
 `;

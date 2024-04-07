@@ -112,5 +112,6 @@ export const Limiter = styled.span`
 `;
 
 export const AboutAppImg = styled.img`
-    width: 100%;
+    width: 85%;
+    height: 48%;
 `;

@@ -6,6 +6,7 @@ import { PrimaryTitle } from '../../components/Title/title.styled';
 import Subtitle from '../../components/Subtitle/Subtitle';
 
 import imgAboutApp from '../../assets/imagem-about-app.png';
+import Button from '../../components/Button/Button';
 
 const AboutApp: React.FC = () => (
 	<S.AboutApp>
@@ -24,6 +25,8 @@ const AboutApp: React.FC = () => (
                     src={imgAboutApp}
                     alt={`Computador e celular demonstrando aplicação Blume`}
                 />
+
+                <Button width='180px'>Entrar</Button>
             </S.Container>
         </S.ContainerWrapper>
 	</S.AboutApp>

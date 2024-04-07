@@ -32,7 +32,7 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
    border-radius: ${(props) => sizeVariants[props.size || 'md'].borderRadius};
    background-color: var(--color-violet-300);
    box-shadow: 0px 0px 20px var(--color-violet-100);
-
+   height: 45px;
    color: var(--color-gray-100);
    border: none;
    cursor: pointer;

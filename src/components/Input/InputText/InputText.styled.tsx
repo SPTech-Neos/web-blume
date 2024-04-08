@@ -43,6 +43,7 @@ export const InputText = styled(SlInput)
     font-weight: regular;
     font-family: 'Poppins', 'Arial';
     transition: all .2s ease-in;
+    width: 100%;
 
     &::placeholder {
         color: var(--color-violet-500);

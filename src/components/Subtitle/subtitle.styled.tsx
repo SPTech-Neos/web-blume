@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export interface SubitleProps {
-  children: string;
+export interface SubtitleProps {
+  children: string | JSX.Element | JSX.Element[];
   size?: 'sm' | 'md' | 'lg';
   theme?: 'light' | 'dark';
+  weight?: number;
 }
 
 const sizeVariants = {
@@ -27,11 +28,11 @@ const themeVariants = {
   }
 };
 
-export const PrimarySubtitle = styled.h2<SubitleProps>`
+export const PrimarySubtitle = styled.h2<SubtitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
   color: ${(props)=> props.theme === 'light' ? themeVariants.light.color : themeVariants.dark.color };
-  font-weight: 200;
+  font-weight: ${(props) => props.weight != null ? props.weight : 400 };
 
   position: relative;
 `;

@@ -1,10 +1,9 @@
 import React from "react";
 import * as S from './InputText.styled';
 
-
-const InputText: React.FC = () => {
+const InputText: React.FC<S.InputTextProps> = ({ type, placeholder }) => {
     return (
-        <S.InputText></S.InputText>
+        <S.InputText type={type} placeholder={placeholder}></S.InputText>
     );
 }
 

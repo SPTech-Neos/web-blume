@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export interface LabelProps {
-    text: string;
-}
-
-export const Label = styled.p`
-    position: fixed;
+export const Label = styled.span`
+    position: relative;
     z-index: 1;
     top: 10px;
+    width: auto;
 
     background-color: var(--color-gray-100);
     margin: 0 25px;

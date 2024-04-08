@@ -42,6 +42,8 @@ export const PrimaryTitle = styled.h1<TitleProps>`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    // width: 75%;
     
     &::before {
       content: '';

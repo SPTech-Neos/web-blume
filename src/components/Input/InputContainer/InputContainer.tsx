@@ -5,11 +5,11 @@ import InputText from '../InputText/InputText';
 
 import * as S from './InputContainer.styled';
 
-const InputContainer: React.FC<S.InputContainerProps> = ({ text }) => {
+const InputContainer: React.FC<S.InputContainerProps> = ({ label, type, placeholder }) => {
     return (
         <S.InputContainer>
-            <Label text={text}></Label>
-            <InputText></InputText>
+            <Label label={label}></Label>
+            <InputText type={type} placeholder={placeholder}></InputText>
         </S.InputContainer>
     );
 }

@@ -1,10 +1,13 @@
 import React from "react";
 import * as S from './Label.styled';
 
+export interface LabelProps {
+    label: string;
+}
 
-const Label: React.FC<S.LabelProps> = ({ text }) => {
+const Label: React.FC<LabelProps> = ({ label }) => {
     return (
-        <S.Label>{text}</S.Label>
+        <S.Label>{label}</S.Label>
     );
 }
 

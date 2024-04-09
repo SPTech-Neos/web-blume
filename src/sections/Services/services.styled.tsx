@@ -23,7 +23,6 @@ export const ServiceContainer = styled(Container)`
 export const ServicesOptions = styled.div`
     width: 45%;
     height: 60%;    
-
 `
 
 export const ServiceOption = styled.div`

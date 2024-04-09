@@ -9,7 +9,7 @@ import MaquiagemSrc from "../../assets/servico-maquiagem.png";
 import SobrancelhaSrc from "../../assets/servico-sobrancelha.png";
 
 const Services: React.FC = () => {
-    const [selectedService, setSelectedService] = useState<string | null>(null);
+    const [selectedService, setSelectedService] = useState<string | null>("cabelo");
 
     // tem delay eu fico achando que eu to escrevendo errado
     // mas enfim, a ideia é usar o state com a função onMouseHover ou onMouseEnter não lembro, do react

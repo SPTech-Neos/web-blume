@@ -21,18 +21,21 @@ export const Container = styled(importedContainer)`
 `;
 
 export const Row = styled.div`
-      width: 100%;
+      
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
 
       &.h-75 {
+            width: 100%;
             height: 75%;
+            position: relative;
       }
 
       &.h-25 {
             width: 100%;
+            border-top: 3px solid var(--color-gray-500);
             justify-content: space-between;
             height: 25%;
       }
@@ -45,6 +48,8 @@ export const ColGroup = styled.div`
       align-items: start;
       justify-content: start;
       gap: 50px;
+
+      position: relative;
 `;
 
 export const Col = styled.div`
@@ -67,6 +72,11 @@ export const Col = styled.div`
             margin-right: 100px;
       }
 `
+
+export const SvgGroup = styled.div`
+      display: flex;
+      gap: 10px;
+`;
 
 // COMPONENTIZAR DEPOIS
 

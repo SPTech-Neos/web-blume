@@ -3,7 +3,7 @@ import React from "react";
 import * as S from './navbar.styled';
 
 import Container from '../Container/Container';
-import PrimaryButton from "../Button/Button";
+import { PrimaryButton } from "../Button/Button";
 import Logo from '../Logo/Logo';
 
 

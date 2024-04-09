@@ -16,7 +16,7 @@ const Services: React.FC = () => {
     };
 
     return (
-        <S.Services>
+        <S.Services id="services">
             <PrimaryTitle size='md' outline={true} lines={false}> O QUE OFERECEMOS? </PrimaryTitle>
             <S.ServiceContainer direction="row"> 
                 <S.ServicesOptions>

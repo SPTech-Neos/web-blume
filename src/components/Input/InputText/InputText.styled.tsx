@@ -49,8 +49,12 @@ export const InputText = styled(SlInput)
         color: var(--color-violet-500);
     }
 
-   &:hover, &:focus{
+   &:hover, &:focus {
       border: 3px solid var(--color-violet-300);
+   }
+
+   &::selection {
+        background-color: var(--color-violet-300);
    }
 
 `;

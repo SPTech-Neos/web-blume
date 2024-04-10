@@ -9,6 +9,7 @@
     
     list-style: none;
     text-decoration: none;
+    accent-color: var(--color-violet-300);
 }
 
 :root {
@@ -35,3 +36,7 @@
     --font-detail: 'Inter';
 }
 
+.row {
+    display: flex;
+    align-items: center;
+}

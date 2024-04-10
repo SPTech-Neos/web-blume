@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export interface LabelProps {
+    label: string;
+}
+
 export const Label = styled.span`
     position: relative;
     z-index: 1;

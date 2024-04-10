@@ -5,7 +5,7 @@ import * as S from './LoginForm.styled';
 import Link from "../../components/Link/Link";
 import Subtitle from "../../components/Subtitle/Subtitle";
 import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
-import PrimaryButton from "../../components/Button/Button";
+import { PrimaryButton } from "../../components/Button/Button";
 import { PrimaryTitle } from "../../components/Title/Title";
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
 

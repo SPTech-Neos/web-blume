@@ -53,3 +53,12 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
       background-color: var(--color-violet-500);
    }
 `;
+
+export interface MoveButtonProps {
+   children: string | JSX.Element | JSX.Element[];
+   moveTo?: string;
+}
+
+export const MoveButton = styled.a`
+
+`;

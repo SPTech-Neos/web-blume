@@ -2,17 +2,17 @@ import React from "react";
 import * as S from './footer.styled';
 
 import Subtitle from "../../components/Subtitle/Subtitle";
-import PrimaryButton from "../../components/Button/Button";
+import { PrimaryButton, MoveButton } from "../../components/Button/Button";
 
 import logoBlumeFooter from "../../assets/blume-footer.svg";
 import logoNeosFooter from "../../assets/neos-footer.svg"
 import googlePlayBadge from "../../assets/google-play-badge.svg"
 import Icon from "../../components/Icon/Icon";
-import { GithubLogo, InstagramLogo } from "@phosphor-icons/react";
+import { CaretDoubleUp, GithubLogo, InstagramLogo } from "@phosphor-icons/react";
 
 const Footer: React.FC<S.FooterProps> = () => {
     return (
-        <S.Footer>
+        <S.Footer id="footer">
             <S.Container direction="column">
                 <S.Row className="h-75">
                     <S.ColGroup>
@@ -70,6 +70,13 @@ const Footer: React.FC<S.FooterProps> = () => {
                                 </S.NavItem>
                             </S.NavList>
                         </S.Col>
+
+                        <MoveButton moveTo={"#home"}>
+                            <Icon>
+                                <CaretDoubleUp size={32} />
+                            </Icon>
+                        </MoveButton>
+                        
                     </S.ColGroup>
                     
 
@@ -90,14 +97,14 @@ const Footer: React.FC<S.FooterProps> = () => {
                         alt={`Imagem svg com detalhes de circulos no fundo`}
                     />
 
-                    <S.Row>
-                        <Icon>
+                    <S.SvgGroup>
+                        <Icon route="/github">
                             <GithubLogo size={32} />
                         </Icon>
-                        <Icon>
+                        <Icon route="/instagram">
                             <InstagramLogo size={32} />
                         </Icon>
-                    </S.Row>
+                    </S.SvgGroup>
                 </S.Row>
             </S.Container>
         </S.Footer>

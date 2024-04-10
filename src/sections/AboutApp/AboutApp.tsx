@@ -6,10 +6,10 @@ import { PrimaryTitle } from '../../components/Title/title.styled';
 import Subtitle from '../../components/Subtitle/Subtitle';
 
 import imgAboutApp from '../../assets/imagem-about-app.png';
-import Button from '../../components/Button/Button';
+import { PrimaryButton } from '../../components/Button/Button';
 
 const AboutApp: React.FC = () => (
-	<S.AboutApp>
+	<S.AboutApp id="about-app">
         <S.ContainerWrapper direction='row'>
            <div className="light-ball left"></div>
             <div className="light-ball right"></div>
@@ -26,7 +26,7 @@ const AboutApp: React.FC = () => (
                     alt={`Computador e celular demonstrando aplicação Blume`}
                 />
 
-                <Button width='180px'>Entrar</Button>
+                <PrimaryButton width='180px'>Entrar</PrimaryButton>
             </S.Container>
         </S.ContainerWrapper>
 	</S.AboutApp>

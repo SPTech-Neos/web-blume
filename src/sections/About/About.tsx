@@ -17,7 +17,7 @@ import svg02 from '../../assets/pentagono-blume.png';
 import { PrimaryTitle, SecondaryTitle } from '../../components/Title/title.styled';
 
 const About: React.FC = () => (
-	<S.About>
+	<S.About id="about">
 		<PrimaryTitle size='md' outline={true} lines={false}> Tudo em um só lugar </PrimaryTitle>
 		<S.AboutContainer direction='row'>
 			<S.AsideRounded>

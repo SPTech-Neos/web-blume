@@ -13,9 +13,10 @@ import * as S from './home.styled';
 import svg01 from '../../assets/home-svg01.svg';
 import svg02 from '../../assets/home-svg02.svg';
 import svg03 from '../../assets/scroll-down-icon.svg';
+import { MoveButton } from '../../components/Button/Button';
 
 const Home: React.FC = () => (
-	<S.Home>
+	<S.Home id="home">
 		<Navbar/>
 		<S.Cabecalho>
 			<Container direction='column'>
@@ -45,11 +46,14 @@ const Home: React.FC = () => (
 				<Searchbar placeholderText='Salão para cabelos cacheados...'/>
 				
 			</Container>
-			<S.HomeSvg 
-				className="home-svg-03" 
-				src={svg03} 
-				alt='Alerta de scroll'
-			/>
+			<MoveButton moveTo={"#footer"}>
+				<S.HomeSvg 
+					className="home-svg-03" 
+					src={svg03} 
+					alt='Alerta de scroll'
+				/>
+			</MoveButton>
+			
 		
 		</S.Cabecalho>
 	</S.Home>

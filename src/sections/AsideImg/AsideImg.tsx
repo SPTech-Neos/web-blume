@@ -1,6 +1,5 @@
 import React from "react";
 import * as S from './AsideImg.styled';
-import Container from "../../components/Container/Container";
 
 const AsideImg: React.FC<S.AsideImgProps> = ({ imgUrl, bgColor, imgAlt }) => {
     return (

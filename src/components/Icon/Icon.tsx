@@ -1,9 +1,14 @@
 import React from "react";
 import * as S from './icon.styled';
 
-const Icon: React.FC<S.IconProps> = ({ weight, children }) => {
+const Icon: React.FC<S.IconProps> = ({ weight, route, children }) => {
     return (
-        <S.Icon weight={weight}>{children}</S.Icon>
+        <S.IconLink href={route}>
+            <S.Icon weight={weight}>
+                {children}
+            </S.Icon>
+        </S.IconLink>
+
     );
 }
 

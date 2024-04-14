@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const InputContainer = styled.div`
-    width: 90%;
+    width: 100%;
     max-width: 1102px;
     height: 60px;
     background-color: var(--color-gray-200);

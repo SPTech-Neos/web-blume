@@ -9,6 +9,7 @@
     
     list-style: none;
     text-decoration: none;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -25,6 +26,10 @@
     --color-violet-500: #7F5DE2;
     --color-violet-800: #423881;
     --color-violet-900: #31335F;
+
+    --color-orange-100: #F3BF8E;
+
+    --color-blue-100: #204DA4;
 
     --color-status-success: #2DA739;
     --color-status-warning: #E5C46E;

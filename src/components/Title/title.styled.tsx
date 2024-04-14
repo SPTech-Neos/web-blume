@@ -1,118 +1,133 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import outlineSrc from '../../../src/assets/title-svg.svg';
+import outlineSrc from "../../../src/assets/title-svg.svg";
 
 export interface TitleProps {
-  children: string;
-  size?: 'sm' | 'md' | 'lg';
-  theme?: 'light' | 'dark';
+  children: string | string[] | JSX.Element[] | JSX.Element;
+  size?: "sm" | "md" | "lg";
+  theme?: "light" | "dark" | "blue" | undefined;
   outline?: boolean;
   lines?: boolean;
 }
 
 const PrimarySizeVariants = {
   sm: {
-     fontSize: '3rem',
+    fontSize: "3rem",
   },
   md: {
-     fontSize: '4.125rem',
+    fontSize: "4.125rem",
   },
   lg: {
-     fontSize: '5rem',
-  }
+    fontSize: "5rem",
+  },
 };
 
 const themeVariants = {
-   light: {
-      color: 'var(--color-gray-100)',
-   },
-   dark: {
-      color: 'var(--color-gray-900)',
-   }
- };
+  light: {
+    colorTheme: "var(--color-gray-100)",
+  },
+  dark: {
+    colorTheme: "var(--color-gray-900)",
+  },
+  blue: {
+    colorTheme: "var(--color-blue-100)",
+  },
+};
+
+const getColor = (theme: string | undefined): string => {
+  if (theme === "light" || theme === "dark" || theme === "blue") {
+    return themeVariants[theme].colorTheme; // Access colorTheme directly after type guard
+  }
+  return "var(--color-gray-900)"; // Default color
+};
+
 
 export const PrimaryTitle = styled.h1<TitleProps>`
-    font-family: var(--font-text);
-    font-size: ${(props) => PrimarySizeVariants[props.size || 'md'].fontSize};
-    color: ${(props)=> props.theme === 'light' ? themeVariants.light.color : themeVariants.dark.color };
-    font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
+  font-family: var(--font-text);
+  font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
+  color: ${(props) => getColor(props.theme)};
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    // width: 75%;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      width: 110%;
-      height: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+  // width: 75%;
 
-      transform: translateX();
+  &::before {
+    content: "";
+    position: absolute;
+    width: 110%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
-      ${(props) => props.outline && css`
+    transform: translateX();
+
+    ${(props) =>
+      props.outline &&
+      css`
         top: 25%;
         background-image: url(${outlineSrc});
-      `} 
-    }
+      `}
+  }
 `;
 
 const SecondarySizeVariants = {
   sm: {
-     fontSize: '1.75rem',
+    fontSize: "1.75rem",
   },
   md: {
-     fontSize: '2rem',
+    fontSize: "2rem",
   },
   lg: {
-     fontSize: '2.25rem',
-  }
+    fontSize: "2.25rem",
+  },
 };
 
 export const SecondaryTitle = styled.h2<TitleProps>`
   font-family: var(--font-text);
-    font-size: ${(props) => SecondarySizeVariants[props.size || 'sm'].fontSize};
-    color: ${(props)=> props.theme === 'light' ? themeVariants.light.color : themeVariants.dark.color };
-    font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
+  font-size: ${(props) => SecondarySizeVariants[props.size || "sm"].fontSize};
+  color: ${(props) => getColor(props.theme)};
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 15%; 
-      max-width: 70px;
-      height: 2px; 
-      background-color: var(--color-violet-300);
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &::before {
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 15%;
+    max-width: 70px;
+    height: 2px;
+    background-color: var(--color-violet-300);
+  }
 
-    &::after {
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+  &::before {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-    ${(props) => props.lines === false && css`
-        &::before,
-        &::after {
-          display: none;
-        }
-    `} 
+  &::after {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  ${(props) =>
+    !props.lines &&
+    css`
+      &::before,
+      &::after {
+        display: none;
+      }
+    `}
 `;

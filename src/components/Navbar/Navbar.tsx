@@ -5,6 +5,7 @@ import * as S from './navbar.styled';
 import Container from '../Container/Container';
 import { PrimaryButton } from "../Button/Button";
 import Logo from '../Logo/Logo';
+import Link from "../Link/Link";
 
 
 const Navbar: React.FC = () => {
@@ -37,7 +38,9 @@ const Navbar: React.FC = () => {
                 </S.Row>
                 
                 <S.NavLogin>
-                    <PrimaryButton width="160px" size="md">Entrar</PrimaryButton>
+                    <Link href="/auth?mode=login">
+                        <PrimaryButton width="160px" size="md">Entrar</PrimaryButton>
+                    </Link>
                 </S.NavLogin>
             </Container>
         </S.NavContainer>

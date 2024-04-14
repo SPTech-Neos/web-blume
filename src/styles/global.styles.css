@@ -10,6 +10,7 @@
     list-style: none;
     text-decoration: none;
     scroll-behavior: smooth;
+    accent-color: var(--color-violet-300);
 }
 
 :root {
@@ -40,3 +41,7 @@
     --font-detail: 'Inter';
 }
 
+.row {
+    display: flex;
+    align-items: center;
+}

@@ -35,4 +35,9 @@ export const PrimarySubtitle = styled.h2<SubtitleProps>`
   font-weight: ${(props) => props.weight != null ? props.weight : 400 };
 
   position: relative;
+
+  input[type=checkbox] + & {
+      display: inline;
+      margin: 0 10px
+  }
 `;

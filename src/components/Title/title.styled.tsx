@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { device } from "../../styles/breakpoints.styled";
+
 import outlineSrc from "../../../src/assets/title-svg.svg";
 
 export interface TitleProps {
@@ -12,7 +14,7 @@ export interface TitleProps {
 
 const PrimarySizeVariants = {
   sm: {
-    fontSize: "3rem",
+    fontSize: "2rem",
   },
   md: {
     fontSize: "4.125rem",
@@ -41,7 +43,6 @@ const getColor = (theme: string | undefined): string => {
   return "var(--color-gray-900)"; // Default color
 };
 
-
 export const PrimaryTitle = styled.h1<TitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
@@ -54,7 +55,13 @@ export const PrimaryTitle = styled.h1<TitleProps>`
   justify-content: center;
   align-items: center;
 
-  // width: 75%;
+  @media ${device.tablet} {
+    font-size: ${(props) => props.size === "sm" ? PrimarySizeVariants["sm"].fontSize : PrimarySizeVariants["md"].fontSize};
+  }
+
+  @media ${device.mobileL} {
+    font-size: ${() => PrimarySizeVariants["sm"].fontSize};
+  }
 
   &::before {
     content: "";
@@ -72,7 +79,7 @@ export const PrimaryTitle = styled.h1<TitleProps>`
       css`
         top: 25%;
         background-image: url(${outlineSrc});
-      `}
+    `}
   }
 `;
 
@@ -99,6 +106,14 @@ export const SecondaryTitle = styled.h2<TitleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media ${device.tablet} {
+    font-size: ${(props) => props.size === "sm" ? PrimarySizeVariants["sm"].fontSize : PrimarySizeVariants["md"].fontSize};
+  }
+
+  @media ${device.mobileL} {
+    font-size: ${() => PrimarySizeVariants["sm"].fontSize};
+  }
 
   &::before,
   &::after {

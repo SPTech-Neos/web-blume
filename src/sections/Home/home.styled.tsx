@@ -1,5 +1,6 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
+import { device } from "../../styles/breakpoints.styled";
 
 export interface Props {
   children: string | JSX.Element | JSX.Element[];
@@ -11,11 +12,19 @@ export const Home = styled.section`
   width: 100%;
   height: 100vh;
   max-height: 725px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  @media ${device.tablet} {
+    max-height: 500px;
+
+    & > #navbar {
+      display: none;
+    }
+  }
 `;
 
 export const Cabecalho = styled.div`
@@ -26,9 +35,9 @@ export const Cabecalho = styled.div`
   justify-content: center;
   align-items: center;
 
-  position: relative;
-
-  &>.container {
+  & > .container {
+    height: 100%;
+    justify-content: center;
     position: relative;
   }
 `;
@@ -57,18 +66,39 @@ export const HomeSvg = styled.img`
   position: absolute;
 
   &.home-svg-01 {
-    top: -40%;
+    top: 0%;
     right: 10%;
   }
 
   &.home-svg-02 {
-    top: 0;
+    top: 25%;
     left: 0;
   }
 
   &.home-svg-03 {
-      bottom: 0;
-      left: 10%; 
-      animation: ${infiniteFloat} 2s ease-in-out infinite; 
+    bottom: 0%;
+    left: 10%;
+    animation: ${infiniteFloat} 2s ease-in-out infinite;
   }
-`
+
+  @media ${device.tablet} {
+    &.home-svg-01 {
+      top: 10%;
+      right: 10%;
+      width: 120px;
+    }
+
+    &.home-svg-02 {
+      top: 30%;
+      left: 0;
+      width: 100px;
+    }
+
+    &.home-svg-03 {
+      bottom: 0;
+      left: 42%;
+      transform: translateX(50%);
+      animation: ${infiniteFloat} 2s ease-in-out infinite;
+    }
+  }
+`;

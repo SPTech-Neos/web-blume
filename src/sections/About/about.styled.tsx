@@ -1,5 +1,6 @@
 import styled, {keyframes} from 'styled-components';
 import Container from '../../components/Container/Container';
+import { device } from '../../styles/breakpoints.styled';
 
 
 const svgVariants = {
@@ -130,6 +131,12 @@ export const About = styled.section`
     align-items: center;
     background-color: var(--color-gray-100);
 
+    @media ${device.tablet} {
+        text-align: center;
+
+        max-height: 600px;
+    }
+
 `
 
 export const AboutContainer = styled(Container)`
@@ -150,6 +157,10 @@ export const AsideRounded = styled.div`
 
     background-color: #31335F;
     border-radius: 0px 400px 400px 0px;
+
+    @media ${device.tablet} {
+        width: 90vw;
+    }
 `;
 
 export const Limiter = styled.div` /* #TODO transformar em componente */
@@ -170,6 +181,10 @@ export const SvgGroup = styled.div`
     width: 50%;
     height: 100%;
     min-height: 280px;
+
+    @media ${device.tablet} {
+        display: none;
+    }
 `;
 
 export const AboutSvg = styled.img`

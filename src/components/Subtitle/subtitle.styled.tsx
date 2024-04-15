@@ -5,6 +5,7 @@ export interface SubtitleProps {
   size?: 'sm' | 'md' | 'lg';
   theme?: 'light' | 'dark';
   weight?: number;
+  display?: boolean;
 }
 
 const sizeVariants = {

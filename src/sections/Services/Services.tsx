@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMediaQuery } from 'react-responsive';
+import { device } from "../../styles/breakpoints.styled";
 
 import * as S from './services.styled';
 import { PrimaryTitle, SecondaryTitle } from '../../components/Title/title.styled';
@@ -9,13 +11,15 @@ import MaquiagemSrc from "../../assets/servico-maquiagem.png";
 import SobrancelhaSrc from "../../assets/servico-sobrancelha.png";
 
 const Services: React.FC = () => {
+    const isTabletOrMobile = useMediaQuery({ query: device.tablet });
+
     const [selectedService, setSelectedService] = useState<string>("cabelo");
 
     const handleMouseEnter = (service: string) => {
         setSelectedService(service);
     };
 
-    return (
+    return isTabletOrMobile ? null : (
         <S.Services id="services">
             <PrimaryTitle size='md' outline={true} lines={false}> O QUE OFERECEMOS? </PrimaryTitle>
             <S.ServiceContainer direction="row"> 

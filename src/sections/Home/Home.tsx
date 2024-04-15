@@ -1,4 +1,6 @@
 import React from "react";
+import { useMediaQuery } from 'react-responsive';
+import { device } from "../../styles/breakpoints.styled";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Container from "../../components/Container/Container";
@@ -15,14 +17,15 @@ import svg02 from "../../assets/home-svg02.svg";
 import svg03 from "../../assets/scroll-down-icon.svg";
 import { MoveButton } from "../../components/Button/Button";
 
+
 const Home: React.FC = () => {
+  const isTabletOrMobile = useMediaQuery({ query: device.tablet });
 
   return (
     <S.Home id="home">
       <Navbar />
       <S.Cabecalho>
         <Container direction="column">
-          {/* <S.HomeSvg classes="home-svg-01" imgURL={svg01} imgTitle='svg com detalhes de circulos no fundo'/> */}
 
           <S.HomeSvg
             className="home-svg-01"
@@ -32,16 +35,17 @@ const Home: React.FC = () => {
 
           <S.TextCabecalho>
             <Logo />
+
             <PrimaryTitle size="lg" outline={false} lines={false}>
               Belo e Direto
             </PrimaryTitle>
-            <Subtitle>
+
+            <Subtitle display={isTabletOrMobile ? false : true}>
               Pesquise aqui tudo que precisa, de cabelo à sobrancelha, de
               maquiagem à unhas. Aqui tem!
             </Subtitle>
           </S.TextCabecalho>
 
-          {/* <S.HomeSvg classes="home-svg-02" imgURL={svg02} imgTitle='svg com detalhes de formas geométricas no fundo'/> */}
           <S.HomeSvg
             className="home-svg-02"
             src={svg02}
@@ -49,14 +53,16 @@ const Home: React.FC = () => {
           />
 
           <Searchbar placeholderText="Salão para cabelos cacheados..." />
+
+          <MoveButton moveTo={"#footer"}>
+            <S.HomeSvg
+              className="home-svg-03"
+              src={svg03}
+              alt="Alerta de scroll"
+            />
+          </MoveButton>
+          
         </Container>
-        <MoveButton moveTo={"#footer"}>
-          <S.HomeSvg
-            className="home-svg-03"
-            src={svg03}
-            alt="Alerta de scroll"
-          />
-        </MoveButton>
       </S.Cabecalho>
     </S.Home>
   );

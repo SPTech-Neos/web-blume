@@ -10,7 +10,7 @@ import Link from "../Link/Link";
 
 const Navbar: React.FC = () => {
     return (
-        <S.NavContainer>
+        <S.NavContainer id="navbar">
             <Container direction="row">
                 <S.Row>
                     <S.NavLink to="/">

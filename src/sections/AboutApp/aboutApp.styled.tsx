@@ -1,6 +1,7 @@
 import styled, {keyframes} from 'styled-components';
 
 import importedContainer from '../../components/Container/Container';
+import { device } from '../../styles/breakpoints.styled';
 
 const lightAnimationCombined = keyframes`
     0% {
@@ -94,10 +95,19 @@ export const ContainerWrapper = styled(importedContainer)`
         left: 0;
     }
 
+    @media ${device.tablet} {
+        &::before, &::after {
+            display: none;
+        }
+
+        .light-ball {
+            display: none;
+        }
+    }
 `;
 
 export const Container = styled(importedContainer)`
-    width: 100%;
+    width: 95%;
     max-width: 800px;
     height: 100%;
     text-align: center;

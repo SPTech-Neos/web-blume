@@ -15,13 +15,16 @@ const Products: React.FC = () => (
     <S.Products>
         <S.ProductsContainer direction="column">
 
-            <PrimaryTitle>
-                Possibilidades
-            </PrimaryTitle>
+            <>
+                <PrimaryTitle>
+                    Possibilidades
+                </PrimaryTitle>
 
-            <Subtitle>
-                Com todas as possibilidades pensadas para você. veja aqui o que o Blume pode fazer:
-            </Subtitle>
+                <Subtitle>
+                    Com todas as possibilidades pensadas para você. veja aqui o que o Blume pode fazer:
+                </Subtitle>
+            </>
+            
 
             <S.ContainerCards>
 
@@ -34,6 +37,7 @@ const Products: React.FC = () => (
                         />
                     </Card>
                 </S.ContainerCard>
+
                 <S.ContainerCard>    
                     <Card titulo="Serviço" texto="Corte seu cabelo, faça sua barba, pinte e até faça sua maquiagem, com profissionais de todos os tipos.">
                     <S.CardImg
@@ -44,6 +48,7 @@ const Products: React.FC = () => (
 
                     </Card>
                 </S.ContainerCard>
+
                 <S.ContainerCard>    
 
                     <Card titulo="Produto" texto="Pesquise por produtos novos ou use os mesmos produtos que o profissional usou quando você fez um serviço com ele, até com os recomendados pelo profissional.">

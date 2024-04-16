@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import importedContainer from '../../components/Container/Container';
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import { device } from '../../styles/breakpoints.styled';
 
 export interface FooterProps {
       
@@ -12,7 +13,10 @@ export const Footer = styled.button<FooterProps>`
       width: 100%;
       height: 100vh;
       max-height: 420px;
-  
+
+      @media ${device.tablet} {
+            max-height: none;
+      }
 `;
 
 export const Container = styled(importedContainer)`
@@ -39,6 +43,21 @@ export const Row = styled.div`
             justify-content: space-between;
             height: 25%;
       }
+
+      @media ${device.tablet} {
+            flex-direction: column;
+
+            &.h-75 {
+                  width: 100%;
+                  height: 100%;
+                  position: relative;
+            }
+
+            &.h-25 {
+                  padding: 20px 0;
+                  gap: 20px;
+            }
+      }
 `
 
 export const ColGroup = styled.div`
@@ -50,6 +69,14 @@ export const ColGroup = styled.div`
       gap: 50px;
 
       position: relative;
+
+      @media ${device.tablet} {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            height: 100%;
+      }
 `;
 
 export const Col = styled.div`
@@ -70,6 +97,20 @@ export const Col = styled.div`
 
       &.mr-100 {
             margin-right: 100px;
+      }
+
+      @media ${device.tablet} {
+            justify-content: center;
+            max-width: 130px;
+            
+            &.align-center {
+                  height: 30%;
+                  align-items: center;
+            }
+
+            &.mr-100 {
+                  margin-right: 0;
+            }
       }
 `
 

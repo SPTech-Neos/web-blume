@@ -3,7 +3,8 @@ import * as S from './title.styled';
 
 export const PrimaryTitle: React.FC<S.TitleProps> = ({children, size, theme, outline, lines}) => {
   return (
-    <S.PrimaryTitle 
+    <S.PrimaryTitle
+      className='primary-title' 
       size={size} 
       theme={theme} 
       outline={outline}
@@ -16,6 +17,7 @@ export const PrimaryTitle: React.FC<S.TitleProps> = ({children, size, theme, out
 export const SecondaryTitle: React.FC<S.TitleProps> = ({children, size, theme, outline, lines}) => {
   return (
     <S.SecondaryTitle 
+      className='secondary-title'
       size={size} 
       theme={theme} 
       outline={outline}

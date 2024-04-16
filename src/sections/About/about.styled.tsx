@@ -125,16 +125,21 @@ export const About = styled.section`
     width: 100%;
     height: 100vh;
     max-height: 750px;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    
     align-items: center;
+
     background-color: var(--color-gray-100);
 
     @media ${device.tablet} {
-        text-align: center;
+        & .primary-title { text-align: center; }
 
-        max-height: 600px;
+        max-height: 450px;
+
+        justify-content: center;
+        gap: 120px;
     }
 
 `
@@ -160,6 +165,7 @@ export const AsideRounded = styled.div`
 
     @media ${device.tablet} {
         width: 90vw;
+        height: 200px;
     }
 `;
 
@@ -173,6 +179,10 @@ export const Limiter = styled.div` /* #TODO transformar em componente */
     max-width: 630px;
     height: 90%;
     max-height: 166px;
+
+    @media ${device.tablet} {
+        align-items: start;
+    }
 `;
 
 export const SvgGroup = styled.div`

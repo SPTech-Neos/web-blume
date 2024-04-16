@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { PrimaryTitle } from '../Title/title.styled';
+import { device } from '../../styles/breakpoints.styled';
 
 export interface Props {
     children: string | JSX.Element | JSX.Element[];
@@ -17,6 +18,10 @@ export const Card = styled.div`
     flex-direction: column;
     align-items: center;
 
+    @media ${device.tablet} {
+        height: 10%;
+        width: 50%
+    }
 
 `;
 
@@ -27,6 +32,7 @@ export const CardLogo = styled.div`
     top: -58px;
     display: flex;
     justify-content: center;
+
 `;
 
 export const CardBody = styled.div`

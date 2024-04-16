@@ -19,7 +19,7 @@ export const Home = styled.section`
   justify-content: space-around;
 
   @media ${device.tablet} {
-    max-height: 500px;
+    max-height: 420px;
 
     & > #navbar {
       display: none;

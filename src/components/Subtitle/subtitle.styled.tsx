@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoints.styled';
 
 export interface SubtitleProps {
   children: string | JSX.Element | JSX.Element[];
@@ -40,5 +41,13 @@ export const PrimarySubtitle = styled.h2<SubtitleProps>`
   input[type=checkbox] + & {
       display: inline;
       margin: 0 10px
+  }
+
+  @media ${device.tablet} {
+    font-size: ${(props) => props.size === "sm" ? sizeVariants["sm"].fontSize : sizeVariants["md"].fontSize};
+  }
+
+  @media ${device.mobileL} {
+    font-size: ${() => sizeVariants["sm"].fontSize};
   }
 `;

@@ -17,7 +17,7 @@ const PrimarySizeVariants = {
     fontSize: "2rem",
   },
   md: {
-    fontSize: "4.125rem",
+    fontSize: "3rem",
   },
   lg: {
     fontSize: "5rem",
@@ -38,9 +38,9 @@ const themeVariants = {
 
 const getColor = (theme: string | undefined): string => {
   if (theme === "light" || theme === "dark" || theme === "blue") {
-    return themeVariants[theme].colorTheme; // Access colorTheme directly after type guard
+    return themeVariants[theme].colorTheme;
   }
-  return "var(--color-gray-900)"; // Default color
+  return "var(--color-gray-900)";
 };
 
 export const PrimaryTitle = styled.h1<TitleProps>`
@@ -54,6 +54,8 @@ export const PrimaryTitle = styled.h1<TitleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 2;
 
   @media ${device.tablet} {
     font-size: ${(props) => props.size === "sm" ? PrimarySizeVariants["sm"].fontSize : PrimarySizeVariants["md"].fontSize};
@@ -145,4 +147,17 @@ export const SecondaryTitle = styled.h2<TitleProps>`
         display: none;
       }
     `}
+
+    @media ${device.tablet} {
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        width: 100%;
+        max-width: none;
+        left: 0;
+        top: 100%;
+      }
+    }
 `;

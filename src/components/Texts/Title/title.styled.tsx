@@ -2,7 +2,8 @@ import styled, { css } from "styled-components";
 
 import { device } from "../../../styles/breakpoints.styled";
 
-import outlineSrc from "../../../src/assets/title-svg.svg";
+// import outlineSrc from "../../../src/assets/title-svg.svg";
+import outlineSrc from "../../../../src/assets/title-svg.svg";
 
 export interface TitleProps {
   children: string | string[] | JSX.Element[] | JSX.Element;

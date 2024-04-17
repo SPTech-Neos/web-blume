@@ -10,6 +10,9 @@ export interface SubtitleProps {
 }
 
 const sizeVariants = {
+  smMobile: {
+    fontSize: '0.8rem',
+  },
   sm: {
      fontSize: '0.875rem',
   },
@@ -48,6 +51,6 @@ export const PrimarySubtitle = styled.h2<SubtitleProps>`
   }
 
   @media ${device.mobileL} {
-    font-size: ${() => sizeVariants["sm"].fontSize};
+    font-size: ${() => sizeVariants["smMobile"].fontSize};
   }
 `;

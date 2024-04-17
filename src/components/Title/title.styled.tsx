@@ -14,7 +14,7 @@ export interface TitleProps {
 
 const PrimarySizeVariants = {
   sm: {
-    fontSize: "2rem",
+    fontSize: "2.15rem",
   },
   md: {
     fontSize: "3rem",
@@ -65,6 +65,10 @@ export const PrimaryTitle = styled.h1<TitleProps>`
     font-size: ${() => PrimarySizeVariants["sm"].fontSize};
   }
 
+  @media ${device.mobileM} {
+    text-wrap: wrap;
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -87,7 +91,7 @@ export const PrimaryTitle = styled.h1<TitleProps>`
 
 const SecondarySizeVariants = {
   sm: {
-    fontSize: "1.75rem",
+    fontSize: "1.30rem",
   },
   md: {
     fontSize: "2rem",
@@ -99,7 +103,7 @@ const SecondarySizeVariants = {
 
 export const SecondaryTitle = styled.h2<TitleProps>`
   font-family: var(--font-text);
-  font-size: ${(props) => SecondarySizeVariants[props.size || "sm"].fontSize};
+  font-size: ${(props) => SecondarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
   font-weight: bold;
   text-transform: uppercase;
@@ -110,11 +114,11 @@ export const SecondaryTitle = styled.h2<TitleProps>`
   align-items: center;
 
   @media ${device.tablet} {
-    font-size: ${(props) => props.size === "sm" ? PrimarySizeVariants["sm"].fontSize : PrimarySizeVariants["md"].fontSize};
+    font-size: ${(props) => props.size === "sm" ? SecondarySizeVariants["sm"].fontSize : SecondarySizeVariants["md"].fontSize};
   }
 
   @media ${device.mobileL} {
-    font-size: ${() => PrimarySizeVariants["sm"].fontSize};
+    font-size: ${() => SecondarySizeVariants["sm"].fontSize};
   }
 
   &::before,

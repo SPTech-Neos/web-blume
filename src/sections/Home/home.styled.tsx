@@ -19,7 +19,7 @@ export const Home = styled.section`
   justify-content: space-around;
 
   @media ${device.tablet} {
-    max-height: 420px;
+    max-height: 370px;
 
     & > #navbar {
       display: none;
@@ -95,10 +95,26 @@ export const HomeSvg = styled.img`
     }
 
     &.home-svg-03 {
-      bottom: 0;
-      left: 42%;
+      width: 32px;
+      left: 50%;
       transform: translateX(50%);
+      right: 50%;
+      transform: translateX(-50%);
       animation: ${infiniteFloat} 2s ease-in-out infinite;
+    }
+  }
+
+  @media ${device.mobileL} {
+    &.home-svg-01 {
+      top: 17%;
+      right: 10%;
+      width: 50px;
+    }
+
+    &.home-svg-02 {
+      top: 38%;
+      left: 5%;
+      width: 40px;
     }
   }
 `;

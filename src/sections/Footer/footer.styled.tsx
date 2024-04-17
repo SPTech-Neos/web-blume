@@ -9,13 +9,13 @@ export interface FooterProps {
 }
 
 
-export const Footer = styled.button<FooterProps>`
+export const Footer = styled.section<FooterProps>`
       width: 100%;
       height: 100vh;
       max-height: 420px;
 
       @media ${device.tablet} {
-            max-height: none;
+            max-height: 650px;
       }
 `;
 
@@ -49,13 +49,14 @@ export const Row = styled.div`
 
             &.h-75 {
                   width: 100%;
-                  height: 100%;
+                  height: 50%;
                   position: relative;
             }
 
             &.h-25 {
+                  height: 20%;
                   padding: 20px 0;
-                  gap: 20px;
+                  gap: 30px;
             }
       }
 `
@@ -104,8 +105,9 @@ export const Col = styled.div`
             max-width: 130px;
             
             &.align-center {
-                  height: 30%;
+                  height: 10%;
                   align-items: center;
+                  justify-content: center;
             }
 
             &.mr-100 {

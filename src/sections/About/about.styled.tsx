@@ -124,27 +124,42 @@ const svgVariants = {
 export const About = styled.section`
     width: 100%;
     height: 100vh;
-    max-height: 750px;
+    max-height: 800px;
+
+    position: relative;
 
     display: flex;
     flex-direction: column;
     
-    align-items: center;
+    justify-content: space-around;
+
+    & .primary-title { max-width: 300px;}
 
     background-color: var(--color-gray-100);
 
     @media ${device.tablet} {
-        & .primary-title { text-align: center; }
+        & h1 { text-align: center; }
 
-        max-height: 450px;
-
-        justify-content: center;
-        gap: 120px;
+        max-height: 460px;
     }
 
 `
 
+export const AboutWrapper = styled(Container)`
+    width: 90%;
+    max-width: 1200px;
+    height: 100%;
+
+    justify-content: space-between;
+
+    @media ${device.tablet} {
+        justify-content: space-around;
+        gap: 40px;
+    }
+`;
+
 export const AboutContainer = styled(Container)`
+    width: 100%;
     justify-content: right;
 
 `;
@@ -164,8 +179,13 @@ export const AsideRounded = styled.div`
     border-radius: 0px 400px 400px 0px;
 
     @media ${device.tablet} {
+        top: 50%;
         width: 90vw;
         height: 200px;
+    }
+
+    @media ${device.mobileL} {
+        width: 95vw;
     }
 `;
 
@@ -182,6 +202,11 @@ export const Limiter = styled.div` /* #TODO transformar em componente */
 
     @media ${device.tablet} {
         align-items: start;
+    }
+
+    @media ${device.mobileL} {
+        margin-left: 30px;
+        text-align: justify;
     }
 `;
 

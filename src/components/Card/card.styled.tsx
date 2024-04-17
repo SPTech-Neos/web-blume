@@ -23,6 +23,11 @@ export const Card = styled.div`
         width: 50%
     }
 
+    @media ${device.mobileL} {
+        height: 10%;
+        width: 80%
+    }
+
 `;
 
 export const CardLogo = styled.div`

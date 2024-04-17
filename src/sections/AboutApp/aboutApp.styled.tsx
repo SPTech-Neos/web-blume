@@ -23,12 +23,16 @@ const lightAnimationCombined = keyframes`
 export const AboutApp = styled.section`
     width: 100%;
     height: 100vh;
-    max-height: 700px;
+    max-height: 720px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: var(--color-violet-900);
+
+    @media ${device.tablet} {
+        max-height: 600px;
+    }
 `
 
 export const ContainerWrapper = styled(importedContainer)`
@@ -122,6 +126,5 @@ export const Limiter = styled.span`
 `;
 
 export const AboutAppImg = styled.img`
-    width: 89%;
-    height: 48%;
+    width: 80%;
 `;

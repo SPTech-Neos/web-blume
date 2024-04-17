@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import { MagnifyingGlass as ImportedMagnifyingGlass } from "@phosphor-icons/react";
+import { device } from '../../styles/breakpoints.styled';
+
 export const InputContainer = styled.div`
     width: 100%;
     max-width: 1102px;
@@ -9,6 +12,11 @@ export const InputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+    @media ${device.tablet} {
+        justify-content: space-between;
+        padding: 0 10px;
+    }
 `;
 
 export const InputSearch = styled.input`
@@ -18,6 +26,11 @@ export const InputSearch = styled.input`
     border: none;
     font-size: 18px;
     font-family: 'Inter', sans-serif;
+
+    @media ${device.tablet} {
+        width: 100%;
+        font-size: 16px;
+    }
 `;
 
 export const IconSearchBar = styled.i`
@@ -53,4 +66,27 @@ export const ButtonSearchBar = styled.button`
         left: 0;
         top: -10px;
     }
+`;
+
+export const MagnifyingGlass = styled(ImportedMagnifyingGlass)`
+    width: 25%;
+    color: var(--color-gray-700);
+    background: none;
+    border-left: 2px solid var(--color-gray-500);
+    
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    cursor: pointer;
+    transition: .25s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
 `;

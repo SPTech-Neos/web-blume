@@ -4,8 +4,8 @@ import * as S from './navbar.styled';
 
 import Container from '../Container/Container';
 import { PrimaryButton } from "../Button/Button";
-import Logo from '../Logo/Logo';
-import Link from "../Link/Link";
+import Logo from '../Images/Logo/Logo';
+import Link from "../Texts/Link/Link";
 
 
 const Navbar: React.FC = () => {

@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { device } from "../../styles/breakpoints.styled";
 
 import * as S from './services.styled';
-import { PrimaryTitle, SecondaryTitle } from '../../components/Title/title.styled';
+import { PrimaryTitle, SecondaryTitle } from '../../components/Texts/Title/title.styled';
 
 import BarbaSrc from "../../assets/servico-barba.png";
 import CabeloSrc from "../../assets/servico-cabelo.png";

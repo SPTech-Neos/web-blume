@@ -9,8 +9,7 @@ export interface InputContainerProps {
 export const InputContainer = styled.div`
     background-color: var(--color-gray-100);
     // margin: 25px 0;
-    width: 70%;
-    padding: 0 28px;
+    width: 100%;
     font-size: 14px;
     font-family: 'Josefin Sans', 'Arial';
     color: var(--color-gray-900);

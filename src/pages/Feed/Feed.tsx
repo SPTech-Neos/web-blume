@@ -6,7 +6,7 @@ import FeedSection from "../../sections/Feed/Feed";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import Search from "../../sections/Search/Search";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Logo from "../../components/Logo/Logo";
+import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
 
 interface Salon {

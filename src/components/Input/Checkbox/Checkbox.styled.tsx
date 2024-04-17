@@ -5,15 +5,22 @@ export interface CheckboxProps {
     checked?: boolean | false;
 }
 
-export const Checkbox = styled.input
-.attrs({ type: 'checkbox' })<CheckboxProps>`
+export const Checkbox = styled.div<CheckboxProps>`
 
-    accent-color: var(--color-violet-500);
-    border: 2px solid var(--color-gray-900)
-    border-radius: none;
-    width: 18px;
-    height: 18px;
-    color: var(--color-gray-100);
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter';
+
+    & input[type = checkbox] {
+
+        accent-color: var(--color-violet-500);
+        border-radius: none;
+        width: 21px;
+        height: 21px;
+        color: var(--color-gray-100);
+        cursor: pointer;
+
+    }
+
 
 `;

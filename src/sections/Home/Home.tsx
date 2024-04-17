@@ -4,11 +4,11 @@ import { device } from "../../styles/breakpoints.styled";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Container from "../../components/Container/Container";
-import Logo from "../../components/Logo/Logo";
+import Logo from "../../components/Images/Logo/Logo";
 import Searchbar from "../../components/Searchbar/Searchbar";
 
-import { PrimaryTitle } from "../../components/Title/Title";
-import Subtitle from "../../components/Subtitle/Subtitle";
+import { PrimaryTitle } from "../../components/Texts/Title/Title";
+import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 import * as S from "./home.styled";
 

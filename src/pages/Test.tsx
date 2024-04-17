@@ -8,7 +8,7 @@ const Test: React.FC = () => (
 		{/* <InputText></InputText>
         <Label text='Label'></Label> */}
         <InputContainer label='Label' placeholder='Teste placeholder...' type='password'></InputContainer>
-        <InputContainer label='Label' placeholder='Teste placeholder...' type='time'></InputContainer>
+        <InputContainer label='Label' placeholder='Teste placeholder...' type='datetime-local'></InputContainer>
 
         <Checkbox label='checkbox'></Checkbox>
 	</>

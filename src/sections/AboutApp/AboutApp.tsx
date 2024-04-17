@@ -4,8 +4,8 @@ import { device } from "../../styles/breakpoints.styled";
 
 import * as S from './aboutApp.styled';
 
-import { PrimaryTitle } from '../../components/Title/title.styled';
-import Subtitle from '../../components/Subtitle/Subtitle';
+import { PrimaryTitle } from '../../components/Texts/Title/title.styled';
+import Subtitle from '../../components/Texts/Subtitle/Subtitle';
 
 import imgAboutApp from '../../assets/imagem-about-app.png';
 import { PrimaryButton } from '../../components/Button/Button';

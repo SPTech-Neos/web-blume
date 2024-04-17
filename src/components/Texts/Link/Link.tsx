@@ -2,9 +2,9 @@ import React from "react";
 
 import * as S from './Link.styled';
 
-const Link: React.FC<S.LinkProps> = ({ children, href }) => {
+const Link: React.FC<S.LinkProps> = ({ children, href, size }) => {
     return (
-        <S.Link href={href}>
+        <S.Link size={size} href={href}>
             {children}
         </S.Link>
     );

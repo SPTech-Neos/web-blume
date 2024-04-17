@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from '../../styles/breakpoints.styled';
+import { device } from '../../../styles/breakpoints.styled';
 
 export interface SubtitleProps {
   children: string | JSX.Element | JSX.Element[];
@@ -42,8 +42,10 @@ export const PrimarySubtitle = styled.h2<SubtitleProps>`
   position: relative;
 
   input[type=checkbox] + & {
-      display: inline;
-      margin: 0 10px
+    margin: 0 5px;
+    // margin-left: 10px;
+    font-size: 0.875rem;
+    font-family: 'Inter';
   }
 
   @media ${device.tablet} {

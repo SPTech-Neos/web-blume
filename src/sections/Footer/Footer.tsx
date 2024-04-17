@@ -4,13 +4,13 @@ import { device } from "../../styles/breakpoints.styled";
 
 import * as S from "./footer.styled";
 
-import Subtitle from "../../components/Subtitle/Subtitle";
+import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { PrimaryButton, MoveButton } from "../../components/Button/Button";
 
 import logoBlumeFooter from "../../assets/blume-footer.svg";
 import logoNeosFooter from "../../assets/neos-footer.svg";
 import googlePlayBadge from "../../assets/google-play-badge.svg";
-import Icon from "../../components/Icon/Icon";
+import Icon from "../../components/Images/Icon/Icon";
 
 import {
   CaretDoubleUp,

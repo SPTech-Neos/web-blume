@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PrimaryTitle } from '../Title/title.styled';
+import { PrimaryTitle } from '../Texts/Title/title.styled';
 import { device } from '../../styles/breakpoints.styled';
 
 export interface Props {

@@ -16,5 +16,6 @@ export const LoginForm = styled.form<LoginFormProps>`
    align-items: center;
    justify-content: center;
    gap: 25px;
+   padding: 50px 150px;
 
 `;

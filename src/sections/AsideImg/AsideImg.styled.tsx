@@ -10,7 +10,7 @@ export interface AsideImgProps {
 export const AsideImg = styled.aside<AsideImgProps>`
     height: 100vh;
     width: 50%;
-    background-color: ${props => props.bgColor};
+    background: ${props => props.bgColor};
     display: flex;
     align-items: center;
     justify-content: center;

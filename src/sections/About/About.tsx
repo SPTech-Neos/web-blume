@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { device } from "../../styles/breakpoints.styled";
 
 import * as S from "./about.styled";
-import Subtitle from "../../components/Subtitle/Subtitle";
+import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 import item01 from "../../assets/item01.svg";
 import item02 from "../../assets/item02.svg";
@@ -17,7 +17,7 @@ import svg02 from "../../assets/pentagono-blume.png";
 import {
   PrimaryTitle,
   SecondaryTitle,
-} from "../../components/Title/title.styled";
+} from "../../components/Texts/Title/title.styled";
 
 const About: React.FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: device.tablet });

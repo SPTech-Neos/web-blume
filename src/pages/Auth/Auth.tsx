@@ -11,9 +11,11 @@ const Auth: React.FC = () => {
   // Extract the mode query parameter (default to 'login')
   const mode = searchParams.get('mode') || 'login';
 
+  const bgLogin = 'linear-gradient(135deg, #96FFA0, #969AFF)';
+
   return (
     <>
-      {mode === 'login' && <Login imgUrl={'/happy-woman.svg'} bgColor={'var(--color-violet-50)'} imgAlt={'Login'}></Login>}
+      {mode === 'login' && <Login imgUrl={'/happy-woman.svg'} bgColor={bgLogin} imgAlt={'Login'}></Login>}
       {/* {mode === 'signup' && <Signup></Signup>} */}
     </>
   );

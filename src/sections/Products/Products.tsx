@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from './products.styled';
 
-import {PrimaryTitle} from '../../components/Title/Title';
+import {PrimaryTitle} from '../../components/Texts/Title/Title';
 import Card from '../../components/Card/Card';
-import Subtitle from "../../components/Subtitle/Subtitle";
+import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 
 import Calendario from '../../assets/calendario-2.svg';

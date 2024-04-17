@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { device } from "../../styles/breakpoints.styled";
+import { device } from "../../../styles/breakpoints.styled";
 
 import outlineSrc from "../../../src/assets/title-svg.svg";
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import * as S from './Checkbox.styled';
 
-import Subtitle from '../../Subtitle/Subtitle';
+import Subtitle from '../../Texts/Subtitle/Subtitle';
 
 export const Checkbox: React.FC<S.CheckboxProps> = ({label}) => {
   return (
-    <div className='row'>
-      <S.Checkbox className='checkbox' label={label}></S.Checkbox>
+    <S.Checkbox label={label}>
+      <input type='checkbox' />
       <Subtitle>{label}</Subtitle>
-    </div>
+    </S.Checkbox>
   );
 };

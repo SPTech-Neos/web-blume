@@ -150,10 +150,9 @@ export const AboutWrapper = styled(Container)`
     max-width: 1200px;
     height: 100%;
 
-    justify-content: space-between;
+    justify-content: space-around;
 
     @media ${device.tablet} {
-        justify-content: space-around;
         gap: 40px;
     }
 `;

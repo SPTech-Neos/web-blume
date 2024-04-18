@@ -8,22 +8,34 @@ import Search from "../../sections/Search/Search";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
-
-interface Salon {
-  id: number;
-  title: string;
-}
+import { Salon } from "../../utils/salon.types";
+import { useLocation } from "react-router-dom";
 
 const Feed: React.FC<S.FeedProps> = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<Salon[]>([]);
+  const location = useLocation();
+  const searchResultsHome: Salon[] = location.state
+    ? location.state.searchResults
+    : [];
+
+    const searchQueryHome: string = location.state
+    ? location.state.searchQuery
+    : "";
+
+  const [searchQuery, setSearchQuery] = useState(searchQueryHome);
+  const [searchResults, setSearchResults] =
+    useState<Salon[]>(searchResultsHome);
+  const [searchClicked, setSearchClicked] = useState(false);
+
+  const handleSearchClick = () => {
+    setSearchClicked(true);
+  };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearchClick = () => {
-    setSearchResults([{id: 1, title: "Lirasalon"}]) // quero fazer mockado aqui apenas para teste
+  const handleResultClick = () => {
+    setSearchResults([{ id: 1, title: "Lirasalon" }]); // quero fazer mockado aqui apenas para teste
 
     // if (searchQuery) {
     //   fetch(/* Your API endpoint */ /*searchQuery */)
@@ -37,7 +49,6 @@ const Feed: React.FC<S.FeedProps> = () => {
     // } else {
     //   console.warn("Search query is empty. Please enter a search term.");
     // }
-    console.log(searchQuery);
   };
 
   return (
@@ -56,14 +67,16 @@ const Feed: React.FC<S.FeedProps> = () => {
         <>
           <Searchbar
             placeholderText="Salão para cabelos cacheados..."
+            value={searchQuery}
             onChange={handleSearchChange}
-            onClick={handleSearchClick}
+            onClickSearchbar={handleSearchClick}
+            onClick={handleResultClick}
           />
         </>
 
-        {searchResults.length > 0 ? (
+        {(searchResults.length > 0 || searchResultsHome.length > 0) && searchQuery.length != 0 ? (
           <Results searchResults={searchResults} />
-        ) : searchQuery ? (
+        ) : searchClicked || searchQuery.length == 1 ? (
           <Search searchQuery={searchQuery} />
         ) : (
           <FeedSection />

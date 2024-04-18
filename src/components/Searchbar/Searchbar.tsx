@@ -9,18 +9,20 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 
 type Props = {
     placeholderText: string;
+    value?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void | null;
+    onClickSearchbar?: (event: React.MouseEvent<HTMLInputElement>) => void | null;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void | null;
 }
 
-const Searchbar: React.FC<Props> = ({placeholderText, onChange, onClick}) => {
+const Searchbar: React.FC<Props> = ({placeholderText, value, onChange, onClickSearchbar, onClick}) => {
     const isTabletOrMobile = useMediaQuery({ query: device.tablet });
 
     return (
         <S.InputContainer onChange={onChange}>
 
             {isTabletOrMobile ? null : <MagnifyingGlass size={32} className="icon-search-bar"/> }
-            <S.InputSearch type="text" placeholder={placeholderText}/>
+            <S.InputSearch type="text" placeholder={placeholderText} onClick={onClickSearchbar} value={value}/>
             {isTabletOrMobile ? 
                 <S.MagnifyingGlass size={24} className="icon-search-bar"/> : 
                 <S.ButtonSearchBar onClick={onClick}>Encontrar</S.ButtonSearchBar>

@@ -8,7 +8,6 @@ import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
 import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
-import Container from "../../components/Container/Container";
 
 const LoginForm: React.FC<S.LoginFormProps> = () => {
     return (

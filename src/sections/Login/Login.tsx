@@ -6,10 +6,12 @@ import AsideImg from '../../sections/AsideImg/AsideImg';
 
 const Login: React.FC<S.LoginProps> = ({ imgUrl, bgColor, imgAlt }) => {
     return (
-        <S.Login imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}>
-            <AsideImg imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}></AsideImg>
-            <LoginForm></LoginForm>
-        </S.Login>
+        <>
+            <S.Login imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}>
+                <AsideImg imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}></AsideImg>
+                <LoginForm></LoginForm>
+            </S.Login>
+        </>
     );
 }
 

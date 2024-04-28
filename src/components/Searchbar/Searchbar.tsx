@@ -15,6 +15,6 @@ const Searchbar: React.FC<Props> = ({placeholderText, onChange, onClick}) => (
         <S.InputSearch type="text" placeholder={placeholderText}/>
         <S.ButtonSearchBar onClick={onClick}>Encontrar</S.ButtonSearchBar>
     </S.InputContainer>
-);
+); 
 
 export default Searchbar;

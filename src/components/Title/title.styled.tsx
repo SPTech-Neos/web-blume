@@ -41,13 +41,12 @@ const getColor = (theme: string | undefined): string => {
     return themeVariants[theme].colorTheme; // Access colorTheme directly after type guard
   }
   return "var(--color-gray-900)"; // Default color
-};
+};  // liga aqui
 
 export const PrimaryTitle = styled.h1<TitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
-  font-weight: bold;
   text-transform: uppercase;
   position: relative;
 

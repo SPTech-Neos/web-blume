@@ -6,15 +6,17 @@ import ImportedContainer from "../Container/Container";
 export const SidebarWrapper = styled.div`
     width: 80px;
     height: 100vh;
-
+    background-color: #FAFAFA;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+    position: fixed;
     -webkit-box-shadow: 5px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 5px 0px 20px 0px rgba(0,0,0,0.25);
     box-shadow: 5px 0px 20px 0px rgba(0,0,0,0.25);
+
+    z-index: 2;
 `;
 
 export const Container = styled(ImportedContainer)`

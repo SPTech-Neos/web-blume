@@ -1,3 +1,4 @@
+import { FormEvent } from 'react';
 import styled from 'styled-components';
 
 export interface LoginFormProps {
@@ -5,6 +6,7 @@ export interface LoginFormProps {
     // placeholder: string;
     // clearable: boolean;
     // required: boolean;
+    onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 export const LoginForm = styled.form<LoginFormProps>`

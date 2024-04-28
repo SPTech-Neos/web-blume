@@ -4,6 +4,9 @@ export interface PrimaryButtonProps {
       children: string;
       size?: 'sm' | 'md' | 'lg';
       width?: string;
+      type?: string;
+      onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
+      disabled?: boolean;
 }
 
 const sizeVariants = {

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export interface InputContainerProps {
+    children: string | JSX.Element | JSX.Element[];
     label: string;
     type: string;
     placeholder: string;
+    value?: string;
 }
 
 export const InputContainer = styled.div`

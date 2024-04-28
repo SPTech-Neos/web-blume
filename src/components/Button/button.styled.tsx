@@ -4,6 +4,7 @@ export interface PrimaryButtonProps {
       children: string;
       size?: 'sm' | 'md' | 'lg';
       width?: string;
+      color?: string;
 }
 
 const sizeVariants = {
@@ -30,8 +31,8 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
    width: ${(props) => props.width || 'auto'};
    font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
    border-radius: ${(props) => sizeVariants[props.size || 'md'].borderRadius};
-   background-color: var(--color-violet-300);
-   box-shadow: 0px 0px 20px var(--color-violet-100);
+   background-color: ${(props) => props.color || 'var(--color-violet-300)'};
+   box-shadow: 0px 0px 20px ${(props) => props.color || 'var(--color-violet-100)'};
    height: 45px;
    color: var(--color-gray-100);
    border: none;
@@ -45,7 +46,8 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
 
    &:hover{
       cursor: pointer;
-      background-color: var(--color-violet-500);
+      background-color: ${(props) => props.color || 'var(--color-violet-500)'};
+
    }
 
    &:active {
@@ -61,4 +63,65 @@ export interface MoveButtonProps {
 
 export const MoveButton = styled.a`
 
+`;
+
+
+export const DangerButton = styled.button<PrimaryButtonProps>`
+   width: ${(props) => props.width || 'auto'};
+   font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
+   border-radius: ${(props) => sizeVariants[props.size || 'md'].borderRadius};
+   background-color: ${(props) => props.color || 'var(--color-violet-300)'};
+   box-shadow: 0px 0px 20px ${(props) => props.color || 'var(--color-violet-100)'};
+   height: 45px;
+   color: var(--color-gray-100);
+   border: none;
+   cursor: pointer;
+
+   text-transform: uppercase;
+   font-weight: 500;
+   font-family: 'Poppins', sans-serif;
+
+   transition: background-color .2s ease-in;
+
+   &:hover{
+      cursor: pointer;
+      background-color: #DC2432;
+
+   }
+
+   &:active {
+      transition: none;
+      background-color: ${(props) => props.color || 'var(--color-violet-500)'};
+   }
+
+
+`;
+
+export const WarningButton = styled.button<PrimaryButtonProps>`
+   width: ${(props) => props.width || 'auto'};
+   font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
+   border-radius: ${(props) => sizeVariants[props.size || 'md'].borderRadius};
+   background-color: ${(props) => props.color || 'var(--color-violet-300)'};
+   box-shadow: 0px 0px 20px ${(props) => props.color || 'var(--color-violet-100)'};
+   height: 45px;
+   color: var(--color-gray-100);
+   border: none;
+   cursor: pointer;
+
+   text-transform: uppercase;
+   font-weight: 500;
+   font-family: 'Poppins', sans-serif;
+
+   transition: background-color .2s ease-in;
+
+   &:hover{
+      cursor: pointer;
+      background-color: #F2D17B;
+
+   }
+
+   &:active {
+      transition: none;
+      background-color: ${(props) => props.color || 'var(--color-violet-300)'};
+   }
 `;

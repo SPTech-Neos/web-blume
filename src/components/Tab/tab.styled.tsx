@@ -3,7 +3,7 @@ import Container from "../Container/Container";
 
 export const ContainerTab = styled(Container)`
     width: 100%;
-    height: 40vh;
+    height: 55vh;
     justify-content: space-around;
 `;
 
@@ -17,6 +17,8 @@ export const TabHeader = styled.div`
 
 export const TabBody = styled.div`
     width: 100%;
-    height: 80%;
-    background-color: blue;
+    height: 80%;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;  

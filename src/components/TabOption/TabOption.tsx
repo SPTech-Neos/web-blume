@@ -5,7 +5,7 @@ import * as S from  './tabOption.styled';
 type Props = {
     id?: string;
     titulo: string;
-    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void | null;  
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void | null | JSX.Element | JSX.Element[];  
 }
 
 const TabOption: React.FC<Props> = ({ id, titulo, onClick}) => (

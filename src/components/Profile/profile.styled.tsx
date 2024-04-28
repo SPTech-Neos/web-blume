@@ -8,13 +8,13 @@ export interface ProfileProps {
 }
 
 export const ContainerProfile = styled(Container)`
-    height: 30vh;
+    height: 24vh;
     justify-content: start;
 `
 
 export const ContainerProfileImg = styled.div<ProfileProps>`
-    width: 13.5%;
-    height: 70%;
+    width: 125px;
+    height: 75%;
     display: flex;
     border-radius: 100%;
     background-image: url(${(props) => props.profile || svg01});

@@ -3,7 +3,11 @@ import { NavLink as RouterNavLink } from 'react-router-dom';
 
 import ImportedContainer from "../Container/Container";
 
-export const SidebarWrapper = styled.div`
+interface sidebarProps {
+    color: string;
+}
+
+export const SidebarWrapper = styled.div<sidebarProps>`
     width: 80px;
     height: 100vh;
     background-color: #FAFAFA;
@@ -60,7 +64,7 @@ export const NavLink = styled(RouterNavLink)`
         height: 4px;
         border-radius: 4px;
         color: var(--color-gray-900);
-        background-color: var(--color-violet-100);
+        background-color: ${(props) => props.color || 'var(--color-violet-100)'};
         bottom: -10px;
         transform-origin: right;
         transform: scaleX(0);

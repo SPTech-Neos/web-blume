@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
-import Services from "../../sections/Services/Services";
-import Products from "../../sections/Products/Products";
-import About from "../../sections/About/About";
+
+import Container from "../Container/Container";
 
 type SectionProps = {
     result?: string;
@@ -34,14 +33,17 @@ const Tab: React.FC<SectionProps> = () => {
 
                 <TabOption id="sobre" titulo="Sobre" onClick={handleClick} />
             </S.TabHeader>
-            <S.TabBody id="section-escolhida">
-                {result == 'servico'? (
-                    "Serviços" // trocar pela section certa
-                ) : result == 'produto'? (
-                    "Produtos" // trocar para section certa
-                ) : result == 'sobre'? (
-                    "Sobre" // trocar para section certa
-                ) : "Selecione uma opção"}
+            <S.TabBody >
+                <div id="section-escolhida">
+                    {result == 'servico'? (
+                        "Serviços" // trocar pela section certa
+                    ) : result == 'produto'? (
+                        "Produtos" // trocar para section certa
+                    ) : result == 'sobre'? (
+                        "Sobre" // trocar para section certa
+                    ) : "Selecione uma opção"}
+                </div>
+
             </S.TabBody>
         </S.ContainerTab>
     );

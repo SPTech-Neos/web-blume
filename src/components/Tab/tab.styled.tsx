@@ -21,4 +21,9 @@ export const TabBody = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    // &>div {
+    //     width: 60px;
+    //     height: 40px;
+    // }
 `;  

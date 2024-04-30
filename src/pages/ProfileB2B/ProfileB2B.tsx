@@ -7,7 +7,7 @@ import ProfileB2BSection from '../../sections/ProfileB2B/ProfileB2B';
 const ProfileB2B: React.FC = () => (
 	<>
 		<HeaderProfile />
-		<Sidebar />
+		<Sidebar color="var(--color-green-300)" tipoperfil="B2B" /> {/*tipo perfil chumbado por enquanto */}
 		<ProfileB2BSection />
 	</>
 );

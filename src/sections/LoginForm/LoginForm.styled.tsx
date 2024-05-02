@@ -17,7 +17,18 @@ export const LoginForm = styled.form<LoginFormProps>`
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   gap: 25px;
+   gap: 35px;
    padding: 50px 150px;
+`;
 
+export const InputWrapper = styled.div`
+    position: relative;
+`;
+
+export const ErrorMessage = styled.span`
+    position: absolute;
+    padding: 3px 0;
+    bottom: calc(0 - height);
+
+    color: var(--color-status-error);
 `;

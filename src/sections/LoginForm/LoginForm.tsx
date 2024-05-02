@@ -1,11 +1,15 @@
 import React, { 
     // useContext, 
-    useState 
+    useState,
+    useEffect
+
 } from "react";
-import { ClientAdapter } from "../../adapters/User/Client";
-// import { AuthContext } from "../../contexts/User/Client/AuthContextProvider";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import * as S from './LoginForm.styled'; // Assuming styled-components is used
+
+import { ClientAdapter } from "../../adapters/User/Client";
+// import { AuthContext } from "../../contexts/User/Client/AuthContextProvider";
 
 import Link from "../../components/Texts/Link/Link";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
@@ -14,19 +18,28 @@ import { PrimaryButton } from "../../components/Button/Button";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
 import InputText from "../../components/Input/InputText/InputText";
-
-
+import Modal from "../../components/Modals/FormModal/Modal";
 
 interface LoginFormProps {
-  onSubmit: (email: string, password: string) => void;
+    onSubmit: (email: string, password: string) => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = () => {
-    // const { setToken } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        window.sessionStorage.setItem("location", location.pathname);
+    }, [location]);
+
+    const [type, setType] = useState('');
+    const [message, setMessage] = useState('');
+    const [open, setOpen] = useState(false);
+    const [linkTo, setLinkTo] = useState('');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState<{ email?: string; password?: string }[]>([]);
+    const [errors, setErrors] = useState<{ email?: string; password?: string; account?: string }[]>([]);
 
     const clientAdapter = new ClientAdapter();
 
@@ -40,51 +53,92 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
     const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-    
-        const newErrors: { email?: string; password?: string }[] = [];
+
+        const newErrors: { email?: string; password?: string; account?: string; }[] = [];
+
         if (!email) {
             newErrors.push({ email: 'Email obrigatório' });
         }
-    
+
         if (!password) {
             newErrors.push({ password: 'Senha obrigatória' });
         }
-    
+
         if (newErrors.length > 0) {
             setErrors(newErrors);
             return;
         }
-    
+
         try {
             const token = await clientAdapter.login(email, password);
             console.log(token)
             if (token) {
-                // Login bem-sucedido, você pode fazer o que for necessário aqui, como redirecionar o usuário
-                // setToken(token); manda para o token
                 console.log('Login bem-sucedido!');
+                setType("success");
+                setMessage("Login efetuado com sucesso!");
+                setOpen(true);
+                setLinkTo("/feed");
+                
+                setTimeout(() => {
+                    navigate("/feed");
+                }, 10000)
+                    
             } else {
-                // Tratar caso de falha de login
-                console.log('Credenciais inválidas!');
+                newErrors.push({ account: 'Credenciais inválidas' });
+                setErrors(newErrors);
             }
         } catch (error) {
-            // Tratar erros de requisição, como erro de rede, etc.
+            setType("error");
+            setMessage("Erro durante login, tente novamente mais tarde!");
+            setOpen(true);
+            setLinkTo(window.sessionStorage.getItem('location') || '');
             console.error('Erro durante o login:', error);
+
+            setTimeout(() => {
+                navigate(window.sessionStorage.getItem('location') || '');
+            }, 10000)
         }
     };
 
     return (
+    <>
+        <Modal message={message} type={type} isOpen={open} linkTo={linkTo}/>
+
         <S.LoginForm onSubmit={handleSubmit}>
         <PrimaryTitle outline={true} size="md">
             LOGIN
         </PrimaryTitle>
 
-        <InputContainer label="E-mail" type="email" placeholder="email@exemplo.com">
-            <InputText type="email" value={email} onChange={handleEmailChange} />
-        </InputContainer>
+        <>
+            <S.InputWrapper>
+                <InputContainer label="E-mail" type="email" placeholder="email@exemplo.com">
+                    <InputText type="email" value={email} onChange={handleEmailChange} />
+                </InputContainer>
 
-        <InputContainer label="Senha" type="password" placeholder="Bananinha123">
-            <InputText type="password" value={password} onChange={handlePasswordChange} />
-        </InputContainer>
+                {errors.length > 0 && (
+                    <>
+                        {errors.map((error) => (
+                            <S.ErrorMessage key={error.email}>{error.email}</S.ErrorMessage>
+                        ))}
+                    
+                    </>
+                )}
+            </S.InputWrapper>
+
+            <S.InputWrapper>
+                <InputContainer label="Senha" type="password" placeholder="Bananinha123">
+                    <InputText type="password" value={password} onChange={handlePasswordChange} />
+                </InputContainer>
+
+                {errors.length > 0 && (
+                    <>
+                    {errors.map((error) => (
+                        <S.ErrorMessage key={error.password || error.account}>{error.password || error.account}</S.ErrorMessage>
+                    ))}
+                    </>
+                )}
+            </S.InputWrapper>
+        </>
 
         <div className="row">
             <Checkbox label="Lembrar de mim" />
@@ -92,14 +146,6 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             Esqueci minha senha...
             </Link>
         </div>
-
-        {errors.length > 0 && (
-            <div className="error">
-            {errors.map((error) => (
-                <span key={error.email || error.password}>{error.email || error.password}</span>
-            ))}
-            </div>
-        )}
 
         <PrimaryButton size="lg" width="200px" type="submit">
             ENTRAR
@@ -110,6 +156,8 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             <Link href="google.com">Crie uma conta!</Link>
         </Subtitle>
         </S.LoginForm>
+    </>
+        
     );
 };
 

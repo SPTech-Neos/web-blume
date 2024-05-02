@@ -20,16 +20,17 @@ export class ClientAdapter {
         }
     }
 
-    async login(email: string, password: string): Promise<string | null> {
+    async login(email: string, password: string): Promise<object | Client |string | null> {
         try {
             const response = await axios.post(`${this.apiUrl}/client/login`, {
                 email,
                 password,
             });
+
             if (response.status === 200) {
-                return response.data;
+                return response.data as Client;
             } else {
-                return null;
+                return [{type: "error", message: "Erro durante execução do serviço"}];
             }
         } catch (error) {
             console.error(error);

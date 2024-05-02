@@ -1,12 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-interface Employee {
-    idEmployee: number;
-    name: string;
-    email: string;
-    local: string;
-}
+import { Employee } from "../../utils/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -17,7 +12,7 @@ export class EmployeeAdapter {
 
     async getEmployeeById(EmployeeId: number): Promise<Employee | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/client/${EmployeeId}`);
+            const response = await axios.get(`${this.apiUrl}/Employee/${EmployeeId}`);
             return response.data as Employee;
         } catch (error) {
             console.error(error);
@@ -25,16 +20,17 @@ export class EmployeeAdapter {
         }
     }
 
-    async login(email: string, password: string): Promise<string | null> {
+    async login(email: string, password: string): Promise<object | Employee | string | null> {
         try {
             const response = await axios.post(`${this.apiUrl}/client/login`, {
                 email,
                 password,
             });
+
             if (response.status === 200) {
-                return response.data.token;
+                return response.data as Employee;
             } else {
-                return null;
+                return [{type: "error", message: "Erro durante execução do serviço"}];
             }
         } catch (error) {
             console.error(error);

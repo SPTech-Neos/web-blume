@@ -1,6 +1,6 @@
 import styled, {keyframes} from 'styled-components';
 
-import importedContainer from '../../components/Container/Container';
+import importedContainer from '../../components/Containers/Container/Container';
 import { device } from '../../styles/breakpoints.styled';
 
 const lightAnimationCombined = keyframes`

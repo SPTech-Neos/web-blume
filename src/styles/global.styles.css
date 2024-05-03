@@ -49,3 +49,7 @@
     justify-content: space-between;
     width: 100%;
 }
+
+.input--medium {
+    border-radius: 0;
+}

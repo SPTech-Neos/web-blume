@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from './button.styled';
+import * as S from './defaultButton.styled';
 
 export const PrimaryButton: React.FC<S.PrimaryButtonProps> = ({ color, width, size, children }) => {
     return (

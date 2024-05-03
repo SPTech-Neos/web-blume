@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from '../../components/Container/Container';
+import Container from '../../components/Containers/Container/Container';
 import BgBranco from '../../assets/circulo-branco.png';
 import BgAzul from '../../assets/circulo-roxo.png';
 import { device } from '../../styles/breakpoints.styled';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import ImportedContainer from '../../components/Container/Container';
-import { PrimaryButton as ImportedPrimaryButton } from '../../components/Button/button.styled';
+import ImportedContainer from '../../components/Containers/Container/Container';
+import { PrimaryButton as ImportedPrimaryButton } from '../../components/Buttons/DefaultButton/defaultButton.styled';
 
 export interface Props {
   children: string | JSX.Element | JSX.Element[];

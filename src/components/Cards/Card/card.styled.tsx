@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { PrimaryTitle } from '../Texts/Title/title.styled';
-import { device } from '../../styles/breakpoints.styled';
+import { PrimaryTitle } from '../../Texts/Title/title.styled';
+import { device } from '../../../styles/breakpoints.styled';
 
 export interface Props {
     children: string | JSX.Element | JSX.Element[];

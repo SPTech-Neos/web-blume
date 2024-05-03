@@ -8,7 +8,7 @@ import { PrimaryTitle } from '../../components/Texts/Title/title.styled';
 import Subtitle from '../../components/Texts/Subtitle/Subtitle';
 
 import imgAboutApp from '../../assets/imagem-about-app.png';
-import { PrimaryButton } from '../../components/Button/Button';
+import { PrimaryButton } from '../../components/Buttons/DefaultButton/DefaultButton';
 
 import googlePlayBadge from "../../assets/google-play-badge.svg"
 

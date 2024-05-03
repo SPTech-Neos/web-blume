@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { device } from "../../styles/breakpoints.styled";
 
 import Navbar from "../../components/Navbar/Navbar";
-import Container from "../../components/Container/Container";
+import Container from "../../components/Containers/Container/Container";
 import Logo from "../../components/Images/Logo/Logo";
 import Searchbar from "../../components/Searchbar/Searchbar";
 
@@ -17,7 +17,7 @@ import * as S from "./home.styled";
 import svg01 from "../../assets/home-svg01.svg";
 import svg02 from "../../assets/home-svg02.svg";
 import svg03 from "../../assets/scroll-down-icon.svg";
-import { MoveButton } from "../../components/Button/Button";
+import { MoveButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { Salon } from "../../utils/salon.types";
 
 

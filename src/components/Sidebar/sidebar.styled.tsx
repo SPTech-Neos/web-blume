@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 
-import ImportedContainer from "../Container/Container";
+import ImportedContainer from "../Containers/Container/Container";
 
 export const SidebarWrapper = styled.div`
     width: 80px;

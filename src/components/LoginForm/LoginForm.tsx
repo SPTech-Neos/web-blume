@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import * as S from './LoginForm.styled'; // Assuming styled-components is used
+import * as S from './loginForm.styled'; // Assuming styled-components is used
 
 import { ClientAdapter } from "../../adapters/User/Client";
 // import { AuthContext } from "../../contexts/User/Client/AuthContextProvider";

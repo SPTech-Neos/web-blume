@@ -2,10 +2,10 @@ import React from "react";
 
 import * as S from "./cardPromocional.styled";
 
-import Subtitle from "../Texts/Subtitle/Subtitle";
-import { SecondaryTitle } from "../Texts/Title/title.styled";
+import Subtitle from "../../Texts/Subtitle/Subtitle";
+import { SecondaryTitle } from "../../Texts/Title/title.styled";
 
-import cardImg from "../../assets/card-promocional-img.png";
+import cardImg from "../../../assets/card-promocional-img.png";
 
 const CardPromocional: React.FC<S.CardProps> = () => {
   return (

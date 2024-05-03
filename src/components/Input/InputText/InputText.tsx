@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from './InputText.styled';
+import * as S from './inputText.styled';
 
 const InputText: React.FC<S.InputTextProps> = ({ type, placeholder }) => {
     return (

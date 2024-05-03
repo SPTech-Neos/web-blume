@@ -1,6 +1,6 @@
 import React from "react";
-import * as S from './AsideImg.styled';
-import { FloatButton } from "../../components/Buttons/FloatButton/FloatButton";
+import * as S from './asideImg.styled';
+import { FloatButton } from "../Buttons/FloatButton/FloatButton";
 import { ArrowLeft } from "phosphor-react";
 
 const AsideImg: React.FC<S.AsideImgProps> = ({ imgUrl, bgColor, imgAlt }) => {

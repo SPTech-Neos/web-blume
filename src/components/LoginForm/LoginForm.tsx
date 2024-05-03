@@ -1,13 +1,13 @@
 import React from "react";
 
-import * as S from './LoginForm.styled';
+import * as S from './loginForm.styled';
 
-import Link from "../../components/Texts/Link/Link";
-import Subtitle from "../../components/Texts/Subtitle/Subtitle";
-import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
-import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
-import { PrimaryTitle } from "../../components/Texts/Title/Title";
-import InputContainer from "../../components/Input/InputContainer/InputContainer";
+import Link from "../Texts/Link/Link";
+import Subtitle from "../Texts/Subtitle/Subtitle";
+import { Checkbox } from "../Input/Checkbox/Checkbox";
+import { PrimaryButton } from "../Buttons/DefaultButton/DefaultButton";
+import { PrimaryTitle } from "../Texts/Title/Title";
+import InputContainer from "../Input/InputContainer/InputContainer";
 
 const LoginForm: React.FC<S.LoginFormProps> = () => {
     return (

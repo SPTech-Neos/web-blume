@@ -2,8 +2,7 @@ import styled, { css } from "styled-components";
 
 import { device } from "../../../styles/breakpoints.styled";
 
-// import outlineSrc from "../../../src/assets/title-svg.svg";
-import outlineSrc from "../../../../src/assets/title-svg.svg";
+import outlineSrc from "../../../assets/title-svg.svg";
 
 export interface TitleProps {
   children: string | string[] | JSX.Element[] | JSX.Element;
@@ -48,7 +47,6 @@ export const PrimaryTitle = styled.h1<TitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
-  font-weight: bold;
   text-transform: uppercase;
   position: relative;
 

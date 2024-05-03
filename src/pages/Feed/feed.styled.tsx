@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import ImportedContainer from '../../components/Container/Container';
+import ImportedContainer from '../../components/Containers/Container/Container';
 import { PrimaryButton as ImportedPrimaryButton } from '../../components/Buttons/DefaultButton/defaultButton.styled';
 
 export interface Props {

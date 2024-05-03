@@ -10,6 +10,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Test from './pages/Test';
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
+import SelectAcc from './sections/Auth/SelectAcc/SelectAcc';
 
 function AppRoutes() {
     return (
@@ -20,6 +21,7 @@ function AppRoutes() {
                     <Route path='/test' element={<Test />} />
                     <Route path='/auth' element={<Auth />} />
                     <Route path='/feed' element={<Feed />} />
+                    <Route path='/test-select-acc' element={<SelectAcc intention="login" />} />
                 </Routes>
             </BrowserRouter>
         </>

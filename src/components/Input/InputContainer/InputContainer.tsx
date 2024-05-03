@@ -3,7 +3,7 @@ import React from "react";
 import Label from '../Label/Label';
 import InputText from '../InputText/InputText';
 
-import * as S from './InputContainer.styled';
+import * as S from './inputContainer.styled';
 
 const InputContainer: React.FC<S.InputContainerProps> = ({ label, type, placeholder }) => {
     return (

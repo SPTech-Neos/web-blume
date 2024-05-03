@@ -1,8 +1,8 @@
 import React from "react";
-import * as S from './Login.styled';
+import * as S from './login.styled';
 
-import LoginForm from '../../sections/LoginForm/LoginForm';
-import AsideImg from '../../sections/AsideImg/AsideImg';
+import LoginForm from '../../../components/LoginForm/LoginForm';
+import AsideImg from '../../../components/AsideImg/AsideImg';
 
 const Login: React.FC<S.LoginProps> = ({ imgUrl, bgColor, imgAlt }) => {
     return (

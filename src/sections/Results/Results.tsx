@@ -4,6 +4,7 @@ import * as S from './results.styled';
 interface Salon {
   id: number;
   title: string;
+  
 }
 
 interface SearchProps<T> {

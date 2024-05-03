@@ -1,8 +1,9 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 
-import Login from '../../sections/Login/Login';
+import Login from '../../sections/Auth/Login/Login';
 // import Signup from '../../sections/Signup/Signup';
+import { Colors } from '../../styles/Colors';
 
 const Auth: React.FC = () => {
   const location = useLocation();
@@ -11,11 +12,11 @@ const Auth: React.FC = () => {
   // Extract the mode query parameter (default to 'login')
   const mode = searchParams.get('mode') || 'login';
 
-  const bgLogin = 'linear-gradient(135deg, #96FFA0, #969AFF)';
+  const colorBg = Colors.gradientDefault;
 
   return (
     <>
-      {mode === 'login' && <Login imgUrl={'/happy-woman.svg'} bgColor={bgLogin} imgAlt={'Login'}></Login>}
+      {mode === 'login' && <Login imgUrl={'/happy-woman.svg'} bgColor={colorBg} imgAlt={'Login'}></Login>}
       {/* {mode === 'signup' && <Signup></Signup>} */}
     </>
   );

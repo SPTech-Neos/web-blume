@@ -9,7 +9,7 @@ const ProfileB2B: React.FC = () => (
 
     <S.ProfileB2BSection> 
         <S.ContainerProfile direction="column">
-            <Profile />
+            <Profile tipoperfil="B2B" />
             <Tab />
             <S.ContainerAtencao>
                 <S.ContainerTitle>

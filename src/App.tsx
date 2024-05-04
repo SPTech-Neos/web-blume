@@ -11,6 +11,7 @@ import Test from './pages/Test';
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import ProfileB2B from './pages/ProfileB2B/ProfileB2B';
+import ProfileB2C from './pages/ProfileB2C/ProfileB2C';
 const App: React.FC = () => (
   <BrowserRouter>
     <Routes>
@@ -19,6 +20,7 @@ const App: React.FC = () => (
       <Route path='/auth' element={<Auth />} />
       <Route path='/feed' element={<Feed />} />
       <Route path='/profileB2B' element={<ProfileB2B />} />
+      <Route path='/profileB2C' element={<ProfileB2C />} />
     </Routes>
   </BrowserRouter>
 )

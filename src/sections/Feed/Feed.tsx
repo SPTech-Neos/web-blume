@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as S from './feed.styled';
-import CardPromocional from '../../components/CardPromocional/CardPromocional';
+import CardPromocional from '../../components/Cards/CardPromocional/CardPromocional';
 
 
 const Feed: React.FC = () => {

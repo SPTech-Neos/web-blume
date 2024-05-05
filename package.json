@@ -12,10 +12,13 @@
   "dependencies": {
     "@alex-mcgovern/hookform-resolvers": "^2.9.2",
     "@phosphor-icons/react": "^2.1.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@shoelace-style/shoelace": "^2.15.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/yup": "^0.32.0",
+    "js-cookie": "^3.0.5",
     "phosphor-react": "^1.4.1",
     "radix-ts": "^1.0.2",
     "react": "^18.2.0",

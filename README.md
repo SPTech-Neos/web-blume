@@ -1,3 +1,49 @@
+# Blume
+### Front-End Web
+
+<br>
+
+
+## Tutorial
+### Premissas de Desenvolvimento:
+Para o desenvolvimento, é necessário a instalação do NodeJS.
+
+https://nodejs.org/en
+
+### Instalação:
+Com isso feito, faça uma clonagem do repositório na sua máquina com o seguinte comando:
+```Shell
+git clone https://github.com/SPTech-Neos/web-blume.git
+```
+
+Após isso, entre no diretório clonado e execute os comandos para a instalação dos pacotes:
+```Shell
+# Instalação do Yarn
+npm i --global yarn
+
+# Usar o Yarn para instalar os pacotes
+yarn
+
+# Iniciar o projeto
+yarn dev
+```
+
+<br> 
+
+## Sobre
+Este repositório serve para o trabalho do sistema Client-Side de front-end do sistema Blume, feito para a matéria de Pesquisa e Inovação do 3º e 4º semestre do curso de Análise e Desenvolvimento de Sistemas feito na São Paulo Tech School.
+
+<br>
+
+## Tecnologias
+- React
+- TypeScript
+- Vite
+- Shoelace
+- styled-components
+
+<br> <br>
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

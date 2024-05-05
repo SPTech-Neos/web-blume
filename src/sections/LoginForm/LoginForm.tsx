@@ -1,15 +1,15 @@
 import React, { 
     // useContext, 
     useState,
-    useEffect
+    useEffect,
+    useContext
 
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
-import * as S from './LoginForm.styled'; // Assuming styled-components is used
-
-import { ClientAdapter } from "../../adapters/User/Client";
-// import { AuthContext } from "../../contexts/User/Client/AuthContextProvider";
+import * as S from './LoginForm.styled';
 
 import Link from "../../components/Texts/Link/Link";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
@@ -20,17 +20,24 @@ import InputContainer from "../../components/Input/InputContainer/InputContainer
 import InputText from "../../components/Input/InputText/InputText";
 import Modal from "../../components/Modals/FormModal/Modal";
 
+import { ClientLoginDto } from "../../utils/client.types";
+import { EmployeeLoginDto } from "../../utils/employee.types";
+
+
 interface LoginFormProps {
-    onSubmit: (email: string, password: string) => void;
+    onSubmit?: (email: string, password: string) => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = () => {
     const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation()
 
     useEffect(() => {
         window.sessionStorage.setItem("location", location.pathname);
     }, [location]);
+
+    const {handleLoginClient} = useContext(AuthContextClient);
+    const {handleLoginEmployee} = useContext(AuthContextEmployee);
 
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
@@ -40,8 +47,6 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{ email?: string; password?: string; account?: string }[]>([]);
-
-    const clientAdapter = new ClientAdapter();
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -70,19 +75,38 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         }
 
         try {
-            const token = await clientAdapter.login(email, password);
-            console.log(token)
-            if (token) {
+            const clientLoginDto: ClientLoginDto = {email, password};
+            const employeeLoginDto: EmployeeLoginDto = {email, password};
+
+            const clientToken = await handleLoginClient(clientLoginDto);
+            const employeeToken = await handleLoginEmployee(employeeLoginDto);
+
+
+            if (clientToken || employeeToken) {
                 console.log('Login bem-sucedido!');
+                console.log('CLIENTE TOKEN: ' + clientToken);
+                console.log('EMPLOYEE TOKEN: ' + employeeToken);
+
                 setType("success");
                 setMessage("Login efetuado com sucesso!");
                 setOpen(true);
-                setLinkTo("/feed");
-                
-                setTimeout(() => {
-                    navigate("/feed");
-                }, 10000)
-                    
+            
+                if (clientToken !instanceof Object && employeeToken !instanceof Object) {
+                    setLinkTo("/auth?mode=choose-auth");
+                    setTimeout(() => {
+                        navigate("/auth?mode=choose-auth");
+                    }, 10000)
+                } else if (clientToken !instanceof Object) {
+                    setLinkTo("/feed");
+                    setTimeout(() => {
+                        navigate("/feed");
+                    }, 10000)
+                } else if (employeeToken !instanceof Object) {
+                    setLinkTo("/profileB2B");
+                    setTimeout(() => {
+                        navigate("/profileB2B");
+                    }, 10000)
+                }
             } else {
                 newErrors.push({ account: 'Credenciais inválidas' });
                 setErrors(newErrors);

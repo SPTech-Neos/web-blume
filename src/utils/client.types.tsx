@@ -1,10 +1,11 @@
 import { Local } from "./local.types";
 
-export interface Client {
+export interface ClientResponseDto {
     idClient: number;
-    name: string;
     email: string;
+    name: string;
     local: Local;
+    token: string;
 }
 
 export interface ClientLoginDto {

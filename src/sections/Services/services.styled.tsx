@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import Container from '../../components/Container/Container';
 
-// beleza, vou tentar como o js primeiro uma coisa
-// ok, vo tentar mexer em outra parte por enquanto
 export const Services = styled.section`
     width: 100%;
     height: 100vh;

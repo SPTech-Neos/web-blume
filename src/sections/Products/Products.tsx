@@ -2,7 +2,7 @@ import React from "react";
 import * as S from './products.styled';
 
 import {PrimaryTitle} from '../../components/Texts/Title/Title';
-import Card from '../../components/Card/Card';
+import Card from '../../components/Cards/Card/Card';
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 

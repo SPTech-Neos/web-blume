@@ -47,7 +47,6 @@ export const PrimaryTitle = styled.h1<TitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
-  font-weight: bold;
   text-transform: uppercase;
   position: relative;
 

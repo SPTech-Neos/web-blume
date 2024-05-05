@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import ImportedContainer from '../../Container/Container';
+import ImportedContainer from '../../Containers/Container/Container';
 
 export interface CardProps {
 

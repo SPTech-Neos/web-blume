@@ -5,7 +5,7 @@ import { device } from "../../styles/breakpoints.styled";
 import * as S from "./footer.styled";
 
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
-import { PrimaryButton, MoveButton } from "../../components/Button/Button";
+import { PrimaryButton, MoveButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 
 import logoBlumeFooter from "../../assets/blume-footer.svg";
 import logoNeosFooter from "../../assets/neos-footer.svg";

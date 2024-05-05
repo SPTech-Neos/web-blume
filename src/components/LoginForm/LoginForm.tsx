@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
-import * as S from './LoginForm.styled';
+import * as S from './loginForm.styled';
 
 import Link from "../../components/Texts/Link/Link";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";

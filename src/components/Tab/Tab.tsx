@@ -3,7 +3,7 @@ import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
 
-import Container from "../Container/Container";
+import Container from "../Containers/Container/Container";
 
 type SectionProps = {
     result?: string;
@@ -21,7 +21,8 @@ const Tab: React.FC<SectionProps> = () => {
         //     myElement.style = 'color: var(--color-green-300); border-bottom: 4px solid var(--color-green-300);';
         // }
 
-        setResult(event.target.id);           
+        setResult(event.target.id); 
+        //ID ESTA DANDO ERRO. RESOLVER!   
     }
 
     return (

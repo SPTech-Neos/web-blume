@@ -53,7 +53,7 @@ const Feed: React.FC<S.FeedProps> = () => {
 
   return (
     <S.Feed id="feed">
-      <Sidebar />
+      <Sidebar color="var(--color-violet-300)" tipoperfil="B2B"  /> {/*tipo perfil chumbado por enquanto */}
 
       <S.Container direction="column">
         <S.Header>

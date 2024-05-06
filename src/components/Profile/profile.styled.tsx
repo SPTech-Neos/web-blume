@@ -5,6 +5,7 @@ import svg01 from '../.././assets/icon-profile.png';
 
 export interface ProfileProps {
     profile?: string; 
+    tipoperfil?: "B2B" | "B2C";
 }
 
 export const ContainerProfile = styled(Container)`

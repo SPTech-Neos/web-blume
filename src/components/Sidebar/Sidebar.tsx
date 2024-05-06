@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import { useLocation } from "react-router-dom";
 import * as S from './sidebar.styled';
@@ -7,18 +7,33 @@ import { Bell, GearSix, House, MagnifyingGlass, Receipt, ShoppingCart, UserCircl
 
 
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<S.sidebarProps> = ({color, tipoperfil}) => {
+
 
     const location = useLocation();
-    console.log("location: " + location.pathname);
+    useEffect(() =>{
+        // console.log("location: " + location.pathname);
+    
+        const iconeAtual = document.getElementsByTagName("a");
+        console.log(iconeAtual);
+    
+        for(let i = 0; i < iconeAtual.length; i++){
+            if(iconeAtual[i].pathname == location.pathname){
+                iconeAtual[i].classList.add('active-location');
+                console.log(iconeAtual[i].pathname);
+                console.log(location.pathname);
+            }
+        }
+    })
 
     return (
-        <S.SidebarWrapper color="var(--color-violet-100)">
-            <S.Container direction="column">
 
+        <S.SidebarWrapper color={color} tipoperfil={tipoperfil}>
+            <S.Container direction="column">
+ 
                     <S.NavList>
                         <S.NavItem>
-                            <S.NavLink  to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <S.NavLink  to= '/Feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                 <House size={24}/>
                             </S.NavLink>
                         </S.NavItem>
@@ -50,7 +65,7 @@ const Sidebar: React.FC = () => {
                         </S.NavItem>
                         {location.pathname == "/ProfileB2B"?(
                                     <S.NavItem>
-                                    <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                    <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                         <Cube size={24}/>
                                     </S.NavLink>
                                     </S.NavItem>
@@ -69,7 +84,7 @@ const Sidebar: React.FC = () => {
                             </S.NavLink>
                         </S.NavItem>
                         <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <S.NavLink to={tipoperfil == 'B2B'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                 <UserCircle size={24}/>
                             </S.NavLink>
                         </S.NavItem>

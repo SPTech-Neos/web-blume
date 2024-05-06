@@ -14,4 +14,9 @@ export const TabOption = styled.div`
         border-bottom: 4px solid var(--color-green-300);
     }
 
+    &.active {
+        color: var(--color-green-300);
+        border-bottom: 4px solid var(--color-green-300);
+    }
+
 `;

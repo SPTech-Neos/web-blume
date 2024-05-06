@@ -1,14 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 
 import { useLocation } from "react-router-dom";
 import * as S from './sidebar.styled';
 
 import { Bell, GearSix, House, MagnifyingGlass, Receipt, ShoppingCart, UserCircle, Cube, Article, UserList } from "@phosphor-icons/react";
+import { SignOut } from "phosphor-react";
+import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 
 
 const Sidebar: React.FC<S.sidebarProps> = ({color, tipoperfil}) => {
-
+    const { handleLogoutEmployee } = useContext(AuthContextEmployee);
 
     const location = useLocation();
     useEffect(() =>{
@@ -27,7 +29,7 @@ const Sidebar: React.FC<S.sidebarProps> = ({color, tipoperfil}) => {
 
     return (
 
-        <S.SidebarWrapper color={color} tipoperfil={tipoperfil}>
+        <S.SidebarWrapper color={color}>
             <S.Container direction="column">
  
                     <S.NavList>
@@ -85,6 +87,11 @@ const Sidebar: React.FC<S.sidebarProps> = ({color, tipoperfil}) => {
                         <S.NavItem>
                             <S.NavLink to={tipoperfil == 'B2B'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                 <UserCircle size={24}/>
+                            </S.NavLink>
+                        </S.NavItem>
+                        <S.NavItem>
+                            <S.NavLink to={"/"} className={({isActive})=>isActive? "nav-link active" : "nav-link"} onClick={() => handleLogoutEmployee()}>
+                                <SignOut size={24} />
                             </S.NavLink>
                         </S.NavItem>
                     </S.NavList>

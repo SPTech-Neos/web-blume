@@ -52,5 +52,23 @@ export class EmployeeAdapter {
             return null;
         }
     }
+
+    async updateEmployee(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
+        try {
+            const requestOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                }
+            };
+
+            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
+
+            return response.data as EmployeeResponseDto;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
     
 }

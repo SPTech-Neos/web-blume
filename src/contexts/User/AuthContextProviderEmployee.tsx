@@ -9,6 +9,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   handleLoginEmployee: (employeeLoginDto: EmployeeLoginDto) => Promise<EmployeeResponseDto | null>;
   handleLogoutEmployee: () => void;
+  updateEmployeeData: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
 }
 
 export const AuthContextEmployee = createContext<AuthContextType>({
@@ -16,6 +17,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
   isAuthenticated: false,
   handleLoginEmployee: async () => null,
   handleLogoutEmployee: () => {},
+  updateEmployeeData: async () => {}
 });
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -59,10 +61,12 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
 
   const handleLogoutEmployee = () => {
-      Cookies.remove('employeeInfo');
+      Cookies.remove('employeeToken');
+
       setToken(null);
       setExpiresAt(0);
       setIsAuthenticated(false);
+
       localStorage.removeItem("isLoggedIn");
   };
 
@@ -93,11 +97,31 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
   const isUserAuthenticated = () => expiresAt > Date.now();
 
+  const updateEmployeeData = async (updatedFields: Partial<EmployeeResponseDto>) => {
+    try {
+      if (token && token.idEmployee !== undefined) {
+        const updatedEmployee = await employeeAdapter.updateEmployee(token.idEmployee, updatedFields);
+
+        setToken(updatedEmployee);
+  
+        const updatedEmployeeToken = { ...token, ...updatedFields };
+        Cookies.set('employeeToken', JSON.stringify(updatedEmployeeToken), { expires: 7 });
+      } else {
+        console.error("ID do funcionário não encontrado no token.");
+      }
+
+    } catch (error) {
+      console.error("Erro ao atualizar os dados do funcionário:", error);
+      throw error;
+    }
+  };
+
   const contextValue = {
       token,
       isAuthenticated,
       handleLoginEmployee,
       handleLogoutEmployee,
+      updateEmployeeData
   };
 
   return (

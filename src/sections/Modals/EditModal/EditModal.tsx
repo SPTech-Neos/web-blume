@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import * as S from './editModal.styled';
 
 import InputContainer from "../../../components/Input/InputContainer/InputContainer";
 import InputText from "../../../components/Input/InputText/InputText";
-import { DangerButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
-import { PrimaryButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
+import { DangerButton, PrimaryButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
+import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
 
 type Props = {
     id?: string;
 }
 
 const EditModal: React.FC<Props> = ({id}) => {
+    const { updateEmployeeData } = useContext(AuthContextEmployee);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,6 +36,16 @@ const EditModal: React.FC<Props> = ({id}) => {
         setPassword("");
         editModal?.classList.remove("active");
     }
+
+    const handleUpdateEmployee = async () => {
+        try {
+            const updatedFields = { name, email, password };
+            await updateEmployeeData(updatedFields);
+            closeModal();
+        } catch (error) {
+            console.error("Erro ao atualizar funcionário:", error);
+        }
+    };
     
 
     return (
@@ -66,7 +77,7 @@ const EditModal: React.FC<Props> = ({id}) => {
                     Cancelar
                 </DangerButton>
 
-                <PrimaryButton width="180px">
+                <PrimaryButton width="180px" onClick={handleUpdateEmployee}>
                     Atualizar
                 </PrimaryButton>
             </S.ButtonWrapper>

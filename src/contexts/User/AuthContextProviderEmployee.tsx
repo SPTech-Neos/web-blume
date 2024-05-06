@@ -5,9 +5,9 @@ import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/employee.type
 import { EmployeeAdapter } from "../../adapters/User/Employee";
 
 interface AuthContextType {
-  token: object | EmployeeResponseDto | null;
+  token: EmployeeResponseDto | null;
   isAuthenticated: boolean;
-  handleLoginEmployee: (employeeLoginDto: EmployeeLoginDto) => Promise<object | EmployeeResponseDto | null>;
+  handleLoginEmployee: (employeeLoginDto: EmployeeLoginDto) => Promise<EmployeeResponseDto | null>;
   handleLogoutEmployee: () => void;
 }
 
@@ -19,7 +19,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
 });
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
-  const [token, setToken] = useState<object | EmployeeResponseDto>({});
+  const [token, setToken] = useState<EmployeeResponseDto | null>(null);
   const [expiresAt, setExpiresAt] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -32,28 +32,35 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       }
   });
 
-  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> =>{
+  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> => {
     try {
-      const { email, password } = employeeLoginDto;
-      const token = await employeeAdapter.login({ email, password});
-      
-      if (token) {
-        setToken(token);
-        setIsAuthenticated(true);
-        setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-        Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
-      }
+        const { email, password } = employeeLoginDto;
+        const token = await employeeAdapter.login({ email, password });
 
-      return token;
+        if (token !== null) {
+            console.log("AUTHCONTEXT: " + token.idEmployee);
+
+            setToken(token);
+            setIsAuthenticated(true);
+            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+            Cookies.set('employeeToken', JSON.stringify(token), { expires: 7 });
+
+            return token as EmployeeResponseDto;
+        } else {
+            console.error("Token de autenticação é nulo.");
+            return null;
+        }
     } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      throw error;
+        console.error("Erro ao fazer login:", error);
+        throw error;
     }
   };
 
+
   const handleLogoutEmployee = () => {
       Cookies.remove('employeeInfo');
-      setToken({});
+      setToken(null);
       setExpiresAt(0);
       setIsAuthenticated(false);
       localStorage.removeItem("isLoggedIn");

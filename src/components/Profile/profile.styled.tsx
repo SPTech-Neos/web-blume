@@ -6,6 +6,12 @@ import svg01 from '../.././assets/icon-profile.png';
 export interface ProfileProps {
     profile?: string; 
     tipoperfil?: "B2B" | "B2C";
+    username: string;
+}
+
+export interface ContainerProfileProps {
+    profile?: string; 
+    tipoperfil?: "B2B" | "B2C";
 }
 
 export const ContainerProfile = styled(Container)`
@@ -13,7 +19,7 @@ export const ContainerProfile = styled(Container)`
     justify-content: start;
 `
 
-export const ContainerProfileImg = styled.div<ProfileProps>`
+export const ContainerProfileImg = styled.div<ContainerProfileProps>`
     width: 125px;
     height: 75%;
     display: flex;

@@ -32,14 +32,14 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = () => {
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
 
     useEffect(() => {
         window.sessionStorage.setItem("location", location.pathname);
     }, [location]);
 
-    const {handleLoginClient} = useContext(AuthContextClient);
-    const {handleLoginEmployee} = useContext(AuthContextEmployee);
+    const { handleLoginClient } = useContext(AuthContextClient);
+    const { handleLoginEmployee } = useContext(AuthContextEmployee);
 
     const [type, setType] = useState('');
     const [message, setMessage] = useState('');
@@ -77,41 +77,47 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         }
 
         try {
-            const clientLoginDto: ClientLoginDto = {email, password};
-            const employeeLoginDto: EmployeeLoginDto = {email, password};
+            const clientLoginDto: ClientLoginDto = { email, password };
+            const employeeLoginDto: EmployeeLoginDto = { email, password };
 
             const clientToken = await handleLoginClient(clientLoginDto);
             const employeeToken = await handleLoginEmployee(employeeLoginDto);
 
-
-            if (clientToken || employeeToken) {
+            if (clientToken || typeof employeeToken !== 'undefined') {
                 console.log('Login bem-sucedido!');
-                console.log('CLIENTE TOKEN: ' + clientToken);
-                console.log('EMPLOYEE TOKEN: ' + employeeToken);
 
                 setType("success");
                 setMessage("Login efetuado com sucesso!");
+                setLinkTo("/auth?mode=choose-auth")
                 setOpen(true);
-            
-                if (clientToken !instanceof Object && employeeToken !instanceof Object) {
-                    setLinkTo("/auth?mode=choose-auth");
-                    setTimeout(() => {
-                        navigate("/auth?mode=choose-auth");
-                    }, 10000)
-                } else if (clientToken !instanceof Object) {
-                    setLinkTo("/feed");
-                    setTimeout(() => {
-                        navigate("/feed");
-                    }, 10000)
-                } else if (employeeToken !instanceof Object) {
-                    setLinkTo("/profileB2B");
-                    setTimeout(() => {
-                        navigate("/profileB2B");
-                    }, 10000)
+
+                if (clientToken && typeof employeeToken !== 'undefined') {
+                    console.log('Login bem-sucedido!');
+                    console.log('DADOS EMPLOYEE' + employeeToken?.idEmployee);
+
+                    setType("success");
+                    setMessage("Login efetuado com sucesso!");
+                    setLinkTo("/auth?mode=choose-auth")
+                    setOpen(true);
+                } else if (clientToken) {
+                    console.log('Login bem-sucedido como cliente!');
+                    
+                    setType("success");
+                    setMessage("Login efetuado com sucesso!");
+                    setLinkTo("/feed")
+                    setOpen(true);
+                } else if (typeof employeeToken !== 'undefined') {
+                    console.log('Login bem-sucedido como funcionário!');
+                    console.log('DADOS EMPLOYEE' + employeeToken?.idEmployee);
+                    
+                    setType("success");
+                    setMessage("Login efetuado com sucesso!");
+                    setLinkTo("/profileB2B")
+                    setOpen(true);
+                } else {
+                    newErrors.push({ account: 'Credenciais inválidas' });
+                    setErrors(newErrors);
                 }
-            } else {
-                newErrors.push({ account: 'Credenciais inválidas' });
-                setErrors(newErrors);
             }
         } catch (error) {
             setType("error");

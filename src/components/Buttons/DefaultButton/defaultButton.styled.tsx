@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export interface PrimaryButtonProps {
-      children: string;
+      children: string | JSX.Element | JSX.Element[];
       size?: 'sm' | 'md' | 'lg';
       width?: string;
       color?: string;

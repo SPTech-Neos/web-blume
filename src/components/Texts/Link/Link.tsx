@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as S from './Link.styled';
+import * as S from './link.styled';
 
 const Link: React.FC<S.LinkProps> = ({ children, href, size }) => {
     return (

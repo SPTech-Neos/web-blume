@@ -3,8 +3,6 @@ import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
 
-import Container from "../Containers/Container/Container";
-
 type SectionProps = {
     result?: string;
 }

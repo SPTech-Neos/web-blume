@@ -16,8 +16,10 @@ import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
 import { PrimaryButton } from "../../components/Button/Button";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
+
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
 import InputText from "../../components/Input/InputText/InputText";
+
 import Modal from "../../components/Modals/FormModal/Modal";
 
 import { ClientLoginDto } from "../../utils/client.types";

@@ -8,7 +8,7 @@ const ProfileB2C: React.FC = () => (
     <S.ContainerProfile direction="column">
         <S.HeaderProfile>
             <Logo />
-            <PrimaryButton color="" width="180px">ENTRAR</PrimaryButton>
+            <PrimaryButton color="" width="150px">ENTRAR</PrimaryButton>
         </S.HeaderProfile>
             
         <S.ProfileContainer>

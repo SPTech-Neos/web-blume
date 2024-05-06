@@ -8,7 +8,7 @@ const Profile: React.FC<S.ProfileProps> = ({profile, tipoperfil}) => (
                 <S.ContainerProfileImg profile= {profile} tipoperfil={tipoperfil}  />
 
                 <S.ContainerProfileInfo>
-                        <h1>Nome</h1>
+                        <h1>Nome Completo do Usuário</h1>
                         {tipoperfil == "B2B"?(
                                      <S.ContainerTags>
                                      <S.TagsProfile>Tag</S.TagsProfile>

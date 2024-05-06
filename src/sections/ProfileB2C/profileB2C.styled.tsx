@@ -12,6 +12,7 @@ export const ContainerProfile = styled(Container)`
     justify-content: start;
     font-family: 'Poppins';
     gap: 15px;
+    padding-top: 10px;
 
 `;  
 
@@ -20,7 +21,7 @@ export const HeaderProfile = styled.div`
     height: 10%;
     display: flex;
     justify-content: end;
-    gap: 33.5%;
+    gap: 35.5%;
     align-items: center;
     padding-right: 40px;
 `;
@@ -35,7 +36,8 @@ export const ProfileContainer = styled.div`
 
     &>div{
         justify-content: end;
-        padding-left: 30px;
+        padding-left: 0px;
+        padding-right: 10px;
     }
 
     &>h1{
@@ -44,7 +46,7 @@ export const ProfileContainer = styled.div`
     }
 
     &>div>div>h1{
-        padding-left: 25px;
+        padding-left: 1%;
         font-size: 28px;
     }
 `;
@@ -59,7 +61,7 @@ export const InfoContainer = styled.div`
 `;
 
 export const Infos = styled.div`
-    width: 60%;
+    width: 50%;
     height: 70%;
     display: flex;
     flex-direction: column;
@@ -87,7 +89,7 @@ export const ContainerTitle = styled.div`
 `;
 
 export const ContainerAtencao = styled.div`
-    width: 100%;
+    width: 64%;
     height: 20vh;
     display: flex;
     flex-direction: column;

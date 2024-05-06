@@ -9,7 +9,6 @@ export const ProfileB2BSection = styled.section`
     height: 100vh;
     font-family: 'Poppins' ;
 
-
 `;
 
 export const ContainerProfile = styled(Container)`
@@ -17,6 +16,7 @@ export const ContainerProfile = styled(Container)`
     padding-top: 55px;
     padding-left: 45px;
     justify-content: start;
+
 `;
 
 export const ContainerAtencao = styled.div`

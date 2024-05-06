@@ -19,10 +19,10 @@ export const HeaderProfile = styled.div`
     width: 100%;
     height: 10%;
     display: flex;
-    justify-content: end;
+    justify-content: center;
     gap: 33.5%;
     align-items: center;
-    padding-right: 40px;
+    padding-right: 25px;
 `;
 
 export const ProfileContainer = styled.div`

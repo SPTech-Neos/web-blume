@@ -13,7 +13,6 @@ const Sidebar: React.FC<S.sidebarProps> = ({color, tipoperfil}) => {
     const location = useLocation();
     useEffect(() =>{
         // console.log("location: " + location.pathname);
-    
         const iconeAtual = document.getElementsByTagName("a");
         console.log(iconeAtual);
     

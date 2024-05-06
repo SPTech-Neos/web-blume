@@ -7,6 +7,7 @@ import { EmployeeResponseDto } from "../../utils/employee.types";
 import * as S from './profileB2B.styled';
 import Profile from "../../components/Profile/Profile";
 import Tab from "../../components/Tab/Tab";
+import EditModal from "../Modals/EditModal/EditModal";
 
 const ProfileB2B: React.FC = () => {
     const tokenFromCookie = Cookies.get('employeeToken');
@@ -20,10 +21,18 @@ const ProfileB2B: React.FC = () => {
         }
     }, [token]);
 
+    const showModal = () => {
+        const editModal = document.getElementById("editModal");
+        editModal?.classList.add("active");
+        console.log(editModal);
+    };
+
+
     return (
         token ? (
             <S.ProfileB2BSection>
                 <S.ContainerProfile direction="column">
+                    <EditModal id="editModal"/>
                     <Profile tipoperfil="B2B" username={(token as EmployeeResponseDto).name} />
                     <Tab />
                     <S.ContainerAtencao>
@@ -38,7 +47,7 @@ const ProfileB2B: React.FC = () => {
                             <S.ButtonDelete width="180px" color="var(--color-status-error)">
                                 Excluir
                             </S.ButtonDelete>
-                            <S.ButtonUpdate width="180px" color="var(--color-status-warning)">
+                            <S.ButtonUpdate width="180px" color="var(--color-status-warning)" onClick={showModal}>
                                 Editar
                             </S.ButtonUpdate>
                         </S.ContainerAtencaoButtons>

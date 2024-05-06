@@ -11,6 +11,8 @@ export const SidebarWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    background-color: #FAFAFA;
     
     -webkit-box-shadow: 5px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 5px 0px 20px 0px rgba(0,0,0,0.25);

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Container from "../../components/Container/Container";
+import Container from "../../components/Containers/Container/Container"
 
-import {DangerButton, WarningButton} from '../../components/Button/Button';
+import {DangerButton, WarningButton} from '../../components/Buttons/DefaultButton/DefaultButton';
 
 
 export const ProfileB2BSection = styled.section`

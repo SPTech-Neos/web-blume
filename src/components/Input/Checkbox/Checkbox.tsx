@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './checkbox.styled';
+import * as S from './Checkbox.styled';
 
 import Subtitle from '../../Texts/Subtitle/Subtitle';
 

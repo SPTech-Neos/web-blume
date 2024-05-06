@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Container from "../Container/Container";
+import Container from "../Containers/Container/Container";
 
 export const ContainerTab = styled(Container)`
     width: 100%;

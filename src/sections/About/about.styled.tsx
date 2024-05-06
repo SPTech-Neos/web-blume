@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components';
-import Container from '../../components/Container/Container';
+import Container from '../../components/Containers/Container/Container';
 import { device } from '../../styles/breakpoints.styled';
 
 

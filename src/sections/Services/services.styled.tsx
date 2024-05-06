@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from '../../components/Container/Container';
+import Container from '../../components/Containers/Container/Container';
 
 export const Services = styled.section`
     width: 100%;

@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from './label.styled';
+import * as S from './Label.styled';
 
 const Label: React.FC<S.LabelProps> = ({ label }) => {
     return (

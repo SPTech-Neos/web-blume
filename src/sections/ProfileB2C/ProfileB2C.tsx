@@ -15,6 +15,10 @@ const ProfileB2C: React.FC = () => {
         
     };
 
+    const handleDelete = () => {
+        console.log("delete");
+    }
+
 
     return(
         <S.ContainerProfile direction="column">
@@ -67,7 +71,7 @@ const ProfileB2C: React.FC = () => {
                     </S.ContainerTitle>
                     <S.ContainerAtencaoButtons>
 
-                        <S.ButtonDelete width="180px" color="var(--color-status-error)">
+                        <S.ButtonDelete width="180px" color="var(--color-status-error)" onClick={handleDelete}>
                             Excluir
                         </S.ButtonDelete>
 

@@ -6,6 +6,7 @@ import * as S from "./footer.styled";
 
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { PrimaryButton, MoveButton } from "../../components/Buttons/DefaultButton/DefaultButton";
+import Link from "../../components/Texts/Link/Link";
 
 import logoBlumeFooter from "../../assets/blume-footer.svg";
 import logoNeosFooter from "../../assets/neos-footer.svg";
@@ -134,9 +135,12 @@ const Footer: React.FC<S.FooterProps> = () => {
 
           <S.Col className="align-center">
             {isTabletOrMobile ? null : (
-              <PrimaryButton size={"md"} width={"190px"}>
-                Entrar
-              </PrimaryButton>
+              <Link href="/auth?mode=login">
+                  <PrimaryButton size={"md"} width={"190px"}>
+                    Entrar
+                  </PrimaryButton>
+              </Link>
+              
             )}
 
             <img
@@ -145,6 +149,7 @@ const Footer: React.FC<S.FooterProps> = () => {
               alt={`Imagem svg com detalhes de circulos no fundo`}
             />
           </S.Col>
+
         </S.Row>
 
         <S.Row className="h-25">

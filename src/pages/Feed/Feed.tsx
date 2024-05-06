@@ -61,7 +61,7 @@ const Feed: React.FC<S.FeedProps> = () => {
             <Logo />
           </S.LogoWrapper>
 
-          <S.PrimaryButton width="180px">Entrar</S.PrimaryButton>
+          {/* <S.PrimaryButton width="180px">Entrar</S.PrimaryButton> */}
         </S.Header>
 
         <>

@@ -58,7 +58,8 @@ export class EmployeeAdapter {
             const requestOptions = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                    'Accept': '*/*'
                 }
             };
 

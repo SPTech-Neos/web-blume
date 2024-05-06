@@ -8,6 +8,7 @@ import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderE
 
 type Props = {
     id?: string;
+    load?: boolean;
 }
 
 const EditModal: React.FC<Props> = ({id}) => {
@@ -42,6 +43,7 @@ const EditModal: React.FC<Props> = ({id}) => {
             const updatedFields = { name, email, password };
             await updateEmployeeData(updatedFields);
             closeModal();
+            window.location.reload();
         } catch (error) {
             console.error("Erro ao atualizar funcionário:", error);
         }

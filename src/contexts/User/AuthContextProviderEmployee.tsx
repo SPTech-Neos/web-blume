@@ -99,6 +99,9 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
   const updateEmployeeData = async (updatedFields: Partial<EmployeeResponseDto>) => {
     try {
+      const tokenFromCookie = Cookies.get('employeeToken');
+      const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
       if (token && token.idEmployee !== undefined) {
         const updatedEmployee = await employeeAdapter.updateEmployee(token.idEmployee, updatedFields);
 

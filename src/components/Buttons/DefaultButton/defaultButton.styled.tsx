@@ -63,9 +63,9 @@ export interface MoveButtonProps {
 }
 
 export const MoveButton = styled.a`
-
+   width: 50px;
+   height: 50px;
 `;
-
 
 export const DangerButton = styled.button<PrimaryButtonProps>`
    width: ${(props) => props.width || 'auto'};

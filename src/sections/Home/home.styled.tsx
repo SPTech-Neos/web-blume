@@ -11,6 +11,7 @@ export interface Props {
 export const Home = styled.section`
   width: 100%;
   height: 100vh;
+  padding-top: 80px;
   max-height: 725px;
   background-color: #fafafa;
 

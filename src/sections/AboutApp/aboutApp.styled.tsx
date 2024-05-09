@@ -5,17 +5,18 @@ import { device } from '../../styles/breakpoints.styled';
 
 const lightAnimationCombined = keyframes`
     0% {
-        top: 5%;
+        top: 10%;
         height: 0;
         background-color: var(--color-violet-100);
     }
     50% {
-        height: 40%;
+        // top: 50%;
+        height: 30%;
         background-color: var(--color-violet-100);
     }
     100% {
-        top: 85%;
-        height: 10%;
+        top: 90%;
+        height: 0;
         background-color: var(--color-violet-100);
     }
 `;
@@ -39,15 +40,15 @@ export const ContainerWrapper = styled(importedContainer)`
     position: relative;    
     height: 100%;
 
-    &::before,
-    &::after {
-        content: "";
-        position: absolute;
-        top: 5%;
-        width: 2px;
-        height: 90%;
-        background-color: var(--color-violet-300);
-    }
+    // &::before,
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 5%;
+    //     width: 2px;
+    //     height: 90%;
+    //     background-color: var(--color-violet-300);
+    // }
 
     &::before {
         left: 0;
@@ -57,15 +58,15 @@ export const ContainerWrapper = styled(importedContainer)`
         right: 0;
     }
 
-    &::before,
-    &::after {
-        content: "";
-        position: absolute;
-        top: 5%;
-        width: 2px;
-        height: 90%;
-        background-color: var(--color-violet-300);
-    }
+    // &::before,
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 5%;
+    //     width: 2px;
+    //     height: 90%;
+    //     background-color: var(--color-violet-300);
+    // }
 
     &::before {
         left: 0;
@@ -84,11 +85,13 @@ export const ContainerWrapper = styled(importedContainer)`
     }
 
     .light-ball {
+        // transition: all .2s ease-in-out;
         position: absolute;
-        width: 10px;
+        width: 8px;
         height: 10px;
         border-radius: 5px;
-        animation: ${lightAnimationCombined} 3s 1s linear infinite;
+        animation: ${lightAnimationCombined} 3s linear infinite;
+        max-height: 90vh;
     }
 
     .light-ball.right {

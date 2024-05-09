@@ -167,8 +167,10 @@ export const AsideRounded = styled.div`
     position: absolute;
     left: 0;
 
-    width: 45vw;
+    width: 50vw;
     height: 280px;
+
+    padding-left: 100px;
 
     display: flex;
     justify-content: flex-end;

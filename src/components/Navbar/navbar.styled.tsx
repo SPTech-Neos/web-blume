@@ -3,8 +3,15 @@ import { NavLink as RouterNavLink } from 'react-router-dom';
 
 export const NavContainer = styled.div`
     width: 100%;
-    height: 60px;
+    height: 80px;
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    backdrop-filter: blur( 8px );
+    -webkit-backdrop-filter: blur( 8px );
+    background: rgba( 255, 255, 255, 0.15 );
     /* background-color: red; */
 `;
 

@@ -12,27 +12,25 @@ const Tab: React.FC<SectionProps> = () => {
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
-        const myElement = document.getElementById(`${event.target.id}`);
+        const myElement = document.getElementById(`${(event.target as HTMLDivElement).id}`);
     
-        if(!elementsActive){
+        if (!elementsActive) {
             console.log("todo nao encontrada");
-        }else{
+        } else {
             console.log();
-            if(!myElement){
+            if (!myElement) {
                 console.log("div nao encontrada");
-            }else{
+            } else {
                 console.log(elementsActive);
-                for(let i = 0; i< elementsActive.length; i++){
-                    elementsActive[i].classList.remove('active');
+                for (let i = 0; i < elementsActive.length; i++) {
+                    (elementsActive[i] as HTMLDivElement).classList.remove('active');
                 }
-
-                
+    
                 myElement.classList.add('active');
             }
         }
-
-        setResult(event.target.id); 
-        //ID ESTA DANDO ERRO. RESOLVER!   
+    
+        setResult((event.target as HTMLDivElement).id);
     }
 
     return (

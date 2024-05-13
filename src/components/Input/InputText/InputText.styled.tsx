@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/Colors';
 
 // import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
 
@@ -20,11 +21,11 @@ export const InputText = styled.input
 ))<InputTextProps>`
 
     &::part(clear-button){
-        color: var(--color-violet-300);
+        color: ${c.violet300};
     }
     
     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
-        color: var(--color-gray-900);
+        color: ${c.gray900};
         // border: 3px solid black
         // font-weight: bold;
         // --size: 6rem;
@@ -34,8 +35,8 @@ export const InputText = styled.input
     z-index: 0;
 
     margin: 0;
-    background-color: var(--color-gray-100);
-    border: 3px solid var(--color-gray-900);
+    background-color: ${c.gray100};
+    border: 3px solid ${c.gray900};
     padding: 5px 25px;
     font-size: 16px;
     font-weight: regular;
@@ -44,15 +45,15 @@ export const InputText = styled.input
     width: 100%;
 
     &::placeholder {
-        color: var(--color-violet-500);
+        color: ${c.violet500};
     }
 
    &:hover, &:focus {
-      border: 3px solid var(--color-violet-300);
+      border: 3px solid ${c.violet300};
    }
 
    &::selection {
-        background-color: var(--color-violet-300);
+        background-color: ${c.violet300};
    }
 
 `;
@@ -69,7 +70,7 @@ export const InputText = styled.input
 // ))<InputTextProps>`
 
 //     &::part(clear-button){
-//         color: var(--color-violet-300);
+//         color: ${c.violet300};
 //     }
     
 //     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
@@ -97,11 +98,11 @@ export const InputText = styled.input
 //     }
 
 //    &:hover, &:focus {
-//       border: 3px solid var(--color-violet-300);
+//       border: 3px solid ${c.violet300};
 //    }
 
 //    &::selection {
-//         background-color: var(--color-violet-300);
+//         background-color: ${c.violet300};
 //    }
 
 // `;

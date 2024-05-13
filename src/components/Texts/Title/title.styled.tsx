@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { c } from "../../../styles/Colors";
+
 import { device } from "../../../styles/breakpoints.styled";
 
 import outlineSrc from "../../../assets/title-svg.svg";
@@ -26,21 +28,21 @@ const PrimarySizeVariants = {
 
 const themeVariants = {
   light: {
-    colorTheme: "var(--color-gray-100)",
+    colorTheme: c.gray100,
   },
   dark: {
-    colorTheme: "var(--color-gray-900)",
+    colorTheme: c.gray900,
   },
-  blue: {
-    colorTheme: "var(--color-blue-100)",
-  },
+  // blue: {
+  //   colorTheme: "var(--color-blue-100)",
+  // },
 };
 
 const getColor = (theme: string | undefined): string => {
-  if (theme === "light" || theme === "dark" || theme === "blue") {
+  if (theme === "light" || theme === "dark") {
     return themeVariants[theme].colorTheme;
   }
-  return "var(--color-gray-900)";
+  return c.gray900;
 };
 
 export const PrimaryTitle = styled.h1<TitleProps>`
@@ -101,7 +103,7 @@ const SecondarySizeVariants = {
 };
 
 export const SecondaryTitle = styled.h2<TitleProps>`
-  font-family: var(--font-text);
+  font-family: 'Poppins';
   font-size: ${(props) => SecondarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
   font-weight: bold;
@@ -127,7 +129,7 @@ export const SecondaryTitle = styled.h2<TitleProps>`
     width: 15%;
     max-width: 70px;
     height: 2px;
-    background-color: var(--color-violet-300);
+    background-color: ${c.violet300};
   }
 
   &::before {

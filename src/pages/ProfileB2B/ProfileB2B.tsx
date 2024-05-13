@@ -1,4 +1,5 @@
 import React from "react";
+import { colors as c } from '../../styles/Colors';
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
@@ -11,7 +12,7 @@ const ProfileB2B: React.FC = () => (
   <AuthContextProviderEmployee>
     <div id="profile-wrapper">
       <HeaderProfile />
-      <Sidebar color="var(--color-green-300)" tipoperfil="B2B" />{" "} {/*tipo perfil chumbado por enquanto */}
+      <Sidebar color={c.green300} tipoperfil="B2B" />{" "} {/*tipo perfil chumbado por enquanto */}
       <ProfileB2BSection />
     </div>
   </AuthContextProviderEmployee>

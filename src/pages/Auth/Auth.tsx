@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ChooseAuth from '../../sections/ChooseAuth/ChooseAuth';
 import Login from '../../sections/Auth/Login/Login';
 // import Signup from '../../sections/Signup/Signup';
-import { Colors } from '../../styles/Colors';
+import { c } from '../../styles/c';
 
 import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
@@ -16,7 +16,7 @@ const Auth: React.FC = () => {
   // Extract the mode query parameter (default to 'login')
   const mode = searchParams.get('mode') || 'login' || 'choose-auth';
 
-  const colorBg = Colors.gradientDefault;
+  const colorBg = c.gradientDefault;
 
   return (
     <>

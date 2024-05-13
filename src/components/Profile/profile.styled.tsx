@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import Container from '../Containers/Container/Container';
 
 import svg01 from '../.././assets/icon-profile.png';
@@ -56,7 +57,7 @@ export const TagsProfile = styled.div`
     width: 90px;
     height: 40px;
     border-radius: 20px;
-    background-color: var(--color-gray-200);
+    background-color: ${c.gray200};
     display: flex;
     justify-content: center;
     align-items: center;

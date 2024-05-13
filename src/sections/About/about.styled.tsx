@@ -1,6 +1,7 @@
 import styled, {keyframes} from 'styled-components';
 import Container from '../../components/Containers/Container/Container';
 import { device } from '../../styles/breakpoints.styled';
+import { colors as c } from '../../styles/Colors';
 
 
 const svgVariants = {
@@ -135,7 +136,7 @@ export const About = styled.section`
 
     & .primary-title { max-width: 300px;}
 
-    background-color: var(--color-gray-100);
+    background-color: ${c.gray100};
 
     @media ${device.tablet} {
         & h1 { text-align: center; }

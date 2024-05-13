@@ -1,4 +1,5 @@
 import styled, {keyframes} from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 
 import importedContainer from '../../components/Containers/Container/Container';
 import { device } from '../../styles/breakpoints.styled';
@@ -7,17 +8,17 @@ const lightAnimationCombined = keyframes`
     0% {
         top: 10%;
         height: 0;
-        background-color: var(--color-violet-100);
+        background-color: ${c.violet100};
     }
     50% {
         // top: 50%;
         height: 30%;
-        background-color: var(--color-violet-100);
+        background-color: ${c.violet100};
     }
     100% {
         top: 90%;
         height: 0;
-        background-color: var(--color-violet-100);
+        background-color: ${c.violet100};
     }
 `;
 
@@ -29,7 +30,7 @@ export const AboutApp = styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color-violet-900);
+    background-color: ${c.violet900};
 
     @media ${device.tablet} {
         max-height: 600px;
@@ -47,7 +48,7 @@ export const ContainerWrapper = styled(importedContainer)`
     //     top: 5%;
     //     width: 2px;
     //     height: 90%;
-    //     background-color: var(--color-violet-300);
+    //     background-color: ${c.violet300};
     // }
 
     &::before {
@@ -65,7 +66,7 @@ export const ContainerWrapper = styled(importedContainer)`
     //     top: 5%;
     //     width: 2px;
     //     height: 90%;
-    //     background-color: var(--color-violet-300);
+    //     background-color: ${c.violet300};
     // }
 
     &::before {

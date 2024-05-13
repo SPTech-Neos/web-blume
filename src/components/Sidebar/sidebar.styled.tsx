@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 
 import ImportedContainer from "../Containers/Container/Container";
@@ -27,7 +28,7 @@ export const SidebarWrapper = styled.div`
 
     
     & a {
-        color: var(--color-gray-900);
+        color: ${c.gray900};
         display: flex;
         justify-content: center;
         align-items: center;
@@ -41,8 +42,8 @@ export const SidebarWrapper = styled.div`
             width: 100%;
             height: 4px;
             border-radius: 4px;
-            color: var(--color-gray-900);
-            background-color: ${(props) => props.color || 'var(--color-violet-100)'};
+            color: ${c.gray900};
+            background-color: ${(props) => props.color || c.violet100};
             bottom: -10px;
             transform-origin: right;
             transform: scaleX(0);
@@ -55,7 +56,7 @@ export const SidebarWrapper = styled.div`
         }
 
         &.active-location {
-            color: ${(props) => props.color || 'var(--color-violet-100)'};
+            color: ${(props) => props.color || c.violet100};
         }
     }
 `;

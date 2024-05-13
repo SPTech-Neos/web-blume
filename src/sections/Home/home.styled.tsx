@@ -2,6 +2,8 @@ import styled, { keyframes } from "styled-components";
 
 import { device } from "../../styles/breakpoints.styled";
 
+import { colors as c } from '../../styles/Colors';;
+
 export interface Props {
   children: string | JSX.Element | JSX.Element[];
   className?: string;

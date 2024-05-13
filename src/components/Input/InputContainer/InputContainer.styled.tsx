@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/Colors';
 
 export interface InputContainerProps {
     children: string | JSX.Element | JSX.Element[];
@@ -9,11 +10,11 @@ export interface InputContainerProps {
 }
 
 export const InputContainer = styled.div`
-    background-color: var(--color-gray-100);
+    background-color: ${c.gray100};
     // margin: 25px 0;
     width: 100%;
     font-size: 14px;
     font-family: 'Josefin Sans', 'Arial';
-    color: var(--color-gray-900);
+    color: ${c.gray900};
 
 `;

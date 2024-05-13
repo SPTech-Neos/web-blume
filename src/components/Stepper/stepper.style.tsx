@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import { Colors } from "../../styles/Colors";
+import { colors as c } from '../../styles/Colors';;
 
 export interface StepperProps {
     steps: number,

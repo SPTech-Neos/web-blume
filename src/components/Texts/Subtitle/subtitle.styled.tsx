@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/c';
 import { device } from '../../../styles/breakpoints.styled';
 
 export interface SubtitleProps {
@@ -26,15 +27,15 @@ const sizeVariants = {
 
 const themeVariants = {
   light: {
-     color: 'var(--color-gray-100)',
+     color: c.gray100,
   },
   dark: {
-     color: 'var(--color-gray-900)',
+     color: c.gray900,
   }
 };
 
 export const PrimarySubtitle = styled.h2<SubtitleProps>`
-  font-family: var(--font-text);
+  font-family: 'Poppins';
   font-size: ${(props) => sizeVariants[props.size || 'md'].fontSize};
   color: ${(props)=> props.theme === 'light' ? themeVariants.light.color : themeVariants.dark.color };
   font-weight: ${(props) => props.weight != null ? props.weight : 400 };

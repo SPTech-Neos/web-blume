@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { PrimaryTitle } from "../../Texts/Title/title.styled";
+import { c } from "../../../styles/Colors";
 import { device } from "../../../styles/breakpoints.styled";
+import { PrimaryTitle } from "../../Texts/Title/title.styled";
 
 export interface Props {
   children: string | JSX.Element | JSX.Element[];
@@ -11,10 +12,10 @@ export const Card = styled.div`
   width: 75%;
   height: 80%;
   max-height: 350px;
-  background-color: var(--color-gray-100);
+  background-color: ${c.gray100};
   border: none;
   border-radius: 32px;
-  box-shadow: 2px 2px 50px -15px var(--color-gray-700);
+  box-shadow: 2px 2px 50px -15px ${c.gray700};
   display: flex;
   flex-direction: column;
   align-items: center;

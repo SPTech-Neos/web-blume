@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/Colors';
 
 export const EditModalContainer = styled.div`
     width: 120%;
@@ -42,7 +43,7 @@ export const ContainerAtencao = styled.div`
 export const TracoAtencao = styled.div`
     width: 30%;
     height: 2px;
-    background-color: var(--color-gray-900);
+    background-color: ${c.gray900};
     border-radius: 5px;
 `;
 

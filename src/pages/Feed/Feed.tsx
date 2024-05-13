@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
 
@@ -54,7 +55,7 @@ const Feed: React.FC<S.FeedProps> = () => {
 
   return (
     <S.Feed id="feed">
-      <Sidebar color="var(--color-violet-300)" tipoperfil="B2B"  /> {/*tipo perfil chumbado por enquanto */}
+      <Sidebar color={c.violet300} tipoperfil="B2B"  /> {/*tipo perfil chumbado por enquanto */}
 
       <S.Container direction="column">
         <S.Header>

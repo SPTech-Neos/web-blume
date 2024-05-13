@@ -4,7 +4,7 @@ import * as S from './mainCard.styled';
 const MainCard:React.FC<S.MainCardProps> = ({ children }) => 
 (
     <S.MainCard>
-       
+       { children }
     </S.MainCard>
 
 );

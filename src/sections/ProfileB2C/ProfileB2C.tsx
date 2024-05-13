@@ -32,7 +32,7 @@ const ProfileB2C: React.FC = () => {
 
             <S.ProfileContainer>
                 <h1>PERFIL</h1>
-                <Profile username={""}  />
+                <Profile username={"TESTE B2C"} />
             </S.ProfileContainer>
             <S.InfoContainer>
                 <S.Infos>

@@ -42,7 +42,12 @@ export class ClientAdapter {
             }, requestOptions);
 
             if (response.status === 200) {
-                return response.data as ClientResponseDto;
+                return {
+                    clientId: response.data.clientId,
+                    name: response.data.name,
+                    email: response.data.email,
+                    token: response.data.token
+                } as ClientResponseDto;
             } else {
                 return [{type: "error", message: "Erro durante execução do serviço"}];
             }

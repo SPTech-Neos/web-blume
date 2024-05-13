@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/Employee/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -41,7 +41,7 @@ export class EmployeeAdapter {
             console.log("ADAPTER: " + response.data.id);
     
             return {
-                idEmployee: response.data.id,
+                employeeId: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
                 establishment: response.data.establishment,

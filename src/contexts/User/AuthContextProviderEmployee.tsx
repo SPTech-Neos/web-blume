@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 
-import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/Employee/employee.types";
 import { EmployeeAdapter } from "../../adapters/User/Employee";
 
 interface AuthContextType {

@@ -5,3 +5,14 @@ export interface Establishment {
     name: string;
     local: Local;
 }
+
+export interface EstablishmentRequestDto {
+    name: string;
+    cnpj: string;
+    startShift: string;
+    endShift: string;
+    local: Local;
+    profilePic: string;
+    description: string;
+    fkServices: number[];
+}

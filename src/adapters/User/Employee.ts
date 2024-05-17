@@ -14,6 +14,8 @@ export class EmployeeAdapter {
         this.SpringSecurityPassword = environment.springSecurityPassword;
     }
 
+
+    // GET EMPLOYEE BY TOKEN
     async getEmployeeByToken(token: string): Promise<EmployeeResponseDto | null> {
         try {
             const response = await axios.get(`${this.apiUrl}/employee/${token}`);
@@ -24,6 +26,7 @@ export class EmployeeAdapter {
         }
     }
 
+    // LOGIN EMPLOYEE
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
         try {
             const { email, password } = employeeLoginDto;
@@ -53,6 +56,7 @@ export class EmployeeAdapter {
         }
     }
 
+    // UPDATE EMPLOYEE
     async updateEmployee(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
             const requestOptions = {

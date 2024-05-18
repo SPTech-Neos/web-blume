@@ -15,9 +15,14 @@ export class ClientAdapter {
     }
 
     // GET CLIENTE BY TOKEN
-    async getClientByToken(token: string): Promise<ClientResponseDto | null> {
+    async getClientByToken(token: string, jwtToken: string): Promise<ClientResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/client/${token}`);
+            const requestOptions = {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            };
+            const response = await axios.get(`${this.apiUrl}/client/${token}`, requestOptions);
             return response.data as ClientResponseDto;
         } catch (error) {
             console.error(error);
@@ -103,18 +108,18 @@ export class ClientAdapter {
     }
 
     // DELETE CLIENTE
-    async deleteClient(clientId: number): Promise<boolean> {
+    async deleteClient(clientId: number, jwtToken: string): Promise<boolean> {
         try {
             const requestOptions = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                    'Authorization': `Bearer ${jwtToken}`,
                     'Accept': '*/*'
                 }
             };
-    
+        
             const response = await axios.delete(`${this.apiUrl}/client/${clientId}`, requestOptions);
-    
+        
             return response.status === 200;
         } catch (error) {
             console.error(error);
@@ -123,12 +128,12 @@ export class ClientAdapter {
     }
 
     // UPDATE CLIENT
-    async updateEmployee(employeeId: number, updatedFields: Partial<ClientResponseDto>): Promise<ClientResponseDto | null> {
+    async updateEmployee(employeeId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                    'Authorization': `Bearer ${jwtToken}`,
                     'Accept': '*/*'
                 }
             };

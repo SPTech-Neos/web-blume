@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import Cookies from 'js-cookie';
 
-import { NavLink, NavLink as RouterNavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { EmployeeResponseDto } from "../../utils/employee.types";
+import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import * as S from './profileB2B.styled';
 import Profile from "../../components/Profile/Profile";
@@ -30,7 +30,6 @@ const ProfileB2B: React.FC = () => {
         editModal?.classList.add("active");
         console.log(editModal);
     };
-
 
     return (
         token ? (

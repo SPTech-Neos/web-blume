@@ -23,7 +23,7 @@ import InputText from "../../components/Input/InputText/InputText";
 import Modal from "../../components/Modals/FormModal/Modal";
 
 import { ClientLoginDto } from "../../utils/client.types";
-import { EmployeeLoginDto } from "../../utils/employee.types";
+import { EmployeeLoginDto } from "../../utils/Employee/employee.types";
 
 
 interface LoginFormProps {

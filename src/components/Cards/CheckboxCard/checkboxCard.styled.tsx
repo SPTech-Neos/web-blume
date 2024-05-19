@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { colors as c} from '../../../styles/Colors';
+import { colors as c } from '../../../styles/Colors';
+
 // import { device } from '../../../styles/breakpoints.styled';
 
 export interface CheckboxCardProps {

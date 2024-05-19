@@ -31,7 +31,7 @@ export class ClientAdapter {
     }
 
     // LOGIN CLIENTE
-    async login(clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> {
+    async login(clientLoginDto: ClientLoginDto): Promise<ClientResponseDto | null> {
         try {
             const { email, password } = clientLoginDto;
 
@@ -43,12 +43,9 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.post(`${this.apiUrl}/client/login`, {
-                email,
-                password
-            }, requestOptions);
+            const response = await axios.post(`${this.apiUrl}/client/login`, { email, password }, requestOptions);
 
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.clientId) {
                 return {
                     clientId: response.data.clientId,
                     name: response.data.name,
@@ -56,13 +53,15 @@ export class ClientAdapter {
                     token: response.data.token
                 } as ClientResponseDto;
             } else {
-                return [{type: "error", message: "Erro durante execução do serviço"}];
+                console.error("Erro durante execução do serviço", response.status, response.data);
+                return null;
             }
         } catch (error) {
             console.error(error);
             return null;
         }
     }
+
 
     // REGISTER CLIENTE
     async register(clientRequestDto: ClientRequestDto): Promise<object | ClientResponseDto | null> {
@@ -128,7 +127,7 @@ export class ClientAdapter {
     }
 
     // UPDATE CLIENT
-    async updateEmployee(employeeId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
+    async update(clientId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
@@ -138,7 +137,7 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/client/${clientId}`, updatedFields, requestOptions);
 
             return response.data as ClientResponseDto;
         } catch (error) {

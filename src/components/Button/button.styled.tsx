@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { c } from '../../styles/c';
+import { colors as c} from '../../styles/Colors';
 
 export interface PrimaryButtonProps {
       children: string;

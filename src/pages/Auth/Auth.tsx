@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ChooseAuth from '../../sections/ChooseAuth/ChooseAuth';
 import Login from '../../sections/Auth/Login/Login';
 // import Signup from '../../sections/Signup/Signup';
-import { c } from '../../styles/c';
+import { colors as c } from '../../styles/Colors';
 
 import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";

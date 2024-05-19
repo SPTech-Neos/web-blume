@@ -25,8 +25,6 @@ const Sidebar: React.FC = () => {
         theme = "client";
         handleLogout = handleLogoutClient;
     }
-
-
     
 
     const location = useLocation();
@@ -36,84 +34,88 @@ const Sidebar: React.FC = () => {
         
         console.log(location);
         console.log(iconeAtual);
-    
+        
         for(let i = 0; i < iconeAtual.length; i++){
             if(iconeAtual[i].pathname == location.pathname){
                 iconeAtual[i].classList.add('active-location');
                 console.log(iconeAtual[i].pathname);
                 console.log(location.pathname);
             }
+            console.log("HANDLE LOGOUT " + handleLogout);
+            console.log("THEME " + theme);
+            console.log(isAuthenticatedClient + "client")
+            console.log(isAuthenticatedEmployee + "employee")
         }
     })
-
+    
     return (
 
         <S.SidebarWrapper theme={theme}>
             <S.Container direction="column">
  
-                    <S.NavList>
-                        <S.NavItem>
-                            <S.NavLink  to= '/Feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <House size={24}/>
-                            </S.NavLink>
-                        </S.NavItem>
-                    </S.NavList>
+                <S.NavList>
+                    <S.NavItem>
+                        <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <House size={24}/>
+                        </S.NavLink>
+                    </S.NavItem>
+                </S.NavList>
 
-                    <S.NavList>
-                        <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                             {location.pathname === "/profileb2b"?(
-                                    <Article size={24} />
-                                ) :
-                                <MagnifyingGlass size={24}/>
-                             }
-                            </S.NavLink>
-                        </S.NavItem>
-                        <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                {location.pathname === "/profileb2b" ?(
-                                    <UserList size={24}/>
-                                ) :                            
-                                    <ShoppingCart size={24}/>
-                                }
-                            </S.NavLink>
-                        </S.NavItem>
-                        <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <Receipt size={24}/>
-                            </S.NavLink>
-                        </S.NavItem>
-                        {location.pathname === "/profileb2b"?(
-                                    <S.NavItem>
-                                    <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                        <Cube size={24}/>
-                                    </S.NavLink>
-                                    </S.NavItem>
-                                ) : null}
-                    </S.NavList>
+                <S.NavList>
+                    <S.NavItem>
+                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        {location.pathname == "/ProfileB2B"?(
+                                <Article size={24} />
+                            ) :
+                            <MagnifyingGlass size={24}/>
+                        }
+                        </S.NavLink>
+                    </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            {location.pathname == "/ProfileB2B"?(
+                                <UserList size={24}/>
+                            ) :                            
+                                <ShoppingCart size={24}/>
+                            }
+                        </S.NavLink>
+                    </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <Receipt size={24}/>
+                        </S.NavLink>
+                    </S.NavItem>
+                    {location.pathname == "/ProfileB2B"?(
+                                <S.NavItem>
+                                <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                    <Cube size={24}/>
+                                </S.NavLink>
+                                </S.NavItem>
+                            ) : null}
+                </S.NavList>
 
-                    <S.NavList>
-                        <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <Bell size={24}/>
-                            </S.NavLink>
-                        </S.NavItem>
-                        <S.NavItem>
-                            <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <GearSix size={24}/>
-                            </S.NavLink>
-                        </S.NavItem>
-                        <S.NavItem>
-                            <S.NavLink to={theme === 'client'? "/profileb2b" : "/profileb2c"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <UserCircle size={24}/>
-                            </S.NavLink>
-                        </S.NavItem>
-                        <S.NavItem>
-                            <S.NavLink to={"/"} className={({isActive})=>isActive? "nav-link active" : "nav-link"} onClick={() => handleLogout}>
-                                <SignOut size={24} />
-                            </S.NavLink>
-                        </S.NavItem>
-                    </S.NavList>
+                <S.NavList>
+                    <S.NavItem>
+                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <Bell size={24}/>
+                        </S.NavLink>
+                    </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <GearSix size={24}/>
+                        </S.NavLink>
+                    </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to={theme == 'Client'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            <UserCircle size={24}/>
+                        </S.NavLink>
+                    </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to={"/"} className={({isActive})=>isActive? "nav-link active" : "nav-link"} onClick={() => handleLogout()}>
+                            <SignOut size={24} />
+                        </S.NavLink>
+                    </S.NavItem>
+                </S.NavList>
 
             </S.Container>
         </S.SidebarWrapper>

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { c } from "../../../styles/Colors";
+import { colors as c } from "../../../styles/Colors";
 
 import { device } from "../../../styles/breakpoints.styled";
 

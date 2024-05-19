@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { colors as c } from '../../styles/Colors';
+// import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
 

@@ -60,7 +60,7 @@ export class EmployeeAdapter {
     }
 
     // UPDATE EMPLOYEE
-    async updateEmployee(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
+    async update(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
@@ -70,7 +70,7 @@ export class EmployeeAdapter {
                 }
             };
 
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/${employeeId}`, updatedFields, requestOptions);
 
             return response.data as EmployeeResponseDto;
         } catch (error) {

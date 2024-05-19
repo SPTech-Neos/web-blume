@@ -9,7 +9,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   handleLoginEmployee: (clientLoginDto: EmployeeLoginDto) => Promise<object | EmployeeResponseDto | null>;
   handleLogoutEmployee: () => void;
-  updateEmployeeData: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
+  handleUpdateEmployee: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
 }
 
 export const AuthContextEmployee = createContext<AuthContextType>({
@@ -17,7 +17,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
   isAuthenticated: false,
   handleLoginEmployee: async () => null,
   handleLogoutEmployee: () => {},
-  updateEmployeeData: async () => {}
+  handleUpdateEmployee: async () => {}
 });
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -58,7 +58,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
 
   const handleLogoutEmployee = () => {
-      Cookies.remove('employeeToken');
+      Cookies.remove('employeeInfo');
 
       setToken(null);
       setExpiresAt(0);
@@ -94,18 +94,18 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
   const isUserAuthenticated = () => expiresAt > Date.now();
 
-  const updateEmployeeData = async (updatedFields: Partial<EmployeeResponseDto>) => {
+  const handleUpdateEmployee = async (updatedFields: Partial<EmployeeResponseDto>) => {
     try {
-      const tokenFromCookie = Cookies.get('employeeToken');
+      const tokenFromCookie = Cookies.get('employeeInfo');
       const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-      if (token && token.idEmployee !== undefined) {
-        const updatedEmployee = await employeeAdapter.updateEmployee(token.idEmployee, updatedFields);
+      if (token && token.employeeId !== undefined) {
+        const updatedEmployee = await employeeAdapter.update(token.idEmployee, updatedFields);
 
         setToken(updatedEmployee);
   
         const updatedEmployeeToken = { ...token, ...updatedFields };
-        Cookies.set('employeeToken', JSON.stringify(updatedEmployeeToken), { expires: 7 });
+        Cookies.set('employeeInfo', JSON.stringify(updatedEmployeeToken), { expires: 7 });
       } else {
         console.error("ID do funcionário não encontrado no token.");
       }
@@ -121,7 +121,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       isAuthenticated,
       handleLoginEmployee,
       handleLogoutEmployee,
-      updateEmployeeData
+      handleUpdateEmployee
   };
 
   return (

@@ -9,6 +9,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   handleLoginClient: (clientLoginDto: ClientLoginDto) => Promise<object | ClientResponseDto | null>;
   handleLogoutClient: () => void;
+  handleUpdateClient: (updatedFields: Partial<ClientResponseDto>) => Promise<void>;
 }
 
 export const AuthContextClient = createContext<AuthContextType>({
@@ -16,6 +17,7 @@ export const AuthContextClient = createContext<AuthContextType>({
   isAuthenticated: false,
   handleLoginClient: async () => null,
   handleLogoutClient: () => {},
+  handleUpdateClient: async () => {},
 });
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -89,11 +91,39 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
   const isUserAuthenticated = () => expiresAt > Date.now();
 
+  const handleUpdateClient = async (updatedFields: Partial<ClientResponseDto>) => {
+    try {
+        const tokenFromCookie = Cookies.get('clientInfo');
+        const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+        if (token && token.clientId !== undefined) {
+            const updatedClient = await clientAdapter.update(token.clientId, updatedFields, token.token);
+
+            if (updatedClient) {
+                setToken(updatedClient);
+
+                const updatedClientToken = { ...token, ...updatedFields };
+                Cookies.set('clientInfo', JSON.stringify(updatedClientToken), { expires: 7 });
+            } else {
+                console.error("Atualização do cliente falhou: resposta do servidor é nula.");
+            }
+        } else {
+            console.error("ID do Client não encontrado no token.");
+        }
+        } catch (error) {
+            console.error("Erro ao atualizar os dados do cliente:", error);
+            throw error;
+        }
+    };
+
+
+
   const contextValue = {
       token,
       isAuthenticated,
       handleLoginClient,
       handleLogoutClient,
+      handleUpdateClient,
   };
 
   return (

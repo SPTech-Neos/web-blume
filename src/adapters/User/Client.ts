@@ -127,7 +127,7 @@ export class ClientAdapter {
     }
 
     // UPDATE CLIENT
-    async updateEmployee(employeeId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
+    async update(clientId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
@@ -137,7 +137,7 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/${clientId}`, updatedFields, requestOptions);
 
             return response.data as ClientResponseDto;
         } catch (error) {

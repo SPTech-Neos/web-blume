@@ -106,7 +106,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                     
                     setType("success");
                     setMessage("Login efetuado com sucesso!");
-                    setLinkTo("/profileB2B")
+                    setLinkTo("/profileb2b")
                     setOpen(true);
                 }
             } else {

@@ -19,8 +19,8 @@ const App: React.FC = () => (
       <Route path='/test' element={<Test />} />
       <Route path='/auth' element={<Auth />} />
       <Route path='/feed' element={<Feed />} />
-      <Route path='/profileB2B' element={<ProfileB2B />} />
-      <Route path='/profileB2C' element={<ProfileB2C />} />
+      <Route path='/profileb2b' element={<ProfileB2B />} />
+      <Route path='/profileb2c' element={<ProfileB2C />} />
     </Routes>
   </BrowserRouter>
 )

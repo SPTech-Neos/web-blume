@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { colors as c } from '../../styles/Colors';
+// import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
+
+import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import FeedSection from "../../sections/Feed/Feed";
 import Searchbar from "../../components/Searchbar/Searchbar";
@@ -55,8 +58,12 @@ const Feed: React.FC<S.FeedProps> = () => {
 
   return (
     <S.Feed id="feed">
-      <Sidebar color={c.violet300} tipoperfil="B2B"  /> {/*tipo perfil chumbado por enquanto */}
-
+      <AuthContextProviderClient>
+        <AuthContextProviderEmployee>
+          <Sidebar /> 
+        </AuthContextProviderEmployee>
+      </AuthContextProviderClient>
+        
       <S.Container direction="column">
         <S.Header>
           <S.LogoWrapper>

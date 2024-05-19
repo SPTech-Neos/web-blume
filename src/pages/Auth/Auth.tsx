@@ -18,6 +18,8 @@ const Auth: React.FC = () => {
 
   const colorBg = c.gradientDefault;
 
+  
+
   return (
     <>
       {mode === 'login' && <Login imgUrl={'/happy-woman.svg'} bgColor={colorBg} imgAlt={'Login'}></Login>}

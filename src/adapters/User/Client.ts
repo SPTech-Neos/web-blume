@@ -137,7 +137,7 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.patch(`${this.apiUrl}/${clientId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/client/${clientId}`, updatedFields, requestOptions);
 
             return response.data as ClientResponseDto;
         } catch (error) {

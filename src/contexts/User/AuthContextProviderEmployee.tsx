@@ -22,16 +22,12 @@ export const AuthContextEmployee = createContext<AuthContextType>({
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
   const [token, setToken] = useState<EmployeeResponseDto | null>(null);
-  const [expiresAt, setExpiresAt] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const employeeAdapter = new EmployeeAdapter();
 
   useEffect(() => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-          renewSession();
-      }
+    renewSession();
   });
 
   const handleLoginEmployee = async (clientLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
@@ -42,7 +38,6 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
         if (token !== null && 'employeeId' in token) {
             setToken(token);
             setIsAuthenticated(true);
-            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
             Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
 
             return token as EmployeeResponseDto;
@@ -61,38 +56,32 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       Cookies.remove('employeeInfo');
 
       setToken(null);
-      setExpiresAt(0);
       setIsAuthenticated(false);
-
-      localStorage.removeItem("isLoggedIn");
   };
 
   const renewSession = async () => {
-      try {
-          const tokenString = Cookies.get('employeeInfo');
+    try {
+        const tokenString = Cookies.get('employeeInfo');
 
-          if (isUserAuthenticated() || !tokenString) {
-              handleLogoutEmployee();
-              return;
-          }
-
-          const token = JSON.parse(tokenString);
-          const employee = await employeeAdapter.getEmployeeByToken(token);
-
-          if (employee) {
-              setToken(token);
-              setIsAuthenticated(true);
-              setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-          } else {
+        if (!tokenString) {
             handleLogoutEmployee();
-          }
-      } catch (error) {
-          console.error("Erro ao renovar sessão:", error);
-          handleLogoutEmployee();
-      }
-  };
+            return;
+        }
 
-  const isUserAuthenticated = () => expiresAt > Date.now();
+        const token = JSON.parse(tokenString);
+        const employee = await employeeAdapter.getEmployeeByToken(token.employeeId);
+
+        if (employee) {
+            setToken(token);
+            setIsAuthenticated(true);
+        } else {
+            handleLogoutEmployee();
+        }
+    } catch (error) {
+        console.error("Erro ao renovar sessão:", error);
+        handleLogoutEmployee();
+    }
+  };
 
   const handleUpdateEmployee = async (updatedFields: Partial<EmployeeResponseDto>) => {
     try {

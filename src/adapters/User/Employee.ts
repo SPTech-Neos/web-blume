@@ -70,7 +70,7 @@ export class EmployeeAdapter {
                 }
             };
 
-            const response = await axios.patch(`${this.apiUrl}/${employeeId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
 
             return response.data as EmployeeResponseDto;
         } catch (error) {

@@ -14,7 +14,7 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import { colors as c } from '../../styles/Colors';
 
 const ProfileB2B: React.FC = () => {
-    const { handleLogoutEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated,handleLogoutEmployee } = useContext(AuthContextEmployee);
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
@@ -22,8 +22,9 @@ const ProfileB2B: React.FC = () => {
     useEffect(() => {
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticated);
         }
-    }, [tokenFromCookie]);
+    }, [tokenFromCookie, isAuthenticated]);
 
     const showModal = () => {
         const editModal = document.getElementById("editModal");

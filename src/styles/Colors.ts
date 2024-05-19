@@ -63,14 +63,14 @@ export const colors = {
 export const Themes = {
     client: {
         active: false,
-        mainColor: Colors.violet100,
-        secondaryColor: Colors.violet500,
-        bgColor: Colors.gray100
+        mainColor: colors.violet100,
+        secondaryColor: colors.violet500,
+        bgColor: colors.gray100
     }, 
     establishment: {
         active: false,
-        mainColor: Colors.green300,
-        secondaryColor: Colors.green500,
-        bgColor: Colors.green100
+        mainColor: colors.green300,
+        secondaryColor: colors.green500,
+        bgColor: colors.green100
     }   
 }

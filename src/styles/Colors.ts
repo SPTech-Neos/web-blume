@@ -24,3 +24,18 @@ export const Colors = {
 
     gradientDefault: 'linear-gradient(135deg, #96FFA0, #969AFF)',
 }
+
+export const Themes = {
+    client: {
+        active: false,
+        mainColor: Colors.violet100,
+        secondaryColor: Colors.violet500,
+        bgColor: Colors.gray100
+    }, 
+    establishment: {
+        active: false,
+        mainColor: Colors.green300,
+        secondaryColor: Colors.green500,
+        bgColor: Colors.green100
+    }   
+}

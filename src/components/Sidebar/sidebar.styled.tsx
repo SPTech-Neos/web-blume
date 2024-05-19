@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import { Themes } from '../../styles/Colors';
 
 import ImportedContainer from "../Containers/Container/Container";
 
 export interface sidebarProps {
-    color: string;
-    tipoperfil: 'B2B' | 'B2C';
+    theme: "client" | "establishment" | string;
 }
 
-export const SidebarWrapper = styled.div`
+function getTheme(theme: string) {
+    return theme === "client"? Themes.client : Themes.establishment;
+}
+
+export const SidebarWrapper = styled.div<sidebarProps>`
     width: 80px;
     height: 100vh;
 
@@ -42,7 +46,7 @@ export const SidebarWrapper = styled.div`
             height: 4px;
             border-radius: 4px;
             color: var(--color-gray-900);
-            background-color: ${(props) => props.color || 'var(--color-violet-100)'};
+            background-color: ${(props) => getTheme(props.theme).mainColor};
             bottom: -10px;
             transform-origin: right;
             transform: scaleX(0);
@@ -55,7 +59,7 @@ export const SidebarWrapper = styled.div`
         }
 
         &.active-location {
-            color: ${(props) => props.color || 'var(--color-violet-100)'};
+            color: ${(props) => getTheme(props.theme).mainColor};
         }
     }
 `;

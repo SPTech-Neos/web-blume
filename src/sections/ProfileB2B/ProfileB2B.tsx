@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Cookies from 'js-cookie';
 
-import { NavLink, NavLink as RouterNavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { EmployeeResponseDto } from "../../utils/employee.types";
@@ -15,7 +15,7 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 const ProfileB2B: React.FC = () => {
     const { handleLogoutEmployee } = useContext(AuthContextEmployee);
 
-    const tokenFromCookie = Cookies.get('employeeToken');
+    const tokenFromCookie = Cookies.get('employeeToken'); 
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     useEffect(() => {

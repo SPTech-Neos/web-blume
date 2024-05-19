@@ -26,7 +26,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
   const clientAdapter = new ClientAdapter();
 
   useEffect(() => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const isLoggedIn = Cookies.get("isLoggedIn") === "true";
       if (isLoggedIn) {
           renewSession();
       }

@@ -4,13 +4,14 @@ import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
 
 // import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { EmployeeResponseDto } from "../../utils/employee.types";
+import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import * as S from './profileB2B.styled';
 import Profile from "../../components/Profile/Profile";
 import Tab from "../../components/Tab/Tab";
 import EditModal from "../Modals/EditModal/EditModal";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
+import { colors as c } from '../../styles/Colors';
 
 const ProfileB2B: React.FC = () => {
     const { handleLogoutEmployee } = useContext(AuthContextEmployee);
@@ -30,7 +31,6 @@ const ProfileB2B: React.FC = () => {
         console.log(editModal);
     };
 
-
     return (
         token ? (
             <S.ProfileB2BSection>
@@ -49,12 +49,12 @@ const ProfileB2B: React.FC = () => {
                             <S.TracoAtencao />
                         </S.ContainerTitle>
                         <S.ContainerAtencaoButtons>
-                                <NavLink to={"/"} color="var(--color-gray-100)">
-                                    <S.ButtonDelete width="180px" color="var(--color-status-error)" onClick={() => handleLogoutEmployee()}>
+                                <NavLink to={"/"} color={c.gray100}>
+                                    <S.ButtonDelete width="180px" color={c.error} onClick={() => handleLogoutEmployee()}>
                                             Excluir
                                     </S.ButtonDelete>
                                 </NavLink>
-                            <S.ButtonUpdate width="180px" color="var(--color-status-warning)" onClick={showModal}>
+                            <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
                                 Editar
                             </S.ButtonUpdate>
                         </S.ContainerAtencaoButtons>

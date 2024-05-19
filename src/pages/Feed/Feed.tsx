@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
 
@@ -13,6 +14,7 @@ import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
 import { Salon } from "../../utils/salon.types";
 import { useLocation } from "react-router-dom";
+import Link from "../../components/Texts/Link/Link";
 
 const Feed: React.FC<S.FeedProps> = () => {
   const location = useLocation();
@@ -68,7 +70,9 @@ const Feed: React.FC<S.FeedProps> = () => {
             <Logo />
           </S.LogoWrapper>
 
-          {/* <S.PrimaryButton width="180px">Entrar</S.PrimaryButton> */}
+          <Link href="/auth?mode=login">
+                        <S.PrimaryButton width="180px" size="md">Entrar</S.PrimaryButton>
+                    </Link>
         </S.Header>
 
         <>

@@ -1,6 +1,6 @@
 // TO REDO
 import styled from 'styled-components';
-import { Colors } from '../../../styles/Colors';
+import { c } from '../../../styles/c';
 
 export interface ColorContainerProps {
   children: string | JSX.Element | JSX.Element[];
@@ -9,7 +9,7 @@ export interface ColorContainerProps {
 
 export const ColorContainer = styled.main<ColorContainerProps>`
 
-  background: ${props => props.bgColor || Colors.gray100};
+  background: ${props => props.bgColor || c.gray100};
   width: 100%;
   height: 100vh;
 

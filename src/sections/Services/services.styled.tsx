@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import Container from '../../components/Containers/Container/Container';
 
 export const Services = styled.section`
@@ -9,7 +10,7 @@ export const Services = styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color-gray-100);
+    background-color: ${c.gray100};
 `;
 
 export const ServiceContainer = styled(Container)`
@@ -28,18 +29,18 @@ export const ServiceOption = styled.div`
     padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
-    color: var(--color-gray-500);
-    border-bottom: 2px solid var(--color-gray-500);
+    color: ${c.gray500};
+    border-bottom: 2px solid ${c.gray500};
     font-family: "Josefin sans";
     font-size: 18px;
 
     & .local-option{
-        color: var(--color-gray-200);
+        color: ${c.gray200};
     }
     
     &:hover span{
         font-weight: bold;
-        color: var(--color-gray-900);
+        color: ${c.gray900};
     }
 
 

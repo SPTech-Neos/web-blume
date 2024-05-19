@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { c } from '../../../styles/Colors';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Link } from "react-router-dom";
@@ -49,7 +50,7 @@ export const ModalOverlay = styled(Dialog.Overlay)`
   justify-content: center;
   align-items: center;
 
-  background-color: var(--color-gray-900);
+  background-color: ${c.gray900};
   animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0.5;
 `;
@@ -108,5 +109,5 @@ export const DialogLink = styled(Link)<ModalButtonProps>`
   font-size: 32px;
   font-weight: bolder;
   
-  color: ${(props) => props.type == "success" ? "var(--color-status-success)" : "var(--color-status-error)"}
+  color: ${(props) => props.type == "success" ? c.success : c.error}
 `;

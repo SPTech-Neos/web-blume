@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/c';
 
 import ImportedContainer from '../../Containers/Container/Container';
 
@@ -12,7 +13,7 @@ export const CardWrapper = styled.h1<CardProps>`
 
     display: flex;
     justify-content: center;
-    background-color: var(--color-orange-100);
+    background-color: ${c.orange};
 
     border-radius: 16px;
 

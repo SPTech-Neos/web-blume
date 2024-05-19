@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { c } from '../../../styles/c';
 
 export interface FloatButtonProps {
     children: string | JSX.Element | JSX.Element[] | Element | Element[]
@@ -12,7 +13,7 @@ export const FloatButton = styled.div<FloatButtonProps>`
     font-family: 'Poppins';
     font-size: 20px;
     font-weight: 600;
-    color: var(--color-violet-900);
+    color: ${c.violet900};
     cursor: pointer;
     display: flex;
     align-items: center;

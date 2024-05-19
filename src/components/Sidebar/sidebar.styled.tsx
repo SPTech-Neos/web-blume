@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Themes } from '../../styles/Colors';
 
@@ -31,7 +32,7 @@ export const SidebarWrapper = styled.div<sidebarProps>`
 
     
     & a {
-        color: var(--color-gray-900);
+        color: ${c.gray900};
         display: flex;
         justify-content: center;
         align-items: center;

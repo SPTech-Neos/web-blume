@@ -1,4 +1,5 @@
 import React from "react";
+import { colors as c } from '../../styles/Colors';
 
 import * as S from './profileB2C.styled';
 
@@ -71,11 +72,11 @@ const ProfileB2C: React.FC = () => {
                     </S.ContainerTitle>
                     <S.ContainerAtencaoButtons>
 
-                        <S.ButtonDelete width="180px" color="var(--color-status-error)" onClick={handleDelete}>
+                        <S.ButtonDelete width="180px" color={c.error} onClick={handleDelete}>
                             Excluir
                         </S.ButtonDelete>
 
-                        <S.ButtonUpdate width="180px" color="var(--color-status-warning)" onClick={showModal}>
+                        <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
                             Editar
                         </S.ButtonUpdate>   
 

@@ -1,5 +1,6 @@
 // TO REDO
 import styled from 'styled-components';
+import { c } from '../../../styles/Colors';
 
 export interface LoginProps {
     imgUrl: string;
@@ -11,7 +12,7 @@ export interface LoginProps {
 export const Login = styled.main<LoginProps>`
     height: 100vh;
     width: 100%;
-    background-color: var(--color-gray-100);
+    background-color: ${c.gray100};
     display: flex;
     // align-items: center;
     // justify-content: center;

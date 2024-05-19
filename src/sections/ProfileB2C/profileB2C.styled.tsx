@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 
 import Container from '../../components/Containers/Container/Container';
 import { WarningButton } from '../../components/Buttons/DefaultButton/DefaultButton';
@@ -69,7 +70,7 @@ export const Infos = styled.div`
 
 export const LabelInfo = styled.span`
     font-size: 12px;
-    color: var(--color-violet-800);
+    color: ${c.violet800};
 `;
 
 export const TextInfo = styled.span`
@@ -97,7 +98,7 @@ export const ContainerAtencao = styled.div`
 export const TracoAtencao = styled.div`
     width: 30%;
     height: 2px;
-    background-color: var(--color-gray-900);
+    background-color: ${c.gray900};
     border-radius: 5px;
 `;
 

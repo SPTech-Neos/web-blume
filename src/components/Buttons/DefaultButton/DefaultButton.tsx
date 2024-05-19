@@ -19,8 +19,6 @@ export const WarningButton: React.FC<S.PrimaryButtonProps> = ({ onClick, color, 
     );
 }
 
-
-
 export const MoveButton: React.FC<S.MoveButtonProps> = ({ moveTo, children }) => {
     return (
         <S.MoveButton href={moveTo}>

@@ -14,7 +14,7 @@ import * as S from './loginForm.styled';
 import Link from "../../components/Texts/Link/Link";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
-import { PrimaryButton } from "../../components/Button/Button";
+import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
 
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
@@ -137,9 +137,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
         <>
             <S.InputWrapper>
-                <InputContainer label="E-mail" type="email" placeholder="email@exemplo.com">
-                    <InputText type="email" value={email} onChange={handleEmailChange} />
-                </InputContainer>
+                <InputText label="E-mail" type="email" value={email} onChange={handleEmailChange} />
 
                 {errors.length > 0 && (
                     <>
@@ -152,9 +150,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             </S.InputWrapper>
 
             <S.InputWrapper>
-                <InputContainer label="Senha" type="password" placeholder="Bananinha123">
-                    <InputText type="password" value={password} onChange={handlePasswordChange} />
-                </InputContainer>
+                <InputText label="Senha" type="password" value={password} onChange={handlePasswordChange} />
 
                 {errors.length > 0 && (
                     <>
@@ -166,12 +162,14 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             </S.InputWrapper>
         </>
 
-        <div className="row">
-            <Checkbox label="Lembrar de mim" />
-            <Link size="sm" font="Poppins" href="google.com">
-            Esqueci minha senha...
-            </Link>
-        </div>
+        <S.InputWrapper> 
+            <div className="row">
+                <Checkbox label="Lembrar de mim" />
+                <Link size="sm" font="Poppins" href="google.com">
+                Esqueci minha senha...
+                </Link>
+            </div>
+        </S.InputWrapper>
 
         <PrimaryButton size="lg" width="200px" type="submit">
             ENTRAR

@@ -1,61 +1,81 @@
-import styled from 'styled-components';
-import { colors as c } from '../../../styles/Colors';
-
-// import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
+import styled from "styled-components";
+import { colors as c } from "../../../styles/Colors";
 
 export interface InputTextProps {
-    type?: "text" | "password" | "email" | string;
-    placeholder?: string;
-    value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: "text" | "password" | "email" | string;
+  placeholder?: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  size?: "full" | "big" | "small" | "half";
+  label: string;
+  // children: string | JSX.Element | JSX.Element[];
 }
 
-export const InputText = styled.input
-    .attrs((props => ({
-        type: props.type || 'text',
-        placeholder: props.placeholder || 'Digite aqui...',
-        required: props.required || false,
-        passwordToggle: props.type == 'password' ? true : false,
+export interface InputContainerProps {
+  size?: "full" | "big" | "small" | "half";
+}
 
-    })
-))<InputTextProps>`
+const SizeVariants = {
+  full: {
+    width: "100%",
+  },
+  big: {
+    width: "80%",
+  },
+  half: {
+    width: "45%",
+  },
+  small: {
+    width: "15%",
+  },
+};
 
-    &::part(clear-button){
-        color: ${c.violet300};
-    }
-    
-    &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
-        color: ${c.gray900};
-        // border: 3px solid black
-        // font-weight: bold;
-        // --size: 6rem;
-    }
+export const InputContainer = styled.div<InputContainerProps>`
+  background-color: ${c.gray100};
+  // margin: 25px 0;
+  width: ${(props) => SizeVariants[props.size || "full"].width};
 
-    position: relative;
-    z-index: 0;
+  color: ${c.gray900};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
-    margin: 0;
-    background-color: ${c.gray100};
-    border: 3px solid ${c.gray900};
-    padding: 5px 25px;
-    font-size: 16px;
-    font-weight: regular;
-    font-family: 'Poppins', 'Arial';
-    transition: all .2s ease-in;
-    width: 100%;
+export const InputText = styled.input.attrs((props) => ({
+  type: props.type || "text",
+  placeholder: props.placeholder || "Digite aqui...",
+  required: props.required || false,
+}))<InputTextProps>`
+  position: relative;
+  z-index: 0;
 
-    &::placeholder {
-        color: ${c.violet500};
-    }
+  font-size: 14px;
+  font-family: "Josefin Sans", "Arial";
 
-   &:hover, &:focus {
-      border: 3px solid ${c.violet300};
-   }
+  margin: 0;
+  background-color: ${c.gray100};
+  border: 3px solid ${c.gray900};
+  padding: 5px 25px;
+  font-size: 16px;
+  font-weight: regular;
+  font-family: "Poppins", "Arial";
+  transition: all 0.2s ease-in;
 
-   &::selection {
-        background-color: ${c.violet300};
-   }
+  width: 100%;
 
+  &::placeholder {
+    color: ${c.gray500};
+  }
+
+  &:hover,
+  &:focus {
+    border: 3px solid ${c.violet300};
+    outline: none;
+  }
+
+  &::selection {
+    background-color: ${c.violet300};
+  }
 `;
 
 // export const InputText = styled(SlInput)
@@ -72,7 +92,7 @@ export const InputText = styled.input
 //     &::part(clear-button){
 //         color: ${c.violet300};
 //     }
-    
+
 //     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
 //         color: var(--color-gray-900);
 //         // border: 3px solid black

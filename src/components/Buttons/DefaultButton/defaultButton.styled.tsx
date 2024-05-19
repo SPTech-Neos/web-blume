@@ -6,6 +6,7 @@ export interface PrimaryButtonProps {
       size?: 'sm' | 'md' | 'lg';
       width?: string;
       color?: string;
+      type?: string;
       onClick?: (email: string, password: string) => void;
 }
 

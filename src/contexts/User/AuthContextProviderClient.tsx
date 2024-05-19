@@ -32,22 +32,25 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       }
   });
 
-  const handleLoginClient = async (clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> =>{
+  const handleLoginClient = async (clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> => {
     try {
-      const { email, password } = clientLoginDto;
-      const token = await clientAdapter.login({ email, password});
-      
-      if (token) {
-        setToken(token);
-        setIsAuthenticated(true);
-        setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-        Cookies.set('clientInfo', JSON.stringify(token), { expires: 7 });
-      }
+        const { email, password } = clientLoginDto;
+        const token = await clientAdapter.login({ email, password });
 
-      return token;
+        if (token !== null && 'clientId' in token) {
+            setToken(token);
+            setIsAuthenticated(true);
+            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
+            Cookies.set('clientInfo', JSON.stringify(token), { expires: 7 });
+
+            return token as ClientResponseDto;
+        } else {
+            console.error("Login falhou: Token de autenticação é inválido ou nulo.");
+            return null;
+        }
     } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      throw error;
+        console.error("Erro ao fazer login:", error);
+        throw error;
     }
   };
 
@@ -69,7 +72,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
           }
 
           const token = JSON.parse(tokenString);
-          const client = await clientAdapter.getClientByToken(token);
+          const client = await clientAdapter.getClientByToken(token, token.token);
 
           if (client) {
               setToken(token);

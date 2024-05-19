@@ -7,7 +7,7 @@ import { EmployeeAdapter } from "../../adapters/User/Employee";
 interface AuthContextType {
   token: EmployeeResponseDto | null;
   isAuthenticated: boolean;
-  handleLoginEmployee: (employeeLoginDto: EmployeeLoginDto) => Promise<EmployeeResponseDto | null>;
+  handleLoginEmployee: (clientLoginDto: EmployeeLoginDto) => Promise<object | EmployeeResponseDto | null>;
   handleLogoutEmployee: () => void;
   updateEmployeeData: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
 }
@@ -34,23 +34,20 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       }
   });
 
-  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> => {
+  const handleLoginEmployee = async (clientLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {
-        const { email, password } = employeeLoginDto;
+        const { email, password } = clientLoginDto;
         const token = await employeeAdapter.login({ email, password });
 
-        if (token !== null) {
-            console.log("AUTHCONTEXT: " + token.idEmployee);
-
+        if (token !== null && 'employeeId' in token) {
             setToken(token);
             setIsAuthenticated(true);
-            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-            Cookies.set('employeeToken', JSON.stringify(token), { expires: 7 });
+            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
+            Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
 
             return token as EmployeeResponseDto;
         } else {
-            console.error("Token de autenticação é nulo.");
+            console.error("Login falhou: Token de autenticação é inválido ou nulo.");
             return null;
         }
     } catch (error) {

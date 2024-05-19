@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { c } from '../../../styles/Colors';
+import { colors as c } from '../../../styles/Colors';
 
 // import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
 

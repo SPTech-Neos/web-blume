@@ -30,7 +30,7 @@ export class EmployeeAdapter {
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
         try {
             const { email, password } = employeeLoginDto;
-    
+
             const requestOptions = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,18 +38,21 @@ export class EmployeeAdapter {
                     'Accept': '*/*'
                 }
             };
-    
+
             const response = await axios.post(`${this.apiUrl}/employee/login`, { email, password }, requestOptions);
-            
-            console.log("ADAPTER: " + response.data.id);
-    
-            return {
-                employeeId: response.data.id,
-                name: response.data.name,
-                email: response.data.email,
-                establishment: response.data.establishment,
-                employeeType: response.data.employeeType
-            } as EmployeeResponseDto;
+
+            if (response.status === 200 && response.data.id) {
+                return {
+                    employeeId: response.data.id,
+                    name: response.data.name,
+                    email: response.data.email,
+                    establishment: response.data.establishment,
+                    employeeType: response.data.employeeType
+                } as EmployeeResponseDto;
+            } else {
+                console.error("Erro durante execução do serviço", response.status, response.data);
+                return null;
+            }
         } catch (error) {
             console.error(error);
             return null;

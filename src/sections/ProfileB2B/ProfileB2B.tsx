@@ -16,7 +16,7 @@ import { colors as c } from '../../styles/Colors';
 const ProfileB2B: React.FC = () => {
     const { handleLogoutEmployee } = useContext(AuthContextEmployee);
 
-    const tokenFromCookie = Cookies.get('employeeToken');
+    const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     useEffect(() => {

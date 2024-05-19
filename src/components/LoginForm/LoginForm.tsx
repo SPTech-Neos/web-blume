@@ -83,7 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             const clientToken = await handleLoginClient(clientLoginDto);
             const employeeToken = await handleLoginEmployee(employeeLoginDto);
 
-            if (clientToken || typeof employeeToken !== 'undefined') {
+            if (clientToken || employeeToken) {
                 console.log('Login bem-sucedido!');
 
                 setType("success");
@@ -91,33 +91,27 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                 setLinkTo("/auth?mode=choose-auth")
                 setOpen(true);
 
-                if (clientToken && typeof employeeToken !== 'undefined') {
-                    console.log('Login bem-sucedido!');
-                    console.log('DADOS EMPLOYEE' + employeeToken?.idEmployee);
-
+                if (clientToken && employeeToken) {
                     setType("success");
                     setMessage("Login efetuado com sucesso!");
                     setLinkTo("/auth?mode=choose-auth")
                     setOpen(true);
                 } else if (clientToken) {
-                    console.log('Login bem-sucedido como cliente!');
                     
                     setType("success");
                     setMessage("Login efetuado com sucesso!");
                     setLinkTo("/feed")
                     setOpen(true);
-                } else if (typeof employeeToken !== 'undefined') {
-                    console.log('Login bem-sucedido como funcionário!');
-                    console.log('DADOS EMPLOYEE' + employeeToken?.idEmployee);
+                } else if (employeeToken) {
                     
                     setType("success");
                     setMessage("Login efetuado com sucesso!");
                     setLinkTo("/profileB2B")
                     setOpen(true);
-                } else {
-                    newErrors.push({ account: 'Credenciais inválidas' });
-                    setErrors(newErrors);
                 }
+            } else {
+                newErrors.push({ account: 'Credenciais inválidas' });
+                setErrors(newErrors);
             }
         } catch (error) {
             setType("error");

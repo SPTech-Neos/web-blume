@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { c } from '../../styles/c';
+import { colors as c } from '../../styles/Colors';
 import * as Checkbox from '@radix-ui/react-checkbox';
 
 export interface CheckboxProps {

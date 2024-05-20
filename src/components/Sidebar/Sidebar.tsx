@@ -32,16 +32,12 @@ const Sidebar: React.FC = () => {
     const iconeAtual = document.getElementsByTagName("a");
     useEffect(() =>{
         
-        console.log(location);
-        console.log(iconeAtual);
-        
         for(let i = 0; i < iconeAtual.length; i++){
             if(iconeAtual[i].pathname == location.pathname){
                 iconeAtual[i].classList.add('active-location');
                 console.log(iconeAtual[i].pathname);
                 console.log(location.pathname);
             }
-            console.log("HANDLE LOGOUT " + handleLogout);
             console.log("THEME " + theme);
             console.log(isAuthenticatedClient + "client")
             console.log(isAuthenticatedEmployee + "employee")
@@ -85,7 +81,7 @@ const Sidebar: React.FC = () => {
                             <Receipt size={24}/>
                         </S.NavLink>
                     </S.NavItem>
-                    {location.pathname == "/ProfileB2B"?(
+                    {location.pathname === "/ProfileB2B"?(
                                 <S.NavItem>
                                 <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
@@ -106,7 +102,7 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to={theme == 'Client'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to={theme === 'establishment'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                             <UserCircle size={24}/>
                         </S.NavLink>
                     </S.NavItem>

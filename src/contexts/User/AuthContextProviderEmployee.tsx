@@ -26,9 +26,9 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
 
   const employeeAdapter = new EmployeeAdapter();
 
-  useEffect(() => {
-    renewSession();
-  });
+    useEffect(() => {
+      renewSession();
+    });
 
   const handleLoginEmployee = async (clientLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {

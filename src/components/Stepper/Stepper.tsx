@@ -2,37 +2,34 @@ import React from 'react';
 import * as S from './stepper.style';
 
 import { useMediaQuery } from 'react-responsive';
+import Subtitle from '../Texts/Subtitle/Subtitle';
 
-export const Line: React.FC<S.StateProps> = ({ state }) => {
-   const states = ['complete', 'pending'];
+// export const Line: React.FC<S.StateProps> = ({ state }) => {
 
-   if (!states.includes(state)) state = 'pending';
 
-   const isBelow470 = useMediaQuery({ maxWidth: 470 });
-   const isAbove1700 = useMediaQuery({ minWidth: 1700 });
+//    // const isBelow470 = useMediaQuery({ maxWidth: 470 });
+//    // const isAbove1700 = useMediaQuery({ minWidth: 1700 });
 
-   let qtyCircles: number;
-   qtyCircles = isAbove1700 ? 8 : 6
-   qtyCircles = isBelow470 ? 3 : qtyCircles;
+//    // let widthLine: number;
+//    // widthLine = isAbove1700 ? 8 : 6
+//    // widthLine = isBelow470 ? 3 : widthLine;
 
-   function generateCircles() {
-      let circlesArray = [];
+//    // function generateCircles() {
+//    //    let circlesArray = [];
 
-      for (let i = 0; i < qtyCircles; i++) {
-         circlesArray.push(
-            <S.Circle key={i} state={state} />
-         );
-      }
+//    //    for (let i = 0; i < qtyCircles; i++) {
+//    //       circlesArray.push(
+//    //          <S.Circle key={i} state={state} />
+//    //       );
+//    //    }
 
-      return circlesArray;
-   }
+//    //    return circlesArray;
+//    // }
 
-   return (
-      <S.Line>
-         {generateCircles()}
-      </S.Line>
-   )
-}
+//    return (
+//       <S.Line />
+//    )
+// }
  
 //  function Step( state: string ) {
 //     const states = ['complete', 'onGoing', 'pending'];
@@ -43,16 +40,18 @@ export const Line: React.FC<S.StateProps> = ({ state }) => {
 //     )
 //  }
 
-export const Step: React.FC<S.StateProps> = ({ state }) => {
+export const Step: React.FC<S.StepProps> = ({ state, children }) => {
     const states = ['complete', 'onGoing', 'pending'];
     if (!states.includes(state)) state = 'pending';
  
     return (
-       <S.Step state={state} />
+       <S.Step state={state}>
+         {children}
+       </S.Step>
     )
 }
  
- export const Stepper: React.FC<S.StepperProps> = ({ steps, currentStep, children }) => {
+ export const Stepper: React.FC<S.StepperProps> = ({ steps, currentStep }) => {
  
     function generateSteps() {
        let stepsArray = [];
@@ -68,7 +67,9 @@ export const Step: React.FC<S.StateProps> = ({ state }) => {
              state = 'pending';
           }
           stepsArray.push(
-             <Step state={state} />
+            <Step state={state}>
+               {i}   
+            </Step>
           );
           stepStates.push(state);
        }
@@ -82,7 +83,7 @@ export const Step: React.FC<S.StateProps> = ({ state }) => {
        for (let i = 0; i < stepStates.length - 1; i++) {
           const lineState = stepStates[i] === 'complete' ? 'complete' : 'pending';
           linesArray.push(
-             <Line key={`line${i}`} state={lineState} />
+             <S.Line key={`line${i}`} />
           );
        }
  

@@ -7,7 +7,7 @@ export interface PrimaryButtonProps {
       width?: string;
       color?: string;
       type?: string;
-      onClick?: (email: string, password: string) => void;
+      onClick?: () => void;
 }
 
 const sizeVariants = {

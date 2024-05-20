@@ -8,6 +8,7 @@ export interface RegisterProps {
 
 export interface RegisterFormProps {
   step: number;
+  // children: string | JSX.Element | JSX.Element[];
 }
 
 export const Register = styled.main<RegisterProps>`
@@ -31,6 +32,13 @@ export const Text = styled.span`
 `;
 
 export const RegisterForm = styled.form<RegisterFormProps>`
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // gap: 10px;
+`;
+
+export const FormPart = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
 import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/Employee/employee.types";
@@ -25,11 +25,17 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const employeeAdapter = new EmployeeAdapter();
+  const renewedSession = useRef(false);
+
 
   useEffect(() => {
-    renewSession();
-  });
-
+    if (!renewedSession.current) {
+      renewSession();
+      renewedSession.current = true;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+ 
   const handleLoginEmployee = async (clientLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {
         const { email, password } = clientLoginDto;

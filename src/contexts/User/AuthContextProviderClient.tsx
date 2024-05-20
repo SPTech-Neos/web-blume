@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
 import { ClientAdapter } from "../../adapters/User/Client";
@@ -25,10 +25,16 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const clientAdapter = new ClientAdapter();
+  const renewedSession = useRef(false);
+
 
   useEffect(() => {
-    renewSession();
-  });
+    if (!renewedSession.current) {
+      renewSession();
+      renewedSession.current = true;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
 
   const handleLoginClient = async (clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> => {
     try {

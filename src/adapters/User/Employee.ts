@@ -18,8 +18,22 @@ export class EmployeeAdapter {
     // GET EMPLOYEE BY TOKEN
     async getEmployeeByToken(token: string): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/employee/${token}`);
-            return response.data as EmployeeResponseDto;
+            const requestOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                    'Accept': '*/*'
+                }
+            };
+
+            const response = await axios.get(`${this.apiUrl}/employee/${token}`, requestOptions);
+            return {
+                    employeeId: response.data.id,
+                    name: response.data.name,
+                    email: response.data.email,
+                    establishment: response.data.establishment,
+                    employeeType: response.data.employeeType
+                } as EmployeeResponseDto;
         } catch (error) {
             console.error(error);
             return null;

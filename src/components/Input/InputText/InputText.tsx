@@ -5,4 +5,4 @@ const InputText: React.FC<S.InputTextProps> = ({ type = "text", placeholder, val
     <S.InputText type={type} placeholder={placeholder} value={value} onChange={onChange} {...rest} />
 );
 
-export default InputText;
+export default InputText;   

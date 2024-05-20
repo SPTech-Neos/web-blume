@@ -1,6 +1,6 @@
 // TO REDO
-import styled from "styled-components";
-import { colors as c } from "../../../styles/Colors";
+import styled from 'styled-components';
+import { colors as c } from '../../../styles/Colors';
 
 export interface RegisterProps {
   children?: string | JSX.Element | JSX.Element[];

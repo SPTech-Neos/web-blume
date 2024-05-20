@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors as c } from '../../../styles/Colors';
+import { colors as c} from '../../../styles/Colors';
 
 export interface FloatButtonProps {
     children: string | JSX.Element | JSX.Element[] | Element | Element[];

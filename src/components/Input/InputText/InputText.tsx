@@ -9,4 +9,4 @@ const InputText: React.FC<S.InputTextProps> = ({ size, label, type = "text", pla
     </S.InputContainer>
 );
 
-export default InputText;
+export default InputText;   

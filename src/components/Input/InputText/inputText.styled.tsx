@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import { colors as c } from "../../../styles/Colors";
+import styled from 'styled-components';
+import { colors as c } from '../../../styles/Colors';
+
+// import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
 
 export interface InputTextProps {
   type?: "text" | "password" | "email" | string;

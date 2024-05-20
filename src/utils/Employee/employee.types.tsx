@@ -13,3 +13,11 @@ export interface EmployeeLoginDto {
     email: string;
     password: string;
 }
+
+export interface EmployeeRequestDto {
+    name: string;
+    email: string;
+    password: string;
+    fkEstablishment: number;
+    fkEmployeeType: number;
+}

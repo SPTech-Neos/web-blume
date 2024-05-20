@@ -1,9 +1,9 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/client.types";
+import { EstablishmentResponseDto, EstablishmentLoginDto, EstablishmentRequestDto } from "../../utils/establishment.types";
 
-export class ClientAdapter {
+export class EstablishmentAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
@@ -14,26 +14,24 @@ export class ClientAdapter {
         this.SpringSecurityPassword = environment.springSecurityPassword;
     }
 
-    // GET CLIENTE BY TOKEN
-    async getClientByToken(token: string): Promise<ClientResponseDto | null> {
+    async getEstablishmentByToken(token: string, jwtToken: string): Promise<EstablishmentResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${jwtToken}`
                 }
             };
-            const response = await axios.get(`${this.apiUrl}/client/${token}`, requestOptions);
-            return response.data as ClientResponseDto;
+            const response = await axios.get(`${this.apiUrl}/establishment/${token}`, requestOptions);
+            return response.data as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
             return null;
         }
     }
 
-    // LOGIN CLIENTE
-    async login(clientLoginDto: ClientLoginDto): Promise<ClientResponseDto | null> {
+    async login(establishmentLoginDto: EstablishmentLoginDto): Promise<EstablishmentResponseDto | null> {
         try {
-            const { email, password } = clientLoginDto;
+            const { email, password } = establishmentLoginDto;
 
             const requestOptions = {
                 headers: {
@@ -43,15 +41,15 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.post(`${this.apiUrl}/client/login`, { email, password }, requestOptions);
+            const response = await axios.post(`${this.apiUrl}/establishment/login`, { email, password }, requestOptions);
 
-            if (response.status === 200 && response.data.clientId) {
+            if (response.status === 200 && response.data.establishmentId) {
                 return {
-                    clientId: response.data.clientId,
+                    establishmentId: response.data.establishmentId,
                     name: response.data.name,
                     email: response.data.email,
                     token: response.data.token
-                } as ClientResponseDto;
+                } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
                 return null;
@@ -62,35 +60,45 @@ export class ClientAdapter {
         }
     }
 
-
-    // REGISTER CLIENTE
-    async register(clientRequestDto: ClientRequestDto): Promise<ClientResponseDto | null> {
+    async register(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
         try {
-            const { email, password, name, profilePic, local } = clientRequestDto;
-
+            const { 
+                name,
+                cnpj,
+                startShift,
+                endShift,
+                local,
+                profilePic,
+                description,
+                fkServices
+            } = establishmentRequestDto;
+    
             const requestOptions = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                    'Authorization': `Bearer ${this.jwtToken}`,
                     'Accept': '*/*'
                 }
             };
-
-            const response = await axios.post(`${this.apiUrl}/client`, {
-                email,
-                password,
+    
+            const response = await axios.post(`${this.apiUrl}/establishment`, {
                 name,
+                cnpj,
+                startShift,
+                endShift,
+                local,
                 profilePic,
-                local
+                description,
+                fkServices
             }, requestOptions);
-
+    
             if (response.status === 200) {
                 return {
-                    clientId: response.data.clientId,
+                    establishmentId: response.data.establishmentId,
                     name: response.data.name,
                     email: response.data.email,
                     token: response.data.token
-                } as ClientResponseDto;
+                } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
                 return null;
@@ -100,9 +108,8 @@ export class ClientAdapter {
             return null;
         }
     }
-
-    // DELETE CLIENTE
-    async deleteClient(clientId: number, jwtToken: string): Promise<boolean> {
+    
+    async deleteEstablishment(establishmentId: number, jwtToken: string): Promise<boolean> {
         try {
             const requestOptions = {
                 headers: {
@@ -112,7 +119,7 @@ export class ClientAdapter {
                 }
             };
         
-            const response = await axios.delete(`${this.apiUrl}/client/${clientId}`, requestOptions);
+            const response = await axios.delete(`${this.apiUrl}/establishment/${establishmentId}`, requestOptions);
         
             return response.status === 200;
         } catch (error) {
@@ -120,9 +127,8 @@ export class ClientAdapter {
             return false;
         }
     }
-
-    // UPDATE CLIENT
-    async update(clientId: number, updatedFields: Partial<ClientResponseDto>, jwtToken: string): Promise<ClientResponseDto | null> {
+    
+    async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>, jwtToken: string): Promise<EstablishmentResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
@@ -131,14 +137,13 @@ export class ClientAdapter {
                     'Accept': '*/*'
                 }
             };
-
-            const response = await axios.patch(`${this.apiUrl}/client/${clientId}`, updatedFields, requestOptions);
-
-            return response.data as ClientResponseDto;
+    
+            const response = await axios.patch(`${this.apiUrl}/establishment/${establishmentId}`, updatedFields, requestOptions);
+    
+            return response.data as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
             return null;
         }
     }
-    
-}
+}    

@@ -26,7 +26,6 @@ const Sidebar: React.FC = () => {
         handleLogout = handleLogoutClient;
     }
     
-
     const location = useLocation();
     console.log(location);
     const iconeAtual = document.getElementsByTagName("a");

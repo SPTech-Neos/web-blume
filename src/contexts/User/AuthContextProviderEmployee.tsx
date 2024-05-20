@@ -20,7 +20,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
   handleUpdateEmployee: async () => {}
 });
 
-export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
+export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] | null }) => {
   const [token, setToken] = useState<EmployeeResponseDto | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

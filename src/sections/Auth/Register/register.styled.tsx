@@ -18,7 +18,7 @@ export const Register = styled.main<RegisterProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 15px;
   padding: 50px;
   box-shadow: 0 0 48px 2px rgba(0, 0, 0, 0.25);
   max-width: 45%;
@@ -36,6 +36,10 @@ export const RegisterForm = styled.form<RegisterFormProps>`
   // flex-direction: column;
   // align-items: center;
   // gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const FormPart = styled.section`
@@ -43,6 +47,9 @@ export const FormPart = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+`;
+export const FormPartSmall = styled(FormPart)`
+  gap: 5px;
 `;
 
 export const TextWrapper = styled.div`

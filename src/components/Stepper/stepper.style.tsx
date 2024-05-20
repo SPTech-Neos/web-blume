@@ -51,7 +51,7 @@ export interface StepProps {
 export const Step = styled.div<StepProps>`
    width: 35px;
    height: 35px;
-   background-color: ${props => props.state == 'pending' ? c.gray100 : c.violet300};
+   background-color: ${props => props.state == 'onGoing' ? c.violet300 : c.gray100};
    box-sizing: border-box;
    border: 0.2rem solid ${c.violet300};
    border-radius: 50%;
@@ -61,7 +61,7 @@ export const Step = styled.div<StepProps>`
    font-size: 20px;
    font-family: 'Poppins';
    font-weight: bold;
-   color: ${props => props.state == 'pending' ? c.violet300 : c.gray100};
+   color: ${props => props.state == 'onGoing' ? c.gray100 : c.violet300};
 
    @media (min-width: 1700px) {
       // width: 1.5rem;

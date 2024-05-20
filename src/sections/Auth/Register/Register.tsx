@@ -26,6 +26,11 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confSenha, setConfSenha] = useState("");
+  const [cep, setCep] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [numero, setNumero] = useState("");
+  const [estado, setEstado] = useState("");
+  const [complemento, setComplemento] = useState("");
   const [step, setStep] = useState(1);
 
   function handleNext() {
@@ -39,10 +44,9 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
     <>
       <ColorContainer bgColor={c.gray100}>
         <S.Register>
-          <>
             <PrimaryTitle>CADASTRO</PrimaryTitle>
-
             <Stepper steps={2} currentStep={step}></Stepper>
+          <>
 
             <S.RegisterForm step={step} onSubmit={() => handleSubmit()}>
               {step == 1 ? (
@@ -53,14 +57,14 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     value={name}
                     type={"text"}
                     onChange={() => {}}
-                  ></InputText>
+                  />
 
                   <InputText
                     label="E-mail"
                     value={email}
                     type={"email"}
                     onChange={() => {}}
-                  ></InputText>
+                  />
 
                   <InputContainer>
                     <InputText
@@ -69,45 +73,89 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       value={senha}
                       type={"password"}
                       onChange={() => {}}
-                    ></InputText>
+                    />
                     <InputText
                       size="half"
                       label="Confirmar Senha"
                       value={confSenha}
                       type={"password"}
                       onChange={() => {}}
-                    ></InputText>
+                    />
                   </InputContainer>
 
                   <S.TextWrapper>
                     <S.Text>
-                      {" "}
-                      Tamanho mínimo: <S.CBText>8 caracteres</S.CBText>{" "}
+                      
+                      Tamanho mínimo: <S.CBText>8 caracteres</S.CBText>
                     </S.Text>
                     <S.Text>
-                      {" "}
-                      Caracter especial: <S.CBText>mínimo 1</S.CBText>{" "}
+                      
+                      Caracter especial: <S.CBText>mínimo 1</S.CBText>
                     </S.Text>
                     <S.Text>
-                      {" "}
-                      Caracter maiúsculo: <S.CBText>mínimo 1</S.CBText>{" "}
+                      
+                      Caracter maiúsculo: <S.CBText>mínimo 1</S.CBText>
                     </S.Text>
                     <S.Text>
-                      {" "}
-                      Caracter minúsculo: <S.CBText>mínimo 1</S.CBText>{" "}
+                      
+                      Caracter minúsculo: <S.CBText>mínimo 1</S.CBText>
                     </S.Text>
                     <S.Text>
-                      {" "}
-                      Caracter numérico: <S.CBText>mínimo 1</S.CBText>{" "}
+                      
+                      Caracter numérico: <S.CBText>mínimo 1</S.CBText>
                     </S.Text>
                   </S.TextWrapper>
                 </S.FormPart>
               ) : (
-                <S.FormPart>
+                <S.FormPartSmall>
                     <SecondaryTitle size="sm">Dados Opcionais</SecondaryTitle>
 
                     <InputImage />
-                </S.FormPart>
+
+                    <>
+                      <InputText 
+                        size="full"
+                        label="CEP"
+                        value={cep}
+                        type={"text"}
+                        onChange={() => {}}
+                      />
+
+                      <InputContainer>
+                        <InputText 
+                          size="big"
+                          label="Logradouro"
+                          value={logradouro}
+                          type={"text"}
+                          onChange={() => {}}
+                        />
+                        <InputText 
+                          size="small"
+                          label="Número"
+                          value={numero}
+                          type={"text"}
+                          onChange={() => {}}
+                        />
+                      </InputContainer>
+
+                      <InputContainer>
+                        <InputText 
+                          size="small"
+                          label="Estado"
+                          value={estado}
+                          type={"text"}
+                          onChange={() => {}}
+                        />
+                        <InputText 
+                          size="big"
+                          label="Complemento"
+                          value={complemento}
+                          type={"text"}
+                          onChange={() => {}}
+                        />
+                      </InputContainer>
+                    </>
+                </S.FormPartSmall>
               )}
             </S.RegisterForm>
 

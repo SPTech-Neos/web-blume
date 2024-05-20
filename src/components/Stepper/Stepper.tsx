@@ -1,45 +1,6 @@
 import React from 'react';
 import * as S from './stepper.style';
 
-import { useMediaQuery } from 'react-responsive';
-import Subtitle from '../Texts/Subtitle/Subtitle';
-
-// export const Line: React.FC<S.StateProps> = ({ state }) => {
-
-
-//    // const isBelow470 = useMediaQuery({ maxWidth: 470 });
-//    // const isAbove1700 = useMediaQuery({ minWidth: 1700 });
-
-//    // let widthLine: number;
-//    // widthLine = isAbove1700 ? 8 : 6
-//    // widthLine = isBelow470 ? 3 : widthLine;
-
-//    // function generateCircles() {
-//    //    let circlesArray = [];
-
-//    //    for (let i = 0; i < qtyCircles; i++) {
-//    //       circlesArray.push(
-//    //          <S.Circle key={i} state={state} />
-//    //       );
-//    //    }
-
-//    //    return circlesArray;
-//    // }
-
-//    return (
-//       <S.Line />
-//    )
-// }
- 
-//  function Step( state: string ) {
-//     const states = ['complete', 'onGoing', 'pending'];
-//     if (!states.includes(state)) state = 'pending';
- 
-//     return (
-//        <S.Step state={state} />
-//     )
-//  }
-
 export const Step: React.FC<S.StepProps> = ({ state, children }) => {
     const states = ['complete', 'onGoing', 'pending'];
     if (!states.includes(state)) state = 'pending';
@@ -68,7 +29,7 @@ export const Step: React.FC<S.StepProps> = ({ state, children }) => {
           }
           stepsArray.push(
             <Step state={state}>
-               {i}   
+               {state == 'complete' ? <img src="/checked.svg" alt="Concluído" /> : i}   
             </Step>
           );
           stepStates.push(state);

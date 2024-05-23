@@ -7,6 +7,12 @@ export const PrimaryButton: React.FC<S.PrimaryButtonProps> = ({ onClick, type, c
     );
 }
 
+export const LinkButton: React.FC<S.PrimaryButtonProps> = ({ onClick, type, color, width, size, children }) => {
+    return (
+        <S.LinkButton type={type} onClick={onClick} color={color} width={width} size={size}>{children}</S.LinkButton>
+    );
+}
+
 export const DangerButton: React.FC<S.PrimaryButtonProps> = ({ onClick, color, width, size, children }) => {
     return (
         <S.DangerButton onClick={onClick} color={color} width={width} size={size}>{children}</S.DangerButton>

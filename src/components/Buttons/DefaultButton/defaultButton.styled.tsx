@@ -58,6 +58,18 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
    }
 `;
 
+export const LinkButton = styled(PrimaryButton)<PrimaryButtonProps>`
+   background-color: ${c.gray100};
+   color: ${(props) => props.color || c.violet300};
+   box-shadow: none;
+   font-weight: bold;
+   
+   &:hover {
+      background-color: ${c.gray100};
+      text-decoration: underline;
+   }
+`;
+
 export interface MoveButtonProps {
    children: string | JSX.Element | JSX.Element[];
    moveTo?: string;

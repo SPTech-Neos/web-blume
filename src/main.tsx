@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
 
-import './styles/global.styles.css';
+import "./styles/global.styles.css";
+
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 // function PrivateRoute({ children }) {
 //   const navigate = useNavigate();
@@ -18,8 +21,10 @@ import './styles/global.styles.css';
 //   return isAuthenticated ? children : null;
 // }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <Theme>
+      <App />
+    </Theme>
+  </React.StrictMode>
+);

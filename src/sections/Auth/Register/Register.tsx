@@ -16,7 +16,8 @@ import { log } from "console";
 import InputImage from "../../../components/Input/InputImage/InputImage";
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
 import Link from "../../../components/Texts/Link/Link";
-import { LinkButton } from "../../../components/Buttons/DefaultButton/defaultButton.styled";
+import { LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
+import DropDown from "../../../components/Input/Dropdown/DropDown";
 
 // export const RegisterForm: React.FC<S.RegisterFormProps> = ({ step, children }) => {
 

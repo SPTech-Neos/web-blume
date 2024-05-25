@@ -62,3 +62,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.radix-themes {
+    --my-brand-color: #2DA739;
+    --ruby-9: var(--my-brand-color);
+    --ruby-a9: var(--my-brand-color);
+  }
+  

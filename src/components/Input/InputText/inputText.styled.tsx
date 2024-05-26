@@ -1,16 +1,13 @@
-import styled from 'styled-components';
-import { colors as c } from '../../../styles/Colors';
-
-// import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
+import styled from "styled-components";
+import { colors as c } from "../../../styles/Colors";
+import { TextField } from "@radix-ui/themes";
 
 export interface InputTextProps {
   type?: "text" | "password" | "email" | string;
   placeholder?: string;
-  value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
-  // children: string | JSX.Element | JSX.Element[];
 }
 
 export interface InputContainerProps {
@@ -32,6 +29,14 @@ const SizeVariants = {
   },
 };
 
+{
+  /* <TextField.Root placeholder="Search the docs…">
+  <TextField.Slot>
+    <MagnifyingGlassIcon height="16" width="16" />
+  </TextField.Slot>
+</TextField.Root> */
+}
+
 export const InputContainer = styled.div<InputContainerProps>`
   background-color: ${c.gray100};
   // margin: 25px 0;
@@ -43,7 +48,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   justify-content: space-between;
 `;
 
-export const InputText = styled.input.attrs((props) => ({
+export const InputText = styled(TextField.Root).attrs((props) => ({
   type: props.type || "text",
   placeholder: props.placeholder || "Digite aqui...",
   required: props.required || false,
@@ -54,14 +59,15 @@ export const InputText = styled.input.attrs((props) => ({
   font-size: 14px;
   font-family: "Josefin Sans", "Arial";
 
+  height: 40px;
   margin: 0;
   background-color: ${c.gray100};
   border: 3px solid ${c.gray900};
-  padding: 5px 25px;
   font-size: 16px;
   font-weight: regular;
   font-family: "Poppins", "Arial";
   transition: all 0.2s ease-in;
+  border-radius: 0px;
 
   width: 100%;
 
@@ -78,6 +84,10 @@ export const InputText = styled.input.attrs((props) => ({
   &::selection {
     background-color: ${c.violet300};
   }
+`;
+
+export const Slot = styled(TextField.Slot)`
+  padding: 10px;
 `;
 
 // export const InputText = styled(SlInput)

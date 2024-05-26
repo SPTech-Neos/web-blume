@@ -1,19 +1,11 @@
-import { ruby } from "@radix-ui/colors";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 
 import { colors as c } from "../../../styles/Colors";
-import { DropdownMenu } from "@radix-ui/themes";
-
-const theme = {
-  colors: {
-    ...ruby,
-  },
-};
+import { DropdownMenu, Button as Btn } from "@radix-ui/themes";
 
 export interface DropDownProps {
   type?: "text" | "password" | "email" | string;
-  placeholder?: string;
-  value: string;
+  placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
@@ -23,6 +15,10 @@ export interface DropDownProps {
 
 export interface ColorProps {
   color: string;
+}
+
+export interface TriggerProps {
+  isSelected: boolean;
 }
 
 export interface InputContainerProps {
@@ -48,17 +44,18 @@ export const Container = styled(DropdownMenu.Root)`
   background-color: ${c.violet300};
 `;
 
-export const Trigger = styled(DropdownMenu.Trigger)`
+export const Trigger = styled(DropdownMenu.Trigger)<TriggerProps>`
   background-color: ${c.gray100};
   border-radius: 0px;
   border: 3px solid ${c.gray900};
-  color: ${c.gray900};
+  color: ${(props) => (props.isSelected ? c.gray900 : c.gray500)};
   outline: none;
-  font-family: "Poppins";
-  padding: 10px 15px;
+  font-family: "Poppins", "Arial";
+  padding: 16px 25px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 400;
   transition: all 0.25s ease-in-out;
+  font-size: 16px;
 
   &:hover,
   &:focus {
@@ -71,6 +68,8 @@ export const Trigger = styled(DropdownMenu.Trigger)`
   }
 `;
 
+export const Button = styled(Btn)``;
+
 export const Content = styled(DropdownMenu.Content)`
   background-color: ${c.gray100};
   color: ${c.gray900};
@@ -82,7 +81,7 @@ export const Content = styled(DropdownMenu.Content)`
 `;
 
 export const Item = styled(DropdownMenu.Item)`
-  font-weight: 400;
+  font-weight: regular;
   font-size: 13px;
 
   &:hover {
@@ -147,52 +146,3 @@ export const DropDown = styled.input.attrs((props) => ({
     background-color: ${c.violet300};
   }
 `;
-
-// export const DropDown = styled(SlInput)
-//     .attrs((props => ({
-//         type: props.type || 'text',
-//         placeholder: props.placeholder || 'Digite aqui...',
-//         clearable: props.clearable || false,
-//         required: props.required || false,
-//         passwordToggle: props.type == 'password' ? true : false,
-
-//     })
-// ))<DropDownProps>`
-
-//     &::part(clear-button){
-//         color: ${c.violet300};
-//     }
-
-//     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
-//         color: var(--color-gray-900);
-//         // border: 3px solid black
-//         // font-weight: bold;
-//         // --size: 6rem;
-//     }
-
-//     position: relative;
-//     z-index: 0;
-
-//     margin: 0;
-//     background-color: var(--color-gray-100);
-//     border: 3px solid var(--color-gray-900);
-//     padding: 5px 25px;
-//     font-size: 16px;
-//     font-weight: regular;
-//     font-family: 'Poppins', 'Arial';
-//     transition: all .2s ease-in;
-//     width: 100%;
-
-//     &::placeholder {
-//         color: var(--color-violet-500);
-//     }
-
-//    &:hover, &:focus {
-//       border: 3px solid ${c.violet300};
-//    }
-
-//    &::selection {
-//         background-color: ${c.violet300};
-//    }
-
-// `;

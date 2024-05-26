@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./dropdown.styled";
 import Label from "../Label/Label";
 import { Button, DropdownMenu } from "@radix-ui/themes";
@@ -7,17 +7,29 @@ const Dropdown: React.FC<S.DropDownProps> = ({
   size,
   label,
   placeholder,
-  value,
   list,
   onChange,
   ...rest
 }) => {
+  const [text, setText] = useState("");
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+
+  function handleClick(text: string) {
+    setText(text);
+    setIsSelected(true);
+    console.log(isSelected);
+  }
+
   function makeItems() {
     let items = [];
     for (let i = 0; i < list.length; i++) {
       const el = list[i];
 
-      items.push(<S.Item key={i}>{el}</S.Item>);
+      items.push(
+        <S.Item onClick={() => handleClick(el)} key={i}>
+          {el}
+        </S.Item>
+      );
     }
 
     return items;
@@ -27,11 +39,12 @@ const Dropdown: React.FC<S.DropDownProps> = ({
     <S.InputContainer size={size}>
       <Label label={label} />
       <S.Container>
-        <S.Trigger>
-          <Button variant="soft">
-            {label}
+        <S.Trigger isSelected={isSelected}>
+          <S.Button variant="soft">
+            {text == "" ? placeholder : text}
+            {/* {text} */}
             <DropdownMenu.TriggerIcon />
-          </Button>
+          </S.Button>
         </S.Trigger>
 
         <S.Content>

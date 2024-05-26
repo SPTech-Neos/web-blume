@@ -17,7 +17,7 @@ import InputImage from "../../../components/Input/InputImage/InputImage";
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
 import Link from "../../../components/Texts/Link/Link";
 import { LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
-import DropDown from "../../../components/Input/Dropdown/DropDown";
+import Dropdown from "../../../components/Input/Dropdown/Dropdown";
 
 // export const RegisterForm: React.FC<S.RegisterFormProps> = ({ step, children }) => {
 
@@ -61,15 +61,15 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 <S.FormPart>
                   <InputText
                     label="Nome"
-                    value={name}
                     type={"text"}
+                    placeholder="Joana Silva"
                     onChange={() => {}}
                   />
 
                   <InputText
                     label="E-mail"
-                    value={email}
                     type={"email"}
+                    placeholder="exemplo@servidor.com"
                     onChange={() => {}}
                   />
                   <Column>
@@ -77,15 +77,15 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       <InputText
                         size="half"
                         label="Senha"
-                        value={senha}
                         type={"password"}
+                        placeholder="Bananina123"
                         onChange={() => {}}
                       />
                       <InputText
                         size="half"
                         label="Confirmar Senha"
-                        value={confSenha}
                         type={"password"}
+                        placeholder="***********"
                         onChange={() => {}}
                       />
                     </InputContainer>
@@ -117,7 +117,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     <InputText
                       size="full"
                       label="CEP"
-                      value={cep}
+                      placeholder="01414001"
                       type={"text"}
                       onChange={() => {}}
                     />
@@ -126,31 +126,58 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       <InputText
                         size="big"
                         label="Logradouro"
-                        value={logradouro}
+                        placeholder="Rua Haddock Lobo"
                         type={"text"}
                         onChange={() => {}}
                       />
                       <InputText
                         size="small"
                         label="Número"
-                        value={numero}
+                        placeholder="575"
                         type={"text"}
                         onChange={() => {}}
                       />
                     </InputContainer>
 
                     <InputContainer>
-                      <InputText
+                      <Dropdown
                         size="small"
                         label="Estado"
-                        value={estado}
-                        type={"text"}
+                        placeholder="UF"
+                        list={[
+                          "AC",
+                          "AL",
+                          "AM",
+                          "AP",
+                          "BA",
+                          "CE",
+                          "DF",
+                          "ES",
+                          "GO",
+                          "MA",
+                          "MG",
+                          "MS",
+                          "MT",
+                          "PA",
+                          "PB",
+                          "PE",
+                          "PI",
+                          "PR",
+                          "RJ",
+                          "RN",
+                          "RO",
+                          "RR",
+                          "RS",
+                          "SC",
+                          "SE",
+                          "SP",
+                          "TO",
+                        ]}
                         onChange={() => {}}
                       />
                       <InputText
                         size="big"
                         label="Complemento"
-                        value={complemento}
                         type={"text"}
                         onChange={() => {}}
                       />

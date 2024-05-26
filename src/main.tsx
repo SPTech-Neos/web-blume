@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
+import { AuthContextProvider as AuthContextProviderClient } from './contexts/User/AuthContextProviderClient.tsx';
+import { AuthContextProvider as AuthContextProviderEmployee } from './contexts/User/AuthContextProviderEmployee.tsx'; 
+
 import './styles/global.styles.css';
 
 // function PrivateRoute({ children }) {
@@ -20,6 +23,10 @@ import './styles/global.styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <AuthContextProviderClient>
+      <AuthContextProviderEmployee>
+        <App />
+      </AuthContextProviderEmployee>
+    </AuthContextProviderClient>
   </React.StrictMode>,
 )

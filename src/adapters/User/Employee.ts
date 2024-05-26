@@ -1,7 +1,6 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-
-import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/Employee/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Employee/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -14,14 +13,29 @@ export class EmployeeAdapter {
         this.SpringSecurityPassword = environment.springSecurityPassword;
     }
 
+    private getRequestOptions() {
+        return {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                'Accept': '*/*'
+            }
+        };
+    }
 
     // GET EMPLOYEE BY TOKEN
-    async getEmployeeByToken(token: string): Promise<EmployeeResponseDto | null> {
+    async getEmployeeById(id: number): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/employee/${token}`);
-            return response.data as EmployeeResponseDto;
+            const response = await axios.get(`${this.apiUrl}/employee/${id}`, this.getRequestOptions());
+            return {
+                employeeId: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                establishment: response.data.establishment,
+                employeeType: response.data.employeeType
+            } as EmployeeResponseDto;
         } catch (error) {
-            console.error(error);
+            console.error("Error getting employee by token:", error);
             return null;
         }
     }
@@ -30,16 +44,7 @@ export class EmployeeAdapter {
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
         try {
             const { email, password } = employeeLoginDto;
-
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
-                    'Accept': '*/*'
-                }
-            };
-
-            const response = await axios.post(`${this.apiUrl}/employee/login`, { email, password }, requestOptions);
+            const response = await axios.post(`${this.apiUrl}/employee/login`, { email, password }, this.getRequestOptions());
 
             if (response.status === 200 && response.data.id) {
                 return {
@@ -50,11 +55,22 @@ export class EmployeeAdapter {
                     employeeType: response.data.employeeType
                 } as EmployeeResponseDto;
             } else {
-                console.error("Erro durante execução do serviço", response.status, response.data);
+                console.error("Error during service execution", response.status, response.data);
                 return null;
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error logging in employee:", error);
+            return null;
+        }
+    }
+
+    // CREATE EMPLOYEE
+    async create(employeeDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> {
+        try {
+            const response = await axios.post(`${this.apiUrl}/employee`, employeeDto, this.getRequestOptions());
+            return response.data as EmployeeResponseDto;
+        } catch (error) {
+            console.error("Error creating employee:", error);
             return null;
         }
     }
@@ -62,21 +78,22 @@ export class EmployeeAdapter {
     // UPDATE EMPLOYEE
     async update(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
-                    'Accept': '*/*'
-                }
-            };
-
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, requestOptions);
-
+            const response = await axios.put(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
             return response.data as EmployeeResponseDto;
         } catch (error) {
-            console.error(error);
+            console.error("Error updating employee:", error);
             return null;
         }
+    }    
+
+    // DELETE EMPLOYEE
+    async delete(employeeId: number): Promise<boolean> {
+        try {
+            await axios.delete(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
+            return true;
+        } catch (error) {
+            console.error("Error deleting employee:", error);
+            return false;
+        }
     }
-    
 }

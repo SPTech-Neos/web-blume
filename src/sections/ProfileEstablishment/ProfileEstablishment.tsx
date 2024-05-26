@@ -73,6 +73,7 @@ const ProfileB2B: React.FC = () => {
             </S.ProfileB2BSection>
 
         );
+        
     }else if(isAuthenticatedEmployee){
         return (
             token ? (

@@ -28,7 +28,11 @@ export class EstablishmentAdapter {
         try {
 
             const response = await axios.get(`${this.apiUrl}/establishments/${id}`, this.getRequestOptions());
-            return response.data as EstablishmentResponseDto;
+            return {
+                establishmentId: response.data.establishmentId,
+                name: response.data.name,
+                local: response.data.local
+            } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
             return null;
@@ -89,7 +93,7 @@ export class EstablishmentAdapter {
     async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>): Promise<EstablishmentResponseDto | null> {
         try {
     
-            const response = await axios.patch(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.put(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
     
             return response.data as EstablishmentResponseDto;
         } catch (error) {

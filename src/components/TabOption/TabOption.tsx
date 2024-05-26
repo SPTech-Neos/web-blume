@@ -2,15 +2,9 @@ import React from "react";
 
 import * as S from  './tabOption.styled';
 
-interface Props {
-    id?: string;
-    titulo: string;
-    className: string;
-    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void | null | JSX.Element | JSX.Element[];  
-}
 
-const TabOption: React.FC<Props> = ({ id, titulo, className, onClick}) => (
-    <S.TabOption className={className} id={id} onClick={onClick}>
+const TabOption: React.FC<S.Props> = ({ id, titulo, className, onClick, theme}) => (
+    <S.TabOption titulo={titulo} className={className} id={id} onClick={onClick} theme={theme}>
         {titulo}
     </S.TabOption>
 );

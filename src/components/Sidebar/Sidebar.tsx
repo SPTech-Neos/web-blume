@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
                 <S.NavList>
                     <S.NavItem>
                         <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                        {location.pathname == "/ProfileB2B"?(
+                        {location.pathname == "/establishment"?(
                                 <Article size={24} />
                             ) :
                             <MagnifyingGlass size={24}/>
@@ -68,7 +68,7 @@ const Sidebar: React.FC = () => {
                     </S.NavItem>
                     <S.NavItem>
                         <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                            {location.pathname == "/ProfileB2B"?(
+                            {location.pathname == "/establishment"?(
                                 <UserList size={24}/>
                             ) :                            
                                 <ShoppingCart size={24}/>
@@ -80,7 +80,7 @@ const Sidebar: React.FC = () => {
                             <Receipt size={24}/>
                         </S.NavLink>
                     </S.NavItem>
-                    {location.pathname === "/ProfileB2B"?(
+                    {location.pathname === "/establishment"?(
                                 <S.NavItem>
                                 <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
@@ -101,7 +101,7 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to={theme === 'establishment'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to={"/" + theme} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                             <UserCircle size={24}/>
                         </S.NavLink>
                     </S.NavItem>

@@ -1,15 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import Cookies from 'js-cookie';
-import * as S from './profileB2B.styled';
+import * as S from './profileEstablishment.styled';
 
 import { NavLink } from 'react-router-dom';
+import { CaretLeft } from "phosphor-react";
 
 import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile";
-import Profile from "../../components/Profile/Profile";
 import Tab from "../../components/Tab/Tab";
 import EditModal from "../Modals/EditModal/EditModal";
+import Searchbar from "../../components/Searchbar/Searchbar";
+import Badge from '../../components/Badges/AvaliationBadge/AvaliationBadge';
+import Logo from "../../components/Images/Logo/Logo";
 
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
@@ -39,11 +42,34 @@ const ProfileB2B: React.FC = () => {
         console.log(editModal);
     };
 
-
     if(isAuthenticatedClient){
         return (
             <S.ProfileB2BSection>
-                <h1>OI tiago funcionou o login</h1>
+                <S.ContainerProfile direction="column">
+                    <S.HeaderProfile>
+                    <S.NavBody>
+                        <S.NavItem>
+                            <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                <CaretLeft size={22} />
+                            </S.NavLink>
+                        </S.NavItem>
+                    </S.NavBody>
+                        <Logo />
+                    </S.HeaderProfile>
+                    <S.PerfilContainer>
+                        <S.Perfil tipoperfil="B2C" username="teste" /*terá que substituir pelo user da requisição */ />
+                        <S.AvaliacaoContainer>
+                            <Badge>
+                                <S.StarImg weight="fill" color={c.violet100}></S.StarImg>
+                                <span>5</span>
+                            </Badge>
+                            <Badge>Tag</Badge>
+                            <Badge>TagS</Badge>
+                        </S.AvaliacaoContainer>
+                    </S.PerfilContainer>
+                    <Searchbar placeholderText="Salão para cabelos cacheados..."></Searchbar>
+                    <Tab theme='client' />
+                </S.ContainerProfile>
             </S.ProfileB2BSection>
 
         );
@@ -57,8 +83,8 @@ const ProfileB2B: React.FC = () => {
     
                         <EditModal id="editModal"/>
     
-                        <Profile tipoperfil="B2B" username={(token as EmployeeResponseDto).name} />
-                        <Tab />
+                        <S.Perfil tipoperfil="B2B" username={(token as EmployeeResponseDto).name} />
+                        <Tab theme='establishment'/>
                         <S.ContainerAtencao>
                             <S.ContainerTitle>
                                 <S.TracoAtencao />
@@ -83,7 +109,7 @@ const ProfileB2B: React.FC = () => {
             ) : null
         );
     }else{
-        return (<h1>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h1>)
+        return null;
     }
 
     

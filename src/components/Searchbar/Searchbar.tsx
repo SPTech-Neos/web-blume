@@ -5,7 +5,7 @@ import { device } from "../../styles/breakpoints.styled";
 
 import * as S from './searchbar.styled';
 
-import { MagnifyingGlass } from "@phosphor-icons/react";
+// import { MagnifyingGlass } from "@phosphor-icons/react";
 
 type Props = {
     placeholderText: string;

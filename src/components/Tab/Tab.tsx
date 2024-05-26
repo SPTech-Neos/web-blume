@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
+import ServiceCard from "../Cards/ServiceCard/ServiceCard";
 
-type SectionProps = {
-    result?: string;
-}
-const Tab: React.FC<SectionProps> = () => {
+
+const Tab: React.FC<S.SectionProps> = ({theme}) => {
 
     const [result, setResult] = useState("");
 
@@ -36,16 +35,16 @@ const Tab: React.FC<SectionProps> = () => {
     return (
         <S.ContainerTab direction='column'>
             <S.TabHeader id="TabHeader">
-                <TabOption id="servico" className="optionsTab" titulo="Serviços" onClick={handleClick} />
+                <TabOption id="servico" className="optionsTab" titulo="Serviços" theme={theme} onClick={handleClick} />
 
-                <TabOption id="produto" className="optionsTab" titulo="Produtos" onClick={handleClick} />
+                <TabOption id="produto" className="optionsTab" titulo="Produtos" theme={theme} onClick={handleClick} />
 
-                <TabOption id="sobre" className="optionsTab" titulo="Sobre" onClick={handleClick} />
+                <TabOption id="sobre" className="optionsTab" titulo="Sobre" theme={theme} onClick={handleClick} />
             </S.TabHeader>
             <S.TabBody>
                 <div id="section-escolhida">
                     {result == 'servico'? (
-                        "Serviços" // trocar pela section certa
+                        <ServiceCard />
                     ) : result == 'produto'? (
                         "Produtos" // trocar para section certa
                     ) : result == 'sobre'? (

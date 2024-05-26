@@ -10,8 +10,8 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Test from './pages/Test';
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
-import ProfileB2B from './pages/ProfileB2B/ProfileB2B';
-import ProfileB2C from './pages/ProfileB2C/ProfileB2C';
+import Establishment from './pages/ProfileEstablishment/ProfileEstablishment';
+import Client from './pages/ProfileClient/ProfileClient';
 const App: React.FC = () => (
   <BrowserRouter>
     <Routes>
@@ -19,8 +19,8 @@ const App: React.FC = () => (
       <Route path='/test' element={<Test />} />
       <Route path='/auth' element={<Auth />} />
       <Route path='/feed' element={<Feed />} />
-      <Route path='/profileb2b' element={<ProfileB2B />} />
-      <Route path='/profileb2c' element={<ProfileB2C />} />
+      <Route path='/establishment' element={<Establishment />} />
+      <Route path='/client' element={<Client />} />
     </Routes>
   </BrowserRouter>
 )

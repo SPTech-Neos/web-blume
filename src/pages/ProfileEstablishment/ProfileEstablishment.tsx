@@ -7,7 +7,7 @@ import { AuthContextProvider as AuthContextProviderClient } from "../../contexts
 
 // import { Colors } from '../../styles/Colors';
 import Sidebar from "../../components/Sidebar/Sidebar";
-import ProfileB2BSection from "../../sections/ProfileB2B/ProfileB2B";
+import ProfileB2BSection from "../../sections/ProfileEstablishment/ProfileEstablishment";
 
 // import * as S from './profileB2B.styled';
 
@@ -22,7 +22,7 @@ const ProfileB2B: React.FC = () => {
           <ProfileB2BSection />
         </div>
       </AuthContextProviderEmployee>
-   </AuthContextProviderClient>
+   </AuthContextProviderClient> 
   );
 
       

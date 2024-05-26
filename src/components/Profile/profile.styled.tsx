@@ -16,6 +16,7 @@ export interface ContainerProfileProps {
 }
 
 export const ContainerProfile = styled(Container)`
+    width: 65%;
     height: 24vh;
     justify-content: start;
 `

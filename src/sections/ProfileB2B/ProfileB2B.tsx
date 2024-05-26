@@ -1,23 +1,29 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 
-import { NavLink } from 'react-router-dom';
+import { colors as c } from '../../styles/Colors';
 
-// import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import * as S from './profileB2B.styled';
 import Profile from "../../components/Profile/Profile";
 import Tab from "../../components/Tab/Tab";
 import EditModal from "../Modals/EditModal/EditModal";
+
+import Modal from "../../components/Modals/FormModal/Modal";
+import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
+
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { colors as c } from '../../styles/Colors';
+import { useNavigate } from "react-router-dom";
 
 const ProfileB2B: React.FC = () => {
-    const { isAuthenticated,handleLogoutEmployee } = useContext(AuthContextEmployee);
+    const navigate = useNavigate();
+    const { isAuthenticated, handleDeleteEmployee } = useContext(AuthContextEmployee);
 
     const tokenFromCookie = Cookies.get('employeeInfo');
-    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+    const token: EmployeeResponseDto = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
     useEffect(() => {
         if (tokenFromCookie) {
@@ -32,14 +38,30 @@ const ProfileB2B: React.FC = () => {
         console.log(editModal);
     };
 
+    const openDeleteModal = () => {
+        setModalProps({
+            type: "error",
+            message: "Tem certeza que deseja excluir a conta?",
+            isOpen: true,
+            linkTo: "/",
+            onConfirm: handleDeleteConfirmation
+        });
+    };
+
+    const handleDeleteConfirmation = () => {
+        if (token) {
+            handleDeleteEmployee(token.employeeId);
+            setModalProps(null);
+            navigate("/");
+        }
+    };
+
     return (
         token ? (
             <S.ProfileB2BSection>
                 <S.ContainerProfile direction="column">
-
-                    <EditModal id="editModal"/>
-
-                    <Profile tipoperfil="B2B" username={(token as EmployeeResponseDto).name} />
+                    <EditModal id="editModal" />
+                    <Profile tipoperfil="B2B" username={token.establishment.name} />
                     <Tab />
                     <S.ContainerAtencao>
                         <S.ContainerTitle>
@@ -50,18 +72,26 @@ const ProfileB2B: React.FC = () => {
                             <S.TracoAtencao />
                         </S.ContainerTitle>
                         <S.ContainerAtencaoButtons>
-                                <NavLink to={"/"} color={c.gray100}>
-                                    <S.ButtonDelete width="180px" color={c.error} onClick={() => handleLogoutEmployee()}>
-                                            Excluir
-                                    </S.ButtonDelete>
-                                </NavLink>
+                            <S.ButtonDelete width="180px" color={c.error} onClick={openDeleteModal}>
+                                Excluir
+                            </S.ButtonDelete>
                             <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
                                 Editar
                             </S.ButtonUpdate>
                         </S.ContainerAtencaoButtons>
                     </S.ContainerAtencao>
                 </S.ContainerProfile>
-            </ S.ProfileB2BSection>
+                {modalProps && (
+                    <Modal
+                        type={modalProps.type}
+                        message={modalProps.message}
+                        isOpen={modalProps.isOpen}
+                        linkTo={modalProps.linkTo}
+                        onConfirm={modalProps.onConfirm}
+                        onClose={() => setModalProps(null)}
+                    />
+                )}
+            </S.ProfileB2BSection>
         ) : null
     );
 };

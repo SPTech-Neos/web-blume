@@ -103,7 +103,7 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Employee', method: 'login', params: { loginDto: { email: 'cliente.funcionario@example.com', password: '123senha' } } })}>Login</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'create', params: { createDto: { name: 'John Doe', email: 'john@example.com', password: 'password', fkEstablishment: 1, fkEmployeeType: 1 } } })}>Create</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'update', params: { id: 1, updateFields: { name: 'Updated Name' } } })}>Update</option>
-                    <option value={JSON.stringify({ type: 'Employee', method: 'getById', params: { id: 1 } })}>Get by ID</option>
+                    <option value={JSON.stringify({ type: 'Employee', method: 'getById', params: { id: 2 } })}>Get by ID</option>
                 </optgroup>
                 <optgroup label="Client Adapter">
                     <option value={JSON.stringify({ type: 'Client', method: 'login', params: { loginDto: { email: 'client@example.com', password: 'password' } } })}>Login</option>

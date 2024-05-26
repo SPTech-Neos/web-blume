@@ -3,6 +3,7 @@ import { colors as c} from '../../../styles/Colors';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Link } from "react-router-dom";
+import { ButtonDelete } from "../../../sections/ProfileB2B/profileB2B.styled";
 
 export interface ModalProps {
   type: "error" | "success" | string;
@@ -10,6 +11,7 @@ export interface ModalProps {
   isOpen: boolean;
   linkTo: string;
   onClose?: () => void; 
+  onConfirm?: () => void;
 }
 
 export interface ModalButtonProps {
@@ -99,6 +101,10 @@ export const DialogDescription = styled(Dialog.Description)`
   font-family: var(--font-text);
   font-size: 16px;
   font-weight: 400;
+`;
+
+export const DialogButton = styled(ButtonDelete)`
+  
 `;
 
 export const DialogLink = styled(Link)<ModalButtonProps>`

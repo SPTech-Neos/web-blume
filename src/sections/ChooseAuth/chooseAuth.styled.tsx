@@ -5,7 +5,6 @@ import Container from '../../components/Containers/Container/Container';
 export const ChooseAuth = styled.section`
     width: 100%;
     height: 100vh;
-    max-height: 750px;
 
     display: flex;
     flex-direction: column;

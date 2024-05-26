@@ -11,7 +11,7 @@ interface AuthContextType {
   handleLogoutEmployee: () => void;
   handleUpdateEmployee: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
   handleCreateEmployee: (employeeRequestDto: EmployeeRequestDto) => Promise<EmployeeResponseDto | null>;
-  handleDeleteEmployee: (employeeId: number) => Promise<boolean>;
+  handleDeleteEmployee: (employeeId: string) => Promise<boolean>;
   getEmployeeById: (employeeId: number) => Promise<EmployeeResponseDto | null>;
 }
 
@@ -123,7 +123,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
     }
   };
 
-  const handleDeleteEmployee = async (employeeId: number): Promise<boolean> => {
+  const handleDeleteEmployee = async (employeeId: string): Promise<boolean> => {
     try {
       return await employeeAdapter.delete(employeeId);
     } catch (error) {

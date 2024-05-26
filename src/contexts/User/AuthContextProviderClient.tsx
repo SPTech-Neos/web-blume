@@ -12,7 +12,7 @@ interface AuthContextType {
   handleUpdateClient: (updatedFields: Partial<ClientResponseDto>) => Promise<void>;
   handleCreateClient: (clientRequestDto: ClientRequestDto) => Promise<ClientResponseDto | null>;
   handleDeleteClient: (clientId: number, token: string) => Promise<boolean>;
-  getClientByToken: (clientToken: string) => Promise<ClientResponseDto | null>;
+  getClientById: (clientId: number, token: string) => Promise<ClientResponseDto | null>;
 }
 
 export const AuthContextClient = createContext<AuthContextType>({
@@ -23,7 +23,7 @@ export const AuthContextClient = createContext<AuthContextType>({
   handleUpdateClient: async () => {},
   handleCreateClient: async () => null,
   handleDeleteClient: async () => false,
-  getClientByToken: async () => null,
+  getClientById: async () => null,
 });
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -78,7 +78,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       }
 
       const token = JSON.parse(tokenString);
-      const client = await clientAdapter.getClientByToken(token.token);
+      const client = await clientAdapter.getClientById(token.clientId, token.token);
 
       if (client) {
         setToken(token);
@@ -135,9 +135,9 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
     }
   };
 
-  const getClientByToken = async (clientToken: string): Promise<ClientResponseDto | null> => {
+  const getClientById = async (clientId: number, token: string): Promise<ClientResponseDto | null> => {
     try {
-      return await clientAdapter.getClientByToken(clientToken);
+      return await clientAdapter.getClientById(clientId, token);
     } catch (error) {
       console.error("Erro ao buscar cliente por ID:", error);
       return null;
@@ -152,7 +152,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
     handleUpdateClient,
     handleCreateClient,
     handleDeleteClient,
-    getClientByToken
+    getClientById
   };
 
   return (

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { EstablishmentResponseDto, EstablishmentLoginDto, EstablishmentRequestDto } from "../../utils/establishment.types";
+import { EstablishmentResponseDto, EstablishmentRequestDto } from "../../utils/Establishment/establishment.types";
 
 export class EstablishmentAdapter {
     private readonly apiUrl: string;
@@ -14,46 +14,21 @@ export class EstablishmentAdapter {
         this.SpringSecurityPassword = environment.springSecurityPassword;
     }
 
-    async getEstablishmentByToken(token: string, jwtToken: string): Promise<EstablishmentResponseDto | null> {
-        try {
-            const requestOptions = {
-                headers: {
-                    'Authorization': `Bearer ${jwtToken}`
-                }
-            };
-            const response = await axios.get(`${this.apiUrl}/establishment/${token}`, requestOptions);
-            return response.data as EstablishmentResponseDto;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
+    private getRequestOptions() {
+        return {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                'Accept': '*/*'
+            }
+        };
     }
 
-    async login(establishmentLoginDto: EstablishmentLoginDto): Promise<EstablishmentResponseDto | null> {
+    async getEstablishmentById(id: number): Promise<EstablishmentResponseDto | null> {
         try {
-            const { email, password } = establishmentLoginDto;
 
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
-                    'Accept': '*/*'
-                }
-            };
-
-            const response = await axios.post(`${this.apiUrl}/establishment/login`, { email, password }, requestOptions);
-
-            if (response.status === 200 && response.data.establishmentId) {
-                return {
-                    establishmentId: response.data.establishmentId,
-                    name: response.data.name,
-                    email: response.data.email,
-                    token: response.data.token
-                } as EstablishmentResponseDto;
-            } else {
-                console.error("Erro durante execução do serviço", response.status, response.data);
-                return null;
-            }
+            const response = await axios.get(`${this.apiUrl}/establishments/${id}`, this.getRequestOptions());
+            return response.data as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
             return null;
@@ -73,15 +48,7 @@ export class EstablishmentAdapter {
                 fkServices
             } = establishmentRequestDto;
     
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.jwtToken}`,
-                    'Accept': '*/*'
-                }
-            };
-    
-            const response = await axios.post(`${this.apiUrl}/establishment`, {
+            const response = await axios.post(`${this.apiUrl}/establishments`, {
                 name,
                 cnpj,
                 startShift,
@@ -90,14 +57,13 @@ export class EstablishmentAdapter {
                 profilePic,
                 description,
                 fkServices
-            }, requestOptions);
+            }, this.getRequestOptions());
     
             if (response.status === 200) {
                 return {
                     establishmentId: response.data.establishmentId,
                     name: response.data.name,
-                    email: response.data.email,
-                    token: response.data.token
+                    local: response.data.local
                 } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
@@ -109,17 +75,9 @@ export class EstablishmentAdapter {
         }
     }
     
-    async deleteEstablishment(establishmentId: number, jwtToken: string): Promise<boolean> {
-        try {
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Accept': '*/*'
-                }
-            };
-        
-            const response = await axios.delete(`${this.apiUrl}/establishment/${establishmentId}`, requestOptions);
+    async delete(establishmentId: number): Promise<boolean> {
+        try {        
+            const response = await axios.delete(`${this.apiUrl}/establishments/${establishmentId}`, this.getRequestOptions());
         
             return response.status === 200;
         } catch (error) {
@@ -128,17 +86,10 @@ export class EstablishmentAdapter {
         }
     }
     
-    async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>, jwtToken: string): Promise<EstablishmentResponseDto | null> {
+    async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>): Promise<EstablishmentResponseDto | null> {
         try {
-            const requestOptions = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Accept': '*/*'
-                }
-            };
     
-            const response = await axios.patch(`${this.apiUrl}/establishment/${establishmentId}`, updatedFields, requestOptions);
+            const response = await axios.patch(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
     
             return response.data as EstablishmentResponseDto;
         } catch (error) {

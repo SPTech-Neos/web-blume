@@ -1,6 +1,6 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/Employee/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Employee/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -27,7 +27,13 @@ export class EmployeeAdapter {
     async getEmployeeById(id: number): Promise<EmployeeResponseDto | null> {
         try {
             const response = await axios.get(`${this.apiUrl}/employee/${id}`, this.getRequestOptions());
-            return response.data as EmployeeResponseDto;
+            return {
+                employeeId: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                establishment: response.data.establishment,
+                employeeType: response.data.employeeType
+            } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error getting employee by token:", error);
             return null;
@@ -59,7 +65,7 @@ export class EmployeeAdapter {
     }
 
     // CREATE EMPLOYEE
-    async create(employeeDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
+    async create(employeeDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> {
         try {
             const response = await axios.post(`${this.apiUrl}/employee`, employeeDto, this.getRequestOptions());
             return response.data as EmployeeResponseDto;
@@ -72,13 +78,13 @@ export class EmployeeAdapter {
     // UPDATE EMPLOYEE
     async update(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.put(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
             return response.data as EmployeeResponseDto;
         } catch (error) {
             console.error("Error updating employee:", error);
             return null;
         }
-    }
+    }    
 
     // DELETE EMPLOYEE
     async delete(employeeId: number): Promise<boolean> {

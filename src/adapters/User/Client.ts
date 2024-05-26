@@ -15,17 +15,25 @@ export class ClientAdapter {
     }
 
     // GET CLIENTE BY TOKEN
-    async getClientByToken(token: string): Promise<ClientResponseDto | null> {
+    async getClientById(id: number, jwtToken: string): Promise<ClientResponseDto | null> {
         try {
             const requestOptions = {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Accept': '*/*'
                 }
             };
-            const response = await axios.get(`${this.apiUrl}/client/${token}`, requestOptions);
-            return response.data as ClientResponseDto;
+
+            const response = await axios.get(`${this.apiUrl}/client/${id}`, requestOptions);
+            return {
+                clientId: response.data.clientId,
+                name: response.data.name,
+                email: response.data.email,
+                token: response.data.token
+            } as ClientResponseDto;
         } catch (error) {
-            console.error(error);
+            console.error("Error getting Client by token:", error);
             return null;
         }
     }
@@ -46,6 +54,8 @@ export class ClientAdapter {
             const response = await axios.post(`${this.apiUrl}/client/login`, { email, password }, requestOptions);
 
             if (response.status === 200 && response.data.clientId) {
+                console.log(`TOKEN: ` + response.data.token)
+
                 return {
                     clientId: response.data.clientId,
                     name: response.data.name,

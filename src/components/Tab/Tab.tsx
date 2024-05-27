@@ -3,7 +3,8 @@ import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
 import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
-
+import About from "../About/About";
+import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
 
 const Tab: React.FC<S.SectionProps> = ({theme}) => {
 
@@ -21,6 +22,7 @@ const Tab: React.FC<S.SectionProps> = ({theme}) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
         const myElement = document.getElementById(`${(event.target as HTMLDivElement).id}`);
+        
     
         if (!elementsActive) {
             console.log("todo nao encontrada");
@@ -71,7 +73,14 @@ const Tab: React.FC<S.SectionProps> = ({theme}) => {
                             </ProductCard>
                              // trocar para section certa
 
-                        ) : ("Sobre")}
+                        ) : <About descricao="Passado por props no componente TAB">
+                                <Badge>
+                                    deixar
+                                </Badge>
+                                <Badge>
+                                    dinamico
+                                </Badge>
+                            </About>}
                     </S.ResultBody>
                 }
             </S.TabBody>    

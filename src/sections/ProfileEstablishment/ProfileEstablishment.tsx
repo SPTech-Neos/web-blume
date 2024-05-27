@@ -64,14 +64,14 @@ const ProfileB2B: React.FC = () => {
                         <Logo />
                     </S.HeaderProfile>
                     <S.PerfilContainer>
-                        <S.Perfil tipoperfil="B2C" username="teste" /*terá que substituir pelo user da requisição */ />
+                        <S.Perfil tipoperfil="B2C" username="deixar dinamico da silva" /*terá que substituir pelo user da requisição */ />
                         <S.AvaliacaoContainer>
                             <Badge>
                                 <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
                                 <span>5</span>
                             </Badge>
-                            <Badge>Tag</Badge>
-                            <Badge>TagS</Badge>
+                            <Badge>Deixar</Badge>
+                            <Badge>Dinamico</Badge>
                         </S.AvaliacaoContainer>
                     </S.PerfilContainer>
                     <Searchbar placeholderText="Salão para cabelos cacheados..."></Searchbar>

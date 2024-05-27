@@ -60,11 +60,11 @@ const Sidebar: React.FC = () => {
                 <S.NavList>
                     <S.NavItem>
                         <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                        {location.pathname == "/ProfileB2B"?(
-                                <Article size={24} />
-                            ) :
-                            <MagnifyingGlass size={24}/>
-                        }
+                            {location.pathname == "/ProfileB2B"?(
+                                    <Article size={24} />
+                                ) :
+                                <MagnifyingGlass size={24}/>
+                            }
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
@@ -82,12 +82,12 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     {location.pathname === "/ProfileB2B"?(
-                                <S.NavItem>
+                        <S.NavItem>
                                 <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
                                 </S.NavLink>
-                                </S.NavItem>
-                            ) : null}
+                        </S.NavItem>
+                    ) : null}
                 </S.NavList>
 
                 <S.NavList>

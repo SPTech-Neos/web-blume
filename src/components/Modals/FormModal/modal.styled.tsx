@@ -8,7 +8,7 @@ import { ButtonDelete } from "../../../sections/ProfileB2B/profileB2B.styled";
 export interface ModalProps {
   type: "error" | "success" | string;
   message: string;
-  isOpen: boolean;
+  isOpen?: boolean;
   linkTo: string;
   onClose?: () => void; 
   onConfirm?: () => void;
@@ -116,4 +116,14 @@ export const DialogLink = styled(Link)<ModalButtonProps>`
   font-weight: bolder;
   
   color: ${(props) => props.type == "success" ? c.success : c.error}
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 `;

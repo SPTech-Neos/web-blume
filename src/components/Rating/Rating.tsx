@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from './rating.styled';
 
-const Rating: React.FC = () => {
+const Rating: React.FC<S.props> = () => {
     //montar lista de estrelas
     // const stars = ["star-1", "star-2", "star-3", "star-4", "star-5"];
 

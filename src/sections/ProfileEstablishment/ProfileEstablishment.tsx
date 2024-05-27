@@ -17,10 +17,15 @@ import Logo from "../../components/Images/Logo/Logo";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
-import { colors as c } from '../../styles/Colors';
+import { colors as c, Themes } from '../../styles/Colors';
 
 
 const ProfileB2B: React.FC = () => {
+
+    
+    function getTheme(theme: string) {
+        return theme === "B2C"? Themes.client : Themes.establishment;
+    }
 
     const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
@@ -43,6 +48,8 @@ const ProfileB2B: React.FC = () => {
     };
 
     if(isAuthenticatedClient){
+        
+
         return (
             <S.ProfileB2BSection>
                 <S.ContainerProfile direction="column">
@@ -60,7 +67,7 @@ const ProfileB2B: React.FC = () => {
                         <S.Perfil tipoperfil="B2C" username="teste" /*terá que substituir pelo user da requisição */ />
                         <S.AvaliacaoContainer>
                             <Badge>
-                                <S.StarImg weight="fill" color={c.violet100}></S.StarImg>
+                                <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
                                 <span>5</span>
                             </Badge>
                             <Badge>Tag</Badge>

@@ -1,11 +1,18 @@
 import styled from 'styled-components';
-import { colors as c } from '../../../styles/Colors';
+import { colors as c, Themes } from '../../../styles/Colors';
 
 export interface serviceProps {
     id?: number,
     nome?: string,
     valor?: number,
-    img?: string
+    img?: string,
+    theme?: string,
+    onclick?: () => void;
+}
+
+
+function getTheme(theme: string) {
+    return theme === "client"? Themes.client : Themes.establishment;
 }
 
 export const CardBody = styled.div<serviceProps>`
@@ -15,6 +22,7 @@ export const CardBody = styled.div<serviceProps>`
     flex-direction: row;
     border-radius: 15px;
     box-shadow: 0px 0px 8px ${c.gray500};
+    color: ${(props) => getTheme(props.theme).mainColor};
 
     &:hover{
         cursor: pointer;
@@ -40,6 +48,7 @@ export const CardInfo = styled.div`
     font-weight: bold;
 
     &>span{
+        color: black;
         font-size: 15px;
     }
 `;  

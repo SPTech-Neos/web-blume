@@ -62,7 +62,7 @@ const Tab: React.FC<S.SectionProps> = ({theme}) => {
                             //     <div key={index}>
                             //     </div>
                             // ))
-                            <ServiceCard nome="Perfume" valor={10.25} />
+                            <ServiceCard theme={theme} nome="Perfume" valor={10.25} />
 
                         ) : result == 'produto'? (
 

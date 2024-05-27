@@ -1,15 +1,20 @@
 import styled from "styled-components";
 import { Star } from "phosphor-react";
-import { colors as c } from "../../styles/Colors";
+// import { Themes } from "../../styles/Colors";
+
+export interface props {
+    onclick?: () => void
+}
+
+
 
 export const StartRating = styled(Star)`
     position: relative;
-    color: ${c.violet100};
 `;   
 
 
 
-export const RatingBody = styled.div`
+export const RatingBody = styled.div<props>`
     width: 80%;
     height: 30%;
     display: flex;

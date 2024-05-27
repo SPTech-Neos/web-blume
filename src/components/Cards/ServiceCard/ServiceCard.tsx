@@ -2,10 +2,9 @@ import React from "react";
 import * as S from "./serviceCard.styled";
 import Rating from "../../Rating/Rating";
 
-
-export const ServiceCard: React.FC<S.serviceProps> = ({id, nome, valor, img}) => {
+export const ServiceCard: React.FC<S.serviceProps> = ({id, nome, valor, img, theme, onclick}) => {
     return (
-        <S.CardBody id={id}>
+        <S.CardBody id={id} onclick={onclick} theme={theme}>
             <S.CardImg>
                 <S.ImgService img={img}></S.ImgService>
             </S.CardImg>
@@ -22,9 +21,9 @@ export const ServiceCard: React.FC<S.serviceProps> = ({id, nome, valor, img}) =>
     );
 }
 
-export const ProductCard: React.FC<S.serviceProps> = ({id, nome, valor, img}) => {
+export const ProductCard: React.FC<S.serviceProps> = ({id, nome, valor, img, onclick}) => {
     return (
-        <S.CardBody id={id}>
+        <S.CardBody id={id} onclick={onclick}>
             <S.CardImg>
                 <S.ImgService img={img}></S.ImgService>
             </S.CardImg>

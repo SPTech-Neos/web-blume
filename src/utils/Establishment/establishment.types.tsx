@@ -16,3 +16,9 @@ export interface EstablishmentRequestDto {
     description: string;
     fkServices: number[];
 }
+
+export interface EstablishmentResponseDto {
+    establishmentId: number;
+    name: string;
+    local: Local;
+}

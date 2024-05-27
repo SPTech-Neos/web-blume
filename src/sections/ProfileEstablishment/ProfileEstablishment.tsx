@@ -75,10 +75,9 @@ const ProfileB2B: React.FC = () => {
                         </S.AvaliacaoContainer>
                     </S.PerfilContainer>
                     <Searchbar placeholderText="Salão para cabelos cacheados..."></Searchbar>
-                    <Tab theme='client' />
+                    <Tab theme='client'/>
                 </S.ContainerProfile>
             </S.ProfileB2BSection>
-
         );
         
     }else if(isAuthenticatedEmployee){

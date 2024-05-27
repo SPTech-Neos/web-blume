@@ -3,6 +3,7 @@ import { EmployeeAdapter } from '../adapters/User/Employee';
 import { ClientAdapter } from '../adapters/User/Client';
 import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 import { Local } from '../utils/Establishment/local.types';
+import RequestLocation from '../components/RequestLocation/RequestLocation';
 
 const Test: React.FC = () => {
     const [adapter, setAdapter] = useState<any>(null);
@@ -122,6 +123,7 @@ const Test: React.FC = () => {
                 <div>
                     <h2>Result</h2>
                     <pre>{JSON.stringify(result, null, 2)}</pre>
+                    <RequestLocation />
                 </div>
             )}
         </div>

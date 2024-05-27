@@ -33,3 +33,9 @@ export const TabBody = styled.div`
     //     height: 40px;
     // }
 `;  
+
+export const ResultBody = styled.div`
+    width: 100%;
+    height: 95%;
+    display: flex;
+`;

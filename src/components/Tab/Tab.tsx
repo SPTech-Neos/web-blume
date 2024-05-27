@@ -2,13 +2,22 @@ import React, {useState} from "react";
 import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
-import ServiceCard from "../Cards/ServiceCard/ServiceCard";
+import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
 
 
 const Tab: React.FC<S.SectionProps> = ({theme}) => {
 
     const [result, setResult] = useState("");
-
+    
+    // const teste = {
+    //     nome: "oi",
+    //     id: 1
+    // }
+    
+    // const { data } = teste;
+    // const [cardsData, setCardsData] = useState(data);
+    // setCardsData(data) ;
+    
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
         const myElement = document.getElementById(`${(event.target as HTMLDivElement).id}`);
@@ -42,19 +51,32 @@ const Tab: React.FC<S.SectionProps> = ({theme}) => {
                 <TabOption id="sobre" className="optionsTab" titulo="Sobre" theme={theme} onClick={handleClick} />
             </S.TabHeader>
             <S.TabBody>
-                <div id="section-escolhida">
-                    {result == 'servico'? (
-                        <ServiceCard />
-                    ) : result == 'produto'? (
-                        "Produtos" // trocar para section certa
-                    ) : result == 'sobre'? (
-                        "Sobre" // trocar para section certa
-                    ) : "Selecione uma opção"}
-                </div>
+                {result == ''? (
+                    <div>
+                        <span>Selecione uma Opção</span>
+                    </div>
+                ):
+                    <S.ResultBody id="section-escolhida">
+                        {result == 'servico'? (
+                            // cardsData.map((data, index) => (
+                            //     <div key={index}>
+                            //     </div>
+                            // ))
+                            <ServiceCard nome="Perfume" valor={10.25} />
 
-            </S.TabBody>
+                        ) : result == 'produto'? (
+
+                            <ProductCard nome="Perfume" valor={10.90}>
+
+                            </ProductCard>
+                             // trocar para section certa
+
+                        ) : ("Sobre")}
+                    </S.ResultBody>
+                }
+            </S.TabBody>    
         </S.ContainerTab>
-    );
+    );  
 };
 
 export default Tab;

@@ -1,23 +1,41 @@
 import React from "react";
-import * as S from "./serviceCard.styed";
+import * as S from "./serviceCard.styled";
+import Rating from "../../Rating/Rating";
 
 
-const ServiceCard: React.FC = () => {
+export const ServiceCard: React.FC<S.serviceProps> = ({id, nome, valor, img}) => {
     return (
-        <S.CardBody>
+        <S.CardBody id={id}>
             <S.CardImg>
-                <S.ImgService></S.ImgService>
+                <S.ImgService img={img}></S.ImgService>
             </S.CardImg>
             <S.CardInfo>
+                <Rating></Rating>
                 <span>
-                    Nome
+                    {nome}
                 </span>
                 <span>
-                    R$ 14,99
+                    R$ {valor}
                 </span>
             </S.CardInfo>
         </S.CardBody>
     );
 }
 
-export default ServiceCard;
+export const ProductCard: React.FC<S.serviceProps> = ({id, nome, valor, img}) => {
+    return (
+        <S.CardBody id={id}>
+            <S.CardImg>
+                <S.ImgService img={img}></S.ImgService>
+            </S.CardImg>
+            <S.CardInfo>
+                <span>
+                    {nome}
+                </span>
+                <span>
+                    R$ {valor}
+                </span>
+            </S.CardInfo>
+        </S.CardBody>
+    );
+}

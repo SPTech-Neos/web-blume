@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors as c } from '../../../styles/Colors';
+import { colors as c} from '../../../styles/Colors';
 
 import ImportedContainer from '../../Containers/Container/Container';
 

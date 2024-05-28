@@ -85,8 +85,8 @@ const Sidebar: React.FC = () => {
                                 <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
                                 </S.NavLink>
-                                </S.NavItem>
-                            ) : null}
+                        </S.NavItem>
+                    ) : null}
                 </S.NavList>
 
                 <S.NavList>

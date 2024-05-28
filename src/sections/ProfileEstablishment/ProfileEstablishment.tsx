@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import * as S from './profileEstablishment.styled';
 
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { CaretLeft } from "phosphor-react";
 
 import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
@@ -13,6 +14,8 @@ import EditModal from "../Modals/EditModal/EditModal";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import Badge from '../../components/Badges/AvaliationBadge/AvaliationBadge';
 import Logo from "../../components/Images/Logo/Logo";
+import Modal from "../../components/Modals/FormModal/Modal";
+import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
 
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
@@ -22,12 +25,14 @@ import { colors as c, Themes } from '../../styles/Colors';
 
 const ProfileB2B: React.FC = () => {
 
+    const navigate = useNavigate();
+    const { isAuthenticated, handleDeleteEmployee } = useContext(AuthContextEmployee);
     
     function getTheme(theme: string) {
         return theme === "B2C"? Themes.client : Themes.establishment;
     }
 
-    const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
   
 
@@ -41,12 +46,41 @@ const ProfileB2B: React.FC = () => {
         }
     }, [tokenFromCookie, isAuthenticatedEmployee]);
 
+    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
+
+    useEffect(() => {
+        if (tokenFromCookie) {
+            console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticated);
+        }
+    }, [tokenFromCookie, isAuthenticated]);
+
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
         console.log(editModal);
     };
 
+    const openDeleteModal = () => {
+        setModalProps({
+            type: "error",
+            message: "Tem certeza que deseja excluir a conta?",
+            isOpen: true,
+            linkTo: "/",
+            onConfirm: handleDeleteConfirmation
+        });
+    };
+
+    const handleDeleteConfirmation = () => {
+        if (token) {
+            handleDeleteEmployee(token.employeeId);
+            setModalProps(null);
+            navigate("/");
+        }
+    };
+
+    
+    
     if(isAuthenticatedClient){
         
 
@@ -101,17 +135,25 @@ const ProfileB2B: React.FC = () => {
                                 <S.TracoAtencao />
                             </S.ContainerTitle>
                             <S.ContainerAtencaoButtons>
-                                    <NavLink to={"/"} color={c.gray100}>
-                                        <S.ButtonDelete width="180px" color={c.error} onClick={() => handleLogoutEmployee()}>
-                                                Excluir
-                                        </S.ButtonDelete>
-                                    </NavLink>
-                                <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
-                                    Editar
-                                </S.ButtonUpdate>
+                                    <S.ButtonDelete width="180px" color={c.error} onClick={openDeleteModal}>
+                                          Excluir
+                                    </S.ButtonDelete>
+                                    <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
+                                        Editar
+                                    </S.ButtonUpdate>
                             </S.ContainerAtencaoButtons>
                         </S.ContainerAtencao>
                     </S.ContainerProfile>
+                    {modalProps && (
+                        <Modal
+                            type={modalProps.type}
+                            message={modalProps.message}
+                            isOpen={modalProps.isOpen}
+                            linkTo={modalProps.linkTo}
+                            onConfirm={modalProps.onConfirm}
+                            onClose={() => setModalProps(null)}
+                        />
+                    )}
                 </ S.ProfileB2BSection>
             ) : null
         );

@@ -87,7 +87,7 @@ export class EmployeeAdapter {
     }    
 
     // DELETE EMPLOYEE
-    async delete(employeeId: number): Promise<boolean> {
+    async delete(employeeId: string): Promise<boolean> {
         try {
             await axios.delete(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
             return true;

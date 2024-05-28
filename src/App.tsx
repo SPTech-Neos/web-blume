@@ -6,21 +6,22 @@ import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
 import Establishment from './pages/ProfileEstablishment/ProfileEstablishment';
 import Client from './pages/ProfileClient/ProfileClient';
-import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
-import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
-import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
+import Employee from './pages/ProfileEmployee/ProfileEmployee';
+// import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
+// import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
+// import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
 
 
-const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
-  isAuthenticated: false, 
-  authenticationPath: '/auth'
-};
+// const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
+//   isAuthenticated: false, 
+//   authenticationPath: '/auth'
+// };
 
 const App: React.FC = () => {
-  // Verifica se pelo menos um dos contextos de autenticação está autenticado
-  const isEmployeeAuthenticated = useContext(AuthContextEmployee).isAuthenticated;
-  const isClientAuthenticated = useContext(AuthContextClient).isAuthenticated;
-  const isAuthenticated = isEmployeeAuthenticated || isClientAuthenticated;
+  // // Verifica se pelo menos um dos contextos de autenticação está autenticado
+  // const isEmployeeAuthenticated = useContext(AuthContextEmployee).isAuthenticated;
+  // const isClientAuthenticated = useContext(AuthContextClient).isAuthenticated;
+  // const isAuthenticated = isEmployeeAuthenticated || isClientAuthenticated;
 
   return (
     <BrowserRouter>
@@ -32,23 +33,26 @@ const App: React.FC = () => {
         <Route
           path='/establishment'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<Establishment />}
-            />
+            // <ProtectedRoute
+            //   {...defaultProtectedRouteProps}
+            //   isAuthenticated={isAuthenticated}
+            //   outlet={<Establishment />}
+            // />
+            <Establishment />
           }
         />
         <Route
           path='/client'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<Client />}
-            />
+            // <ProtectedRoute
+            //   {...defaultProtectedRouteProps}
+            //   isAuthenticated={isAuthenticated}
+            //   outlet={<Client />}
+            // />
+            <Client/>
           }
         />
+        <Route path="/employee" element={<Employee/>}/>
       </Routes>
     </BrowserRouter>
   );

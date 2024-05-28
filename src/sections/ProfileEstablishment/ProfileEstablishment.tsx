@@ -87,13 +87,13 @@ const ProfileB2B: React.FC = () => {
             <S.ProfileB2BSection>
                 <S.ContainerProfile direction="column">
                     <S.HeaderProfile>
-                    <S.NavBody>
-                        <S.NavItem>
-                            <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                <CaretLeft size={22} />
-                            </S.NavLink>
-                        </S.NavItem>
-                    </S.NavBody>
+                        <S.NavBody>
+                            <S.NavItem>
+                                <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                    <CaretLeft size={22} />
+                                </S.NavLink>
+                            </S.NavItem>
+                        </S.NavBody>
                         <Logo />
                     </S.HeaderProfile>
                     <S.PerfilContainer>

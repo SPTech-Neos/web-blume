@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 
 export interface LoginFormProps {
     // type: string;
@@ -30,5 +31,5 @@ export const ErrorMessage = styled.span`
     padding: 3px 0;
     bottom: calc(0 - height);
 
-    color: var(--color-status-error);
+    color: ${c.error};
 `;

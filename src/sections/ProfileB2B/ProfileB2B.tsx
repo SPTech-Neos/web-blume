@@ -1,35 +1,36 @@
 import React, { useContext, useEffect } from "react";
 import Cookies from 'js-cookie';
 
-import { NavLink, NavLink as RouterNavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { EmployeeResponseDto } from "../../utils/employee.types";
+import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import * as S from './profileB2B.styled';
 import Profile from "../../components/Profile/Profile";
 import Tab from "../../components/Tab/Tab";
 import EditModal from "../Modals/EditModal/EditModal";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
+import { colors as c } from '../../styles/Colors';
 
 const ProfileB2B: React.FC = () => {
-    const { handleLogoutEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated,handleLogoutEmployee } = useContext(AuthContextEmployee);
 
-    const tokenFromCookie = Cookies.get('employeeToken');
+    const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     useEffect(() => {
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticated);
         }
-    }, [tokenFromCookie]);
+    }, [tokenFromCookie, isAuthenticated]);
 
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
         console.log(editModal);
     };
-
 
     return (
         token ? (
@@ -49,12 +50,12 @@ const ProfileB2B: React.FC = () => {
                             <S.TracoAtencao />
                         </S.ContainerTitle>
                         <S.ContainerAtencaoButtons>
-                                <NavLink to={"/"} color="var(--color-gray-100)">
-                                    <S.ButtonDelete width="180px" color="var(--color-status-error)" onClick={() => handleLogoutEmployee()}>
+                                <NavLink to={"/"} color={c.gray100}>
+                                    <S.ButtonDelete width="180px" color={c.error} onClick={() => handleLogoutEmployee()}>
                                             Excluir
                                     </S.ButtonDelete>
                                 </NavLink>
-                            <S.ButtonUpdate width="180px" color="var(--color-status-warning)" onClick={showModal}>
+                            <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>
                                 Editar
                             </S.ButtonUpdate>
                         </S.ContainerAtencaoButtons>

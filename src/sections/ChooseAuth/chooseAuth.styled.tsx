@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import Container from '../../components/Containers/Container/Container';
 
 export const ChooseAuth = styled.section`
@@ -35,7 +36,7 @@ export const ChooseAuthBox = styled.div`
     justify-content: center;
     align-items: center;
 
-    background: var(--color-gray-100);
+    background: ${c.gray100});
     border-radius: 8px;
 `;
 

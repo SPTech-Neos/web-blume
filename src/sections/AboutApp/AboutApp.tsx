@@ -18,9 +18,9 @@ const AboutApp: React.FC = () => {
     return (
         <S.AboutApp id="about-app">
             <S.ContainerWrapper direction='row'>
-            <div className="light-ball left"></div>
+                <div className="light-ball left"></div>
                 <div className="light-ball right"></div>
-                
+
                 <S.Container direction='column'>
                     <S.Limiter>
                         <PrimaryTitle size='md' theme="light" lines={false} outline={false}> Para Todo Mundo </PrimaryTitle>
@@ -34,12 +34,12 @@ const AboutApp: React.FC = () => {
                     />
 
                     {isTabletOrMobile ?
-                        <img 
+                        <img
                             className="google play badge"
                             src={googlePlayBadge}
                             alt={`Imagem svg com detalhes de circulos no fundo`}
                         /> :
-                     
+
                         <PrimaryButton width='180px'>Entrar</PrimaryButton>
                     }
                 </S.Container>

@@ -12,7 +12,7 @@ type Props = {
 }
 
 const EditModal: React.FC<Props> = ({id}) => {
-    const { updateEmployeeData } = useContext(AuthContextEmployee);
+    const { handleUpdateEmployee } = useContext(AuthContextEmployee);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,10 +38,10 @@ const EditModal: React.FC<Props> = ({id}) => {
         editModal?.classList.remove("active");
     }
 
-    const handleUpdateEmployee = async () => {
+    const handleUpdateEmployeeData = async () => {
         try {
             const updatedFields = { name, email, password };
-            await updateEmployeeData(updatedFields);
+            await handleUpdateEmployee(updatedFields);
             closeModal();
             window.location.reload();
         } catch (error) {
@@ -79,7 +79,7 @@ const EditModal: React.FC<Props> = ({id}) => {
                     Cancelar
                 </DangerButton>
 
-                <PrimaryButton width="180px" onClick={handleUpdateEmployee}>
+                <PrimaryButton width="180px" onClick={handleUpdateEmployeeData}>
                     Atualizar
                 </PrimaryButton>
             </S.ButtonWrapper>

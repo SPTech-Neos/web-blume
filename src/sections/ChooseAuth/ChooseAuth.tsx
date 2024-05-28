@@ -17,6 +17,7 @@ const ChooseAuth: React.FC = () => {
     const { handleLogoutEmployee } = useContext(AuthContextEmployee);
     const { handleLogoutClient } = useContext(AuthContextClient);
 
+    
     const [selected, setSelected] = useState<"client" | "employee" | null>(null);
 
     const handleClientLogin = () => {
@@ -26,7 +27,7 @@ const ChooseAuth: React.FC = () => {
 
     const handleEmployeeLogin = () => {
         handleLogoutClient();
-        navigate("/profileB2B");
+        navigate("/profileb2b");
     };
 
     const handleEntrarClick = () => {

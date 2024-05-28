@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Container from "../../components/Containers/Container/Container"
+import { colors as c } from '../../styles/Colors';
 
 import {DangerButton, WarningButton} from '../../components/Buttons/DefaultButton/DefaultButton';
 
@@ -40,7 +41,7 @@ export const ContainerTitle = styled.div`
 export const TracoAtencao = styled.div`
     width: 30%;
     height: 2px;
-    background-color: var(--color-gray-900);
+    background-color: ${c.gray900};
     border-radius: 5px;
 `;
 

@@ -3,6 +3,7 @@ import Container from '../../components/Containers/Container/Container';
 import BgBranco from '../../assets/circulo-branco.png';
 import BgAzul from '../../assets/circulo-roxo.png';
 import { device } from '../../styles/breakpoints.styled';
+import { colors as c } from '../../styles/Colors';
 
 export const Products = styled.section`
     width: 100%;
@@ -14,7 +15,7 @@ export const Products = styled.section`
     justify-content: space-around;
     align-items: center;
 
-    background-color: var(--color-violet-100);
+    background-color: ${c.violet100};
     font-family: 'Poppins';
     text-align: center;
 

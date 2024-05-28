@@ -11,7 +11,6 @@ import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile";
 import Tab from "../../components/Tab/Tab";
 import EditModal from "../Modals/EditModal/EditModal";
-import Searchbar from "../../components/Searchbar/Searchbar";
 import Badge from '../../components/Badges/AvaliationBadge/AvaliationBadge';
 import Logo from "../../components/Images/Logo/Logo";
 import Modal from "../../components/Modals/FormModal/Modal";
@@ -108,7 +107,7 @@ const ProfileB2B: React.FC = () => {
                             <Badge>Dinamico</Badge>
                         </S.AvaliacaoContainer>
                     </S.PerfilContainer>
-                    <Searchbar placeholderText="Salão para cabelos cacheados..."></Searchbar>
+                    <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
                     <Tab theme='client'/>
                 </S.ContainerProfile>
             </S.ProfileB2BSection>

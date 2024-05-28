@@ -27,7 +27,7 @@ const ChooseAuth: React.FC = () => {
 
     const handleEmployeeLogin = () => {
         handleLogoutClient();
-        navigate("/client");
+        navigate("/establishment");
     };
 
     const handleEntrarClick = () => {

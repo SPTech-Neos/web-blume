@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Container from "../../components/Containers/Container/Container"
+import Search from "../../components/Searchbar/Searchbar";
 import { colors as c } from '../../styles/Colors';
 import Profile from '../../components/Profile/Profile';
 import { NavLink as RouterNavLink } from 'react-router-dom';
@@ -8,6 +9,8 @@ import { Star } from "phosphor-react";
 
 import {DangerButton, WarningButton} from '../../components/Buttons/DefaultButton/DefaultButton';
 
+export const Searchbar = styled(Search)`   
+`
 
 export const ProfileB2BSection = styled.section`
     width: 100%;
@@ -32,7 +35,7 @@ export const Perfil = styled(Profile)`
 
 export const ContainerProfile = styled(Container)`
     height: 100%;
-    padding-top: 10px;
+    padding-top: 50px;
     padding-left: 20px;
     justify-content: start;
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { EmployeeAdapter } from '../adapters/User/Employee';
 import { ClientAdapter } from '../adapters/User/Client';
 import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
+import { ServiceAdapter } from '../adapters/Products/Service';
 import { Local } from '../utils/Establishment/local.types';
 
 const Test: React.FC = () => {
@@ -78,6 +79,25 @@ const Test: React.FC = () => {
                             break;
                     }
                     break;
+                case 'Service':
+                    const serviceAdapter = new ServiceAdapter();
+                    switch (method) {
+                        case 'create':
+                            const createResult = await serviceAdapter.register(params.createDto);
+                            setResult(createResult);
+                            break;
+                        case 'update':
+                            const updateResult = await serviceAdapter.update(params.id, params.updateFields);
+                            setResult(updateResult);
+                            break;
+                        case 'getById':
+                            const getByIdResult = await serviceAdapter.getServiceById(params.id);
+                            setResult(getByIdResult);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -112,9 +132,14 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Client', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>
                 <optgroup label="Establishment Adapter">
-                <option value={JSON.stringify({ type: 'Establishment', method: 'create', params: { createDto: { name: 'ABC Company', cnpj: '123456789', startShift: '08:00', endShift: '18:00', local: local, profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU', description: 'Lorem ipsum dolor sit amet', fkServices: [1, 2, 3] } } })}>Register</option>
+                    <option value={JSON.stringify({ type: 'Establishment', method: 'create', params: { createDto: { name: 'ABC Company', cnpj: '123456789', startShift: '08:00', endShift: '18:00', local: local, profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU', description: 'Lorem ipsum dolor sit amet', fkServices: [1, 2, 3] } } })}>Register</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'update', params: { id: 1, updateFields: { name: 'Updated Name' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'getById', params: { id: 1 } })}>Get by ID</option>
+                </optgroup>
+                <optgroup label="Service Adapter">
+                    <option value={JSON.stringify({ type: 'Service', method: 'create', params: { createDto: { specification: 'Corte', serviceType: {serviceTypeId: 1, name: 'Cabelo Cacheado', serviceCategory: {serviceCategoryId: 1, name: 'Healthcare'}}}}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option>
+                    <option value={JSON.stringify({ type: 'Service', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>
             </select>
             <button onClick={testAdapter}>Test</button>

@@ -1,11 +1,11 @@
 export interface ServiceType {
-    id: number;
+    serviceTypeId: number;
     name: String;
     serviceCategory: ServiceCategory;
 }
 
 export interface ServiceCategory {
-    idServiceCategory: number;
+    serviceCategoryId: number;
     specification: string;
 }
 

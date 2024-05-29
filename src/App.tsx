@@ -33,22 +33,23 @@ const App: React.FC = () => {
         <Route
           path='/establishment'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<Establishment />}
-            />
-          }
+            // <ProtectedRoute
+            //   {...defaultProtectedRouteProps}
+            //   isAuthenticated={isAuthenticated}
+            //   outlet={<Establishment />}
+            // />
+            <Establishment />}
         />
         <Route
           path='/client'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<Client />}
-            />
-          }
+          //   <ProtectedRoute
+          //     {...defaultProtectedRouteProps}
+          //     isAuthenticated={isAuthenticated}
+          //     outlet={<Client />}
+          //   />
+          // }
+          <Client />}
         />
         <Route path="/employee" element={<Employee/>}/>
       </Routes>

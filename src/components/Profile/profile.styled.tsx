@@ -37,7 +37,7 @@ export const ContainerProfileInfo = styled.div`
     justify-content: center;
     align-items: left;
     flex-direction: column;
-    padding-left: 20px;
+    padding-left: 45px;
     gap: 20px;
     font-family: "Poppins", sans-serif;
 

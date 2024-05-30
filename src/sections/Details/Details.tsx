@@ -3,11 +3,23 @@ import * as S from './details.styled';
 import Logo from "../../components/Images/Logo/Logo";
 import { PrimaryButton as Button } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { CaretLeft } from "phosphor-react";
-
-
+import Modal from "../../components/Modals/ChooseModal/ChooseModal";
+ 
 const Details: React.FC<S.detailsProps> = () => {
+
+    const openModal = () => {
+        console.log("estou aqui");
+        const editModal = document.getElementById("editModal");
+        console.log(editModal);
+        editModal?.classList.add("active-modal");
+    }
+
+
+
     return (
+        
         <S.DetailsSection>
+            <Modal id="editModal" />   
 
             <S.DetaisHeader>
             <S.NavBody>
@@ -49,7 +61,7 @@ const Details: React.FC<S.detailsProps> = () => {
 
                             <S.PrecificacaoContainer>
                                 <h1>R$ XXXXXX</h1>
-                                <Button width="180px" size="md">Comprar</Button>
+                                <Button width="180px" size="md" onClick={openModal}>Comprar</Button>
                             </S.PrecificacaoContainer>
                         </S.NameInfoContainer>
                     </S.DetailsInfoContainer>

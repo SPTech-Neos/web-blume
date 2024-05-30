@@ -21,9 +21,12 @@ export const DetailsSection = styled.section`
     font-family: 'Poppins' ;
     display: flex;
     padding-left: 20px;
-    padding-top: 10px;
     align-items: center;
     flex-direction: column;
+
+    & .active-modal {
+        display: flex;
+    }
 `;
 
 export const DetaisHeader = styled.div`

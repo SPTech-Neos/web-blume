@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import Container from "../Containers/Container/Container";
 
+export interface SectionProps {
+    result?: string;
+    theme?: 'client' | 'establishment' | string;
+}
+
+
 export const ContainerTab = styled(Container)`
     width: 100%;
     height: 55vh;
     justify-content: space-around;
 `;
 
-export const TabHeader = styled.div`
+export const TabHeader = styled.div<SectionProps>`
     width: 100%;
     height: 15%;
     display: flex;
@@ -27,3 +33,9 @@ export const TabBody = styled.div`
     //     height: 40px;
     // }
 `;  
+
+export const ResultBody = styled.div`
+    width: 100%;
+    height: 95%;
+    display: flex;
+`;

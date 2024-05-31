@@ -1,7 +1,20 @@
 import styled from 'styled-components';
-import { colors as c } from '../../styles/Colors';
+import { Themes, colors as c } from '../../styles/Colors';
 
-export const TabOption = styled.div`
+export interface Props {
+    id?: string;
+    titulo: string;
+    className: string;
+    theme?: 'client' | 'establishment' | string;
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void | null | JSX.Element | JSX.Element[];  
+}
+
+function getTheme(theme: string) {
+    return theme === "client"? Themes.client : Themes.establishment;
+}
+
+
+export const TabOption = styled.div<Props>`
     width: 33.3%;
     height: 100%;
     display: flex;
@@ -11,13 +24,13 @@ export const TabOption = styled.div`
 
     &:hover{
         cursor:pointer;
-        color: ${c.green300};
-        border-bottom: 4px solid ${c.green300};
+        color: ${(props) => getTheme(props.theme).mainColor};;
+        border-bottom: 4px solid ${(props) => getTheme(props.theme).mainColor};;
     }
 
     &.active {
-        color: ${c.green300};
-        border-bottom: 4px solid ${c.green300};
+        color: ${(props) => getTheme(props.theme).mainColor};;
+        border-bottom: 4px solid ${(props) => getTheme(props.theme).mainColor};;
     }
 
 `;

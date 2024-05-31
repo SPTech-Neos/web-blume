@@ -4,8 +4,9 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Test from './pages/Test';
 import Auth from './pages/Auth/Auth';
 import Feed from './pages/Feed/Feed';
-import ProfileB2B from './pages/ProfileB2B/ProfileB2B';
-import ProfileB2C from './pages/ProfileB2C/ProfileB2C';
+import Establishment from './pages/ProfileEstablishment/ProfileEstablishment';
+import Client from './pages/ProfileClient/ProfileClient';
+import Employee from './pages/ProfileEmployee/ProfileEmployee';
 import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
 import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
 import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
@@ -30,25 +31,27 @@ const App: React.FC = () => {
         <Route path='/auth' element={<Auth />} />
         <Route path='/feed' element={<Feed />} />
         <Route
-          path='/profileb2b'
+          path='/establishment'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<ProfileB2B />}
-            />
-          }
+            // <ProtectedRoute
+            //   {...defaultProtectedRouteProps}
+            //   isAuthenticated={isAuthenticated}
+            //   outlet={<Establishment />}
+            // />
+            <Establishment />}
         />
         <Route
-          path='/profileb2c'
+          path='/client'
           element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              isAuthenticated={isAuthenticated}
-              outlet={<ProfileB2C />}
-            />
-          }
+          //   <ProtectedRoute
+          //     {...defaultProtectedRouteProps}
+          //     isAuthenticated={isAuthenticated}
+          //     outlet={<Client />}
+          //   />
+          // }
+          <Client />}
         />
+        <Route path="/employee" element={<Employee/>}/>
       </Routes>
     </BrowserRouter>
   );

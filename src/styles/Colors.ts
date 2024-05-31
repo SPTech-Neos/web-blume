@@ -72,5 +72,11 @@ export const Themes = {
         mainColor: colors.green300,
         secondaryColor: colors.green500,
         bgColor: colors.green100
+    },
+    employee: {
+        active: false,
+        mainColor: colors.green300,
+        secondaryColor: colors.green500,
+        bgColor: colors.green100
     }   
 }

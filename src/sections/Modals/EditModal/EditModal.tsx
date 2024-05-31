@@ -43,7 +43,6 @@ const EditModal: React.FC<Props> = ({id}) => {
             const updatedFields = { name, email, password };
             await handleUpdateEmployee(updatedFields);
             closeModal();
-            window.location.reload();
         } catch (error) {
             console.error("Erro ao atualizar funcionário:", error);
         }

@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 import { colors as c } from '../../styles/Colors';
 
-import * as S from './profileB2C.styled';
+import * as S from './profileClient.styled';
 
 import Logo from '../../components/Images/Logo/Logo';
 import Profile from "../../components/Profile/Profile";

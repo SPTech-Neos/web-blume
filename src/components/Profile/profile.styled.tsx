@@ -16,6 +16,7 @@ export interface ContainerProfileProps {
 }
 
 export const ContainerProfile = styled(Container)`
+    width: 100%;
     height: 24vh;
     justify-content: start;
 `
@@ -36,7 +37,7 @@ export const ContainerProfileInfo = styled.div`
     justify-content: center;
     align-items: left;
     flex-direction: column;
-    padding-left: 20px;
+    padding-left: 50px;
     gap: 20px;
     font-family: "Poppins", sans-serif;
 

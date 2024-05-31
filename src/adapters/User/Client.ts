@@ -94,7 +94,7 @@ export class ClientAdapter {
                 local
             }, requestOptions);
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 return {
                     clientId: response.data.clientId,
                     name: response.data.name,

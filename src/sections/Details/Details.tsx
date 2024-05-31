@@ -20,7 +20,7 @@ const Details: React.FC<S.detailsProps> = () => {
     return (
         
         <S.DetailsSection>
-            <Schedule />
+            <Schedule id="schedule" />
             <Modal id="editModal" />   
 
             <S.DetaisHeader>

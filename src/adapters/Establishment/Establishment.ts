@@ -29,9 +29,16 @@ export class EstablishmentAdapter {
 
             const response = await axios.get(`${this.apiUrl}/establishments/${id}`, this.getRequestOptions());
             return {
-                establishmentId: response.data.establishmentId,
+                establishmentId: response.data.id,
                 name: response.data.name,
-                local: response.data.local
+                description: response.data.description,
+                local: response.data.local,
+                startShift: response.data.startShift,
+                endShift: response.data.endShift,
+                assessment: response.data.assessment,
+                qtdAssessment: response.data.qtdAssessment,
+                services: response.data.services,
+                filters: response.data.filters
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
@@ -46,10 +53,11 @@ export class EstablishmentAdapter {
                 cnpj,
                 startShift,
                 endShift,
-                local,
+                fkLocal,
                 profilePic,
                 description,
-                fkServices
+                fkServices,
+                fkFilters
             } = establishmentRequestDto;
     
             const response = await axios.post(`${this.apiUrl}/establishments`, {
@@ -57,17 +65,25 @@ export class EstablishmentAdapter {
                 cnpj,
                 startShift,
                 endShift,
-                local,
+                fkLocal,
                 profilePic,
                 description,
-                fkServices
+                fkServices,
+                fkFilters
             }, this.getRequestOptions());
     
             if (response.status === 200) {
                 return {
-                    establishmentId: response.data.establishmentId,
+                    establishmentId: response.data.id,
                     name: response.data.name,
-                    local: response.data.local
+                    description: response.data.description,
+                    local: response.data.local,
+                    startShift: response.data.startShift,
+                    endShift: response.data.endShift,
+                    assessment: response.data.assessment,
+                    qtdAssessment: response.data.qtdAssessment,
+                    services: response.data.services,
+                    filters: response.data.filters
                 } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
@@ -93,9 +109,20 @@ export class EstablishmentAdapter {
     async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>): Promise<EstablishmentResponseDto | null> {
         try {
     
-            const response = await axios.put(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.patch(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
     
-            return response.data as EstablishmentResponseDto;
+            return {
+                establishmentId: response.data.id,
+                name: response.data.name,
+                description: response.data.description,
+                local: response.data.local,
+                startShift: response.data.startShift,
+                endShift: response.data.endShift,
+                assessment: response.data.assessment,
+                qtdAssessment: response.data.qtdAssessment,
+                services: response.data.services,
+                filters: response.data.filters
+            } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
             return null;

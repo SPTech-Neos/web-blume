@@ -1,12 +1,9 @@
-export interface ServiceType {
-    serviceTypeId: number;
-    name: String;
-    serviceCategory: ServiceCategory;
-}
-
-export interface ServiceCategory {
-    serviceCategoryId: number;
+export interface ServiceCategoryRequestDto {
     specification: string;
 }
 
+export interface ServiceCategoryResponseDto {
+    serviceCategoryId: number;
+    specification: string;
+}
 

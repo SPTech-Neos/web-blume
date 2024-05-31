@@ -1,8 +1,13 @@
-import { ServiceType } from "./serviceCategory.types";
+import { ServiceTypeResponseDto } from "./serviceType.types";
 
 // AS DTOS estão iguais no backend (request e response)
-export interface ServiceDto {
+export interface ServiceRequestDto {
+    specification: string;
+    fkServiceType: number;
+}
+
+export interface ServiceResponseDto {
     serviceId: number;
     specification: string;
-    serviceType: ServiceType;
+    serviceType: ServiceTypeResponseDto;
 }

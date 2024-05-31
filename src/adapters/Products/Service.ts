@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { ServiceDto } from "../../utils/Products/service.types";
+import { ServiceRequestDto, ServiceResponseDto } from "../../utils/Products/service.types";
 
 export class ServiceAdapter {
     private readonly apiUrl: string;
@@ -24,28 +24,28 @@ export class ServiceAdapter {
         };
     }
 
-    async getServiceById(id: number): Promise<ServiceDto | null> {
+    async getServiceById(id: number): Promise<ServiceResponseDto | null> {
         try {
             const response = await axios.get(`${this.apiUrl}/service/${id}`, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
                 serviceType: response.data.serviceType,
-            } as ServiceDto;
+            } as ServiceResponseDto;
         } catch (error) {
             console.error("Error getting service by token:", error);
             return null;
         }
     }
 
-    async register(serviceDto: ServiceDto): Promise<ServiceDto | null> {
+    async register(serviceRequestDto: ServiceRequestDto): Promise<ServiceResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/service`, serviceDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/service`, serviceRequestDto, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
                 serviceType: response.data.serviceType,
-            } as ServiceDto;
+            } as ServiceResponseDto;
         } catch (error) {
             console.error("Error creating service:", error);
             return null;
@@ -62,14 +62,14 @@ export class ServiceAdapter {
         }
     }
     
-    async update(serviceId: number, updatedFields: Partial<ServiceDto>): Promise<ServiceDto | null> {
+    async update(serviceId: number, updatedFields: Partial<ServiceRequestDto>): Promise<ServiceResponseDto | null> {
         try {
-            const response = await axios.put(`${this.apiUrl}/service/${serviceId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.patch(`${this.apiUrl}/service/${serviceId}`, updatedFields, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
                 serviceType: response.data.serviceType,
-            } as ServiceDto;
+            } as ServiceResponseDto;
         } catch (error) {
             console.error("Error updating Service:", error);
             return null;

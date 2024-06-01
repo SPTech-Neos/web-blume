@@ -4,6 +4,7 @@ import TimePicker from '../../TimePicker/TimePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { ptBR } from '@mui/x-date-pickers/locales';
+import moment from 'moment';
 
 import * as S from './scheduleModal.styled';
 
@@ -25,18 +26,26 @@ const Schedule: React.FC<props> = ({id}) => {
 
 
     const [value, setValue] = React.useState<Dayjs | null>(dayjs(currentDate));
-
     
 
-    const closeModal = (event: React.MouseEvent<SVGSVGElement>) => {
-        const clicked = (event.target as HTMLElement).parentElement;
-        const parentClicked = clicked?.parentElement?.parentElement;
-        parentClicked?.classList.remove("active-schedule");
+    const closeModal = () => {
+        const schedule = document.getElementById("schedule");
+        console.log(schedule)
+        schedule?.classList.remove("active-schedule");
+        console.log("entrei na X")
         
     }
 
     const handleSelect = () => {
-        
+        const selected = document.getElementsByClassName("active");
+        const hourScheduled = selected[0].textContent;
+        if(value != undefined){
+            const date = value.valueOf();
+            const formattedDate = moment(date).format('YYYY/MM/DD ' + hourScheduled + ':00');
+            console.log(formattedDate);
+            alert(formattedDate);
+            closeModal();
+        }
     }
 
     

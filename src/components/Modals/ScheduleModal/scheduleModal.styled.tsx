@@ -10,7 +10,7 @@ export const ModalSection = styled.div`
     background-color: #30303065;
     position: fixed;
     z-index: 3;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 

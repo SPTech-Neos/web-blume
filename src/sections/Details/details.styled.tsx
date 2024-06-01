@@ -27,6 +27,10 @@ export const DetailsSection = styled.section`
     & .active-modal {
         display: flex;
     }
+
+    & .active-schedule {
+        display: flex;
+    }
 `;
 
 export const DetaisHeader = styled.div`

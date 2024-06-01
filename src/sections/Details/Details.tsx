@@ -4,6 +4,7 @@ import Logo from "../../components/Images/Logo/Logo";
 import { PrimaryButton as Button } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { CaretLeft } from "phosphor-react";
 import Modal from "../../components/Modals/ChooseModal/ChooseModal";
+import Schedule from "../../components/Modals/ScheduleModal/ScheduleModal";
  
 const Details: React.FC<S.detailsProps> = () => {
 
@@ -19,6 +20,7 @@ const Details: React.FC<S.detailsProps> = () => {
     return (
         
         <S.DetailsSection>
+            <Schedule id="schedule" />
             <Modal id="editModal" />   
 
             <S.DetaisHeader>

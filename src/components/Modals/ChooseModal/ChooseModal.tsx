@@ -43,7 +43,7 @@ const ChooseModal:React.FC<S.SelectEmployee> = () => {
         <S.ModalSection id="editModal">
             <S.ModalContainer>
                 <S.ModalBody>
-                    <S.closeModal size={22} onClick={closeModal}/>
+                    <S.CloseModal size={22} onClick={closeModal}/>
                     <SecondaryTitle  size="lg" lines={true}>
                         Agendar Serviço 
                     </SecondaryTitle>

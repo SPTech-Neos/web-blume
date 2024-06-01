@@ -79,7 +79,7 @@ export const HourContainer = styled.div`
     align-items: center;
 `; 
 
-export const closeModal = styled(X)`
+export const CloseModal = styled(X)`
     top: 10px;
     left: 48%;
     position: relative;

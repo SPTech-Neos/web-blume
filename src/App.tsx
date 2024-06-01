@@ -8,6 +8,7 @@ import Establishment from './pages/ProfileEstablishment/ProfileEstablishment';
 import Client from './pages/ProfileClient/ProfileClient';
 import Employee from './pages/ProfileEmployee/ProfileEmployee';
 import Details from './pages/Details/Details';
+import Orders from './pages/Orders/Orders';
 // import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
 // import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
 // import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
@@ -54,6 +55,7 @@ const App: React.FC = () => {
         />
         <Route path="/employee" element={<Employee/>}/>
         <Route path="/details" element={<Details/>}/>
+        <Route path="/orders" element={<Orders/>}/>
       </Routes>
     </BrowserRouter>
   );

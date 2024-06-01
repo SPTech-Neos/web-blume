@@ -53,7 +53,7 @@ const Schedule: React.FC<props> = ({id}) => {
         <S.ModalSection id={id}>
             <S.ModalContainer>
                 <S.ModalBody>
-                    <S.closeModal size={22} onClick={closeModal}/>
+                    <S.CloseModal size={22} onClick={closeModal}/>
 
                     <SecondaryTitle  size="lg" lines={true}>
                         Agendar Serviço 

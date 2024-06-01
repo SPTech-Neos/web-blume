@@ -8,17 +8,22 @@ import { SignOut } from "phosphor-react";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 
 const Sidebar: React.FC = () => {
     const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
+    const { handleLogoutEstablishment, isAuthenticated: isAuthenticatedEstablishment } = useContext(AuthContextEstablishment);
     
     let handleLogout: () => void;
     let theme: string = '';
 
-    if(isAuthenticatedEmployee) {
-        theme = "establishment";
+    if(isAuthenticatedEstablishment){
+        theme = "employee";
+        handleLogout = handleLogoutEstablishment;
+    } else if(isAuthenticatedEmployee) {
+        theme = "employee";
         handleLogout = handleLogoutEmployee;
         
     } else if(isAuthenticatedClient) {
@@ -26,7 +31,6 @@ const Sidebar: React.FC = () => {
         handleLogout = handleLogoutClient;
     }
     
-
     const location = useLocation();
     console.log(location);
     const iconeAtual = document.getElementsByTagName("a");
@@ -60,7 +64,7 @@ const Sidebar: React.FC = () => {
                 <S.NavList>
                     <S.NavItem>
                         <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                        {location.pathname == "/ProfileB2B"?(
+                        {location.pathname == "/establishment" || location.pathname == "/employee"?(
                                 <Article size={24} />
                             ) :
                             <MagnifyingGlass size={24}/>
@@ -69,7 +73,7 @@ const Sidebar: React.FC = () => {
                     </S.NavItem>
                     <S.NavItem>
                         <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                            {location.pathname == "/ProfileB2B"?(
+                            {location.pathname == "/establishment" || location.pathname == "/employee"?(
                                 <UserList size={24}/>
                             ) :                            
                                 <ShoppingCart size={24}/>
@@ -81,13 +85,13 @@ const Sidebar: React.FC = () => {
                             <Receipt size={24}/>
                         </S.NavLink>
                     </S.NavItem>
-                    {location.pathname === "/ProfileB2B"?(
+                    {location.pathname === "/establishment" || location.pathname == "/employee"?(
                                 <S.NavItem>
                                 <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
                                 </S.NavLink>
-                                </S.NavItem>
-                            ) : null}
+                        </S.NavItem>
+                    ) : null}
                 </S.NavList>
 
                 <S.NavList>
@@ -102,7 +106,7 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to={theme === 'establishment'? "/ProfileB2B" : "/ProfileB2C"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to={"/" + theme} className={({isActive})=>isActive? "nav-link active " : "nav-link"}>
                             <UserCircle size={24}/>
                         </S.NavLink>
                     </S.NavItem>

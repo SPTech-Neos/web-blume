@@ -8,12 +8,14 @@ const InputText: React.FC<S.InputTextProps> = ({
   label,
   type = "text",
   placeholder,
+  theme,
   onChange,
   ...rest
 }) => (
   <S.InputContainer size={size}>
     <Label label={label} />
     <S.InputText
+      theme={theme}
       label={label}
       type={type}
       placeholder={placeholder}

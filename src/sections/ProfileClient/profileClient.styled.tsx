@@ -45,7 +45,6 @@ export const ProfileContainer = styled.div`
     }
 
     &>div>div>h1{
-        padding-left: 25px;
         font-size: 28px;
     }
 `;

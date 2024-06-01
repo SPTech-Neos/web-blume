@@ -1,7 +1,7 @@
 // TO REDO
 import React, { useState } from "react";
 import * as S from "./register.styled";
-import { colors as c } from "../../../styles/Colors";
+import { colors as c, Themes, getTheme } from "../../../styles/Colors";
 import {
   PrimaryTitle,
   SecondaryTitle,
@@ -12,22 +12,11 @@ import InputContainer from "../../../components/Input/InputContainer/InputContai
 import ColorContainer from "../../../components/Containers/ColorContainer/ColorContainer";
 // import Subtitle from "../../../components/Texts/Subtitle/Subtitle";
 import { Stepper } from "../../../components/Stepper/Stepper";
-import { log } from "console";
 import InputImage from "../../../components/Input/InputImage/InputImage";
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
-import Link from "../../../components/Texts/Link/Link";
 import { LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import Dropdown from "../../../components/Input/Dropdown/Dropdown";
 import { useLocation } from "react-router-dom";
-
-// export const RegisterForm: React.FC<S.RegisterFormProps> = ({ step, children }) => {
-
-//     return (
-//         <S.RegisterForm step={step}>
-//             {children}
-//         </S.RegisterForm>
-//     )
-// }
 
 const Register: React.FC<S.RegisterProps> = ({}) => {
   // const [isClient, setIsClient] = useState("");
@@ -35,8 +24,19 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  // Extract the mode query parameter (default to 'login')
-  const acc = searchParams.get("acc") || "client" || "choose-auth";
+  const acc = searchParams.get("acc") || "none";
+
+  function chooseRegister(acc: string) {
+    // console.log(acc);
+
+    if (acc == "client") {
+      return <Client />;
+    } else if (acc == "establishment") {
+      return <Establishment />;
+    } else {
+      return <h1>TA ERRADO</h1>;
+    }
+  }
 
   function handleSubmit() {}
 
@@ -60,7 +60,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
       <>
         <Column>
           <PrimaryTitle>CADASTRO</PrimaryTitle>
-          <Stepper steps={2} currentStep={step} />
+          <Stepper theme={acc} steps={2} currentStep={step} />
           <SecondaryTitle size="sm">
             {step == 1 ? "DADOS OBRIGATÓRIOS" : "DADOS OPCIONAIS"}
           </SecondaryTitle>
@@ -70,6 +70,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
             {step == 1 ? (
               <S.FormPart>
                 <InputText
+                  theme={acc}
                   label="Nome"
                   type={"text"}
                   placeholder="Joana Silva"
@@ -77,6 +78,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 />
 
                 <InputText
+                  theme={acc}
                   label="E-mail"
                   type={"email"}
                   placeholder="exemplo@servidor.com"
@@ -85,6 +87,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 <Column>
                   <InputContainer>
                     <InputText
+                      theme={acc}
                       size="half"
                       label="Senha"
                       type={"password"}
@@ -92,6 +95,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       onChange={() => {}}
                     />
                     <InputText
+                      theme={acc}
                       size="half"
                       label="Confirmar Senha"
                       type={"password"}
@@ -121,10 +125,11 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
               </S.FormPart>
             ) : (
               <S.FormPart>
-                <InputImage />
+                <InputImage theme={acc} />
 
                 <S.FormPartSmall>
                   <InputText
+                    theme={acc}
                     size="full"
                     label="CEP"
                     placeholder="01414001"
@@ -134,6 +139,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
 
                   <InputContainer>
                     <InputText
+                      theme={acc}
                       size="big"
                       label="Logradouro"
                       placeholder="Rua Haddock Lobo"
@@ -141,6 +147,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       onChange={() => {}}
                     />
                     <InputText
+                      theme={acc}
                       size="small"
                       label="Número"
                       placeholder="575"
@@ -151,6 +158,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
 
                   <InputContainer>
                     <Dropdown
+                      theme={acc}
                       size="small"
                       label="Estado"
                       placeholder="UF"
@@ -186,6 +194,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       onChange={() => {}}
                     />
                     <InputText
+                      theme={acc}
                       size="big"
                       label="Complemento"
                       type={"text"}
@@ -201,12 +210,12 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
             <LinkButton
               size="md"
               width="200px"
-              type="submit"
+              color={getTheme(acc).mainColor}
               onClick={
                 step == 2
                   ? () => {
                       setStep(step - 1);
-                      console.log(step);
+                      // console.log(step);
                     }
                   : () => handleNext()
               }
@@ -217,11 +226,12 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
               size="md"
               width="200px"
               type="submit"
+              color={getTheme(acc).mainColor}
               onClick={
                 step == 2
                   ? () => {
                       setStep(step - 1);
-                      console.log(step);
+                      // console.log(step);
                     }
                   : () => handleNext()
               }
@@ -266,7 +276,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
       <>
         <Column>
           <PrimaryTitle>CADASTRO</PrimaryTitle>
-          <Stepper steps={4} currentStep={step} />
+          <Stepper theme={acc} steps={4} currentStep={step} />
           <SecondaryTitle size="sm">{handleTitle(step)}</SecondaryTitle>
         </Column>
         <>
@@ -274,61 +284,43 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
             {step == 1 ? (
               <S.FormPart>
                 <InputText
-                  label="Nome"
+                  theme={acc}
+                  label="Nome do Estabelecimento"
                   type={"text"}
-                  placeholder="Joana Silva"
+                  placeholder="Casa da Mãe Joana"
                   onChange={() => {}}
                 />
 
                 <InputText
-                  label="E-mail"
-                  type={"email"}
-                  placeholder="exemplo@servidor.com"
+                  theme={acc}
+                  label="CNPJ"
+                  type={"text"}
+                  placeholder="XXXXXXX"
                   onChange={() => {}}
                 />
-                <Column>
-                  <InputContainer>
-                    <InputText
-                      size="half"
-                      label="Senha"
-                      type={"password"}
-                      placeholder="Bananina123"
-                      onChange={() => {}}
-                    />
-                    <InputText
-                      size="half"
-                      label="Confirmar Senha"
-                      type={"password"}
-                      placeholder="***********"
-                      onChange={() => {}}
-                    />
-                  </InputContainer>
 
-                  <S.TextWrapper>
-                    <S.Text>
-                      Tamanho mínimo: <S.CBText>8 caracteres</S.CBText>
-                    </S.Text>
-                    <S.Text>
-                      Caracter especial: <S.CBText>mínimo 1</S.CBText>
-                    </S.Text>
-                    <S.Text>
-                      Caracter maiúsculo: <S.CBText>mínimo 1</S.CBText>
-                    </S.Text>
-                    <S.Text>
-                      Caracter minúsculo: <S.CBText>mínimo 1</S.CBText>
-                    </S.Text>
-                    <S.Text>
-                      Caracter numérico: <S.CBText>mínimo 1</S.CBText>
-                    </S.Text>
-                  </S.TextWrapper>
-                </Column>
-              </S.FormPart>
-            ) : (
-              <S.FormPart>
-                <InputImage />
+                <InputContainer>
+                  <InputText
+                    theme={acc}
+                    size="half"
+                    label="Horário de Entrada"
+                    type={"time"}
+                    placeholder=""
+                    onChange={() => {}}
+                  />
+                  <InputText
+                    theme={acc}
+                    size="half"
+                    label="Horário de Saída"
+                    type={"time"}
+                    placeholder=""
+                    onChange={() => {}}
+                  />
+                </InputContainer>
 
                 <S.FormPartSmall>
                   <InputText
+                    theme={acc}
                     size="full"
                     label="CEP"
                     placeholder="01414001"
@@ -338,6 +330,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
 
                   <InputContainer>
                     <InputText
+                      theme={acc}
                       size="big"
                       label="Logradouro"
                       placeholder="Rua Haddock Lobo"
@@ -345,6 +338,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       onChange={() => {}}
                     />
                     <InputText
+                      theme={acc}
                       size="small"
                       label="Número"
                       placeholder="575"
@@ -355,6 +349,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
 
                   <InputContainer>
                     <Dropdown
+                      theme={acc}
                       size="small"
                       label="Estado"
                       placeholder="UF"
@@ -390,6 +385,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       onChange={() => {}}
                     />
                     <InputText
+                      theme={acc}
                       size="big"
                       label="Complemento"
                       type={"text"}
@@ -397,6 +393,95 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     />
                   </InputContainer>
                 </S.FormPartSmall>
+              </S.FormPart>
+            ) : (
+              <S.FormPart>
+                <InputImage theme={acc} />
+
+                <InputText
+                  theme={acc}
+                  size="full"
+                  label="Descrição"
+                  type={"text"}
+                  placeholder="Descreva como é o seu estabelecimento..."
+                  onChange={() => {}}
+                />
+
+                {/* <S.FormPartSmall>
+                  <InputText
+                    theme={acc}
+                    size="full"
+                    label="CEP"
+                    placeholder="01414001"
+                    type={"text"}
+                    onChange={() => {}}
+                  />
+
+                  <InputContainer>
+                    <InputText
+                      theme={acc}
+                      size="big"
+                      label="Logradouro"
+                      placeholder="Rua Haddock Lobo"
+                      type={"text"}
+                      onChange={() => {}}
+                    />
+                    <InputText
+                      theme={acc}
+                      size="small"
+                      label="Número"
+                      placeholder="575"
+                      type={"text"}
+                      onChange={() => {}}
+                    />
+                  </InputContainer>
+
+                  <InputContainer>
+                    <Dropdown
+                      theme={acc}
+                      size="small"
+                      label="Estado"
+                      placeholder="UF"
+                      list={[
+                        "AC",
+                        "AL",
+                        "AM",
+                        "AP",
+                        "BA",
+                        "CE",
+                        "DF",
+                        "ES",
+                        "GO",
+                        "MA",
+                        "MG",
+                        "MS",
+                        "MT",
+                        "PA",
+                        "PB",
+                        "PE",
+                        "PI",
+                        "PR",
+                        "RJ",
+                        "RN",
+                        "RO",
+                        "RR",
+                        "RS",
+                        "SC",
+                        "SE",
+                        "SP",
+                        "TO",
+                      ]}
+                      onChange={() => {}}
+                    />
+                    <InputText
+                      theme={acc}
+                      size="big"
+                      label="Complemento"
+                      type={"text"}
+                      onChange={() => {}}
+                    />
+                  </InputContainer>
+                </S.FormPartSmall> */}
               </S.FormPart>
             )}
           </S.RegisterForm>
@@ -441,9 +526,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
   return (
     <>
       <ColorContainer bgColor={c.gray100}>
-        <S.Register>
-          {acc == "client" ? <Client /> : <Establishment />}
-        </S.Register>
+        <S.Register>{chooseRegister(acc)}</S.Register>
       </ColorContainer>
     </>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors as c } from "../../../styles/Colors";
+import { colors as c, Themes } from "../../../styles/Colors";
 import { DropdownMenu, Button as Btn } from "@radix-ui/themes";
 
 export interface DropDownProps {
@@ -9,6 +9,7 @@ export interface DropDownProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
+  theme: string;
   list: string[];
   // children: string | JSX.Element | JSX.Element[];
 }
@@ -17,12 +18,24 @@ export interface ColorProps {
   color: string;
 }
 
+export interface ThemeProps {
+  theme: string;
+}
+
 export interface TriggerProps {
   isSelected: boolean;
+  theme: string;
 }
 
 export interface InputContainerProps {
   size?: "full" | "big" | "small" | "half";
+}
+
+function getTheme(theme: string) {
+  //   console.log(theme);
+  console.log(theme, theme == "client");
+
+  return theme === "client" ? Themes.client : Themes.establishment;
 }
 
 const SizeVariants = {
@@ -59,12 +72,12 @@ export const Trigger = styled(DropdownMenu.Trigger)<TriggerProps>`
 
   &:hover,
   &:focus {
-    border: 3px solid ${c.violet300};
+    border: 3px solid ${(props) => getTheme(props.theme).mainColor};
     outline: none;
   }
 
   &::selection {
-    background-color: ${c.violet300};
+    background-color: ${(props) => getTheme(props.theme).mainColor};
   }
 `;
 
@@ -80,12 +93,12 @@ export const Content = styled(DropdownMenu.Content)`
   z-index: 0;
 `;
 
-export const Item = styled(DropdownMenu.Item)`
+export const Item = styled(DropdownMenu.Item)<ThemeProps>`
   font-weight: regular;
   font-size: 13px;
 
   &:hover {
-    background-color: ${c.violet300};
+    background-color: ${(props) => getTheme(props.theme).mainColor};
     cursor: pointer;
     border-radius: 0px;
   }
@@ -110,39 +123,39 @@ export const InputContainer = styled.div<InputContainerProps>`
   justify-content: space-between;
 `;
 
-export const DropDown = styled.input.attrs((props) => ({
-  type: props.type || "text",
-  placeholder: props.placeholder || "Digite aqui...",
-  required: props.required || false,
-}))<DropDownProps>`
-  position: relative;
-  z-index: 0;
+// export const DropDown = styled.input.attrs((props) => ({
+//   type: props.type || "text",
+//   placeholder: props.placeholder || "Digite aqui...",
+//   required: props.required || false,
+// }))<DropDownProps>`
+//   position: relative;
+//   z-index: 0;
 
-  font-size: 14px;
-  font-family: "Josefin Sans", "Arial";
+//   font-size: 14px;
+//   font-family: "Josefin Sans", "Arial";
 
-  margin: 0;
-  background-color: ${c.gray100};
-  border: 3px solid ${c.gray900};
-  padding: 5px 25px;
-  font-size: 16px;
-  font-weight: regular;
-  font-family: "Poppins", "Arial";
-  transition: all 0.2s ease-in;
+//   margin: 0;
+//   background-color: ${c.gray100};
+//   border: 3px solid ${c.gray900};
+//   padding: 5px 25px;
+//   font-size: 16px;
+//   font-weight: regular;
+//   font-family: "Poppins", "Arial";
+//   transition: all 0.2s ease-in;
 
-  width: 100%;
+//   width: 100%;
 
-  &::placeholder {
-    color: ${c.gray500};
-  }
+//   &::placeholder {
+//     color: ${c.gray500};
+//   }
 
-  &:hover,
-  &:focus {
-    border: 3px solid ${c.violet300};
-    outline: none;
-  }
+//   &:hover,
+//   &:focus {
+//     border: 3px solid ${c.violet300};
+//     outline: none;
+//   }
 
-  &::selection {
-    background-color: ${c.violet300};
-  }
-`;
+//   &::selection {
+//     background-color: ${c.violet300};
+//   }
+// `;

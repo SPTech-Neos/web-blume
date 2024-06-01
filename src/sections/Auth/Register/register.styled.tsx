@@ -22,6 +22,7 @@ export const Register = styled.main<RegisterProps>`
   padding: 30px 50px;
   box-shadow: 0 0 48px 2px rgba(0, 0, 0, 0.25);
   max-width: 45%;
+  overflow-y: scroll;
 `;
 
 export const Text = styled.span`

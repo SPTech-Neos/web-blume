@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors as c } from "../../../styles/Colors";
+import { colors as c, Themes } from "../../../styles/Colors";
 import { TextField } from "@radix-ui/themes";
 
 export interface InputTextProps {
@@ -8,10 +8,18 @@ export interface InputTextProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
+  theme: string;
 }
 
 export interface InputContainerProps {
   size?: "full" | "big" | "small" | "half";
+}
+
+function getTheme(theme: string) {
+  //   console.log(theme);
+  console.log(theme, theme == "client");
+
+  return theme === "client" ? Themes.client : Themes.establishment;
 }
 
 const SizeVariants = {
@@ -77,12 +85,12 @@ export const InputText = styled(TextField.Root).attrs((props) => ({
 
   &:hover,
   &:focus {
-    border: 3px solid ${c.violet300};
+    border: 3px solid ${(props) => getTheme(props.theme).mainColor};
     outline: none;
   }
 
   &::selection {
-    background-color: ${c.violet300};
+    background-color: ${(props) => getTheme(props.theme).mainColor};
   }
 `;
 
@@ -102,7 +110,7 @@ export const Slot = styled(TextField.Slot)`
 // ))<InputTextProps>`
 
 //     &::part(clear-button){
-//         color: ${c.violet300};
+//         color: ${props => getTheme(props.theme).mainColor};
 //     }
 
 //     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
@@ -130,11 +138,11 @@ export const Slot = styled(TextField.Slot)`
 //     }
 
 //    &:hover, &:focus {
-//       border: 3px solid ${c.violet300};
+//       border: 3px solid ${props => getTheme(props.theme).mainColor};
 //    }
 
 //    &::selection {
-//         background-color: ${c.violet300};
+//         background-color: ${props => getTheme(props.theme).mainColor};
 //    }
 
 // `;

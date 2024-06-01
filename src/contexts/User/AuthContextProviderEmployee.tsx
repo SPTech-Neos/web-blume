@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
 import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Employee/employee.types";
+
 import { EmployeeAdapter } from "../../adapters/User/Employee";
 
 interface AuthContextType {
@@ -11,7 +12,7 @@ interface AuthContextType {
   handleLogoutEmployee: () => void;
   handleUpdateEmployee: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
   handleCreateEmployee: (employeeRequestDto: EmployeeRequestDto) => Promise<EmployeeResponseDto | null>;
-  handleDeleteEmployee: (employeeId: number) => Promise<boolean>;
+  handleDeleteEmployee: (employeeId: string) => Promise<boolean>;
   getEmployeeById: (employeeId: number) => Promise<EmployeeResponseDto | null>;
 }
 
@@ -26,7 +27,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
   getEmployeeById: async () => null,
 });
 
-export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
+export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] | null }) => {
   const [token, setToken] = useState<EmployeeResponseDto | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -123,7 +124,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
     }
   };
 
-  const handleDeleteEmployee = async (employeeId: number): Promise<boolean> => {
+  const handleDeleteEmployee = async (employeeId: string): Promise<boolean> => {
     try {
       return await employeeAdapter.delete(employeeId);
     } catch (error) {

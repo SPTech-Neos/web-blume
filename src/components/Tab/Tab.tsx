@@ -2,17 +2,27 @@ import React, {useState} from "react";
 import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
+import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
+import About from "../About/About";
+import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
 
-type SectionProps = {
-    result?: string;
-}
-const Tab: React.FC<SectionProps> = () => {
+const Tab: React.FC<S.SectionProps> = ({theme}) => {
 
     const [result, setResult] = useState("");
-
+    
+    // const teste = {
+    //     nome: "oi",
+    //     id: 1
+    // }
+    
+    // const { data } = teste;
+    // const [cardsData, setCardsData] = useState(data);
+    // setCardsData(data) ;
+    
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
         const myElement = document.getElementById(`${(event.target as HTMLDivElement).id}`);
+        
     
         if (!elementsActive) {
             console.log("todo nao encontrada");
@@ -36,26 +46,46 @@ const Tab: React.FC<SectionProps> = () => {
     return (
         <S.ContainerTab direction='column'>
             <S.TabHeader id="TabHeader">
-                <TabOption id="servico" className="optionsTab" titulo="Serviços" onClick={handleClick} />
+                <TabOption id="servico" className="optionsTab" titulo="Serviços" theme={theme} onClick={handleClick} />
 
-                <TabOption id="produto" className="optionsTab" titulo="Produtos" onClick={handleClick} />
+                <TabOption id="produto" className="optionsTab" titulo="Produtos" theme={theme} onClick={handleClick} />
 
-                <TabOption id="sobre" className="optionsTab" titulo="Sobre" onClick={handleClick} />
+                <TabOption id="sobre" className="optionsTab" titulo="Sobre" theme={theme} onClick={handleClick} />
             </S.TabHeader>
             <S.TabBody>
-                <div id="section-escolhida">
-                    {result == 'servico'? (
-                        "Serviços" // trocar pela section certa
-                    ) : result == 'produto'? (
-                        "Produtos" // trocar para section certa
-                    ) : result == 'sobre'? (
-                        "Sobre" // trocar para section certa
-                    ) : "Selecione uma opção"}
-                </div>
+                {result == ''? (
+                    <div>
+                        <span>Selecione uma Opção</span>
+                    </div>
+                ):
+                    <S.ResultBody id="section-escolhida">
+                        {result == 'servico'? (
+                            // cardsData.map((data, index) => (
+                            //     <div key={index}>
+                            //     </div>
+                            // ))
+                            <ServiceCard theme={theme} nome="Perfume" valor={10.25} />
 
-            </S.TabBody>
+                        ) : result == 'produto'? (
+
+                            <ProductCard nome="Perfume" valor={10.90}>
+
+                            </ProductCard>
+                             // trocar para section certa
+
+                        ) : <About descricao="Passado por props no componente TAB">
+                                <Badge>
+                                    deixar
+                                </Badge>
+                                <Badge>
+                                    dinamico
+                                </Badge>
+                            </About>}
+                    </S.ResultBody>
+                }
+            </S.TabBody>    
         </S.ContainerTab>
-    );
+    );  
 };
 
 export default Tab;

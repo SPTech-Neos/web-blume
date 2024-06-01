@@ -24,9 +24,9 @@ export class EmployeeAdapter {
     }
 
     // GET EMPLOYEE BY TOKEN
-    async getEmployeeById(id: number): Promise<EmployeeResponseDto | null> {
+    async getEmployeeById(employeeId: number): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/employee/${id}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
             return {
                 employeeId: response.data.id,
                 name: response.data.name,
@@ -68,7 +68,13 @@ export class EmployeeAdapter {
     async create(employeeDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> {
         try {
             const response = await axios.post(`${this.apiUrl}/employee`, employeeDto, this.getRequestOptions());
-            return response.data as EmployeeResponseDto;
+            return {
+                employeeId: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                establishment: response.data.establishment,
+                employeeType: response.data.employeeType
+            } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error creating employee:", error);
             return null;
@@ -78,8 +84,14 @@ export class EmployeeAdapter {
     // UPDATE EMPLOYEE
     async update(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.put(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
-            return response.data as EmployeeResponseDto;
+            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
+            return {
+                employeeId: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                establishment: response.data.establishment,
+                employeeType: response.data.employeeType
+            } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error updating employee:", error);
             return null;
@@ -87,7 +99,7 @@ export class EmployeeAdapter {
     }    
 
     // DELETE EMPLOYEE
-    async delete(employeeId: number): Promise<boolean> {
+    async delete(employeeId: string): Promise<boolean> {
         try {
             await axios.delete(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
             return true;

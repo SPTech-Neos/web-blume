@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Cookies from 'js-cookie';
 
 import * as S from './headerProfile.styled';
+import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
 
 const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
-    const tokenFromCookie = Cookies.get('employeeToken');
-    console.log(tokenFromCookie)
+    const { isAuthenticated, handleLogoutEmployee } = useContext(AuthContextEmployee);
+
+    const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     useEffect(() => {
-        // Exemplo de uso do token após o login
-        if (token) {
-            console.log("Token de autenticação:", token);
+        if (tokenFromCookie) {
+            console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticated);
         }
-    }, [token]);
+    }, [tokenFromCookie, isAuthenticated]);
 
     return (
         <S.HeaderBody>

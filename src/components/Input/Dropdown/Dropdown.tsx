@@ -8,6 +8,7 @@ const Dropdown: React.FC<S.DropDownProps> = ({
   label,
   placeholder,
   list,
+  theme,
   onChange,
   ...rest
 }) => {
@@ -26,7 +27,7 @@ const Dropdown: React.FC<S.DropDownProps> = ({
       const el = list[i];
 
       items.push(
-        <S.Item onClick={() => handleClick(el)} key={i}>
+        <S.Item theme={theme} onClick={() => handleClick(el)} key={i}>
           {el}
         </S.Item>
       );
@@ -47,38 +48,7 @@ const Dropdown: React.FC<S.DropDownProps> = ({
           </S.Button>
         </S.Trigger>
 
-        <S.Content>
-          {makeItems()}
-
-          {/* <S.Item shortcut="⌘ E">Edit</S.Item>
-        <S.Item shortcut="⌘ D">Duplicate</S.Item>
-
-        <S.Separator />
-
-        <S.Item shortcut="⌘ N">Archive</S.Item>
-
-        <S.Separator />
-
-        <S.Item>Share</S.Item>
-        <S.Item>Add to favorites</S.Item>
-
-        <S.Separator />
-
-        <S.Item shortcut="⌘ ⌫" color="red">
-          Delete
-        </S.Item> */}
-
-          {/* <S.Sub>
-       <S.SubTrigger>More</S.SubTrigger>
-         <S.SubContent>
-           <S.Item>Move to project…</S.Item>
-           <S.Item>Move to folder…</S.Item>
-
-           <S.Separator />
-           <S.Item>Advanced options…</S.Item>
-         </S.SubContent>
-       </S.Sub> */}
-        </S.Content>
+        <S.Content>{makeItems()}</S.Content>
       </S.Container>
     </S.InputContainer>
   );

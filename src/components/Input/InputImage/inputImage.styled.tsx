@@ -1,8 +1,14 @@
 import styled from "styled-components";
-import { colors as c } from "../../../styles/Colors";
+import {
+  colors as c,
+  Themes,
+  getTheme,
+  ThemeProps,
+} from "../../../styles/Colors";
 
 export interface InputImageProps {
   onChange?: (e: any) => void;
+  theme: string;
   // children: string | JSX.Element | JSX.Element[];
   // href: string;
   // size?: 'sm' | 'md' | 'lg';
@@ -33,9 +39,9 @@ export const InputImage = styled.input.attrs((props) => ({
   display: none;
 `;
 
-export const InputLabel = styled.label.attrs(() => ({}))`
+export const InputLabel = styled.label<ThemeProps>`
   background: ${c.gray100};
-  border: 2px solid ${c.violet300};
+  border: 2px solid ${(props) => getTheme(props.theme).mainColor};
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -50,8 +56,8 @@ export const ImagePreview = styled.img.attrs(() => ({}))`
   background: ${c.gray300};
 `;
 
-export const Icon = styled.img.attrs(() => ({}))`
-  background: ${c.violet300};
+export const Icon = styled.img<ThemeProps>`
+  background: ${(props) => getTheme(props.theme).mainColor};
   padding: 8px;
   border-radius: 4px 0 0 4px;
 `;
@@ -80,7 +86,7 @@ export const ColumnCenter = styled(Column).attrs(() => ({}))`
   align-items: center;
 `;
 
-export const IconText = styled.p.attrs(() => ({}))`
+export const IconText = styled.p<ThemeProps>`
   padding: 7.3px;
   font-family: "Poppins";
   font-weight: 600;
@@ -89,7 +95,7 @@ export const IconText = styled.p.attrs(() => ({}))`
   border-radius: 0 4px 4px 0;
 
   ${InputLabel}:hover & {
-    background: ${c.violet300};
+    background: ${(props) => getTheme(props.theme).mainColor};
     color: ${c.gray100};
   }
 `;

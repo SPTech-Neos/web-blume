@@ -8,6 +8,7 @@ import CardPedido from "../../components/Cards/CardPedido/CardPedido";
 
 const Orders: React.FC = () => {
 
+
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const selected = document.getElementsByClassName("active");
         
@@ -21,6 +22,7 @@ const Orders: React.FC = () => {
     const handlePast = (event: React.MouseEvent<HTMLDivElement>) => {
         console.log(event.target as HTMLElement);
     }
+
 
     return (
         <S.OrdersSectionContainer>

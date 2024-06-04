@@ -5,8 +5,9 @@ import TabOption from "../TabOption/TabOption";
 import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
 import About from "../About/About";
 import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
+import { ServiceResponseDto } from "../../utils/Products/service.types";
 
-const Tab: React.FC<S.SectionProps> = ({theme}) => {
+const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
     const [result, setResult] = useState("");
     
@@ -59,28 +60,22 @@ const Tab: React.FC<S.SectionProps> = ({theme}) => {
                     </div>
                 ):
                     <S.ResultBody id="section-escolhida">
-                        {result == 'servico'? (
-                            // cardsData.map((data, index) => (
-                            //     <div key={index}>
-                            //     </div>
-                            // ))
-                            <ServiceCard theme={theme} nome="Perfume" valor={10.25} />
-
-                        ) : result == 'produto'? (
-
-                            <ProductCard nome="Perfume" valor={10.90}>
-
-                            </ProductCard>
-                             // trocar para section certa
-
-                        ) : <About descricao="Passado por props no componente TAB">
+                        {result === 'servico' ? (
+                            establishmentInfo?.services.map((service: ServiceResponseDto, index: number) => (
+                                <ServiceCard key={index} theme={theme} nome={service.specification} valor={establishmentInfo.filters[index].price} />
+                            ))
+                        ) : result === 'produto' ? (
+                            <ProductCard nome="Perfume" valor={10.90} />
+                        ) : (
+                            <About descricao="Passado por props no componente TAB">
                                 <Badge>
                                     deixar
                                 </Badge>
                                 <Badge>
                                     dinamico
                                 </Badge>
-                            </About>}
+                            </About>
+                        )}
                     </S.ResultBody>
                 }
             </S.TabBody>    

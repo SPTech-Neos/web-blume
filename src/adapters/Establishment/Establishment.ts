@@ -31,7 +31,9 @@ export class EstablishmentAdapter {
             return {
                 establishmentId: response.data.id,
                 name: response.data.name,
+                cnpj: response.data.cnpj,
                 description: response.data.description,
+                profilePic: response.data.profilePic,
                 local: response.data.local,
                 startShift: response.data.startShift,
                 endShift: response.data.endShift,
@@ -76,7 +78,9 @@ export class EstablishmentAdapter {
                 return {
                     establishmentId: response.data.id,
                     name: response.data.name,
+                    cnpj: response.data.cnpj,
                     description: response.data.description,
+                    profilePic: response.data.profilePic,
                     local: response.data.local,
                     startShift: response.data.startShift,
                     endShift: response.data.endShift,
@@ -106,7 +110,7 @@ export class EstablishmentAdapter {
         }
     }
     
-    async update(establishmentId: number, updatedFields: Partial<EstablishmentResponseDto>): Promise<EstablishmentResponseDto | null> {
+    async update(establishmentId: number, updatedFields: Partial<EstablishmentRequestDto>): Promise<EstablishmentResponseDto | null> {
         try {
     
             const response = await axios.patch(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
@@ -114,7 +118,9 @@ export class EstablishmentAdapter {
             return {
                 establishmentId: response.data.id,
                 name: response.data.name,
+                cnpj: response.data.cnpj,
                 description: response.data.description,
+                profilePic: response.data.profilePic,
                 local: response.data.local,
                 startShift: response.data.startShift,
                 endShift: response.data.endShift,

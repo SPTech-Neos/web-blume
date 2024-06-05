@@ -6,6 +6,7 @@ import { colors as c } from "../../../styles/Colors";
 import Modal from "../../Modals/FormModal/Modal";
 import { ModalProps } from "../../Modals/FormModal/modal.styled";
 
+
 export const CardPedido: React.FC<S.PedidoProps> = ({service, client, employee, establishment, preco, status, imgUrl}) => {
 
     const classe = status == "Cancelado"? "cancel" : 
@@ -147,7 +148,7 @@ export const CardServico: React.FC<S.PedidoProps> = ({service, employee, preco, 
 
                 <S.InfoButtons>
                     <Trash weight="bold" color="red" size={status == "Em Andamento"? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.violet800} size={25}/>
+                    <Info weight="bold" color={c.green300} size={25}/>
                 </S.InfoButtons>
 
 
@@ -217,7 +218,7 @@ export const CardProduto: React.FC<S.PedidoProps> = ({service, preco, status, im
 
                 <S.InfoButtons>
                     <Trash weight="bold" color="red" size={status == "Em Andamento"? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.violet800} size={25}/>
+                    <Info weight="bold" color={c.green300} size={25}/>
                 </S.InfoButtons>
 
 

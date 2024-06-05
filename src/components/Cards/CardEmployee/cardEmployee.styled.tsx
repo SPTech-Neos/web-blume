@@ -37,7 +37,7 @@ export const CardBody = styled.div`
 
 export const ProfileImg = styled.div<propsCard>`
     width: 90px;
-    height: 90px;
+    height: 90px;   
     border-radius: 100%;
     background: ${c.gray900} center 100% / 100% 100% no-repeat url(${(props) => props.imgUrl});;
 `;

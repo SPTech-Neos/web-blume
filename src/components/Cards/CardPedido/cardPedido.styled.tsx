@@ -13,15 +13,14 @@ export interface PedidoProps {
 
 
 export const CardContainer = styled.div<PedidoProps>`
-    width: 95%;
-    height: 22%;
+    width: 100%;
+    height: 75px;
     background-color: ${c.gray100};
     border-radius: 8px;
     display: flex;
     flex-direction: row;    
     justify-content: space-around;
     align-items: center;
-    margin-top: 15px;
     box-shadow: 2px 2px 5px 1px ${c.gray700};
 `;
 

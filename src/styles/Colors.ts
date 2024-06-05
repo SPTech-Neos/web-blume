@@ -49,3 +49,13 @@ export const Themes = {
         bgColor: colors.green100
     }   
 }
+
+export function getTheme (theme: string) {
+    console.log(theme, theme == "client");
+
+    return theme === "client" ? Themes.client : Themes.establishment;
+}
+
+export interface ThemeProps {
+    theme: string;
+}

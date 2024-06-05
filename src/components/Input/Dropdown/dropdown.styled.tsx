@@ -33,7 +33,7 @@ export interface InputContainerProps {
 
 function getTheme(theme: string) {
   //   console.log(theme);
-  console.log(theme, theme == "client");
+  // console.log(theme, theme == "client");
 
   return theme === "client" ? Themes.client : Themes.establishment;
 }
@@ -64,7 +64,7 @@ export const Trigger = styled(DropdownMenu.Trigger)<TriggerProps>`
   color: ${(props) => (props.isSelected ? c.gray900 : c.gray500)};
   outline: none;
   font-family: "Poppins", "Arial";
-  padding: 16px 25px;
+  padding: 5px 25px;
   cursor: pointer;
   font-weight: 400;
   transition: all 0.25s ease-in-out;
@@ -89,16 +89,20 @@ export const Content = styled(DropdownMenu.Content)`
   font-family: "Poppins";
   border-radius: 0px;
 
+  border: 2px solid black;
+
   position: relative;
-  z-index: 0;
+  z-index: 2;
 `;
 
 export const Item = styled(DropdownMenu.Item)<ThemeProps>`
   font-weight: regular;
   font-size: 13px;
+  padding: 10px;
 
   &:hover {
     background-color: ${(props) => getTheme(props.theme).mainColor};
+    outline: none;
     cursor: pointer;
     border-radius: 0px;
   }

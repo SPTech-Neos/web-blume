@@ -18,7 +18,7 @@ const Dropdown: React.FC<S.DropDownProps> = ({
   function handleClick(text: string) {
     setText(text);
     setIsSelected(true);
-    console.log(isSelected);
+    // console.log(isSelected);
   }
 
   function makeItems() {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors as c, Themes } from "../../../styles/Colors";
+import { colors as c, Themes, getTheme } from "../../../styles/Colors";
 import { TextField } from "@radix-ui/themes";
 
 export interface InputTextProps {
@@ -13,13 +13,6 @@ export interface InputTextProps {
 
 export interface InputContainerProps {
   size?: "full" | "big" | "small" | "half";
-}
-
-function getTheme(theme: string) {
-  //   console.log(theme);
-  console.log(theme, theme == "client");
-
-  return theme === "client" ? Themes.client : Themes.establishment;
 }
 
 const SizeVariants = {
@@ -56,7 +49,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   justify-content: space-between;
 `;
 
-export const InputText = styled(TextField.Root).attrs((props) => ({
+export const InputText = styled.input.attrs((props) => ({
   type: props.type || "text",
   placeholder: props.placeholder || "Digite aqui...",
   required: props.required || false,
@@ -69,6 +62,7 @@ export const InputText = styled(TextField.Root).attrs((props) => ({
 
   height: 40px;
   margin: 0;
+  padding-left: 25px;
   background-color: ${c.gray100};
   border: 3px solid ${c.gray900};
   font-size: 16px;
@@ -83,11 +77,11 @@ export const InputText = styled(TextField.Root).attrs((props) => ({
     color: ${c.gray500};
   }
 
-  &:hover,
-  &:focus {
-    border: 3px solid ${(props) => getTheme(props.theme).mainColor};
-    outline: none;
-  }
+  // &:hover,
+  // &:focus {
+  //   border: 3px solid ${(props) => getTheme(props.theme).mainColor};
+  //   outline: none;
+  // }
 
   &::selection {
     background-color: ${(props) => getTheme(props.theme).mainColor};
@@ -98,11 +92,22 @@ export const Slot = styled(TextField.Slot)`
   padding: 10px;
 `;
 
-// export const InputText = styled(SlInput)
+// import styled from 'styled-components';
+// import { colors as c} from '../../../styles/Colors';
+
+// import SlInput from '../../../../node_modules/@shoelace-style/shoelace/dist/react/input';
+
+// export interface InputTextProps {
+//     type?: "text" | "password" | "email" | string;
+//     placeholder?: string;
+//     value: string;
+//     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+// }
+
+// export const InputText = styled.input
 //     .attrs((props => ({
 //         type: props.type || 'text',
 //         placeholder: props.placeholder || 'Digite aqui...',
-//         clearable: props.clearable || false,
 //         required: props.required || false,
 //         passwordToggle: props.type == 'password' ? true : false,
 
@@ -110,11 +115,11 @@ export const Slot = styled(TextField.Slot)`
 // ))<InputTextProps>`
 
 //     &::part(clear-button){
-//         color: ${props => getTheme(props.theme).mainColor};
+//         color: ${c.violet300};
 //     }
 
 //     &::part(password-toggle-button){ // TO DO: ENCONTRAR FORMA DE DEIXAR O OUTLINE DO BOTÃO MAIOR
-//         color: var(--color-gray-900);
+//         color: ${c.gray900};
 //         // border: 3px solid black
 //         // font-weight: bold;
 //         // --size: 6rem;
@@ -124,8 +129,8 @@ export const Slot = styled(TextField.Slot)`
 //     z-index: 0;
 
 //     margin: 0;
-//     background-color: var(--color-gray-100);
-//     border: 3px solid var(--color-gray-900);
+//     background-color: ${c.gray100};
+//     border: 3px solid ${c.gray900};
 //     padding: 5px 25px;
 //     font-size: 16px;
 //     font-weight: regular;
@@ -134,15 +139,15 @@ export const Slot = styled(TextField.Slot)`
 //     width: 100%;
 
 //     &::placeholder {
-//         color: var(--color-violet-500);
+//         color: ${c.violet500};
 //     }
 
 //    &:hover, &:focus {
-//       border: 3px solid ${props => getTheme(props.theme).mainColor};
+//       border: 3px solid ${c.violet300};
 //    }
 
 //    &::selection {
-//         background-color: ${props => getTheme(props.theme).mainColor};
+//         background-color: ${c.violet300};
 //    }
 
 // `;

@@ -21,7 +21,7 @@ export interface LineProps {
 
 function getTheme(theme: string) {
   //   console.log(theme);
-  console.log(theme, theme == "client");
+  // console.log(theme, theme == "client");
 
   return theme === "client" ? Themes.client : Themes.establishment;
 }

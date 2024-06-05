@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./inputText.styled";
 import Label from "../Label/Label";
-import { TextField } from "@radix-ui/themes";
+// import { TextField } from "@radix-ui/themes";
 
 const InputText: React.FC<S.InputTextProps> = ({
   size,
@@ -22,9 +22,18 @@ const InputText: React.FC<S.InputTextProps> = ({
       onChange={onChange}
       {...rest}
     >
-      <S.Slot />
+      {/* <S.Slot /> */}
     </S.InputText>
   </S.InputContainer>
 );
 
 export default InputText;
+
+// import React from "react";
+// import * as S from './inputText.styled';
+
+// const InputText: React.FC<S.InputTextProps> = ({ type = "text", placeholder, value, onChange, ...rest }) => (
+//     <S.InputText type={type} placeholder={placeholder} value={value} onChange={onChange} {...rest} />
+// );
+
+// export default InputText;

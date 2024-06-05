@@ -52,7 +52,7 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
 
   &:active {
     transition: none;
-    background-color: ${c.violet500};
+    background-color: ${(props) => props.color || c.violet500};
   }
 `;
 

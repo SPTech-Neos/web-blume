@@ -2,7 +2,7 @@ import React from "react";
 import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
-import CardPedido from "../../components/Cards/CardPedido/CardPedido";
+import { CardPedido } from "../../components/Cards/CardPedido/CardPedido";
 
 
 

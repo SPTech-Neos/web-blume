@@ -57,7 +57,7 @@ const Orders: React.FC = () => {
                         client="deixar dinamico" 
                         employee="deixar"
                         establishment="dinamico"
-                        preco={90}
+                        preco={20}
                         service="deixar"
                         status="Em Andamento"
                         imgUrl=""

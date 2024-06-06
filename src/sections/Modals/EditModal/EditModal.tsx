@@ -1,7 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import * as S from './editModal.styled';
 
-import InputContainer from "../../../components/Input/InputContainer/InputContainer";
+import Cookies from "js-cookie";
 import InputText from "../../../components/Input/InputText/InputText";
 import { DangerButton, PrimaryButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const EditModal: React.FC<Props> = ({id}) => {
-    const { handleUpdateEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated, handleUpdateEmployee } = useContext(AuthContextEmployee);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,6 +38,9 @@ const EditModal: React.FC<Props> = ({id}) => {
         editModal?.classList.remove("active");
     }
 
+    const tokenFromCookie = Cookies.get('employeeInfo');
+
+    
     const handleUpdateEmployeeData = async () => {
         try {
             const updatedFields = { name, email, password };
@@ -47,6 +50,12 @@ const EditModal: React.FC<Props> = ({id}) => {
             console.error("Erro ao atualizar funcionário:", error);
         }
     };
+    useEffect(() => {
+        if (tokenFromCookie) {
+            console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticated);
+        }
+    }, [tokenFromCookie, isAuthenticated, handleUpdateEmployee]);
     
 
     return (
@@ -62,15 +71,12 @@ const EditModal: React.FC<Props> = ({id}) => {
             </S.ContainerAtencao>
 
             <S.InputWrapper>
-                <InputContainer type="name" label="Nome Completo" placeholder="Kevin Rodrigues">
-                    <InputText type="name" value={name} onChange={handleNameChange} />
-                </InputContainer>
-                <InputContainer type="email" label="Email" placeholder="exemple@email.com">
-                    <InputText type="email" value={email} onChange={handleEmailChange} />
-                </InputContainer>
-                <InputContainer type="password" label="Senha" placeholder="****">
-                    <InputText type="password" value={password} onChange={handlePasswordChange} />
-                </InputContainer>
+               
+                <InputText type="name" label="Nome" theme="establishment" placeholder="Kevin Rodrigues..." value={name} onChange={handleNameChange} />
+                
+                <InputText type="email" label="Email" theme="establishment" placeholder="email@example.com"  value={email} onChange={handleEmailChange} />
+                    
+                <InputText type="password" label="Senha" theme="establishment" placeholder="*****"  value={password} onChange={handlePasswordChange} />
             </S.InputWrapper>
             
             <S.ButtonWrapper>

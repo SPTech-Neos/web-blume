@@ -52,6 +52,8 @@ const ProfileEmployee: React.FC = () => {
         }
     }, [tokenFromCookie, isAuthenticated]);
 
+    console.log(token.establishment.local.cep);
+
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
@@ -99,14 +101,14 @@ const ProfileEmployee: React.FC = () => {
                             Endereço
                         </E.LabelInfo>
                         <S.TextInfo>
-                            Rua Coração de Maçã, 211, apt 52C
+                            {token.establishment.local.address.street}
                         </S.TextInfo>
 
                         <E.LabelInfo>
                             CEP
                         </E.LabelInfo>
                         <S.TextInfo>
-                            08474-230
+                            {token.establishment.local.cep}
                         </S.TextInfo>
                     </S.Infos>
                 </S.InfoContainer>

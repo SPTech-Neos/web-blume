@@ -49,6 +49,7 @@ const ProfileB2C: React.FC = () => {
         setIsOpenState(true); 
     };
 
+    console.log(token);
     const handleDeleteConfirmation = () => {
         if (token) {
             handleDeleteClient(token.clientId, token.token);

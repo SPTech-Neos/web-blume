@@ -21,7 +21,7 @@ export const ProductsSection = styled.section`
 
 export const ProductsContainer = styled.div`
     width: 100%;
-    height: 92%;
+    height: 90%;
     padding-left: 5.2%;
     display: flex;
     flex-direction: column;

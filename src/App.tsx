@@ -54,7 +54,7 @@ const App: React.FC = () => {
             />
           }
         />
-        <Route
+        {/*<Route
           path='/employee'
           element={
             <ProtectedRoute
@@ -63,7 +63,12 @@ const App: React.FC = () => {
               outlet={<Employee />}
             />
           }
+        />*/}
+        <Route
+          path='/employee'
+          element={<Employee />}
         />
+        
         <Route path='/details' element={<Details />} />
         <Route path='/orders' element={<Orders />} />
       </Routes>

@@ -9,6 +9,9 @@ import Client from './pages/ProfileClient/ProfileClient';
 import Employee from './pages/ProfileEmployee/ProfileEmployee';
 import Details from './pages/Details/Details';
 import Orders from './pages/Orders/Orders';
+import Employees from './pages/Employees/Employees';
+import Products from './pages/Products/Products';
+import Services from './pages/Services/Services';
 // import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
 // import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
 // import ProtectedRoute, { ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
@@ -56,6 +59,9 @@ const App: React.FC = () => {
         <Route path="/employee" element={<Employee/>}/>
         <Route path="/details" element={<Details/>}/>
         <Route path="/orders" element={<Orders/>}/>
+        <Route path="/employees" element={<Employees/>}/>
+        <Route path="/services" element={<Services/>}/>
+        <Route path="/products" element={<Products/>}/>
       </Routes>
     </BrowserRouter>
   );

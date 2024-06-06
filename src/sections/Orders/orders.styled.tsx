@@ -31,7 +31,7 @@ export const OrdersHeader = styled.div`
 `;
 
 export const OrdersBody = styled.div`
-    width: 100%;
+    width: 90%;
     height: 85%;
     display: flex;
     flex-direction: column;

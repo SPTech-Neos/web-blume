@@ -12,10 +12,17 @@ export const EmployeeSection = styled.section`
     width: 100%;
     height: 100%;
     display: flex;
-    padding-left: 5.2%;
     flex-direction: column;
     align-items: center;
     justify-content: end;
+
+    & .active{
+        display: flex;
+    }
+
+    & h1{
+        font-size: 30px;
+    }
 
 `;
 
@@ -26,6 +33,7 @@ export const EmployeeContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding-left: 5.2%;
 
     & h1 {
         font-size: 30px;

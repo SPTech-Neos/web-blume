@@ -16,7 +16,7 @@ const EstablishmentServices:React.FC = () => {
 
     return(
         <S.ServicesSection>
-            <CreateModal id="modal-adicionar" />
+            <CreateModal id="modal-adicionar" titulo="Serviço"/>
             <S.ServicesContainer>
                 <h1> SERVIÇOS </h1>
                 <Searchbar placeholderText="Nome do produto..."/>

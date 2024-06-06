@@ -3,6 +3,7 @@ import * as S from './employees.styled'
 
 import Searchbar from "../../components/Searchbar/Searchbar";
 import CardEmployee from "../../components/Cards/CardEmployee/CardEmployee";
+import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 
 
 const Employees: React.FC = () => {
@@ -41,10 +42,18 @@ const Employees: React.FC = () => {
             parent?.parentElement?.classList.add("active");
         }
 
+        handleAddEmployee();
+    }
+
+    const handleAddEmployee = () => {
+        const modal = document.getElementById("modal-adicionar");
+
+        modal?.classList.add("active");
     }
 
     return(
         <S.EmployeeSection>
+            <CreateModal id="modal-adicionar" titulo="Funcionário" />
             <S.EmployeeContainer>
                 <h1> Funcionários </h1>
                 <Searchbar placeholderText="Nome do funcionário..."/>

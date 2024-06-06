@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { colors as c } from '../../../styles/Colors';
 
+import { X } from 'phosphor-react';
+
 export const ModalSection = styled.section`
     width: 100vw;
     height: 100vh;
@@ -14,7 +16,83 @@ export const ModalSection = styled.section`
 
 export const ModalContainer = styled.div`
     width: 50%;
-    height: 80%;
+    height: 85%;
     background-color: ${c.gray100};
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
+
+export const ModalHeader = styled.div`
+    width: 100%;
+    height: 23%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+`;
+
+export const ModalImage = styled.div`
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background-color: black;
+    position: absolute;
+    top: 10px;
+`;
+
+export const ModalBody = styled.div`
+    width: 70%;
+    height: 75%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+`;
+
+export const Label = styled.span`
+    font-size: 20px;
+`;
+
+export const InputContainer = styled.div`
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const CloseModal = styled(X)`
+    top: 10px;
+    left: 48%;
+    position: relative;
+
+    &:hover{
+        cursor: pointer;
+    }
+`;
+
+export const ButtonsContainer = styled.div`
+    width: 80%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+`;
+
+export const ReturnButton = styled.div`
+    width: 90px;
+    height: 35px;
+    color: ${c.violet100};
+    text-transform: uppercase;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    border-bottom: 3px solid ${c.violet100};
+    &:hover{
+        cursor: pointer;
+        color: ${c.violet500};
+        border-bottom: 3px solid ${c.violet500};
+    }
+`

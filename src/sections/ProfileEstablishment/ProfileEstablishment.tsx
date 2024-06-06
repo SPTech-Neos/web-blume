@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
 import * as S from './profileEstablishment.styled';
 
@@ -20,40 +20,51 @@ import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import { colors as c, Themes } from '../../styles/Colors';
+import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 
 const ProfileB2B: React.FC = () => {
-
+    const { establishmentId } = useParams<{establishmentId: string}>();
     const navigate = useNavigate();
-    const { isAuthenticated, handleDeleteEmployee } = useContext(AuthContextEmployee);
     
     function getTheme(theme: string) {
         return theme === "B2C"? Themes.client : Themes.establishment;
     }
 
-    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee, handleDeleteEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
+    const { getEstablishmentById } = useContext(AuthContextEstablishment);
   
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
+    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
+
+        if (establishmentId) {
+            const fetchEstablishmentData = async () => {
+              const data = await getEstablishmentById(Number(establishmentId));
+              console.log("ESTABLISHMENTINFO: " + JSON.stringify(data));
+              setEstablishmentInfo(data);
+              setLoading(false);
+            };
+            fetchEstablishmentData();
+        }
+
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);
             console.log("LOGADO: " + isAuthenticatedEmployee);
         }
     }, [tokenFromCookie, isAuthenticatedEmployee]);
 
+
+    // MODAL =======================
     const [modalProps, setModalProps] = useState<ModalProps | null>(null);
-
-    useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticated);
-        }
-    }, [tokenFromCookie, isAuthenticated]);
-
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
@@ -77,45 +88,42 @@ const ProfileB2B: React.FC = () => {
             navigate("/");
         }
     };
-
-    
     
     if(isAuthenticatedClient){
-        
-
         return (
-            <S.ProfileB2BSection>
-                <S.ContainerProfile direction="column">
-                    <S.HeaderProfile>
-                        <S.NavBody>
-                            <S.NavItem>
-                                <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                    <CaretLeft size={22} />
-                                </S.NavLink>
-                            </S.NavItem>
-                        </S.NavBody>
-                        <Logo />
-                    </S.HeaderProfile>
-                    <S.PerfilContainer>
-                        <S.Perfil tipoperfil="B2C" username="deixar dinamico da silva" /*terá que substituir pelo user da requisição */ />
-                        <S.AvaliacaoContainer>
-                            <Badge>
-                                <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                <span>5</span>
-                            </Badge>
-                            <Badge>Deixar</Badge>
-                            <Badge>Dinamico</Badge>
-                        </S.AvaliacaoContainer>
-                    </S.PerfilContainer>
-                    <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
-                    <Tab theme='client'/>
-                </S.ContainerProfile>
-            </S.ProfileB2BSection>
-        );
-        
+            establishmentInfo ? (
+                <S.ProfileB2BSection>
+                    <S.ContainerProfile direction="column">
+                        <S.HeaderProfile>
+                            <S.NavBody>
+                                <S.NavItem>
+                                    <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                        <CaretLeft size={22} />
+                                    </S.NavLink>
+                                </S.NavItem>
+                            </S.NavBody>
+                            <Logo />
+                        </S.HeaderProfile>
+                        <S.PerfilContainer>
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.profilePic} />
+                            <S.AvaliacaoContainer>
+                                <Badge>
+                                    <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
+                                    <span>{establishmentInfo.assessment}</span>
+                                </Badge>
+                                <Badge>Deixar</Badge>
+                                <Badge>Dinamico</Badge>
+                            </S.AvaliacaoContainer>
+                        </S.PerfilContainer>
+                        <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
+                        <Tab theme='client' establishmentInfo={establishmentInfo}/>
+                    </S.ContainerProfile>
+                </S.ProfileB2BSection>
+            ) : null
+        )
     }else if(isAuthenticatedEmployee){
         return (
-            token ? (
+            token && establishmentInfo ? (
                 <S.ProfileB2BSection>
                     <HeaderProfile />
                     <S.ContainerProfile direction="column">

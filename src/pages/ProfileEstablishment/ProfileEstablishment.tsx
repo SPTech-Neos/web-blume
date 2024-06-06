@@ -3,6 +3,7 @@ import React from "react";
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextProvider as AuthContextProviderEstabliishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 
 // import { Colors } from '../../styles/Colors';
@@ -17,10 +18,12 @@ const ProfileB2B: React.FC = () => {
   return(
     <AuthContextProviderClient>
       <AuthContextProviderEmployee>
-        <div id="profile-wrapper">
-          <Sidebar />
-          <ProfileB2BSection />
-        </div>
+        <AuthContextProviderEstabliishment>
+          <div id="profile-wrapper">
+            <Sidebar />
+            <ProfileB2BSection />
+          </div>
+        </AuthContextProviderEstabliishment>
       </AuthContextProviderEmployee>
    </AuthContextProviderClient> 
   );

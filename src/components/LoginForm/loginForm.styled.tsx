@@ -24,6 +24,10 @@ export const LoginForm = styled.form<LoginFormProps>`
 
 export const InputWrapper = styled.div`
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
 `;
 
 export const ErrorMessage = styled.span`

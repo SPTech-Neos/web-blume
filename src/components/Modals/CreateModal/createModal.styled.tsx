@@ -78,21 +78,31 @@ export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: end;
+
+    & button{
+        background-color: ${c.green300};
+        box-shadow: 0px 0px 20px ${c.green300};
+
+        &:hover{
+            background-color: ${c.green500};
+        }
+    }
 `;
 
 export const ReturnButton = styled.div`
     width: 90px;
     height: 35px;
-    color: ${c.violet100};
+    color: ${c.green300};
     text-transform: uppercase;
     font-size: 20px;
     display: flex;
     justify-content: center;
     font-weight: 600;
-    border-bottom: 3px solid ${c.violet100};
+    border-bottom: 3px solid ${c.green300};
+
     &:hover{
         cursor: pointer;
-        color: ${c.violet500};
-        border-bottom: 3px solid ${c.violet500};
+        color: ${c.green500};
+        border-bottom: 3px solid ${c.green500};
     }
 `

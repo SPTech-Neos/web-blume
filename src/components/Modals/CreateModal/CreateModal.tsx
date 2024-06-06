@@ -78,26 +78,24 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
     
                     <S.ModalBody>
                         <S.InputContainer>
-                            <S.Label>Nome do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeName} value={nome} placeholder={"Nome do " + titulo + "...."} >
+                            <InputText type="name" onChange={handleChangeName} label={"Nome do " + titulo} theme="establishment" value={nome} placeholder={"Nome do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
     
                         <S.InputContainer>
-                            <S.Label>E-mail do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeEmail} value={email} placeholder={"E-mail do " + titulo + "...."} >
+                            <InputText type="name" onChange={handleChangeEmail} label={"Email do " + titulo} theme="establishment" value={email} placeholder={"E-mail do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
     
                         <S.InputContainer>
-                            <S.Label>Endereço do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeEndereco} value={endereco} placeholder={"Endereço do " + titulo + "...."} >
+                           
+                            <InputText type="name" label={"Endereço do " + titulo} theme="establishment" onChange={handleChangeEndereco} value={endereco} placeholder={"Endereço do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
                         
                         <S.InputContainer>
-                            <S.Label>CEP do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeCep} value={cep} placeholder={"CEP do " + titulo + "...."} >
+                            
+                            <InputText type="name" onChange={handleChangeCep} label={"CEP do " + titulo} theme="establishment" value={cep} placeholder={"CEP do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
     
@@ -126,27 +124,26 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
 
                     <S.ModalBody>
                         <S.InputContainer>
-                            <S.Label>Nome do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeName} value={nome} placeholder={"Nome do " + titulo + "...."} >
+                            
+                            <InputText type="name" onChange={handleChangeName} label={"Nome do " + titulo} theme="establishment" value={nome} placeholder={"Nome do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
 
                         <S.InputContainer>
-                            <S.Label>Preço do {titulo}</S.Label>
-                            <InputText type="number" onChange={handleChangePreco} value={preco} placeholder={"Preço do " + titulo + "...."} >
+                            
+                            <InputText type="number" onChange={handleChangePreco} label={"Preço do " + titulo} theme="establishment" value={preco} placeholder={"Preço do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
 
                         {titulo == "Serviço"?
                             <S.InputContainer>
-                                <S.Label>Funcionário do {titulo}</S.Label>
-                                <InputText type="name" onChange={handleChangeFunc} value={funcionario} placeholder={"Funcionário do " + titulo + "...."} >
+    
+                                <InputText type="name" onChange={handleChangeFunc} label={"Funcionário do " + titulo} theme="establishment" value={funcionario} placeholder={"Funcionário do " + titulo + "...."} >
                                 </InputText>
                             </S.InputContainer>
                         : null}
                         <S.InputContainer>
-                            <S.Label>Status do {titulo}</S.Label>
-                            <InputText type="name" onChange={handleChangeStatus} value={status} placeholder={"Status do " + titulo + "...."} >
+                            <InputText type="name" onChange={handleChangeStatus} label={"Status do " + titulo} theme="establishment" value={status} placeholder={"Status do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
 
@@ -154,7 +151,7 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
                             <S.ReturnButton onClick={handleClose}>
                                 Voltar
                             </S.ReturnButton>
-                            <PrimaryButton width="200px">
+                            <PrimaryButton  width="200px">
                                 Finalizar
                             </PrimaryButton>
                         </S.ButtonsContainer>

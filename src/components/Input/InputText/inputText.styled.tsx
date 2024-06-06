@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors as c, Themes, getTheme } from "../../../styles/Colors";
+import { colors as c, getTheme } from "../../../styles/Colors";
 import { TextField } from "@radix-ui/themes";
 
 export interface InputTextProps {
@@ -8,7 +8,8 @@ export interface InputTextProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
-  theme: string;
+  theme: 'client' | 'establishment';
+  value?: string
 }
 
 export interface InputContainerProps {

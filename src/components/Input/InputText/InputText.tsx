@@ -9,6 +9,7 @@ const InputText: React.FC<S.InputTextProps> = ({
   type = "text",
   placeholder,
   theme,
+  value,
   onChange,
   ...rest
 }) => (
@@ -19,6 +20,7 @@ const InputText: React.FC<S.InputTextProps> = ({
       label={label}
       type={type}
       placeholder={placeholder}
+      value={value}
       onChange={onChange}
       {...rest}
     >

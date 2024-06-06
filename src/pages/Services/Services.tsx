@@ -5,14 +5,18 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile";
 import EstablishmentServices from "../../sections/EstablishmentServices/EstablishmentServices";
 
+import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
+// import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 
 const Services: React.FC = () => {
     return(
-        <S.ServicesPage>
-            <Sidebar />
-            <HeaderProfile />
-            <EstablishmentServices/>
-        </S.ServicesPage>
+        <AuthContextProviderEmployee>
+            <S.ServicesPage>
+                <Sidebar />
+                <HeaderProfile />
+                <EstablishmentServices/>
+            </S.ServicesPage>
+        </AuthContextProviderEmployee>
     );
 }
 

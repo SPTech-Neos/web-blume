@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import AvaliationBadge  from "../../components/Badges/AvaliationBadge/AvaliationBadge";
-import { colors as c } from '../../styles/Colors';
+import { colors as c, Themes } from '../../styles/Colors';
+
+export interface PropsOrder {
+    tema: 'B2B' | 'B2C' | string
+}
+
+function getTheme(theme: string) {
+    return theme === "B2C"? Themes.client : Themes.establishment;
+}
 
 export const Badge = styled(AvaliationBadge)`
 
 `
 
-export const OrdersSectionContainer = styled.div`
+export const OrdersSectionContainer = styled.div<PropsOrder>`
     width: 100%;
     height: 100vh;
     padding-left: 5.2%;
@@ -17,7 +25,7 @@ export const OrdersSectionContainer = styled.div`
     gap: 10%;
 
     & .active{
-        background-color: ${c.violet100};
+        background-color: ${(props) => getTheme(props.tema).mainColor};
         color: ${c.gray100}
     }
 `;
@@ -46,7 +54,7 @@ export const FiltersContainer = styled.div`
 
     `;
 
-export const BadgesContainer = styled.div`
+export const BadgesContainer = styled.div<PropsOrder>`
     width: auto;
     height: 100%;
     display: flex;
@@ -62,7 +70,7 @@ export const BadgesContainer = styled.div`
 
         &:hover{
             cursor: pointer;
-            background-color: ${c.violet100};
+            background-color: ${(props) => getTheme(props.tema).mainColor};
             color: ${c.gray100};
 
         }
@@ -71,13 +79,13 @@ export const BadgesContainer = styled.div`
 
 `;
 
-export const HistoricoContainer = styled.div`
+export const HistoricoContainer = styled.div<PropsOrder>`
     width: 15%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${c.violet100};
+    color: ${(props) => getTheme(props.tema).mainColor};
     text-decoration: underline;
 
     & h2:hover{

@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import * as S from './sidebar.styled';
 
-import { Bell, GearSix, House, MagnifyingGlass, Receipt, ShoppingCart, UserCircle, Cube, Article, UserList } from "@phosphor-icons/react";
+import { Bell, GearSix, House, MagnifyingGlass, Receipt, UserCircle, Cube, Article, UserList } from "@phosphor-icons/react";
 import { SignOut } from "phosphor-react";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
@@ -63,8 +63,8 @@ const Sidebar: React.FC = () => {
 
                 <S.NavList>
                     <S.NavItem>
-                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                        {location.pathname == "/establishment" || location.pathname == "/employee"?(
+                        <S.NavLink to="/services" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        {theme == "establishment" || theme == "employee"?(
                                 <Article size={24} />
                             ) :
                             <MagnifyingGlass size={24}/>
@@ -72,22 +72,22 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                            {location.pathname == "/establishment" || location.pathname == "/employee"?(
+                        <S.NavLink to="/employees" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                            {theme == "establishment" || theme == "employee"?(
                                 <UserList size={24}/>
                             ) :                            
-                                <ShoppingCart size={24}/>
+                                null
                             }
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to="/" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to="/orders" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                             <Receipt size={24}/>
                         </S.NavLink>
                     </S.NavItem>
-                    {location.pathname === "/establishment" || location.pathname == "/employee"?(
+                    {theme == "establishment" || theme == "employee"?(
                                 <S.NavItem>
-                                <S.NavLink to= '/' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                <S.NavLink to= '/products' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                                     <Cube size={24}/>
                                 </S.NavLink>
                         </S.NavItem>

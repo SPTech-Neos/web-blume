@@ -45,6 +45,7 @@ const ProfileB2B: React.FC = () => {
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
+
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
               const data = await getEstablishmentById(Number(establishmentId));
@@ -53,7 +54,7 @@ const ProfileB2B: React.FC = () => {
               setLoading(false);
             };
             fetchEstablishmentData();
-          }
+        }
 
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);

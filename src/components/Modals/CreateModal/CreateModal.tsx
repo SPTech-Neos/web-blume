@@ -53,6 +53,12 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
         setStatus(event.target.value);
     }
 
+    const[descricao, setDesc] = useState("");
+
+    const handleChangeDesc = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDesc(event.target.value);
+    }
+
     const handleClose = () => {
         const modal = document.getElementById("modal-adicionar");
         modal?.classList.remove("active");
@@ -144,6 +150,11 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
                         : null}
                         <S.InputContainer>
                             <InputText type="name" onChange={handleChangeStatus} label={"Status do " + titulo} theme="establishment" value={status} placeholder={"Status do " + titulo + "...."} >
+                            </InputText>
+                        
+                        </S.InputContainer>
+                        <S.InputContainer>
+                            <InputText type="name" onChange={handleChangeDesc} label={"Descrição do " + titulo} theme="establishment" value={descricao} placeholder={"Descrição do " + titulo + "...."} >
                             </InputText>
                         </S.InputContainer>
 

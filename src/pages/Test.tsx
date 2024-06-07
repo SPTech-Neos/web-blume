@@ -129,7 +129,7 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Establishment', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>
                 <optgroup label="Service Adapter">
-                    <option value={JSON.stringify({ type: 'Service', method: 'create', params: { createDto: { specification: 'Corte', fkServiceType: 1}}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Service', method: 'create', params: { createDto: { specification: 'Corte', imgUrl: 'https://i.pinimg.com/236x/44/46/4c/44464c4660f6ec0701a506353a41e1e2.jpg', serviceType: 1}}})}>Register</option>
                     <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Service', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>

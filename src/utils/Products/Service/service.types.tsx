@@ -2,7 +2,7 @@
 export interface ServiceRequestDto {
     specification: string; 
     imgUrl: string;
-    fkServiceType: number;
+    serviceType: number;
 }
 
 export interface ServiceResponseDto {

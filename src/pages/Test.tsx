@@ -118,8 +118,8 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Employee', method: 'getById', params: { id: 2 } })}>Get by ID</option>
                 </optgroup>
                 <optgroup label="Client Adapter">
-                    <option value={JSON.stringify({ type: 'Client', method: 'login', params: { loginDto: { email: 'cliente.a@example.com', password: '123senha' } } })}>Login</option>
-                    <option value={JSON.stringify({ type: 'Client', method: 'create', params: { createDto: { name: 'Jane Doe', email: 'jane@example.com', password: 'password', profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU'}}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Client', method: 'login', params: { loginDto: { email: 'teste@example.com', password: 'password' } } })}>Login</option>
+                    <option value={JSON.stringify({ type: 'Client', method: 'create', params: { createDto: { name: 'Jane Doe', email: 'teste@example.com', password: 'password', imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU', local: 1}}})}>Register</option>
                     <option value={JSON.stringify({ type: 'Client', method: 'update', params: { id: 1, updateFields: { name: 'Updated Name' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Client', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>

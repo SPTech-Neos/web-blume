@@ -7,6 +7,7 @@ export interface EmployeeResponseDto {
     email: string;
     establishment: EstablishmentResponseDto;
     employeeType: EmployeeType;
+    imgUrl: string;
 }
 
 export interface EmployeeLoginDto {

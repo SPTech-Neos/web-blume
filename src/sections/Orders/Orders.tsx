@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
@@ -6,6 +6,7 @@ import { CardPedido } from "../../components/Cards/CardPedido/CardPedido";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from 'js-cookie';
+import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 const Orders: React.FC = () => {
 
@@ -24,14 +25,23 @@ const Orders: React.FC = () => {
         console.log(event.target as HTMLElement);
     }
 
-    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee, getEmployeeById } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
-  
+    const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     useEffect(() => {
+        const fetchEmployeeData = async () => {
+            const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+            console.log("emplyoyee Stab na profileEmployee" + JSON.stringify(employeeEstab));
+            setEmployeeInfo(employeeEstab);
+        }
+
+        fetchEmployeeData();
+
+
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);
             console.log("LOGADO: " + isAuthenticatedEmployee);
@@ -82,8 +92,8 @@ const Orders: React.FC = () => {
                         <S.OrdersContainer>
                             <CardPedido 
                                 client="deixar dinamico" 
-                                employee={token.name}
-                                establishment={token.establishment.name}
+                                employee={employeeInfo?.name}
+                                establishment={employeeInfo?.establishment.name}
                                 preco={20}
                                 service="deixar"
                                 status="Em Andamento"

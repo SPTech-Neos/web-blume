@@ -32,7 +32,7 @@ export class EmployeeAdapter {
                 name: response.data.name,
                 email: response.data.email,
                 establishment: response.data.establishment,
-                employeeType: response.data.employeeType
+                employeeType: response.data.employeeType,
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error getting employee by token:", error);

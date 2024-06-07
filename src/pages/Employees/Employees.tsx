@@ -7,15 +7,20 @@ import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile"
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 // import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextProvider as AuthContextProviderEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 const Employees: React.FC = () => {
     return(
         <AuthContextProviderEmployee>
-            <S.EmployeesPage>
-                <Sidebar />
-                <HeaderProfile />
-                <EmployeesSection />
-            </S.EmployeesPage>
+            <AuthContextProviderEstablishment>
+
+                <S.EmployeesPage>
+                    <Sidebar />
+                    <HeaderProfile />
+                    <EmployeesSection />
+                </S.EmployeesPage>
+            
+            </AuthContextProviderEstablishment>
         </AuthContextProviderEmployee>
     );
 }

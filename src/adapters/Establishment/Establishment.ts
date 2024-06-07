@@ -31,16 +31,9 @@ export class EstablishmentAdapter {
             return {
                 establishmentId: response.data.id,
                 name: response.data.name,
-                cnpj: response.data.cnpj,
-                description: response.data.description,
-                profilePic: response.data.profilePic,
-                local: response.data.local,
-                startShift: response.data.startShift,
-                endShift: response.data.endShift,
-                assessment: response.data.assessment,
-                qtdAssessment: response.data.qtdAssessment,
-                services: response.data.services,
-                filters: response.data.filters
+                imgUrl: response.data.imgUrl,
+                company: response.data.company,
+                local: response.data.local
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
@@ -52,42 +45,20 @@ export class EstablishmentAdapter {
         try {
             const { 
                 name,
-                cnpj,
-                startShift,
-                endShift,
-                fkLocal,
-                profilePic,
-                description,
-                fkServices,
-                fkFilters
+                imgUrl,
+                companyId,
+                local,
             } = establishmentRequestDto;
     
-            const response = await axios.post(`${this.apiUrl}/establishments`, {
-                name,
-                cnpj,
-                startShift,
-                endShift,
-                fkLocal,
-                profilePic,
-                description,
-                fkServices,
-                fkFilters
-            }, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, local}, this.getRequestOptions());
     
             if (response.status === 200) {
                 return {
                     establishmentId: response.data.id,
                     name: response.data.name,
-                    cnpj: response.data.cnpj,
-                    description: response.data.description,
-                    profilePic: response.data.profilePic,
-                    local: response.data.local,
-                    startShift: response.data.startShift,
-                    endShift: response.data.endShift,
-                    assessment: response.data.assessment,
-                    qtdAssessment: response.data.qtdAssessment,
-                    services: response.data.services,
-                    filters: response.data.filters
+                    imgUrl: response.data.imgUrl,
+                    company: response.data.company,
+                    local: response.data.local
                 } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
@@ -118,16 +89,9 @@ export class EstablishmentAdapter {
             return {
                 establishmentId: response.data.id,
                 name: response.data.name,
-                cnpj: response.data.cnpj,
-                description: response.data.description,
-                profilePic: response.data.profilePic,
-                local: response.data.local,
-                startShift: response.data.startShift,
-                endShift: response.data.endShift,
-                assessment: response.data.assessment,
-                qtdAssessment: response.data.qtdAssessment,
-                services: response.data.services,
-                filters: response.data.filters
+                imgUrl: response.data.imgUrl,
+                company: response.data.company,
+                local: response.data.local
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);

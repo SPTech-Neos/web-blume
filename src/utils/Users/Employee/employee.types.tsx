@@ -14,7 +14,7 @@ export interface EmployeeResponseDto {
     employeeId: string;
     name: string;
     email: string;
-    imgUrl: string;
+    imgUrl?: string;
     establishment: EstablishmentResponseDto;
     employeeType: EmployeeTypeResponseDto;
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { environment } from "../../../environment.config";
-import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Users/Employee/employee.types";
+import { environment } from "../../../../environment.config";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -31,8 +31,9 @@ export class EmployeeAdapter {
                 employeeId: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
-                establishment: response.data.establishment,
-                employeeType: response.data.employeeType
+                imgUrl: response.data.imgUrl,
+                employeeType: response.data.employeeType,
+                establishment: response.data.establishment
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error getting employee by token:", error);
@@ -51,8 +52,9 @@ export class EmployeeAdapter {
                     employeeId: response.data.id,
                     name: response.data.name,
                     email: response.data.email,
-                    establishment: response.data.establishment,
-                    employeeType: response.data.employeeType
+                    imgUrl: response.data.imgUrl,
+                    employeeType: response.data.employeeType,
+                    establishment: response.data.establishment
                 } as EmployeeResponseDto;
             } else {
                 console.error("Error during service execution", response.status, response.data);
@@ -72,8 +74,9 @@ export class EmployeeAdapter {
                 employeeId: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
-                establishment: response.data.establishment,
-                employeeType: response.data.employeeType
+                imgUrl: response.data.imgUrl,
+                employeeType: response.data.employeeType,
+                establishment: response.data.establishment
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error creating employee:", error);
@@ -89,8 +92,9 @@ export class EmployeeAdapter {
                 employeeId: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
-                establishment: response.data.establishment,
-                employeeType: response.data.employeeType
+                imgUrl: response.data.imgUrl,
+                employeeType: response.data.employeeType,
+                establishment: response.data.establishment
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error updating employee:", error);

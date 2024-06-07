@@ -1,7 +1,7 @@
 import axios from "axios";
-import { environment } from "../../../environment.config";
+import { environment } from "../../../../environment.config";
 
-import { ServiceRequestDto, ServiceResponseDto } from "../../utils/Products/Service/service.types";
+import { ServiceRequestDto, ServiceResponseDto } from "../../../utils/Products/Service/service.types";
 
 export class ServiceAdapter {
     private readonly apiUrl: string;
@@ -30,6 +30,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as ServiceResponseDto;
         } catch (error) {
@@ -44,6 +45,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as ServiceResponseDto;
         } catch (error) {
@@ -68,6 +70,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as ServiceResponseDto;
         } catch (error) {

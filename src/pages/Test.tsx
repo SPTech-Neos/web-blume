@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { EmployeeAdapter } from '../adapters/User/Employee';
-import { ClientAdapter } from '../adapters/User/Client';
+import { EmployeeAdapter } from '../adapters/User/Employee/Employee';
+import { ClientAdapter } from '../adapters/User/Client/Client';
 import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 
 import RequestLocation from '../components/RequestLocation/RequestLocation';
-import { ServiceAdapter } from '../adapters/Products/Service';
+import { ServiceAdapter } from '../adapters/Products/Service/Service';
 
 const Test: React.FC = () => {
   const [adapter, setAdapter] = useState<any>(null);
@@ -112,7 +112,7 @@ const Test: React.FC = () => {
             <select onChange={(e) => setAdapter(JSON.parse(e.target.value))}>
                 <option value="">Select Adapter</option>
                 <optgroup label="Employee Adapter">
-                    <option value={JSON.stringify({ type: 'Employee', method: 'login', params: { loginDto: { email: 'cliente.funcionario@example.com', password: '123senha' } } })}>Login</option>
+                    <option value={JSON.stringify({ type: 'Employee', method: 'login', params: { loginDto: { email: 'funcionario.a@example.com', password: 'senha123' } } })}>Login</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'create', params: { createDto: { name: 'John Doe', email: 'john@example.com', password: 'password', fkEstablishment: 1, fkEmployeeType: 1 } } })}>Create</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'update', params: { id: 1, updateFields: { name: 'Updated Name' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'getById', params: { id: 2 } })}>Get by ID</option>

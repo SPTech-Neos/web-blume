@@ -1,6 +1,4 @@
 import { CompanyResponseDto } from "../Company/company.types";
-import { ServiceResponseDto } from "../Products/Service/service.types";
-import { FilterResponseDto } from "../Filter/filters.types";
 import { LocalRequestDto, LocalResponseDto } from "../Local/local.types";
 
 export interface EstablishmentRequestDto {

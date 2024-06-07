@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
-import { ClientAdapter } from "../../adapters/User/Client";
+import { ClientAdapter } from "../../adapters/User/Client/Client";
 import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/Users/Client/client.types";
 import { LocalRequestDto } from "../../utils/Local/local.types";
 

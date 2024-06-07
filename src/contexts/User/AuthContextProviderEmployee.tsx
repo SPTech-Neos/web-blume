@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Users/Employee/employee.types";
 
-import { EmployeeAdapter } from "../../adapters/User/Employee";
+import { EmployeeAdapter } from "../../adapters/User/Employee/Employee";
 
 interface AuthContextType {
   token: EmployeeResponseDto | null;

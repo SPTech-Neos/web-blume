@@ -1,7 +1,7 @@
 import axios from "axios";
-import { environment } from "../../../environment.config";
+import { environment } from "../../../../environment.config";
 
-import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/Users/Client/client.types";
+import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../../utils/Users/Client/client.types";
 
 export class ClientAdapter {
     private readonly apiUrl: string;
@@ -27,10 +27,12 @@ export class ClientAdapter {
 
             const response = await axios.get(`${this.apiUrl}/client/${id}`, requestOptions);
             return {
-                clientId: response.data.clientId,
+                clientId: response.data.idClient,
                 name: response.data.name,
                 email: response.data.email,
-                token: response.data.token
+                token: response.data.token,
+                imgUrl: response.data.imgUrl,
+                Local: response.data.local
             } as ClientResponseDto;
         } catch (error) {
             console.error("Error getting Client by token:", error);
@@ -57,10 +59,12 @@ export class ClientAdapter {
                 console.log(`TOKEN: ` + response.data.token)
 
                 return {
-                    clientId: response.data.clientId,
+                    clientId: response.data.idClient,
                     name: response.data.name,
                     email: response.data.email,
-                    token: response.data.token
+                    token: response.data.token,
+                    imgUrl: response.data.imgUrl,
+                    Local: response.data.local
                 } as ClientResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);
@@ -76,7 +80,7 @@ export class ClientAdapter {
     // REGISTER CLIENTE
     async register(clientRequestDto: ClientRequestDto): Promise<ClientResponseDto | null> {
         try {
-            const { email, password, name, profilePic, local } = clientRequestDto;
+            const { email, password, name, imgUrl, local } = clientRequestDto;
 
             const requestOptions = {
                 headers: {
@@ -90,16 +94,18 @@ export class ClientAdapter {
                 email,
                 password,
                 name,
-                profilePic,
+                imgUrl,
                 local
             }, requestOptions);
 
             if (response.status === 201) {
                 return {
-                    clientId: response.data.clientId,
+                    clientId: response.data.idClient,
                     name: response.data.name,
                     email: response.data.email,
-                    token: response.data.token
+                    token: response.data.token,
+                    imgUrl: response.data.imgUrl,
+                    Local: response.data.local
                 } as ClientResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);

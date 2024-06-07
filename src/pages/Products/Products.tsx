@@ -7,20 +7,23 @@ import EstablishmentProducts from "../../sections/EstablishmentProducts/Establis
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextProvider as AuthContextProviderEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 
 const Products: React.FC = () => {
     return(
         <AuthContextProviderEmployee>
 
-            <AuthContextProviderClient>            
-                <S.ProductsPage>
+            <AuthContextProviderClient>      
+                <AuthContextProviderEstablishment>
+                    <S.ProductsPage>
 
-                    <Sidebar />
-                    <HeaderProfile />
-                    <EstablishmentProducts/>
-                    
-                </S.ProductsPage>
+                        <Sidebar />
+                        <HeaderProfile />
+                        <EstablishmentProducts/>
+                        
+                    </S.ProductsPage>
+                    </AuthContextProviderEstablishment>
             </AuthContextProviderClient>
 
         </AuthContextProviderEmployee>

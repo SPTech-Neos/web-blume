@@ -7,15 +7,20 @@ import EstablishmentServices from "../../sections/EstablishmentServices/Establis
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 // import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
+import { AuthContextProvider as AuthContextProviderEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 const Services: React.FC = () => {
     return(
         <AuthContextProviderEmployee>
-            <S.ServicesPage>
-                <Sidebar />
-                <HeaderProfile />
-                <EstablishmentServices/>
-            </S.ServicesPage>
+            <AuthContextProviderEstablishment>
+
+                <S.ServicesPage>
+                    <Sidebar />
+                    <HeaderProfile />
+                    <EstablishmentServices/>
+                </S.ServicesPage>
+                
+            </AuthContextProviderEstablishment>
         </AuthContextProviderEmployee>
     );
 }

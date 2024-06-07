@@ -91,7 +91,7 @@ const ProfileEmployee: React.FC = () => {
 
                 <E.ProfileContainer>
                     <h1>PERFIL</h1>
-                    <Profile username={employeeInfo?.name} />
+                    <Profile profile={employeeInfo?.imgUrl} username={employeeInfo?.name} />
                 </E.ProfileContainer>
                 <S.InfoContainer>
                     <S.Infos>

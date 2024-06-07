@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 
 import * as S from './establishmentServices.styled'
 
 import Searchbar from "../../components/Searchbar/Searchbar";
 import { CardServico } from "../../components/Cards/CardPedido/CardPedido";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
+
+import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
+import Cookies from "js-cookie";
+
 
 const EstablishmentServices:React.FC = () => {
 
@@ -13,6 +17,18 @@ const EstablishmentServices:React.FC = () => {
 
         modal?.classList.add("active");
     }
+
+    
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+  
+    useEffect(() => {
+        if (tokenFromCookie) {
+            console.log("Token de autenticação:", tokenFromCookie);
+            console.log("LOGADO: " + isAuthenticatedEmployee);
+        }
+    }, [tokenFromCookie, isAuthenticatedEmployee]);
 
     return(
         <S.ServicesSection>
@@ -29,7 +45,7 @@ const EstablishmentServices:React.FC = () => {
                         status="Em Andamento"
                         imgUrl=""
                         preco={90}
-                        employee="Kevin"
+                        employee={token.name}
                     />
                 </S.ServicesBody>
             </S.ServicesContainer>

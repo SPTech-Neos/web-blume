@@ -42,6 +42,7 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
         }
     
         setResult((event.target as HTMLDivElement).id);
+        console.log("estabsss " + establishmentInfo);
     }
 
     return (
@@ -67,9 +68,9 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                         ) : result === 'produto' ? (
                             <ProductCard nome="Perfume" valor={10.90} />
                         ) : (
-                            <About descricao="Passado por props no componente TAB">
+                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo}>
                                 <Badge>
-                                    deixar
+                                    aaa
                                 </Badge>
                                 <Badge>
                                     dinamico

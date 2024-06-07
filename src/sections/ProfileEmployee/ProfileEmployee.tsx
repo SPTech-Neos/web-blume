@@ -24,10 +24,6 @@ import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
 const ProfileEmployee: React.FC = () => {
     const navigate = useNavigate();
     const { isAuthenticated, handleDeleteEmployee } = useContext(AuthContextEmployee);
-    
-    // function getTheme(theme: string) {
-    //     return theme === "B2C"? Themes.client : Themes.establishment;
-    // }
 
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
   
@@ -52,7 +48,7 @@ const ProfileEmployee: React.FC = () => {
         }
     }, [tokenFromCookie, isAuthenticated]);
 
-    console.log(token.establishment.local.cep);
+    console.log(token.establishment);
 
     const showModal = () => {
         const editModal = document.getElementById("editModal");

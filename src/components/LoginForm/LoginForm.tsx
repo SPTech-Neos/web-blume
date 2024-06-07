@@ -105,7 +105,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         } else if (employeeToken) {
           setType("success");
           setMessage("Login efetuado com sucesso!");
-          setLinkTo("/client");
+          setLinkTo("/employee");
           setOpen(true);
         }
       } else {

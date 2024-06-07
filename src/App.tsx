@@ -15,6 +15,9 @@ import Orders from './pages/Orders/Orders';
 import { AuthContextEmployee } from './contexts/User/AuthContextProviderEmployee';
 import { AuthContextClient } from './contexts/User/AuthContextProviderClient';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Products from './pages/Products/Products';
+import Services from './pages/Services/Services';
+import Employees from './pages/Employees/Employees';
 
 const defaultProtectedRouteProps = {
   authenticationPath: '/auth'
@@ -58,6 +61,9 @@ const App: React.FC = () => {
         <Route path="/employee" element={<Employee/>}/>
         <Route path="/details" element={<Details/>}/>
         <Route path="/orders" element={<Orders/>}/>
+        <Route path="/services" element={<Services/>}/>
+        <Route path="/products" element={<Products/>}/>
+        <Route path="/employees" element={<Employees/>}/>
       </Routes>
     </BrowserRouter>
   );

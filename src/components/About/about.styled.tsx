@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import Container from '../Containers/Container/Container';
 import svg01 from '../../assets/icon-profile.png';
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 export interface AboutProps {
     imgUrl?: string,
     children?: JSX.Element[] | JSX.Element,
-    descricao?: string
+    establishmentInfo: EstablishmentResponseDto | null
 }
 
 

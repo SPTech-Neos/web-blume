@@ -82,8 +82,8 @@ const Orders: React.FC = () => {
                         <S.OrdersContainer>
                             <CardPedido 
                                 client="deixar dinamico" 
-                                employee="deixar"
-                                establishment="dinamico"
+                                employee={token.name}
+                                establishment={token.establishment.name}
                                 preco={20}
                                 service="deixar"
                                 status="Em Andamento"

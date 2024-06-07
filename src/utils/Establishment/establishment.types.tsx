@@ -7,7 +7,7 @@ export interface EstablishmentRequestDto {
     cnpj: string;
     startShift: string;
     endShift: string;
-    fkLocal: Number;
+    fkLocal: number;
     profilePic: string;
     description: string;
     fkServices: number[];

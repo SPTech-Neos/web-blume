@@ -6,7 +6,7 @@ import * as S from './profileEstablishment.styled';
 // import { NavLink } from 'react-router-dom';
 import { CaretLeft } from "phosphor-react";
 
-import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
+// import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
 
 import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile";
 import Tab from "../../components/Tab/Tab";
@@ -41,7 +41,6 @@ const ProfileB2B: React.FC = () => {
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
-    const [loading, setLoading] = useState(true);
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
@@ -51,7 +50,6 @@ const ProfileB2B: React.FC = () => {
               const data = await getEstablishmentById(Number(establishmentId));
               console.log("ESTABLISHMENTINFO: " + JSON.stringify(data));
               setEstablishmentInfo(data);
-              setLoading(false);
             };
             fetchEstablishmentData();
         }
@@ -131,8 +129,8 @@ const ProfileB2B: React.FC = () => {
     
                         <EditModal id="editModal"/>
     
-                        <S.Perfil tipoperfil="B2B" username={(token as EmployeeResponseDto).name} />
-                        <Tab theme='establishment'/>
+                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.name} />
+                        <Tab theme='establishment' establishmentInfo={establishmentInfo}/>
                         <S.ContainerAtencao>
                             <S.ContainerTitle>
                                 <S.TracoAtencao />

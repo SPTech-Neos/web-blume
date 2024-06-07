@@ -75,4 +75,16 @@ export class ServiceAdapter {
             return null;
         }
     }
+
+    // async getByIdEstablishment(establishmentId: number): Promise<ServiceRequestDto | null> {
+    //     try {
+    //         const response = await axios.get(`${this.apiUrl}/service/${establishmentId}`, this.getRequestOptions());
+    //         return {
+    //             serviceId: response.data.id,
+    //             specification: response.data.specification,
+    //             serviceType: response.data.serviceType,
+    //         } as ServiceResponseDto;
+    //     }
+    // }
+
 }    

@@ -1,10 +1,11 @@
 import React from "react";
 import * as S from './establishmentProducts.styled'
-
 import Searchbar from "../../components/Searchbar/Searchbar";
 import { CardProduto } from "../../components/Cards/CardPedido/CardPedido";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 
+
+// import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 const EstablishmentProducts:React.FC = () => {
 
     const handleAddProducts = () => {
@@ -12,6 +13,7 @@ const EstablishmentProducts:React.FC = () => {
 
         modal?.classList.add("active");
     }
+
 
     return(
         <S.ProductsSection>

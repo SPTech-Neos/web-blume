@@ -61,14 +61,14 @@ export const InfoBody = styled.div`
 `;
 
 export const Label = styled.span`
-    font-size: 12px;
+    font-size: 11px;
     color: ${c.gray300};
 `;
 
 export const LabelValue = styled.span`
     color: ${c.gray900};
     font-weight: bold;
-    font-size: 15px;
+    font-size: 12px;
 `;
 
 export const InfoButtons = styled(InfoBody)`

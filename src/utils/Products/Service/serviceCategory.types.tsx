@@ -1,9 +1,9 @@
 export interface ServiceCategoryRequestDto {
-    specification: string;
+    name: string;
 }
 
 export interface ServiceCategoryResponseDto {
     serviceCategoryId: number;
-    specification: string;
+    name: string;
 }
 

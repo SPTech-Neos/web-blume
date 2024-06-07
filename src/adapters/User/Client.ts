@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/client.types";
+import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/Users/Client/client.types";
 
 export class ClientAdapter {
     private readonly apiUrl: string;

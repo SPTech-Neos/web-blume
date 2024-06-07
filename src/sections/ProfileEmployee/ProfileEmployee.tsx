@@ -17,7 +17,7 @@ import { colors as c } from '../../styles/Colors';
 
 import Modal from "../../components/Modals/FormModal/Modal";
 import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
-import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 
 

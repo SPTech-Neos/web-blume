@@ -5,7 +5,7 @@ import TabOption from "../TabOption/TabOption";
 import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
 import About from "../About/About";
 import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
-import { ServiceResponseDto } from "../../utils/Products/service.types";
+import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
 
 const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 

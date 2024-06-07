@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import InputText from "../../../components/Input/InputText/InputText";
 import { DangerButton, PrimaryButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
-import { EmployeeResponseDto } from "../../../utils/Employee/employee.types";
+import { EmployeeResponseDto } from "../../../utils/Users/Employee/employee.types";
 
 type Props = {
     id?: string;

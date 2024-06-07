@@ -1,30 +1,19 @@
-import { ServiceResponseDto } from "../Products/service.types";
-import { FilterResponseDto } from "./filters.types";
-import { LocalResponseDto } from "./local.types";
+import { CompanyResponseDto } from "../Company/company.types";
+import { ServiceResponseDto } from "../Products/Service/service.types";
+import { FilterResponseDto } from "../Filter/filters.types";
+import { LocalRequestDto, LocalResponseDto } from "../Local/local.types";
 
 export interface EstablishmentRequestDto {
     name: string;
-    cnpj: string;
-    startShift: string;
-    endShift: string;
-    fkLocal: number;
-    profilePic: string;
-    description: string;
-    fkServices: number[];
-    fkFilters: number[];
+    imgUrl?: string;
+    companyId: number;
+    local: LocalRequestDto
 }
 
 export interface EstablishmentResponseDto {
-    id: number;
+    establishmentId: number;
     name: string;
-    description: string;
-    cnpj: string;
-    startShift: string;
-    endShift: string;
-    assessment: number;
-    qtdAssessment: number;
+    imgUrl?: string;
+    company: CompanyResponseDto;
     local: LocalResponseDto;
-    profilePic: string;
-    services: ServiceResponseDto[];
-    filters: FilterResponseDto[];
 }

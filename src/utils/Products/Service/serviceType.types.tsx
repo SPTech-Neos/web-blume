@@ -2,7 +2,7 @@ import { ServiceCategoryResponseDto } from "./serviceCategory.types";
 
 export interface ServiceTypeRequestDto {
     name: String;
-    fkServiceCategory: number;
+    fkServiceCategory: number; // ServiceCategory
 }
 
 export interface ServiceTypeResponseDto {

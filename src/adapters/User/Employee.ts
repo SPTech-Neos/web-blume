@@ -1,6 +1,6 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Employee/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Users/Employee/employee.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;

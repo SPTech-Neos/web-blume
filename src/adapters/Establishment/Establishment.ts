@@ -47,10 +47,10 @@ export class EstablishmentAdapter {
                 name,
                 imgUrl,
                 companyId,
-                local,
+                localId,
             } = establishmentRequestDto;
     
-            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, local}, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, localId}, this.getRequestOptions());
     
             if (response.status === 200) {
                 return {

@@ -5,7 +5,7 @@ export interface EstablishmentRequestDto {
     name: string;
     imgUrl?: string;
     companyId: number;
-    local: LocalRequestDto
+    localId: LocalRequestDto
 }
 
 export interface EstablishmentResponseDto {

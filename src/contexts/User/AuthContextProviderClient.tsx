@@ -2,8 +2,8 @@ import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
 import { ClientAdapter } from "../../adapters/User/Client";
-import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/client.types";
-import { LocalRequestDto } from "../../utils/Establishment/local.types";
+import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/Users/Client/client.types";
+import { LocalRequestDto } from "../../utils/Local/local.types";
 
 interface AuthContextType {
   token: object | ClientResponseDto | null;

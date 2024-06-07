@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { ServiceRequestDto, ServiceResponseDto } from "../../utils/Products/service.types";
+import { ServiceRequestDto, ServiceResponseDto } from "../../utils/Products/Service/service.types";
 
 export class ServiceAdapter {
     private readonly apiUrl: string;

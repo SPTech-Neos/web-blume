@@ -10,7 +10,7 @@ import Logo from '../../components/Images/Logo/Logo';
 import Profile from "../../components/Profile/Profile";
 import EditModal from "../Modals/EditModal/EditModal";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
-import { ClientResponseDto } from "../../utils/client.types";
+import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 import Modal from "../../components/Modals/FormModal/Modal";
 import { ModalProps } from "../../components/Modals/FormModal/modal.styled";

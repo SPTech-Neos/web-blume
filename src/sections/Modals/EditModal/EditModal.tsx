@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import InputText from "../../../components/Input/InputText/InputText";
 import { DangerButton, PrimaryButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
+import { EmployeeResponseDto } from "../../../utils/Employee/employee.types";
 
 type Props = {
     id?: string;
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const EditModal: React.FC<Props> = ({id}) => {
-    const { isAuthenticated, handleUpdateEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated, handleUpdateEmployee, getEmployeeById } = useContext(AuthContextEmployee);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,24 +40,34 @@ const EditModal: React.FC<Props> = ({id}) => {
     }
 
     const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     
     const handleUpdateEmployeeData = async () => {
-        try {
-            const updatedFields = { name, email, password };
-            await handleUpdateEmployee(updatedFields);
-            closeModal();
-        } catch (error) {
-            console.error("Erro ao atualizar funcionário:", error);
+        if(isAuthenticated){
+            try {
+                const updatedFields = { name, email, password };
+                await handleUpdateEmployee(updatedFields);
+                closeModal();
+            } catch (error) {
+                console.error("Erro ao atualizar funcionário:", error);
+            }
+        } else{
+            console.log("nada pra atualizar");
         }
     };
+
+    const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
+
     useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticated);
+        const fetchEmployeeData = async () => {
+            const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+            console.log("emplyoyee Stab na editModal" + JSON.stringify(employeeEstab));
+            setEmployeeInfo(employeeEstab);
+            console.log(employeeInfo);
         }
-    }, [tokenFromCookie, isAuthenticated, handleUpdateEmployee]);
-    
+        fetchEmployeeData();
+    }, [tokenFromCookie, isAuthenticated]);
 
     return (
         <S.EditModalContainer id={id}>

@@ -7,7 +7,7 @@ import svg01 from '../.././assets/icon-profile.png';
 export interface ProfileProps {
     profile?: string; 
     tipoperfil?: "B2B" | "B2C";
-    username: string;
+    username: string | null | undefined;
 }
 
 export interface ContainerProfileProps {

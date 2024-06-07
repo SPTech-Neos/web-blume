@@ -15,7 +15,7 @@ export interface EstablishmentRequestDto {
 }
 
 export interface EstablishmentResponseDto {
-    establishmentId: number;
+    id: number;
     name: string;
     description: string;
     cnpj: string;

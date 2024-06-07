@@ -1,11 +1,11 @@
-import { Establishment } from "../Establishment/establishment.types";
+import { EstablishmentResponseDto } from "../Establishment/establishment.types";
 import { EmployeeType } from "./employeeType.types";
 
 export interface EmployeeResponseDto {
     employeeId: string;
     name: string;
     email: string;
-    establishment: Establishment;
+    establishment: EstablishmentResponseDto;
     employeeType: EmployeeType;
 }
 

@@ -32,7 +32,7 @@ const Test: React.FC = () => {
                             setResult(updateResult);
                             break;
                         case 'getById':
-                            const getByIdResult = await employeeAdapter.getEmployeeById(params.id);
+                            const getByIdResult = await employeeAdapter.getEmployeeById(1);
                             setResult(getByIdResult);
                             break;
                         default:
@@ -74,7 +74,7 @@ const Test: React.FC = () => {
                             setResult(updateResult);
                             break;
                         case 'getById':
-                            const getByIdResult = await establishmentAdapter.getEstablishmentById(params.id);
+                            const getByIdResult = await establishmentAdapter.getEstablishmentById(1);
                             setResult(getByIdResult);
                             break;
                         default:

@@ -61,10 +61,13 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                     </div>
                 ):
                     <S.ResultBody id="section-escolhida">
-                        {result === 'servico' ? (
-                            establishmentInfo?.services.map((service: ServiceResponseDto, index: number) => (
-                                <ServiceCard key={index} theme={theme} nome={service.specification} valor={establishmentInfo.filters[index].price} />
-                            ))
+                        {result === 'servico'? (
+                             establishmentInfo?.services != null ? (
+                                    establishmentInfo?.services.map((service: ServiceResponseDto, index: number) => (
+                                        <ServiceCard key={index} theme={theme} nome={service.specification} valor={establishmentInfo.filters[index].price} />
+                                    ))
+                             ) : "Sem serviços no momento"
+                        
                         ) : result === 'produto' ? (
                             <ProductCard nome="Perfume" valor={10.90} />
                         ) : (

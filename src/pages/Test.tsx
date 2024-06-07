@@ -10,7 +10,7 @@ const Test: React.FC = () => {
   const [adapter, setAdapter] = useState<any>(null);
   const [result, setResult] = useState<any | null>(null);
   const token: string =
-    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjbGllbnRlLmZ1bmNpb25hcmlvQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE2Njg1MDA4LCJleHAiOjE3MjAyODUwMDh9.LP8YtwGKhrD2WLUZE1tr1Ev6QmoiuVEgglIEIbdvy-YI9myReBn2QM09wWDrCAnhflCAAoq2DulrV9Z0V3HkJg";
+    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTcxNzgwMTM1MSwiZXhwIjoxNzIxNDAxMzUxfQ.5pmdz2iyCs4omgYDy2EMYYDA3hi80f_aYPqoG7U4RUFWy-aKiH1nPEN2BFplASwieMerngM_QvA1hcl7puct-w";
 
     const testAdapter = async () => {
         if (adapter) {

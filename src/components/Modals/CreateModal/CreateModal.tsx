@@ -16,6 +16,9 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [description, setDescription] = useState("");
+    const [preco, setPreco] = useState("");
+    const [funcionario, setFuncionario] = useState("");
+    const [status, setStatus] = useState("");
 
     // const [formData, setFormData] = useState<EmployeeRequestDto>({
     //     name: "",
@@ -35,18 +38,14 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const handleClose = () => {
         const modal = document.getElementById("modal-adicionar");
         modal?.classList.remove("active");
-        // setFormData({
-        //     name: "",
-        //     email: "",
-        //     password: "",
-        //     description: "",
-        //     employeeType: 0,
-        //     fkEstablishment: 0
-        // });
+
+        setName("")
+        setDescription("")
+        setEmail("")
+        setPassword("")
     };
 
     const handleSave = () => {
-        console.log("sadsadaddasda")
         if(titulo == "Funcionário"){
             console.log("handle save")
             
@@ -64,7 +63,9 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                 console.log("emplyoyee criando" + JSON.stringify(employeeEstab));
             }
 
-        }      
+        }     
+
+        handleClose();
     };
 
     return (
@@ -85,28 +86,32 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             placeholder={`Nome do ${titulo}....`}
                         />
                     </S.InputContainer>
-                    {/* {titulo === "Serviço" && (
+                    {titulo === "Serviço" && (
                         <S.InputContainer>
                             <InputText
                                 type="text"
-                                onChange={handleChange}
+                                onChange={(e => handleChange(e, setFuncionario))}
                                 label={`Funcionário do ${titulo}`}
                                 theme="establishment"
-                                value={formData.funcionario}
+                                value={funcionario}
                                 placeholder={`Funcionário do ${titulo}....`}
                             />
                         </S.InputContainer>
-                    )} */}
-                    <S.InputContainer>
-                        <InputText
-                            type="text"
-                            onChange={(e => handleChange(e, setEmail))}
-                            label={`Email do ${titulo}`}
-                            theme="establishment"
-                            value={email}
-                            placeholder={`Email do ${titulo}....`}
-                        />
-                    </S.InputContainer>
+                    )}
+                    {titulo === "Funcionário" && (
+                        <S.InputContainer>
+                            <InputText
+                                type="text"
+                                onChange={(e => handleChange(e, setEmail))}
+                                label={`Email do ${titulo}`}
+                                theme="establishment"
+                                value={email}
+                                placeholder={`Email do ${titulo}....`}
+                            />
+                        </S.InputContainer>
+                    )}
+
+                    {titulo === "Funcionário" && (
                     <S.InputContainer>
                         <InputText
                             type="password"
@@ -117,30 +122,31 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             placeholder={`Senha do ${titulo}....`}
                         />
                     </S.InputContainer>
-                    {/* {titulo != "Funcionário" && (
+                    )}
+                    {titulo != "Funcionário" && (
                     <S.InputContainer>
                         <InputText
                             type="number"
-                            onChange={handleChange}
+                            onChange={(e => handleChange(e, setPreco))}
                             label={`Preço do ${titulo}`}
                             theme="establishment"
-                            value={formData.preco}
+                            value={preco}
                             placeholder={`Preço do ${titulo}....`}
                         />
                     </S.InputContainer>
-                    )} */}
-                    {/* {titulo != "Funcionário" && (
+                    )}
+                    {titulo != "Funcionário" && (
                         <S.InputContainer>
                             <InputText
                                 type="text"
-                                onChange={handleChange}
+                                onChange={(e => handleChange(e, setStatus))}
                                 label={`Status do ${titulo}`}
                                 theme="establishment"
-                                value={formData.status}
+                                value={status}
                                 placeholder={`Status do ${titulo}....`}
                             />
                         </S.InputContainer>
-                    )} */}
+                    )}
                     <S.InputContainer>
                         <InputText
                             type="text"

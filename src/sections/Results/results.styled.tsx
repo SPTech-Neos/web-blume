@@ -11,6 +11,8 @@ export const Results = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  gap: 20px;
 `;
 
 export const BestResults = styled.div`
@@ -25,7 +27,23 @@ export const Col = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+  gap: 8px;
 `;
 
 export const MoreResults = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  gap: 12px;
+`;
+
+export const MoreResultsContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
 `;

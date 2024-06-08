@@ -19,7 +19,7 @@ export const PrimaryCardResult = styled.div`
   background-color: ${c.gray100};
   border: none;
   border-radius: 16px;
-  box-shadow: 2px 2px 50px -15px ${c.gray700};
+  box-shadow: 2px 2px 50px -15px ${c.gray500};
 
   display: flex;
   flex-direction: column;
@@ -41,18 +41,21 @@ export const PrimaryCardResultContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
   align-items: start;
 `;
 
 export const EstablishmentImgUrl = styled.img`
   width: 100px;
   height: 100px;
+
+  border-radius: 200px;
 `;
 
 export const EstablishmentName = styled.h3`
   font-family: "Poppins", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 32px;
 `;
 
@@ -77,15 +80,15 @@ export const EstablishmentServicesTag = styled.div`
 // SECONDARY CARD RESULT ================
 
 export const SecondaryCardResult = styled.div`
-  width: 35%;
-  max-width: 550px;
-  height: 35%;
-  max-height: 300px;
+  width: 30%;
+  max-width: 300px;
+  height: 30%;
+  min-height: 300px;
 
   background-color: ${c.gray100};
   border: none;
   border-radius: 16px;
-  box-shadow: 2px 2px 50px -15px ${c.gray700};
+  box-shadow: 2px 2px 50px -15px ${c.gray500};
 
   display: flex;
   flex-direction: column;
@@ -93,13 +96,11 @@ export const SecondaryCardResult = styled.div`
   justify-content: center;
 
   @media ${device.tablet} {
-    height: 10%;
-    width: 50%;
+
   }
 
   @media ${device.mobileL} {
-    height: 10%;
-    width: 80%;
+
   }
 `;
 
@@ -109,6 +110,9 @@ export const SecondaryCardResultContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: start;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  text-align:center;
 `;

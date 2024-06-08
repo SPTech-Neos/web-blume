@@ -55,3 +55,30 @@ export const SecondaryCardResult: React.FC<S.PropsCardResult> = ({ estabId, imgU
         </S.SecondaryCardResult>
     );
 }
+
+export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ estabId, imgUrl, name, servicesName }) => {
+    return (
+        <S.SecondaryCardResult data-id={estabId}>
+            <S.SecondaryCardResultContainer>
+                <S.EstablishmentImgUrl 
+                    alt={`Imagem de perfil da loja: ${name}`}
+                    src={imgUrl !== null ? imgUrl : iconProfile}
+                />
+
+                <S.EstablishmentName>{name}</S.EstablishmentName>
+
+                
+                { servicesName !== null ?
+                    <S.EstablishmentServicesTagContainer>
+                        {servicesName.map((serviceName) => (
+                                <S.EstablishmentServicesTag>
+                                    <p>{serviceName}</p>
+                                </S.EstablishmentServicesTag>
+                        ))}
+                    </S.EstablishmentServicesTagContainer>
+                : null}
+
+            </S.SecondaryCardResultContainer>
+        </S.SecondaryCardResult>
+    );
+}

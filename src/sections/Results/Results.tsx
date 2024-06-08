@@ -27,24 +27,45 @@ const Results: React.FC<SearchProps<EstablishmentResponseDto>> = ({ searchResult
 
         <S.Col>
           <SecondaryTitle > Melhor Lugar</SecondaryTitle>
-            {searchResults.map((result) => (
-              <PrimaryCardResult estabId={result.establishmentId} imgUrl={result.imgUrl} name={result.name} servicesName={null} />
-            ))}
+          {searchResults.slice(0, 1).map((result) => (
+              <PrimaryCardResult 
+                  key={result.establishmentId} 
+                  estabId={result.establishmentId} 
+                  imgUrl={result.imgUrl} 
+                  name={result.name} 
+                  servicesName={null} 
+              />
+          ))}
         </S.Col>
 
         <S.Col>
           <SecondaryTitle> Melhor Serviço</SecondaryTitle>
-            {searchResults.map((result) => (
-              <PrimaryCardResult estabId={result.establishmentId} imgUrl={result.imgUrl} name={result.name} servicesName={null} />
+            {searchResults.slice(0, 1).map((result) => (
+              <PrimaryCardResult 
+                  key={result.establishmentId} 
+                  estabId={result.establishmentId} 
+                  imgUrl={result.imgUrl} 
+                  name={result.name} 
+                  servicesName={null} 
+              />
             ))}
         </S.Col>
 
       </S.BestResults>
 
       <S.MoreResults>
-        {searchResults.map((result) => (
-          <SecondaryCardResult estabId={result.establishmentId} imgUrl={result.imgUrl} name={result.name} servicesName={null} />
-        ))}
+        <SecondaryTitle> Outros resultados </SecondaryTitle>
+        <S.MoreResultsContainer>
+          {searchResults.map((result) => (
+              <SecondaryCardResult 
+                  key={result.establishmentId} 
+                  estabId={result.establishmentId} 
+                  imgUrl={result.imgUrl} 
+                  name={result.name} 
+                  servicesName={null} 
+              />
+          ))}
+        </S.MoreResultsContainer>
       </S.MoreResults>
     </S.Results>
   );

@@ -26,12 +26,13 @@ export class EstablishmentAdapter {
 
     async getAllEstablishments(limit?: number): Promise<EstablishmentResponseDto[] | null> {
         try {
-            let url = `${this.apiUrl}/establishments`;
+            const url = new URL(`${this.apiUrl}/establishments`);
             if (limit) {
-              url += `?limit=${limit}`;
+                url.searchParams.append('limit', limit.toString());
             }
-            const response = await axios.get(url, this.getRequestOptions());
-            
+    
+            const response = await axios.get(url.toString(), this.getRequestOptions());
+    
             const establishments = response.data.map((establishment: any) => ({
                 establishmentId: establishment.id,
                 name: establishment.name,
@@ -41,13 +42,12 @@ export class EstablishmentAdapter {
             })) as EstablishmentResponseDto[];
     
             return establishments;
-            
+    
         } catch (error) {
             console.error(error);
             return null;
         }
-    }
-
+    }    
 
     async getEstablishmentById(id: number): Promise<EstablishmentResponseDto | null> {
         try {

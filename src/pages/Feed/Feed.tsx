@@ -15,10 +15,13 @@ import Results from "../../sections/Results/Results";
 import { useLocation } from "react-router-dom";
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { ServiceAdapter } from "../../adapters/Products/Service/Service";
 // import Link from "../../components/Texts/Link/Link";
 
 const Feed: React.FC<S.FeedProps> = () => {
   const establishmentAdapter = new EstablishmentAdapter;
+  const serviceAdapter = new ServiceAdapter;
+
   const location = useLocation();
   const searchResultsHome: EstablishmentResponseDto[] = location.state
     ? location.state.searchResults
@@ -40,29 +43,39 @@ const Feed: React.FC<S.FeedProps> = () => {
     setSearchQuery(event.target.value);
   };
 
-  const fetchEstablishments = async (limit?: number) => {
+  const fetchEstablishments = async () => {
     try {
-      const results = await establishmentAdapter.getAllEstablishments(limit);
-      if (results) {
-        setSearchResults(results);
-      }
+        const results = await establishmentAdapter.getAllEstablishments();
+        if (results) {
+            setSearchResults(results);
+        }
     } catch (error) {
-      console.error("Failed to fetch establishments:", error);
+        console.error("Failed to fetch establishments:", error);
+    }
+  };
+
+  const fetchServices = async () => {
+    try {
+        const results = await establishmentAdapter.getAllEstablishments();
+        if (results) {
+            setSearchResults(results);
+        }
+    } catch (error) {
+        console.error("Failed to fetch establishments:", error);
     }
   };
 
   const handleResultClick = () => {
     setSearchResults([]);
-
+    
     if (searchQuery) {
-      // Filtra os resultados pela query, se necessário
-      fetchEstablishments(1); // Passando o limite de 1 resultado
+        fetchEstablishments(1);
     }
   };
 
   useEffect(() => {
     if (searchQueryHome) {
-      fetchEstablishments();
+        fetchEstablishments();
     }
   }, [searchQueryHome]);
 

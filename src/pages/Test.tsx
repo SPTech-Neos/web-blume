@@ -5,6 +5,7 @@ import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 
 import RequestLocation from '../components/RequestLocation/RequestLocation';
 import { ServiceAdapter } from '../adapters/Products/Service/Service';
+import { ServiceTypeAdapter } from '../adapters/Products/Service/ServiceType';
 
 const Test: React.FC = () => {
   const [adapter, setAdapter] = useState<any>(null);
@@ -77,6 +78,10 @@ const Test: React.FC = () => {
                             const getByIdResult = await establishmentAdapter.getEstablishmentById(1);
                             setResult(getByIdResult);
                             break;
+                        case 'getAll':
+                                const getAllResult = await establishmentAdapter.getAllOfEstab(params.id);
+                                setResult(getAllResult);
+                                break;
                         default:
                             break;
                     }
@@ -98,6 +103,20 @@ const Test: React.FC = () => {
                             break;
                         default:
                             break;
+                    }
+                    break;
+                case 'ServiceType' :
+                    const serviceTypeAdapter = new ServiceTypeAdapter();
+                    switch (method) {
+                        case 'getById':
+                            const getByIdResult = await serviceTypeAdapter.getServiceTypeById(params.id);
+                            setResult(getByIdResult);
+                        break;
+                        case 'getAll':
+                            const getAllResult = await serviceTypeAdapter.getAllServicesType();
+                            setResult(getAllResult);
+                        break;
+
                     }
                     break;
                 default:
@@ -127,11 +146,18 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Establishment', method: 'create', params: { createDto: { name: 'ABC Company', companyId: 1, localId: 1, imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU' }}})}>Register</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'update', params: { id: 1, updateFields: { imgUrl: 'https://i.pinimg.com/236x/44/46/4c/44464c4660f6ec0701a506353a41e1e2.jpg', name: 'Salão maneiro' }}})}>Update</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'getById', params: { id: 1 } })}>Get by ID</option>
+                    <option value={JSON.stringify({ type: 'Establishment', method: 'getAll', params: { id: 1 } })}>Get All</option>
                 </optgroup>
                 <optgroup label="Service Adapter">
                     <option value={JSON.stringify({ type: 'Service', method: 'create', params: { createDto: { specification: 'Corte', serviceType: 1}}})}>Register</option>
                     <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Service', method: 'getById', params: { id: 1 } })}>Get by ID</option>
+                </optgroup>
+                <optgroup label="Service Type Adapter">
+                    {/* <option value={JSON.stringify({ type: 'ServiceType', method: 'create', params: { createDto: { specification: 'Corte', serviceType: 1}}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option> */}
+                    <option value={JSON.stringify({ type: 'ServiceType', method: 'getById', params: { id: 1 } })}>Get by ID</option>
+                    <option value={JSON.stringify({ type: 'ServiceType', method: 'getAll'})}>Get All</option>
                 </optgroup>
             </select>
             <button onClick={testAdapter}>Test</button>

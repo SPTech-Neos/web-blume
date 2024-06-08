@@ -1,9 +1,11 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useState, useEffect } from "react";
 import * as S from './createModal.styled';
 import InputText from "../../Input/InputText/InputText";
 import { PrimaryButton } from "../../Button/button.styled";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
-// import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
+import { ServiceTypeAdapter } from "../../../adapters/Products/Service/ServiceType";
+import { ServiceTypeResponseDto } from "../../../utils/Products/Service/serviceType.types";
+import { ServiceAdapter } from "../../../adapters/Products/Service/Service";
 
 type Props = {
     id?: string;
@@ -19,33 +21,73 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const [preco, setPreco] = useState("");
     const [funcionario, setFuncionario] = useState("");
     const [status, setStatus] = useState("");
+    const [serviceType, setServiceType] = useState("");
 
-    // const [formData, setFormData] = useState<EmployeeRequestDto>({
-    //     name: "",
-    //     email: "",
-    //     password: "",
-    //     employeeType: 0,
-    //     fkEstablishment: 0
-    // });
+    const [serviceTypeInfo, setServiceTypeInfo] = useState<ServiceTypeResponseDto[] | null>(null);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>, setStateFunction: Dispatch<SetStateAction<string>>) => {
-        // const { name, value } = event.target;
-        // console.log(name)
-        // setFormData({ ...formData, [name]: value });
+    const adapterServiceType = new ServiceTypeAdapter;
+
+    const handleGetServiceTypes = async () => {
+        try{
+            const result = await adapterServiceType.getAllServicesType();
+            console.log("Resultado: " + result);
+            if(result){
+                setServiceTypeInfo(result);
+                console.log(serviceTypeInfo)
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        handleGetServiceTypes();
+    }, []);
+
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, setStateFunction: Dispatch<SetStateAction<string>>) => {
         setStateFunction(event.target.value);
     };
 
     const handleClose = () => {
         const modal = document.getElementById("modal-adicionar");
         modal?.classList.remove("active");
-
+        console.log(serviceType);
         setName("")
         setDescription("")
         setEmail("")
         setPassword("")
+        setFuncionario("")
+        setPreco("")
+        setServiceType("")
+        setStatus("")
     };
 
+    const handleReload = () => {
+        window.location.reload();
+    }
+
+    const adapterService = new ServiceAdapter;
+
     const handleSave = () => {
+
+        if(titulo == "Serviço"){
+
+            const serviceNew = {
+                specification: name,
+                serviceType: Number(serviceType)
+            }
+
+            if(serviceNew){
+                console.log("entrei no if serviço")
+                const serviceCreated = adapterService.register(serviceNew);  
+                console.log("emplyoyee criando" + JSON.stringify(serviceCreated));
+            }
+
+
+        }
+
+
         if(titulo == "Funcionário"){
             console.log("handle save")
             
@@ -66,6 +108,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
         }     
 
         handleClose();
+        handleReload();
     };
 
     return (
@@ -80,7 +123,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                         <InputText
                             type="text"
                             onChange={(e => handleChange(e, setName))}
-                            label={`Nome do ${titulo}`}
+                            label={titulo=="Serviço" ? `Especificação do ${titulo}`: `Nome do ${titulo}`}
                             theme="establishment"
                             value={name}
                             placeholder={`Nome do ${titulo}....`}
@@ -110,7 +153,14 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             />
                         </S.InputContainer>
                     )}
-
+                    {titulo === "Serviço" && (
+                        <S.SelectType name="Selecione o tipo do serviço" onChange={(e => handleChange(e, setServiceType))}>
+                            <option value="" disabled selected>Selecione o tipo do serviço....</option>
+                            {serviceTypeInfo && serviceTypeInfo.map((data) => (
+                                <option  value={data.id}> {data.name} </option>
+                            ))}
+                        </S.SelectType>
+                    )}
                     {titulo === "Funcionário" && (
                     <S.InputContainer>
                         <InputText

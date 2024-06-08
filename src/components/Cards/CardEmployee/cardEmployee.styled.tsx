@@ -25,6 +25,10 @@ export const CardContainer = styled.div<propsCard>`
         cursor: pointer;
         background-color: ${c.gray200};
     }
+
+    & h2{
+        font-size:20px;
+    }
 `;
 
 export const CardBody = styled.div`

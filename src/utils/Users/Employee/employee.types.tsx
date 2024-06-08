@@ -2,6 +2,7 @@ import { EstablishmentResponseDto } from "../../Establishment/establishment.type
 import { EmployeeTypeResponseDto } from "./employeeType.types";
 
 export interface EmployeeResponseDto {
+    [x: string]: any;
     employeeId: string;
     name: string;
     email: string;

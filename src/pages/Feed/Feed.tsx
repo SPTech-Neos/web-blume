@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
@@ -12,23 +12,24 @@ import Search from "../../sections/Search/Search";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
-import { Salon } from "../../utils/salon.types";
 import { useLocation } from "react-router-dom";
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 // import Link from "../../components/Texts/Link/Link";
 
 const Feed: React.FC<S.FeedProps> = () => {
+  const establishmentAdapter = new EstablishmentAdapter;
   const location = useLocation();
-  const searchResultsHome: Salon[] = location.state
+  const searchResultsHome: EstablishmentResponseDto[] = location.state
     ? location.state.searchResults
     : [];
 
-    const searchQueryHome: string = location.state
+  const searchQueryHome: string = location.state
     ? location.state.searchQuery
     : "";
 
   const [searchQuery, setSearchQuery] = useState(searchQueryHome);
-  const [searchResults, setSearchResults] =
-    useState<Salon[]>(searchResultsHome);
+  const [searchResults, setSearchResults] = useState<EstablishmentResponseDto[]>(searchResultsHome);
   const [searchClicked, setSearchClicked] = useState(false);
 
   const handleSearchClick = () => {
@@ -39,22 +40,31 @@ const Feed: React.FC<S.FeedProps> = () => {
     setSearchQuery(event.target.value);
   };
 
-  const handleResultClick = () => {
-    setSearchResults([{ id: 1, title: "Lirasalon" }]); // quero fazer mockado aqui apenas para teste
-
-    // if (searchQuery) {
-    //   fetch(/* Your API endpoint */ /*searchQuery */)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       setSearchResults(data as Salon[]);
-    //     })
-    //     .catch(error => {
-    //       console.error("Error fetching search results:", error);
-    //     });
-    // } else {
-    //   console.warn("Search query is empty. Please enter a search term.");
-    // }
+  const fetchEstablishments = async (limit?: number) => {
+    try {
+      const results = await establishmentAdapter.getAllEstablishments(limit);
+      if (results) {
+        setSearchResults(results);
+      }
+    } catch (error) {
+      console.error("Failed to fetch establishments:", error);
+    }
   };
+
+  const handleResultClick = () => {
+    setSearchResults([]);
+
+    if (searchQuery) {
+      // Filtra os resultados pela query, se necessário
+      fetchEstablishments(1); // Passando o limite de 1 resultado
+    }
+  };
+
+  useEffect(() => {
+    if (searchQueryHome) {
+      fetchEstablishments();
+    }
+  }, [searchQueryHome]);
 
   return (
     <S.Feed id="feed">
@@ -85,9 +95,9 @@ const Feed: React.FC<S.FeedProps> = () => {
           />
         </>
 
-        {(searchResults.length > 0 || searchResultsHome.length > 0) && searchQuery.length != 0 ? (
+        {(searchResults.length > 0 || searchResultsHome.length > 0) && searchQuery.length !== 0 ? (
           <Results searchResults={searchResults} />
-        ) : searchClicked || searchQuery.length == 1 ? (
+        ) : searchClicked || searchQuery.length === 1 ? (
           <Search searchQuery={searchQuery} />
         ) : (
           <FeedSection />

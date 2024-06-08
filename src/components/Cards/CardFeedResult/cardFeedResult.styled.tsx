@@ -1,22 +1,20 @@
 import styled from "styled-components";
 import { colors as c } from "../../../styles/Colors";
 import { device } from "../../../styles/breakpoints.styled";
-import { PrimaryTitle } from "../../Texts/Title/title.styled";
 
 export interface PropsCardResult {
-  children: string | JSX.Element | JSX.Element[];
   estabId: number;
-  imgUrl: string;
+  imgUrl: string | undefined;
   name: string;
-  servicesName: string[];
+  servicesName: string[] | null;
 }
 
 
 export const PrimaryCardResult = styled.div`
-  width: 35%;
+  width: 100%;
   max-width: 550px;
   height: 35%;
-  max-height: 300px;
+  min-height: 250px;
 
   background-color: ${c.gray100};
   border: none;

@@ -24,6 +24,31 @@ export class EstablishmentAdapter {
         };
     }
 
+    async getAllEstablishments(limit?: number): Promise<EstablishmentResponseDto[] | null> {
+        try {
+            let url = `${this.apiUrl}/establishments`;
+            if (limit) {
+              url += `?limit=${limit}`;
+            }
+            const response = await axios.get(url, this.getRequestOptions());
+            
+            const establishments = response.data.map((establishment: any) => ({
+                establishmentId: establishment.id,
+                name: establishment.name,
+                imgUrl: establishment.imgUrl,
+                company: establishment.company,
+                local: establishment.local
+            })) as EstablishmentResponseDto[];
+    
+            return establishments;
+            
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+
     async getEstablishmentById(id: number): Promise<EstablishmentResponseDto | null> {
         try {
 

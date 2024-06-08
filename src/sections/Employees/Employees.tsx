@@ -1,12 +1,40 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import * as S from './employees.styled'
 
+import Cookies from "js-cookie";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import CardEmployee from "../../components/Cards/CardEmployee/CardEmployee";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
-
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+// import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
+// import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 const Employees: React.FC = () => {
+
+
+    const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+    const estabAdapter = new EstablishmentAdapter;
+
+    const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+        
+    useEffect(() => {
+        handleGetEmployees();
+    }, []);
+
+    const handleGetEmployees = async () => {
+        try{
+            const result = await estabAdapter.getAllOfEstab(token.establishment.id);
+            console.log("Resultado: " + result);
+            if(result){
+                setEstablishmentFull(result);
+
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
 
     const handleClickEmployee = (event: React.MouseEvent<HTMLDivElement>) => {
         const lastSelected = document.getElementsByClassName("active");
@@ -59,7 +87,15 @@ const Employees: React.FC = () => {
                 <Searchbar placeholderText="Nome do funcionário..."/>
                 <S.CardsContainer id="collection-cards">  
                     <CardEmployee tipoCard="adicionar" onClick={handleClickAdd}/>
-                    <CardEmployee id={1} nome="kevin" tipoCard="funcionario" imgUrl="" onClick={handleClickEmployee}/>
+                    {establishmentFull && establishmentFull.employees.map((data: { id: number | undefined; name: string | undefined; }) => (
+                        <CardEmployee 
+                        id={data.id}
+                        tipoCard="funcionario" 
+                        onClick={handleClickEmployee} 
+                        imgUrl="" 
+                        nome={data.name}
+                        />
+                    ))}
                 </S.CardsContainer>
             </S.EmployeeContainer>
         </S.EmployeeSection>

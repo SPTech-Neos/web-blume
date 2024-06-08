@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import * as S from './establishmentServices.styled'
 
@@ -8,9 +8,31 @@ import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from "js-cookie";
-
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 const EstablishmentServices:React.FC = () => {
+    
+    const estabAdapter = new EstablishmentAdapter;
+    const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+    
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+    const handleGetServices = async () => {
+        try{
+            const result = await estabAdapter.getAllOfEstab(token.establishment.id);
+            console.log("Resultado: " + result);
+            if(result){
+                setEstablishmentFull(result);
+                console.log("filterssss: " + establishmentFull?.filters)
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
 
     const handleAddService = () => {
         const modal = document.getElementById("modal-adicionar");
@@ -19,11 +41,10 @@ const EstablishmentServices:React.FC = () => {
     }
 
     
-    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
-    const tokenFromCookie = Cookies.get('employeeInfo');
-    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
   
     useEffect(() => {
+
+        handleGetServices();
         if (tokenFromCookie) {
             console.log("Token de autenticação:", tokenFromCookie);
             console.log("LOGADO: " + isAuthenticatedEmployee);

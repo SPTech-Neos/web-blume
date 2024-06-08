@@ -106,3 +106,20 @@ export const ReturnButton = styled.div`
         border-bottom: 3px solid ${c.green500};
     }
 `
+
+export const SelectType = styled.select`
+    font-family: "Poppins";
+    width: 100%;
+    border: 3px solid black;
+    height: 40px;
+    padding-left: 20px;
+    color: ${c.gray500};
+    font-size: 17px;
+
+    & option {
+        color: black;
+    }
+
+
+
+`;

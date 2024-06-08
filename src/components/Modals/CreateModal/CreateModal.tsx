@@ -3,7 +3,7 @@ import * as S from './createModal.styled';
 import InputText from "../../Input/InputText/InputText";
 import { PrimaryButton } from "../../Button/button.styled";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
-import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
+// import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
 
 type Props = {
     id?: string;

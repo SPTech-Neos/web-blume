@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from './results.styled';
+import Card from '../../components/Cards/Card/Card';
 
 interface Salon {
   id: number;
@@ -19,10 +20,10 @@ const Results: React.FC<SearchProps<Salon>> = ({ searchResults }) => {
   return (
     <S.Results>
       {searchResults.map((result) => (
-        <div key={result.id}>
-          <div>{result.id}</div>
-          <div>{result.title}</div>
-        </div>
+        
+        <Card titulo={'Teste'} texto={'Teste'} >
+          <div> TESTE </div>
+        </Card>
       ))}
     </S.Results>
   );

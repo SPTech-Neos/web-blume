@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -103,11 +104,11 @@ const ProfileB2B: React.FC = () => {
                             <Logo />
                         </S.HeaderProfile>
                         <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.profilePic} />
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo?.imgUrl} />
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                    <span>{establishmentInfo.assessment}</span>
+                                    <span>aaaaaa</span>
                                 </Badge>
                                 <Badge>Deixar</Badge>
                                 <Badge>Dinamico</Badge>

@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import * as S from './createModal.styled';
 
 import InputText from "../../Input/InputText/InputText";
 import { PrimaryButton } from "../../Button/button.styled";
+import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
+import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
 
 type props = {
     id?: string
@@ -10,6 +12,9 @@ type props = {
 }
 
 const CreateModal:React.FC<props> = ({id, titulo}) => {
+
+    const { handleCreateEmployee } = useContext(AuthContextEmployee);
+    const [employeeInfo, setEmployeeInfo] = useState<EmployeeRequestDto | null>(null);
 
     const[nome, setNome] = useState("");
 
@@ -70,6 +75,33 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
         setNome("");
         setPreco("");
         setStatus("");
+
+    }
+
+    const handleSave = () => {
+        console.log("sadsadaddasda")
+        if(titulo == "Funcionário"){
+            console.log("handle save")
+            
+            const employeeNew = {
+                name: nome,
+                email: email,
+                password: "senha",
+                fkEstablishment: 1,
+                fkEmployeeType: 1
+            }
+
+            setEmployeeInfo(employeeNew);
+            console.log(employeeNew)
+            console.log(employeeInfo)
+
+            if(employeeInfo){
+                console.log("entrei no if")
+                const employeeEstab = handleCreateEmployee(employeeInfo);  
+                console.log("emplyoyee Stab na profileEmployee" + JSON.stringify(employeeEstab));
+            }
+
+        }
     }
 
     if(titulo == "Funcionário"){
@@ -162,7 +194,7 @@ const CreateModal:React.FC<props> = ({id, titulo}) => {
                             <S.ReturnButton onClick={handleClose}>
                                 Voltar
                             </S.ReturnButton>
-                            <PrimaryButton  width="200px">
+                            <PrimaryButton width="200px" onClick={handleSave} >
                                 Finalizar
                             </PrimaryButton>
                         </S.ButtonsContainer>

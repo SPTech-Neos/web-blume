@@ -6,7 +6,7 @@ import { CardPedido } from "../../components/Cards/CardPedido/CardPedido";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from 'js-cookie';
-import { EmployeeResponseDto } from "../../utils/Employee/employee.types";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 const Orders: React.FC = () => {
 

@@ -8,7 +8,8 @@ export interface PedidoProps {
     establishment?: string,
     status?: string,
     preco?: number,
-    imgUrl?: string
+    imgUrl?: string,
+    brand?: string
 }
 
 

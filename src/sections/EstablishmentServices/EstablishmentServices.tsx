@@ -15,8 +15,6 @@ import { EstablishmentFullResponseDto } from "../../utils/Establishment/establis
 
 
 const EstablishmentServices:React.FC = () => {
-
-    const listaEmployee: (string | undefined)[] = [];
     
     const estabAdapter = new EstablishmentAdapter;
     const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
@@ -76,12 +74,11 @@ const EstablishmentServices:React.FC = () => {
                     ))} */}
                     {establishmentFull && establishmentFull.filters.map((data: {
                         price: number | undefined;
-                        service: any; id: number | undefined; name: string | undefined; }, index : number) => (
+                        service: any; id: number | undefined; name: string | undefined; }) => (
                         <CardServico
                             service={data.service.specification}
                             preco={data.price}
                             status="Ativo"
-                            employee={listaEmployee[index]}
                         />
                     ))}
 

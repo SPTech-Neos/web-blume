@@ -12,6 +12,9 @@ import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishm
 import { EstablishmentFullResponseDto } from "../../../utils/Establishment/establishment.types";
 import { EmployeeServicesAdapter } from "../../../adapters/User/Employee/EmployeeServices";
 import { FilterAdapter } from "../../../adapters/Filters/Filters";
+import { ProductTypeAdapter } from "../../../adapters/Products/Product/ProducType";
+import { ProductTypeResponseDto } from "../../../utils/Products/Product/productTypes.types";
+import { ProductAdapter } from "../../../adapters/Products/Product/Product";
 
 type Props = {
     id?: string;
@@ -21,6 +24,7 @@ type Props = {
 const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const { handleCreateEmployee } = useContext(AuthContextEmployee);
     const [name, setName] = useState("");
+    const [brand, setBrand] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [description, setDescription] = useState("");
@@ -28,13 +32,18 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const [funcionario, setFuncionario] = useState("");
     const [status, setStatus] = useState("");
     const [serviceType, setServiceType] = useState("");
+    const [productType, setProductType] = useState("");
 
+    
+    const [productTypeInfo, setProductTypeInfo] = useState<ProductTypeResponseDto[] | null>(null);
     const [serviceTypeInfo, setServiceTypeInfo] = useState<ServiceTypeResponseDto[] | null>(null);
 
     const adapterServiceType = new ServiceTypeAdapter;
     const estabAdapter = new EstablishmentAdapter;
     const employeeServiceAdapter = new EmployeeServicesAdapter;
     const filterAdapter = new FilterAdapter;
+    const productTypeAdapter = new ProductTypeAdapter;
+    const adapterProduct = new ProductAdapter;
 
        
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
@@ -42,14 +51,24 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+
+    const handleGetProductsType = async () => {
+        try{
+            const result = await productTypeAdapter.getAllProductsType();
+            if(result){
+                setProductTypeInfo(result);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
     
-    const handleGetServices = async () => {
+    const handleGetEstablishment = async () => {
         try{
             const result = await estabAdapter.getAllOfEstab(token.establishment.id);
             console.log("Resultado: " + result);
             if(result){
                 setEstablishmentFull(result);
-                console.log("estab full:" + JSON.stringify(establishmentFull?.establishment))
             }
         }catch (error) {
             console.log(error);
@@ -62,7 +81,6 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
             console.log("Resultado: " + result);
             if(result){
                 setServiceTypeInfo(result);
-                console.log(serviceTypeInfo)
             }
         }catch (error) {
             console.log(error);
@@ -71,7 +89,8 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
     useEffect(() => {
         handleGetServiceTypes();
-        handleGetServices();
+        handleGetEstablishment();
+        handleGetProductsType();
     }, [isAuthenticatedEmployee]);
 
 
@@ -100,6 +119,23 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const adapterService = new ServiceAdapter;
 
     const handleSave = async () => {
+
+        if(titulo == "Produto"){
+
+
+            const productNew = {
+                name: name,
+                brand: brand, 
+                type: productType,
+                value: Number(preco),
+                establishment: token.establishment.id
+            }
+
+            console.log(productNew)
+            const productCreated = await adapterProduct.create(productNew);
+            console.log(productCreated);
+        }
+
 
         if(titulo == "Serviço"){
 
@@ -180,6 +216,25 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             placeholder={`Nome do ${titulo}....`}
                         />
                     </S.InputContainer>
+
+                    <S.InputContainer>
+                        <InputText
+                            type="text"
+                            onChange={(e => handleChange(e, setBrand))}
+                            label={titulo =="Produto"? `Marca do ${titulo}` : `Nome do ${titulo}` }
+                            theme="establishment"
+                            value={brand}
+                            placeholder={`Marca do ${titulo}....`}
+                        />
+                    </S.InputContainer>
+                    {titulo === "Produto"? (
+                        <S.SelectType name="Selecione o tipo do produto" onChange={(e => handleChange(e, setProductType))}>
+                                <option value="" disabled selected>Selecione a marca do produto....</option>
+                                {productTypeInfo && productTypeInfo.map((data) => (
+                                    <option  value={data.id}> {data.name} </option>
+                                ))}
+                        </S.SelectType>
+                    ) : null}   
                     {titulo === "Serviço" && (
                         <S.InputContainer>
                             <S.SelectType name="Selecione o funcionário do serviço" onChange={(e => handleChange(e, setFuncionario))}>

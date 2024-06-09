@@ -1,9 +1,9 @@
 import axios from "axios";
 import { environment } from "../../../../environment.config";
 
-import { ProductResponseDto, ProductRequestDto } from "../../../utils/Products/Product/product.types";
+import { ProductTypeResponseDto } from "../../../utils/Products/Product/productTypes.types";
 
-export class ProductAdapter {
+export class ProductTypeAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
@@ -24,19 +24,16 @@ export class ProductAdapter {
         };
     }
 
-    async create(productDto: ProductRequestDto): Promise<ProductResponseDto | null> {
+    async getAllProductsType(): Promise<ProductTypeResponseDto[] | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/products`, productDto, this.getRequestOptions());
-            return {
-                id: response.data.id,
-                name: response.data.name,
-                brand: response.data.brand,
-                type: response.data.type,
-                value: response.data.value,
-                establishment: response.data.establishment,
-            } as ProductResponseDto;
+            const response = await axios.get(`${this.apiUrl}/ProductType`, this.getRequestOptions());
+            const productsType: ProductTypeResponseDto[] | PromiseLike<ProductTypeResponseDto[] | null> | null = [];
+            response.data.forEach((e: ProductTypeResponseDto) => {
+                productsType.push(e)
+            });
+            return productsType;
         } catch (error) {
-            console.error("Error insert product: ", error);
+            console.error("Error getting service by token:", error);
             return null;
         }
     }

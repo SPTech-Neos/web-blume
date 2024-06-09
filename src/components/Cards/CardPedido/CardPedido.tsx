@@ -162,7 +162,7 @@ export const CardServico: React.FC<S.PedidoProps> = ({service, preco, status, im
     );
 }
 
-export const CardProduto: React.FC<S.PedidoProps> = ({service, preco, status, imgUrl}) => {
+export const CardProduto: React.FC<S.PedidoProps> = ({service, preco, status, imgUrl, brand}) => {
 
     const classe = status == "Cancelado"? "cancel" : 
         status == "Em Andamento"? "andamento" 
@@ -199,6 +199,11 @@ export const CardProduto: React.FC<S.PedidoProps> = ({service, preco, status, im
                 <S.InfoBody>
                     <S.Label> Produto </S.Label>
                     <S.LabelValue> {service} </S.LabelValue>
+                </S.InfoBody>
+                
+                <S.InfoBody>
+                    <S.Label> Marca </S.Label>
+                    <S.LabelValue> {brand} </S.LabelValue>
                 </S.InfoBody>
 
                 <S.InfoBody>

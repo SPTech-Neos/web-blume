@@ -1,11 +1,17 @@
 import React, { Dispatch, SetStateAction, useContext, useState, useEffect } from "react";
 import * as S from './createModal.styled';
+import Cookies from "js-cookie";
+
 import InputText from "../../Input/InputText/InputText";
 import { PrimaryButton } from "../../Button/button.styled";
 import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
 import { ServiceTypeAdapter } from "../../../adapters/Products/Service/ServiceType";
 import { ServiceTypeResponseDto } from "../../../utils/Products/Service/serviceType.types";
 import { ServiceAdapter } from "../../../adapters/Products/Service/Service";
+import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishment";
+import { EstablishmentFullResponseDto } from "../../../utils/Establishment/establishment.types";
+import { EmployeeServicesAdapter } from "../../../adapters/User/Employee/EmployeeServices";
+import { FilterAdapter } from "../../../adapters/Filters/Filters";
 
 type Props = {
     id?: string;
@@ -26,6 +32,29 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const [serviceTypeInfo, setServiceTypeInfo] = useState<ServiceTypeResponseDto[] | null>(null);
 
     const adapterServiceType = new ServiceTypeAdapter;
+    const estabAdapter = new EstablishmentAdapter;
+    const employeeServiceAdapter = new EmployeeServicesAdapter;
+    const filterAdapter = new FilterAdapter;
+
+       
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+    const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+    
+    const handleGetServices = async () => {
+        try{
+            const result = await estabAdapter.getAllOfEstab(token.establishment.id);
+            console.log("Resultado: " + result);
+            if(result){
+                setEstablishmentFull(result);
+                console.log("estab full:" + JSON.stringify(establishmentFull?.establishment))
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
 
     const handleGetServiceTypes = async () => {
         try{
@@ -42,7 +71,8 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
     useEffect(() => {
         handleGetServiceTypes();
-    }, []);
+        handleGetServices();
+    }, [isAuthenticatedEmployee]);
 
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, setStateFunction: Dispatch<SetStateAction<string>>) => {
@@ -69,7 +99,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
     const adapterService = new ServiceAdapter;
 
-    const handleSave = () => {
+    const handleSave = async () => {
 
         if(titulo == "Serviço"){
 
@@ -80,8 +110,29 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
             if(serviceNew){
                 console.log("entrei no if serviço")
-                const serviceCreated = adapterService.register(serviceNew);  
-                console.log("emplyoyee criando" + JSON.stringify(serviceCreated));
+                const serviceCreated = await adapterService.register(serviceNew);  
+                console.log("serviço criando" + JSON.stringify(serviceCreated));
+
+                const employeeServicesNew = {
+                    hoursSpent: new Date().getDate(),
+                    expertise: 1,
+                    fkEmployee: Number(funcionario),
+                    fkService: serviceCreated?.serviceId
+                }
+
+                if(employeeServicesNew){
+                    const employeeServiceCreated = await employeeServiceAdapter.create(employeeServicesNew)
+                    console.log("serviço criando" + JSON.stringify(employeeServiceCreated));
+
+                    const filterNew = {
+                        price: Number(preco),
+                        fkService: Number(serviceCreated?.serviceId),
+                        fkEstablishment: Number(token.establishment.id)
+                    }
+
+                    const filterCreated = await filterAdapter.create(filterNew);
+                    console.log("filtro criado" + filterCreated);
+                }
             }
 
 
@@ -131,14 +182,12 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                     </S.InputContainer>
                     {titulo === "Serviço" && (
                         <S.InputContainer>
-                            <InputText
-                                type="text"
-                                onChange={(e => handleChange(e, setFuncionario))}
-                                label={`Funcionário do ${titulo}`}
-                                theme="establishment"
-                                value={funcionario}
-                                placeholder={`Funcionário do ${titulo}....`}
-                            />
+                            <S.SelectType name="Selecione o funcionário do serviço" onChange={(e => handleChange(e, setFuncionario))}>
+                            <option value="" disabled selected>Selecione o funcionário do serviço....</option>
+                            {establishmentFull && establishmentFull.employees.map((data: { id: string | number, name: string }) => (
+                                <option  value={data.id}> {data.name} </option>
+                            ))}
+                        </S.SelectType>
                         </S.InputContainer>
                     )}
                     {titulo === "Funcionário" && (

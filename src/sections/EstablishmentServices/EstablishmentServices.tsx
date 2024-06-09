@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useContext, useEffect, useState} from "react";
 
 import * as S from './establishmentServices.styled'
@@ -10,6 +12,7 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import Cookies from "js-cookie";
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
+
 
 const EstablishmentServices:React.FC = () => {
     
@@ -39,8 +42,6 @@ const EstablishmentServices:React.FC = () => {
 
         modal?.classList.add("active");
     }
-
-    
   
     useEffect(() => {
 
@@ -61,13 +62,16 @@ const EstablishmentServices:React.FC = () => {
                     <h2 onClick={handleAddService}>ADICIONAR SERVIÇO</h2>  
                 </S.ServicesButtons>
                 <S.ServicesBody>
-                    <CardServico 
-                        service="Servico1"
-                        status="Em Andamento"
-                        imgUrl=""
-                        preco={90}
-                        employee={token.name}
-                    />
+                    {establishmentFull &&
+                    establishmentFull.filters.map((data: { service: { specification: string | undefined; }; price: number | undefined; }, index: number) => (
+                        <CardServico
+                            service={data.service.specification}
+                            preco={data.price}
+                            status="Ativo"
+                            employee={establishmentFull.employees[index].name}
+                        />
+                    ))}
+
                 </S.ServicesBody>
             </S.ServicesContainer>
     </S.ServicesSection>

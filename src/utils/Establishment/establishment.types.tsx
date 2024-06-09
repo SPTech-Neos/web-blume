@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ProductResponseDto } from "../../adapters/Products/Product/Product";
 import { CompanyResponseDto } from "../Company/company.types";
 import { FilterResponseDto } from "../Filter/filters.types";
@@ -20,8 +21,9 @@ export interface EstablishmentResponseDto {
 }
 
 export interface EstablishmentFullResponseDto {
+    [x: string]: any;
     establishment: EstablishmentResponseDto,
     employees: EmployeeResponseDto,
     filters: FilterResponseDto,
-    products: ProductResponseDto
+    products: ProductResponseDto,
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EmployeeAdapter } from '../adapters/User/Employee/Employee';
+import { EmployeeServicesAdapter} from '../adapters/User/Employee/EmployeeServices';
 import { ClientAdapter } from '../adapters/User/Client/Client';
 import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 
@@ -19,6 +20,7 @@ const Test: React.FC = () => {
             switch (type) {
                 case 'Employee':
                     const employeeAdapter = new EmployeeAdapter();
+                    const employeeServicesAdapter = new EmployeeServicesAdapter();
                     switch (method) {
                         case 'login':
                             const loginResult = await employeeAdapter.login(params.loginDto);
@@ -35,6 +37,10 @@ const Test: React.FC = () => {
                         case 'getById':
                             const getByIdResult = await employeeAdapter.getEmployeeById(1);
                             setResult(getByIdResult);
+                            break;
+                        case 'getServices':
+                            const getServiceResult = await employeeServicesAdapter.create(params.createDto);
+                            setResult(getServiceResult);
                             break;
                         default:
                             break;
@@ -135,6 +141,7 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Employee', method: 'create', params: { createDto: { name: 'John Doe', email: 'john@example.com', imgUrl: 'https://i.pinimg.com/236x/44/46/4c/44464c4660f6ec0701a506353a41e1e2.jpg',  password: 'password', fkEstablishment: 1, employeeType: 1 } } })}>Create</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'update', params: { id: 1, updateFields: { name: 'Updated Name' } } })}>Update</option>
                     <option value={JSON.stringify({ type: 'Employee', method: 'getById', params: { id: 2 } })}>Get by ID</option>
+                    <option value={JSON.stringify({ type: 'Employee', method: 'getServices' })}>Get Services</option>
                 </optgroup>
                 <optgroup label="Client Adapter">
                     <option value={JSON.stringify({ type: 'Client', method: 'login', params: { loginDto: { email: 'teste@example.com', password: 'password' } } })}>Login</option>

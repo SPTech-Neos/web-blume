@@ -3,7 +3,7 @@ import { ProductResponseDto } from "../../adapters/Products/Product/Product";
 import { CompanyResponseDto } from "../Company/company.types";
 import { FilterResponseDto } from "../Filter/filters.types";
 import { LocalRequestDto, LocalResponseDto } from "../Local/local.types";
-import { EmployeeResponseDto } from "../Users/Employee/employee.types";
+import {EmployeeResponseFullDto } from "../Users/Employee/employee.types";
 
 export interface EstablishmentRequestDto {
     name: string;
@@ -23,7 +23,7 @@ export interface EstablishmentResponseDto {
 export interface EstablishmentFullResponseDto {
     [x: string]: any;
     establishment: EstablishmentResponseDto,
-    employees: EmployeeResponseDto,
+    employees: EmployeeResponseFullDto,
     filters: FilterResponseDto,
     products: ProductResponseDto,
 }

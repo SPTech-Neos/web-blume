@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EstablishmentResponseDto } from "../../Establishment/establishment.types";
+import { ServiceResponseDto } from "../../Products/Service/service.types";
 import { EmployeeTypeResponseDto } from "./employeeType.types";
 
 export interface EmployeeResponseDto {
@@ -10,6 +11,17 @@ export interface EmployeeResponseDto {
     imgUrl?: string;
     establishment: EstablishmentResponseDto;
     employeeType: EmployeeTypeResponseDto;
+}
+
+export interface EmployeeResponseFullDto extends EmployeeResponseDto {
+    [x: string]: any;
+    employeeId: string;
+    name: string;
+    email: string;
+    imgUrl?: string;
+    establishment: EstablishmentResponseDto;
+    employeeType: EmployeeTypeResponseDto;
+    services: ServiceResponseDto
 }
 
 export interface EmployeeLoginDto {

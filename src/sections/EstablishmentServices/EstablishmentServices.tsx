@@ -1,4 +1,6 @@
-import React, {useContext, useEffect} from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, {useContext, useEffect, useState} from "react";
 
 import * as S from './establishmentServices.styled'
 
@@ -8,20 +10,45 @@ import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from "js-cookie";
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 
 const EstablishmentServices:React.FC = () => {
+
+    const estabAdapter = new EstablishmentAdapter;
+
+    const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+
 
     const handleAddService = () => {
         const modal = document.getElementById("modal-adicionar");
 
         modal?.classList.add("active");
     }
-
-    
+   
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+    useEffect(() => {
+        handleGetServices();
+    }, []);
+
+    const handleGetServices = async () => {
+        try{
+            const result = await estabAdapter.getAllOfEstab(token.establishment.id);
+            console.log("Resultado: " + result);
+            if(result){
+                setEstablishmentFull(result);
+                console.log("estab full:" + JSON.stringify(establishmentFull?.employees[1].name))
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
+    
   
     useEffect(() => {
         if (tokenFromCookie) {
@@ -40,13 +67,16 @@ const EstablishmentServices:React.FC = () => {
                     <h2 onClick={handleAddService}>ADICIONAR SERVIÇO</h2>  
                 </S.ServicesButtons>
                 <S.ServicesBody>
-                    <CardServico 
-                        service="Servico1"
-                        status="Em Andamento"
-                        imgUrl=""
-                        preco={90}
-                        employee={token.name}
-                    />
+                    {establishmentFull &&
+                    establishmentFull.filters.map((data: { service: { specification: string | undefined; }; price: number | undefined; }, index: number) => (
+                        <CardServico
+                            service={data.service.specification}
+                            preco={data.price}
+                            status="Ativo"
+                            employee={establishmentFull.employees[index].name}
+                        />
+                    ))}
+
                 </S.ServicesBody>
             </S.ServicesContainer>
     </S.ServicesSection>

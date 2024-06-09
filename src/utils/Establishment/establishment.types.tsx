@@ -20,8 +20,9 @@ export interface EstablishmentResponseDto {
 }
 
 export interface EstablishmentFullResponseDto {
+    [x: string]: any;
     establishment: EstablishmentResponseDto,
     employees: EmployeeResponseDto,
     filters: FilterResponseDto,
-    products: ProductResponseDto
+    products: ProductResponseDto,
 }

@@ -49,7 +49,7 @@ export class EstablishmentAdapter {
                 establishment: response.data[0].establishmentRespose,
                 employees: response.data[0].employees,
                 filters: response.data[0].filters,
-                products: response.data[0].products
+                products: response.data[0].products,
             } as EstablishmentFullResponseDto;
         } catch (error) {
             console.error(error);

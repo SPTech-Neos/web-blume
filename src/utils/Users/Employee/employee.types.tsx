@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EstablishmentResponseDto } from "../../Establishment/establishment.types";
 import { EmployeeTypeResponseDto } from "./employeeType.types";
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { EstablishmentResponseDto, EstablishmentRequestDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentResponseDto, EstablishmentRequestDto, EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 export class EstablishmentAdapter {
     private readonly apiUrl: string;
@@ -41,16 +41,32 @@ export class EstablishmentAdapter {
         }
     }
 
+    async getAllOfEstab(id: number): Promise<EstablishmentFullResponseDto | null> {
+        try {
+
+            const response = await axios.get(`${this.apiUrl}/establishments/api/full/${id}`, this.getRequestOptions());
+            return {
+                establishment: response.data[0].establishmentRespose,
+                employees: response.data[0].employees,
+                filters: response.data[0].filters,
+                products: response.data[0].products,
+            } as EstablishmentFullResponseDto;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
     async register(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
         try {
             const { 
                 name,
                 imgUrl,
                 companyId,
-                local,
+                localId,
             } = establishmentRequestDto;
     
-            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, local}, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, localId}, this.getRequestOptions());
     
             if (response.status === 200) {
                 return {

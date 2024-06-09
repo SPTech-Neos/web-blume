@@ -1,177 +1,273 @@
-import React, {useState} from "react";
+import React, { Dispatch, SetStateAction, useContext, useState, useEffect } from "react";
 import * as S from './createModal.styled';
+import Cookies from "js-cookie";
 
 import InputText from "../../Input/InputText/InputText";
 import { PrimaryButton } from "../../Button/button.styled";
+import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderEmployee";
+import { ServiceTypeAdapter } from "../../../adapters/Products/Service/ServiceType";
+import { ServiceTypeResponseDto } from "../../../utils/Products/Service/serviceType.types";
+import { ServiceAdapter } from "../../../adapters/Products/Service/Service";
+import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishment";
+import { EstablishmentFullResponseDto } from "../../../utils/Establishment/establishment.types";
+import { EmployeeServicesAdapter } from "../../../adapters/User/Employee/EmployeeServices";
+import { FilterAdapter } from "../../../adapters/Filters/Filters";
 
-type props = {
-    id?: string
-    titulo?: string
-}
+type Props = {
+    id?: string;
+    titulo?: string;
+};
 
-const CreateModal:React.FC<props> = ({id, titulo}) => {
+const CreateModal: React.FC<Props> = ({ id, titulo }) => {
+    const { handleCreateEmployee } = useContext(AuthContextEmployee);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [description, setDescription] = useState("");
+    const [preco, setPreco] = useState("");
+    const [funcionario, setFuncionario] = useState("");
+    const [status, setStatus] = useState("");
+    const [serviceType, setServiceType] = useState("");
 
-    const[nome, setNome] = useState("");
+    const [serviceTypeInfo, setServiceTypeInfo] = useState<ServiceTypeResponseDto[] | null>(null);
 
-    const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNome(event.target.value);
+    const adapterServiceType = new ServiceTypeAdapter;
+    const estabAdapter = new EstablishmentAdapter;
+    const employeeServiceAdapter = new EmployeeServicesAdapter;
+    const filterAdapter = new FilterAdapter;
+
+       
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+    const tokenFromCookie = Cookies.get('employeeInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+    const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
+    
+    const handleGetServices = async () => {
+        try{
+            const result = await estabAdapter.getAllOfEstab(token.establishment.id);
+            console.log("Resultado: " + result);
+            if(result){
+                setEstablishmentFull(result);
+                console.log("estab full:" + JSON.stringify(establishmentFull?.establishment))
+            }
+        }catch (error) {
+            console.log(error);
+        }
     }
 
-    const[email, setEmail] = useState("");
-
-    const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
+    const handleGetServiceTypes = async () => {
+        try{
+            const result = await adapterServiceType.getAllServicesType();
+            console.log("Resultado: " + result);
+            if(result){
+                setServiceTypeInfo(result);
+                console.log(serviceTypeInfo)
+            }
+        }catch (error) {
+            console.log(error);
+        }
     }
 
-    const[endereco, setEndereco] = useState("");
+    useEffect(() => {
+        handleGetServiceTypes();
+        handleGetServices();
+    }, [isAuthenticatedEmployee]);
 
-    const handleChangeEndereco = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEndereco (event.target.value);
-    }
 
-    const[cep, setCep] = useState("");
-
-    const handleChangeCep = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCep (event.target.value);
-    }
-
-    const[funcionario, setFunc] = useState("");
-
-    const handleChangeFunc = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFunc(event.target.value);
-    }
-
-    const[preco, setPreco] = useState("");
-
-    const handleChangePreco = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPreco(event.target.value);
-    }
-
-    const[status, setStatus] = useState("");
-
-    const handleChangeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus(event.target.value);
-    }
-
-    const[descricao, setDesc] = useState("");
-
-    const handleChangeDesc = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDesc(event.target.value);
-    }
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, setStateFunction: Dispatch<SetStateAction<string>>) => {
+        setStateFunction(event.target.value);
+    };
 
     const handleClose = () => {
         const modal = document.getElementById("modal-adicionar");
         modal?.classList.remove("active");
+        console.log(serviceType);
+        setName("")
+        setDescription("")
+        setEmail("")
+        setPassword("")
+        setFuncionario("")
+        setPreco("")
+        setServiceType("")
+        setStatus("")
+    };
 
-        setCep("");
-        setEmail("");
-        setEndereco("");
-        setFunc("");
-        setNome("");
-        setPreco("");
-        setStatus("");
+    const handleReload = () => {
+        window.location.reload();
     }
 
-    if(titulo == "Funcionário"){
-        return (
-            <S.ModalSection id={id}>
-                <S.ModalContainer>
-    
-                    <S.ModalHeader>
-                        <S.ModalImage />
-                        <h1>Adicionar {titulo}</h1>
-                    </S.ModalHeader>
-    
-                    <S.ModalBody>
-                        <S.InputContainer>
-                            <InputText type="name" onChange={handleChangeName} label={"Nome do " + titulo} theme="establishment" value={nome} placeholder={"Nome do " + titulo + "...."} >
-                            </InputText>
-                        </S.InputContainer>
-    
-                        <S.InputContainer>
-                            <InputText type="name" onChange={handleChangeEmail} label={"Email do " + titulo} theme="establishment" value={email} placeholder={"E-mail do " + titulo + "...."} >
-                            </InputText>
-                        </S.InputContainer>
-    
-                        <S.InputContainer>
-                           
-                            <InputText type="name" label={"Endereço do " + titulo} theme="establishment" onChange={handleChangeEndereco} value={endereco} placeholder={"Endereço do " + titulo + "...."} >
-                            </InputText>
-                        </S.InputContainer>
-                        
-                        <S.InputContainer>
-                            
-                            <InputText type="name" onChange={handleChangeCep} label={"CEP do " + titulo} theme="establishment" value={cep} placeholder={"CEP do " + titulo + "...."} >
-                            </InputText>
-                        </S.InputContainer>
-    
-                        <S.ButtonsContainer>
-                            <S.ReturnButton onClick={handleClose}>
-                                Voltar
-                            </S.ReturnButton>
-                            <PrimaryButton width="200px">
-                                Finalizar
-                            </PrimaryButton>
-                        </S.ButtonsContainer>
-                    </S.ModalBody>
-    
-                </S.ModalContainer>
-            </S.ModalSection>
-        );
-    }else{
-        return (
-            <S.ModalSection id={id}>
-                <S.ModalContainer>
+    const adapterService = new ServiceAdapter;
 
-                    <S.ModalHeader>
-                        <S.ModalImage />
-                        <h1>Adicionar {titulo}</h1>
-                    </S.ModalHeader>
+    const handleSave = async () => {
 
-                    <S.ModalBody>
+        if(titulo == "Serviço"){
+
+            const serviceNew = {
+                specification: name,
+                serviceType: Number(serviceType)
+            }
+
+            if(serviceNew){
+                console.log("entrei no if serviço")
+                const serviceCreated = await adapterService.register(serviceNew);  
+                console.log("serviço criando" + JSON.stringify(serviceCreated));
+
+                const employeeServicesNew = {
+                    hoursSpent: new Date().getDate(),
+                    expertise: 1,
+                    fkEmployee: Number(funcionario),
+                    fkService: serviceCreated?.serviceId
+                }
+
+                if(employeeServicesNew){
+                    const employeeServiceCreated = await employeeServiceAdapter.create(employeeServicesNew)
+                    console.log("serviço criando" + JSON.stringify(employeeServiceCreated));
+
+                    const filterNew = {
+                        price: Number(preco),
+                        fkService: Number(serviceCreated?.serviceId),
+                        fkEstablishment: Number(token.establishment.id)
+                    }
+
+                    const filterCreated = await filterAdapter.create(filterNew);
+                    console.log("filtro criado" + filterCreated);
+                }
+            }
+
+
+        }
+
+
+        if(titulo == "Funcionário"){
+            console.log("handle save")
+            
+            const employeeNew = {
+                name: name, 
+                email: email, 
+                password: password, 
+                fkEstablishment: 1, 
+                employeeType: 1 
+            }
+
+            if(employeeNew){
+                console.log("entrei no if")
+                const employeeEstab = handleCreateEmployee(employeeNew);  
+                console.log("emplyoyee criando" + JSON.stringify(employeeEstab));
+            }
+
+        }     
+
+        handleClose();
+        handleReload();
+    };
+
+    return (
+        <S.ModalSection id={id}>
+            <S.ModalContainer>
+                <S.ModalHeader>
+                    <S.ModalImage />
+                    <h1>Adicionar {titulo}</h1>
+                </S.ModalHeader>
+                <S.ModalBody>
+                    <S.InputContainer>
+                        <InputText
+                            type="text"
+                            onChange={(e => handleChange(e, setName))}
+                            label={titulo=="Serviço" ? `Especificação do ${titulo}`: `Nome do ${titulo}`}
+                            theme="establishment"
+                            value={name}
+                            placeholder={`Nome do ${titulo}....`}
+                        />
+                    </S.InputContainer>
+                    {titulo === "Serviço" && (
                         <S.InputContainer>
-                            
-                            <InputText type="name" onChange={handleChangeName} label={"Nome do " + titulo} theme="establishment" value={nome} placeholder={"Nome do " + titulo + "...."} >
-                            </InputText>
+                            <S.SelectType name="Selecione o funcionário do serviço" onChange={(e => handleChange(e, setFuncionario))}>
+                            <option value="" disabled selected>Selecione o funcionário do serviço....</option>
+                            {establishmentFull && establishmentFull.employees.map((data: { id: string | number, name: string }) => (
+                                <option  value={data.id}> {data.name} </option>
+                            ))}
+                        </S.SelectType>
                         </S.InputContainer>
-
+                    )}
+                    {titulo === "Funcionário" && (
                         <S.InputContainer>
-                            
-                            <InputText type="number" onChange={handleChangePreco} label={"Preço do " + titulo} theme="establishment" value={preco} placeholder={"Preço do " + titulo + "...."} >
-                            </InputText>
+                            <InputText
+                                type="text"
+                                onChange={(e => handleChange(e, setEmail))}
+                                label={`Email do ${titulo}`}
+                                theme="establishment"
+                                value={email}
+                                placeholder={`Email do ${titulo}....`}
+                            />
                         </S.InputContainer>
-
-                        {titulo == "Serviço"?
-                            <S.InputContainer>
-    
-                                <InputText type="name" onChange={handleChangeFunc} label={"Funcionário do " + titulo} theme="establishment" value={funcionario} placeholder={"Funcionário do " + titulo + "...."} >
-                                </InputText>
-                            </S.InputContainer>
-                        : null}
+                    )}
+                    {titulo === "Serviço" && (
+                        <S.SelectType name="Selecione o tipo do serviço" onChange={(e => handleChange(e, setServiceType))}>
+                            <option value="" disabled selected>Selecione o tipo do serviço....</option>
+                            {serviceTypeInfo && serviceTypeInfo.map((data) => (
+                                <option  value={data.id}> {data.name} </option>
+                            ))}
+                        </S.SelectType>
+                    )}
+                    {titulo === "Funcionário" && (
+                    <S.InputContainer>
+                        <InputText
+                            type="password"
+                            onChange={(e => handleChange(e, setPassword))}
+                            label={`Senha do ${titulo}`}
+                            theme="establishment"
+                            value={password}
+                            placeholder={`Senha do ${titulo}....`}
+                        />
+                    </S.InputContainer>
+                    )}
+                    {titulo != "Funcionário" && (
+                    <S.InputContainer>
+                        <InputText
+                            type="number"
+                            onChange={(e => handleChange(e, setPreco))}
+                            label={`Preço do ${titulo}`}
+                            theme="establishment"
+                            value={preco}
+                            placeholder={`Preço do ${titulo}....`}
+                        />
+                    </S.InputContainer>
+                    )}
+                    {titulo != "Funcionário" && (
                         <S.InputContainer>
-                            <InputText type="name" onChange={handleChangeStatus} label={"Status do " + titulo} theme="establishment" value={status} placeholder={"Status do " + titulo + "...."} >
-                            </InputText>
-                        
+                            <InputText
+                                type="text"
+                                onChange={(e => handleChange(e, setStatus))}
+                                label={`Status do ${titulo}`}
+                                theme="establishment"
+                                value={status}
+                                placeholder={`Status do ${titulo}....`}
+                            />
                         </S.InputContainer>
-                        <S.InputContainer>
-                            <InputText type="name" onChange={handleChangeDesc} label={"Descrição do " + titulo} theme="establishment" value={descricao} placeholder={"Descrição do " + titulo + "...."} >
-                            </InputText>
-                        </S.InputContainer>
-
-                        <S.ButtonsContainer>
-                            <S.ReturnButton onClick={handleClose}>
-                                Voltar
-                            </S.ReturnButton>
-                            <PrimaryButton  width="200px">
-                                Finalizar
-                            </PrimaryButton>
-                        </S.ButtonsContainer>
-                    </S.ModalBody>
-
-                </S.ModalContainer>
-            </S.ModalSection>
-        );
-    }
-}
+                    )}
+                    <S.InputContainer>
+                        <InputText
+                            type="text"
+                            onChange={(e => handleChange(e, setDescription))}
+                            label={`Descrição do ${titulo}`}
+                            theme="establishment"
+                            value={description}
+                            placeholder={`Descrição do ${titulo}....`}
+                        />
+                    </S.InputContainer>
+                    <S.ButtonsContainer>
+                        <S.ReturnButton onClick={handleClose}>
+                            Voltar
+                        </S.ReturnButton>
+                        <PrimaryButton width="200px" onClick={handleSave}>
+                            Finalizar
+                        </PrimaryButton>
+                    </S.ButtonsContainer>
+                </S.ModalBody>
+            </S.ModalContainer>
+        </S.ModalSection>
+    );
+};
 
 export default CreateModal;

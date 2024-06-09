@@ -113,7 +113,7 @@ const ProfileEmployee: React.FC = () => {
                             CEP
                         </E.LabelInfo>
                         <S.TextInfo>
-                            {employeeInfo?.establishment.local.cep}
+                            {/* {employeeInfo?.establishment.local.cep} */}
                         </S.TextInfo>
                     </S.Infos>
                 </S.InfoContainer>

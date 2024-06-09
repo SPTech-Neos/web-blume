@@ -2,15 +2,15 @@ import { ServiceResponseDto } from "../../Products/Service/service.types";
 import { EmployeeResponseDto } from "./employee.types";
 
 export interface EmployeeServicesRequestDto {
-    hoursSpent: string;
-    expertise: boolean;
-    fkEmployee: number;
-    fkService: number;
+    hoursSpent: string | Date | number;
+    expertise: number;
+    fkEmployee: number | string;
+    fkService: number | undefined | null;
 }
 
-export interface EmployeeTypeResponseDto {
+export interface EmployeeServicesResponseDto {
     employeeTypeId: number;
-    hoursSpent: string;
+    hoursSpent: string | Date | number;
     expertise: string;
     employee: EmployeeResponseDto;
     service: ServiceResponseDto;

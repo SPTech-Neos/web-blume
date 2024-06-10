@@ -2,7 +2,7 @@
 // TO REDO
 import React, { useState } from "react";
 import * as S from "./register.styled";
-import { colors as c, Themes, getTheme } from "../../../styles/Colors";
+import { colors as c, getTheme } from "../../../styles/Colors";
 import {
   PrimaryTitle,
   SecondaryTitle,
@@ -21,12 +21,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishment";
 import { EmployeeAdapter } from "../../../adapters/User/Employee/Employee";
 import { ClientAdapter } from "../../../adapters/User/Client/Client";
-import {  EmployeeResponseDto } from "../../../utils/Users/Employee/employee.types";
-import {  EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
-import {  ClientResponseDto } from "../../../utils/Users/Client/client.types";
 import { AddressAdapter } from "../../../adapters/Address/Address";
 import { LocalAdapter } from "../../../adapters/Local/Local";
-import { number } from "yup";
 
 const Register: React.FC<S.RegisterProps> = () => {
   // const [isClient, setIsClient] = useState("");
@@ -61,6 +57,9 @@ const Register: React.FC<S.RegisterProps> = () => {
   }
 
   const Client: React.FC<S.RegisterProps> = () => {
+
+
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -75,6 +74,43 @@ const Register: React.FC<S.RegisterProps> = () => {
     function handleNext() {
       setStep(step + 1);
     }
+
+    
+    const handleMapClient = async () => {
+
+      
+      const newAddress = {
+        publicPlace: logradouro,
+        street: logradouro,
+        city: logradouro,
+        state: "sp"
+      }
+
+      const addressCreated = await addressAdapter.create(newAddress);
+      
+      if(addressCreated){
+
+        const newLocal = {
+          number: Number(numero),
+          address: addressCreated.id,
+        }
+        
+        const localCreated = await localAdapter.create(newLocal);
+      
+        if(localCreated){
+
+          const newClient = {
+            name: name,
+            email: email,
+            password: senha,
+            local: localCreated.id
+          } 
+
+          const clientCreated = await clientAdapter.register(newClient);
+          navigate("?mode=login")
+        }
+    }
+  }
 
     return (
       <>
@@ -240,29 +276,40 @@ const Register: React.FC<S.RegisterProps> = () => {
                 step == 2
                   ? () => {
                       setStep(step - 1);
-                      // console.log(step);
                     }
                   : () => handleNext()
               }
             >
               VOLTAR
             </LinkButton>
-            <PrimaryButton
+            {step == 2 ? (
+              <PrimaryButton
               size="md"
               width="200px"
               type="submit"
               color={getTheme(acc).mainColor}
-              onClick={
-                step == 2
-                  ? () => {
+              onClick={handleMapClient}
+              >
+                FINALIZAR
+              </PrimaryButton>
+            ) : (
+              <PrimaryButton
+                size="md"
+                width="200px"
+                type="submit"
+                color={getTheme(acc).mainColor}
+                onClick={
+                  step == 2
+                    ? () => {
                       setStep(step - 1);
                       // console.log(step);
-                    }
-                  : () => handleNext()
-              }
-            >
-              PRÓXIMO
-            </PrimaryButton>
+                      }
+                    : () => handleNext()
+                } 
+              >
+                PRÓXIMO
+              </PrimaryButton>
+            ) }
           </S.FormFooter>
         </>
       </>

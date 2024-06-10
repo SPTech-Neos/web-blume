@@ -13,13 +13,6 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
   if (!searchResultsEstablishment) {
     return <div>Nenhum resultado encontrado.</div>;
   }
-
-
-  /*
-  {searchResults.map((result) => (
-    <PrimaryCardResult id={result.establishmentId} imgUrl={result.imgUrl} name={result.name} servicesName={null} />
-  ))}
-  */
   
   return (
     
@@ -34,13 +27,7 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
           const establishments = result.establishment;
 
           if (!establishments) return null;
-          
-          // Certifique-se de que 'establishments' é um array
           const establishmentsArray: EstablishmentResponseDto[] = Array.isArray(establishments) ? establishments : [establishments];
-
-          // Log para verificar os estabelecimentos
-          console.log(`ESTABELECIMENTOS: ${JSON.stringify(establishmentsArray)}`);
-          console.log(`IMAGEM: ${establishmentsArray[0].imgUrl}`);
               
           const filters = result.filters;
           const tags: string[] = Array.isArray(filters)
@@ -109,8 +96,6 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
             const establishments = result.establishment;
 
             if (!establishments) return null;
-            
-            // Certifique-se de que 'establishments' é um array
             const establishmentsArray: EstablishmentResponseDto[] = Array.isArray(establishments) ? establishments : [establishments];
 
             return establishmentsArray.map((establishment) => {

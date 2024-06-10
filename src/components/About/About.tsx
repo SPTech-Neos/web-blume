@@ -10,7 +10,7 @@ const About: React.FC<S.AboutProps> = ({children, imgUrl, establishmentInfo}) =>
                 <h2>Descrição:</h2>
                 <S.Description>
                     <span>
-                    {establishmentInfo?.description}
+                    {establishmentInfo?.establishment.company.cnpj || 'Sem descrição'}
                     </span>
                 </S.Description>
                 <h2>Categorias: </h2>
@@ -21,7 +21,7 @@ const About: React.FC<S.AboutProps> = ({children, imgUrl, establishmentInfo}) =>
 
             <S.AboutImage>
                 <S.AboutProfileImg imgUrl={imgUrl} establishmentInfo={establishmentInfo}/>
-                <h3>{establishmentInfo?.name}</h3>   
+                <h3>{establishmentInfo?.establishment.name}</h3>   
             </S.AboutImage>
         </S.AboutContainer>
     );

@@ -30,6 +30,8 @@ export const PrimaryCardResult = styled.div`
   align-items: center;
   justify-content: center;
 
+  cursor: pointer;
+
   @media ${device.tablet} {
 
   }
@@ -98,6 +100,8 @@ export const SecondaryCardResult = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 
   @media ${device.tablet} {
 

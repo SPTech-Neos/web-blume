@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Container from '../Containers/Container/Container';
 import svg01 from '../../assets/icon-profile.png';
-import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 export interface AboutProps {
     imgUrl?: string,
     children?: JSX.Element[] | JSX.Element,
-    establishmentInfo: EstablishmentResponseDto | null
+    establishmentInfo: EstablishmentFullResponseDto | null
 }
 
 
@@ -22,11 +22,13 @@ export const AboutDesc = styled.div`
 `;
 
 export const AboutImage = styled.div`
-    width: 40%;
+    width: 20%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: center;;
+    justify-content: center;
+    text-align: center;
     gap: 10px;
 `;
 
@@ -48,7 +50,7 @@ export const ContainerCategoria = styled.div`
 
 export const AboutProfileImg = styled.div<AboutProps>`
     width: 130px;
-    height: 45%;
+    height: 130px;
     display: flex;
     border-radius: 100%;
     background-image: url(${(props) => props.imgUrl || svg01});

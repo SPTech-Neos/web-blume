@@ -5,7 +5,7 @@ import TabOption from "../TabOption/TabOption";
 import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
 import About from "../About/About";
 import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
-import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
+import { FilterResponseDto } from "../../utils/Filter/filters.types";
 
 const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
@@ -62,22 +62,25 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                 ):
                     <S.ResultBody id="section-escolhida">
                         {result === 'servico'? (
-                             establishmentInfo?.services != null ? (
-                                    establishmentInfo?.services.map((service: ServiceResponseDto, index: number) => (
-                                        <ServiceCard key={index} theme={theme} nome={service.specification} valor={establishmentInfo.filters[index].price} />
+                            establishmentInfo && establishmentInfo.filters ? (
+                                Array.isArray(establishmentInfo.filters) && establishmentInfo.filters.length > 0 ? 
+                                    establishmentInfo.filters.map((filter: FilterResponseDto, index: number) => (
+                                        <ServiceCard key={index} theme={theme} nome={filter.service.specification} valor={filter.price} />
                                     ))
-                             ) : "Sem serviços no momento"
-                        
+                                : "Sem serviços no momento"
+                            ) : null
+                    
                         ) : result === 'produto' ? (
                             <ProductCard nome="Perfume" valor={10.90} />
                         ) : (
-                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo}>
-                                <Badge>
-                                    aaa
-                                </Badge>
-                                <Badge>
-                                    dinamico
-                                </Badge>
+                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo?.establishment.imgUrl}>
+                                {establishmentInfo && establishmentInfo.filters && (
+                                    Array.isArray(establishmentInfo.filters)
+                                        ? establishmentInfo.filters.slice(0, 2).map((filter: FilterResponseDto, index: number) => (
+                                            <Badge key={index}>{filter.service.specification}</Badge>
+                                        ))
+                                        : <span>"Sem serviços"</span>
+                                )}
                             </About>
                         )}
                     </S.ResultBody>

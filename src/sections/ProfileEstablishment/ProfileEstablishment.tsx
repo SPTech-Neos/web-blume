@@ -21,8 +21,9 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 
 import { colors as c, Themes } from '../../styles/Colors';
 import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
-import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+
 import { FilterResponseDto } from "../../utils/Filter/filters.types";
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 
 
 const ProfileB2B: React.FC = () => {
@@ -34,13 +35,16 @@ const ProfileB2B: React.FC = () => {
         return theme === "B2C"? Themes.client : Themes.establishment;
     }
 
-    const { isAuthenticated: isAuthenticatedEmployee, handleDeleteEmployee } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
+  
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentFullResponseDto | null>(null);
     const establishmentAdapter = new EstablishmentAdapter;
+
+    const estabAdapter = new EstablishmentAdapter;
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
@@ -72,16 +76,16 @@ const ProfileB2B: React.FC = () => {
     const openDeleteModal = () => {
         setModalProps({
             type: "error",
-            message: "Tem certeza que deseja excluir a conta?",
+            message: "Tem certeza que deseja excluir esse estabelecimento?",
             isOpen: true,
             linkTo: "/",
             onConfirm: handleDeleteConfirmation
         });
     };
 
-    const handleDeleteConfirmation = () => {
+    const handleDeleteConfirmation = async () => {
         if (token) {
-            handleDeleteEmployee(token.employeeId);
+            estabAdapter.delete(token.establishment.id);
             setModalProps(null);
             navigate("/");
         }

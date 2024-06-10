@@ -1,9 +1,9 @@
 import axios from "axios";
-import { environment } from "../../../../environment.config";
+import { environment } from "../../../environment.config";
+import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
 
-import { ProductResponseDto, ProductRequestDto } from "../../../utils/Products/Product/product.types";
 
-export class ProductAdapter {
+export class SchedulingAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
@@ -24,26 +24,24 @@ export class ProductAdapter {
         };
     }
 
-    async create(productDto: ProductRequestDto): Promise<ProductResponseDto | null> {
+    async getAllSchedulings(): Promise<SchedulingResponseDto[] | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/products`, productDto, this.getRequestOptions());
-            return {
-                id: response.data.id,
-                name: response.data.name,
-                brand: response.data.brand,
-                type: response.data.type,
-                value: response.data.value,
-                establishment: response.data.establishment,
-            } as ProductResponseDto;
+            const response = await axios.get(`${this.apiUrl}/scheduling`, this.getRequestOptions());
+            const scheduling: SchedulingResponseDto[] | PromiseLike<SchedulingResponseDto[] | null> | null = [];
+            response.data.forEach((e: SchedulingResponseDto) => {
+                scheduling.push(e)
+            });
+        
+            return scheduling
         } catch (error) {
-            console.error("Error insert product: ", error);
+            console.error("Error getting service by token:", error);
             return null;
         }
     }
 
-    async delete(productId: number): Promise<boolean> {
+    async delete(schedulingId: number): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/products/${productId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/scheduling/${schedulingId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting service:", error);
@@ -52,4 +50,3 @@ export class ProductAdapter {
     }
 
 }
-

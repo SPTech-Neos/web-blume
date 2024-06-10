@@ -28,7 +28,7 @@ export class FilterAdapter {
         try {
             const response = await axios.post(`${this.apiUrl}/filter`, employeeDto, this.getRequestOptions());
             return {
-                filterId: response.data.id,
+                id: response.data.id,
                 price: response.data.price,
                 establishment: response.data.establishment,
                 service: response.data.service
@@ -36,6 +36,16 @@ export class FilterAdapter {
         } catch (error) {
             console.error("Error creating employee:", error);
             return null;
+        }
+    }
+
+    async delete(filterId: number): Promise<boolean> {
+        try {
+            await axios.delete(`${this.apiUrl}/filter/${filterId}`, this.getRequestOptions());
+            return true;
+        } catch (error) {
+            console.error("Error deleting service:", error);
+            return false;
         }
     }
 }

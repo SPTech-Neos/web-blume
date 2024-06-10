@@ -11,7 +11,7 @@ export interface SchedulingRequestDto {
 }
 
 export interface SchedulingResponseDto {
-    schedulingId: number; // idSchedulig, 
+    idSchedulig: number; // idSchedulig, 
     client: ClientResponseDto;  
     service: ServiceResponseDto; 
     employee: EmployeeResponseDto; 

@@ -8,7 +8,7 @@ export interface InputTextProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
-  theme: 'client' | 'establishment';
+  theme: 'client' | 'establishment' | string;
   value?: string
 }
 

@@ -2,13 +2,15 @@ import styled from 'styled-components'
 import { colors as c } from '../../../styles/Colors';
 
 export interface PedidoProps {
+    id?: number | string
     service?: string,
     client?: string,
     employee?: string,
     establishment?: string,
     status?: string,
     preco?: number,
-    imgUrl?: string
+    imgUrl?: string,
+    brand?: string
 }
 
 

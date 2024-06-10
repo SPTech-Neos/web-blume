@@ -61,7 +61,7 @@ const App: React.FC = () => {
         <Route path="/employee" element={<Employee/>}/>
         <Route path="/details/:type/:id" element={<Details />} />
         <Route
-          path='/orders'
+          path='/orders/:id'
           element={
             <ProtectedRoute
               {...defaultProtectedRouteProps}

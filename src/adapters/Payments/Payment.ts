@@ -49,4 +49,24 @@ export class PaymentAdapter {
         }
     }
 
+    async getPaymentsByClientId(clientId: number): Promise<PaymentResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/payment/client/${clientId}`, this.getRequestOptions());
+            return response.data;
+        } catch (error) {
+            console.error("Error getting Payments by client ID:", error);
+            return null;
+        }
+    }
+
+    async getPaymentsByEstablishmentId(establishmentId: number): Promise<PaymentResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/payment/employee/${establishmentId}`, this.getRequestOptions());
+            return response.data;
+        } catch (error) {
+            console.error("Error getting Payments by establishment ID:", error);
+            return null;
+        }
+    }
+
 }

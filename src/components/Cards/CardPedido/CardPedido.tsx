@@ -77,7 +77,7 @@ export const CardPedidoProduto: React.FC<S.PedidoProps> = ({id, service, client,
 
                 <S.InfoBody>
                     <S.Label> Preço </S.Label>
-                    <S.LabelValue> R$ {preco} </S.LabelValue>
+                    <S.LabelValue> R$ {(preco)?.toFixed(2)} </S.LabelValue>
                 </S.InfoBody>
 
                 <S.InfoButtons>

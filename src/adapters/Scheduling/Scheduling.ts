@@ -39,6 +39,26 @@ export class SchedulingAdapter {
         }
     }
 
+    async getSchedulingsByClientId(clientId: number): Promise<SchedulingResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/scheduling/client/${clientId}`, this.getRequestOptions());
+            return response.data;
+        } catch (error) {
+            console.error("Error getting schedulings by client ID:", error);
+            return null;
+        }
+    }
+
+    async getSchedulingsByEmployeeId(employeeId: number): Promise<SchedulingResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/scheduling/employee/${employeeId}`, this.getRequestOptions());
+            return response.data;
+        } catch (error) {
+            console.error("Error getting schedulings by employee ID:", error);
+            return null;
+        }
+    }
+
     async delete(schedulingId: number): Promise<boolean> {
         try {
             await axios.delete(`${this.apiUrl}/scheduling/${schedulingId}`, this.getRequestOptions());

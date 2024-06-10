@@ -29,7 +29,7 @@ export class AddressAdapter {
         try {
             const response = await axios.post(`${this.apiUrl}/address`, addressDto, this.getRequestOptions());
             return {
-                addressId: response.data.id,
+                id: response.data.id,
                 city: response.data.city,
                 publicPlace: response.data.publicPlace,
                 state: response.data.state,

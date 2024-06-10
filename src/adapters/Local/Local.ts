@@ -28,7 +28,7 @@ export class LocalAdapter {
         try {
             const response = await axios.post(`${this.apiUrl}/local`, localDto, this.getRequestOptions());
             return {
-                localId: response.data.id,
+                id: response.data.id,
                 address: response.data.address,
                 number: response.data.number,
                 floor: response.data.floor,

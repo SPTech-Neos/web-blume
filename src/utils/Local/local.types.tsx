@@ -9,7 +9,7 @@ export interface LocalRequestDto {
 }
 
 export interface LocalResponseDto {
-    localId: number;
+    id: number;
     number: number;
     floor: number;
     block: string;

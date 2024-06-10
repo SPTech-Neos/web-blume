@@ -22,8 +22,12 @@ export interface EstablishmentResponseDto {
 
 export interface EstablishmentFullResponseDto {
     [x: string]: any;
-    establishment: EstablishmentResponseDto,
-    employees: EmployeeResponseFullDto,
-    filters: FilterResponseDto,
-    products: ProductResponseDto,
+    id: number;
+    name: string;
+    imgUrl?: string;
+    company: CompanyResponseDto;
+    local: LocalResponseDto;
+    employees?: EmployeeResponseFullDto,
+    filters?: FilterResponseDto,
+    products?: ProductResponseDto,
 }

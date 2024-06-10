@@ -46,7 +46,7 @@ const EstablishmentProducts:React.FC = () => {
                     <h2 onClick={handleAddProducts}>ADICIONAR PRODUTOS</h2>  
                 </S.ProductsButtons>
                 <S.ProductsBody>
-                    {establishmentFull && establishmentFull.products.map((data: {
+                    {establishmentFull?.products && establishmentFull.products.map((data: {
                         id: string | number | undefined; brand: string | undefined; name: string | undefined; value: number | undefined; }) => (
                         <CardProduto 
                             id={data.id}

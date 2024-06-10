@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
@@ -67,7 +68,10 @@ export class EstablishmentAdapter {
 
             const response = await axios.get(`${this.apiUrl}/establishments/api/full/${id}`, this.getRequestOptions());
             return {
-                establishment: response.data[0].establishmentRespose,
+                id: response.data[0].establishmentRespose.id,
+                name: response.data[0].establishmentRespose.name,
+                company: response.data[0].establishmentRespose.company,
+                local: response.data[0].establishmentRespose.local,
                 employees: response.data[0].employees,
                 filters: response.data[0].filters,
                 products: response.data[0].products,
@@ -117,7 +121,8 @@ export class EstablishmentAdapter {
                     name: response.data.name,
                     imgUrl: response.data.imgUrl,
                     company: response.data.company,
-                    local: response.data.local
+                    local: response.data.local,
+
                 } as EstablishmentResponseDto;
             } else {
                 console.error("Erro durante execução do serviço", response.status, response.data);

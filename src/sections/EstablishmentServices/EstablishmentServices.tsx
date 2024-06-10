@@ -29,7 +29,7 @@ const EstablishmentServices:React.FC = () => {
             console.log("Resultado: " + result);
             if(result){
                 setEstablishmentFull(result);
-                console.log("filterssss: " + JSON.stringify(establishmentFull?.filters[0].id))
+                // console.log("filterssss: " + JSON.stringify(establishmentFull?.filters[0].id))
             }
         }catch (error) {
             console.log(error);
@@ -62,7 +62,7 @@ const EstablishmentServices:React.FC = () => {
                     <h2 onClick={handleAddService}>ADICIONAR SERVIÇO</h2>  
                 </S.ServicesButtons>
                 <S.ServicesBody>
-                    {establishmentFull && establishmentFull.filters.map((data: {
+                    {establishmentFull?.filters && establishmentFull.filters.map((data: {
                         price: number | undefined;
                         service: any; id: number | undefined; name: string | undefined; }) => (
                         <CardServico

@@ -286,10 +286,6 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     const [senha, setSenha] = useState("");  
     const [confSenha, setConfSenha] = useState("");  
 
-
-    const [establishmentResponse, setEstablishmentResponse] = useState<EstablishmentResponseDto | null>(null);
-    const [employeeResponse, setEmployeeResponse] = useState<EmployeeResponseDto | null>(null);
-    const [clientResponse, setClientResponse] = useState<ClientResponseDto | null>(null);
     // const [maxStep, setMaxStep] = useState();
     // const [minStep, setMinStep] = useState();
 
@@ -345,10 +341,6 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     };
 
     function handleFormEstablishment(step: number) {
-      if(step > 4){
-        handleMapCreate();
-        // navigate("?mode=login")
-      }
 
       switch (step) {
         case 1: {
@@ -553,7 +545,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
           );
         }
         default: {
-          return <h1>Cadastrado com sucesso!</h1>
+          handleMapCreate()
         }
       }
     }
@@ -561,52 +553,55 @@ const Establishment: React.FC<S.RegisterProps> = () => {
 
     const handleMapCreate = async () => {
       
-      const newAddress = {
-        publicPlace: logradouro,
-        street: logradouro,
-        city: logradouro,
-        state: "sp"
-      }
-
-      const addressCreated = await addressAdapter.create(newAddress);
-
+      try {
       
-      if(addressCreated){
-
-        const newLocal = {
-          number: Number(numero),
-          address: 1,
+        const newAddress = {
+          publicPlace: logradouro,
+          street: logradouro,
+          city: logradouro,
+          state: "sp"
         }
+  
+        const addressCreated = await addressAdapter.create(newAddress);
+  
         
-        const localCreated = await localAdapter.create(newLocal);
-
-        if(localCreated){
-          const newEstablishment = {
-            name: estabName,
-            companyId: 1,
-            localId: localCreated.id
+        if(addressCreated){
+  
+          const newLocal = {
+            number: Number(numero),
+            address: addressCreated.id,
           }
-
-          const establishmentCreated = await establishAdapter.register(newEstablishment);
-          if(establishmentCreated){
-            
-            const employeeNew = {
-              name: name, 
-              email: email,
-              password: senha, 
-              fkEstablishment: establishmentCreated.id, 
-              employeeType: 1 
+          
+          const localCreated = await localAdapter.create(newLocal);
+  
+          if(localCreated){
+            const newEstablishment = {
+              name: estabName,
+              companyId: 1,
+              localId: localCreated.id
             }
-            
-            const employeeCreated = await employeeAdapter.create(employeeNew);
-            console.log(employeeCreated);
+  
+            const establishmentCreated = await establishAdapter.register(newEstablishment);
+            if(establishmentCreated){
+              
+              const employeeNew = {
+                name: name, 
+                email: email,
+                password: senha, 
+                fkEstablishment: establishmentCreated.id, 
+                employeeType: 1 
+              }
+              
+              const employeeCreated = await employeeAdapter.create(employeeNew);
+              console.log(employeeCreated);
+            }
+  
           }
-
         }
-
-      }
-
-      return;
+        navigate("?mode=login")
+      }catch(error){
+        console.log(error);
+      } 
     }
 
     return (
@@ -618,7 +613,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
           <SecondaryTitle size="sm">{handleTitle(step)}</SecondaryTitle>
         </Column>
         <>
-          <S.RegisterForm step={step} onSubmit={() => handleSubmit()}>
+          <S.RegisterForm step={step} onSubmit={() => handleSubmit}>
             {handleFormEstablishment(step)}
           </S.RegisterForm>
 

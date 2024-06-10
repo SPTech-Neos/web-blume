@@ -29,8 +29,7 @@ const EstablishmentServices:React.FC = () => {
             console.log("Resultado: " + result);
             if(result){
                 setEstablishmentFull(result);
-                console.log("filterssss: " + JSON.stringify(establishmentFull?.employees[0].services))
-                console.log("filterssss2: " + JSON.stringify(establishmentFull?.employees[1].services))
+                console.log("filterssss: " + JSON.stringify(establishmentFull?.filters[0].id))
             }
         }catch (error) {
             console.log(error);

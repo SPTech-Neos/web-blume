@@ -24,12 +24,12 @@ import "./styles/global.styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Theme>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <AuthContextProviderClient>
         <AuthContextProviderEmployee>
           <App />
         </AuthContextProviderEmployee>
       </AuthContextProviderClient>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Theme>
 );

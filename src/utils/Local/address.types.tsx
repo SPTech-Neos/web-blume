@@ -6,7 +6,7 @@ export interface AddressRequestDto {
 }
 
 export interface AddressResponseDto {
-    addressId: number;
+    id: number;
     publicPlace: string
     street: string;
     city: string;

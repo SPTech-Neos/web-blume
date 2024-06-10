@@ -26,6 +26,7 @@ import {  EstablishmentResponseDto } from "../../../utils/Establishment/establis
 import {  ClientResponseDto } from "../../../utils/Users/Client/client.types";
 import { AddressAdapter } from "../../../adapters/Address/Address";
 import { LocalAdapter } from "../../../adapters/Local/Local";
+import { number } from "yup";
 
 const Register: React.FC<S.RegisterProps> = () => {
   // const [isClient, setIsClient] = useState("");
@@ -346,7 +347,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     function handleFormEstablishment(step: number) {
       if(step > 4){
         handleMapCreate();
-        navigate("auth?mode=login")
+        // navigate("?mode=login")
       }
 
       switch (step) {
@@ -561,10 +562,10 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     const handleMapCreate = async () => {
       
       const newAddress = {
-        publicPlace: "logradouro",
-        street: "aaa",
-        city: "aa",
-        state: "SP"
+        publicPlace: logradouro,
+        street: logradouro,
+        city: logradouro,
+        state: "sp"
       }
 
       const addressCreated = await addressAdapter.create(newAddress);
@@ -573,7 +574,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
       if(addressCreated){
 
         const newLocal = {
-          number: 190,
+          number: Number(numero),
           address: 1,
         }
         
@@ -581,19 +582,19 @@ const Establishment: React.FC<S.RegisterProps> = () => {
 
         if(localCreated){
           const newEstablishment = {
-            name: "estabName",
+            name: estabName,
             companyId: 1,
-            localId: 1
+            localId: localCreated.id
           }
 
           const establishmentCreated = await establishAdapter.register(newEstablishment);
           if(establishmentCreated){
             
             const employeeNew = {
-              name: "name", 
-              email: "email@email.com", 
-              password: "1234", 
-              fkEstablishment: 1, 
+              name: name, 
+              email: email,
+              password: senha, 
+              fkEstablishment: establishmentCreated.id, 
               employeeType: 1 
             }
             
@@ -605,7 +606,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
 
       }
 
-
+      return;
     }
 
     return (

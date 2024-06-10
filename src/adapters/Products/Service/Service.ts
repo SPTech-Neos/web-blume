@@ -39,6 +39,27 @@ export class ServiceAdapter {
         }
     }
 
+    async getAllServices(): Promise<ServiceResponseDto[] | null> {
+        try {
+            const url = new URL(`${this.apiUrl}/service`);
+    
+            const response = await axios.get(url.toString(), this.getRequestOptions());
+    
+            const services = response.data.map((service: ServiceResponseDto) => ({
+                serviceId: service.serviceId,
+                specification: service.specification,
+                imgUrl: service.imgUrl,
+                serviceType: service.serviceType
+            })) as ServiceResponseDto[];
+    
+            return services;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
+
     async register(serviceRequestDto: ServiceRequestDto): Promise<ServiceResponseDto | null> {
         try {
             const response = await axios.post(`${this.apiUrl}/service`, serviceRequestDto, this.getRequestOptions());

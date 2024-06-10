@@ -13,7 +13,7 @@ export interface EstablishmentRequestDto {
 }
 
 export interface EstablishmentResponseDto {
-    establishmentId: number;
+    id: number;
     name: string;
     imgUrl?: string;
     company: CompanyResponseDto;

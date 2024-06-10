@@ -24,12 +24,33 @@ export class EstablishmentAdapter {
         };
     }
 
+    async getAllEstablishments(): Promise<EstablishmentResponseDto[] | null> {
+        try {
+    
+            const response = await axios.get(`${this.apiUrl}/establishments`, this.getRequestOptions());
+    
+            const establishments = response.data.map((establishment: any) => ({
+                establishmentId: establishment.id,
+                name: establishment.name,
+                imgUrl: establishment.imgUrl,
+                company: establishment.company,
+                local: establishment.local
+            })) as EstablishmentResponseDto[];
+    
+            return establishments;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }    
+
     async getEstablishmentById(id: number): Promise<EstablishmentResponseDto | null> {
         try {
 
             const response = await axios.get(`${this.apiUrl}/establishments/${id}`, this.getRequestOptions());
             return {
-                establishmentId: response.data.id,
+                id: response.data.id,
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
                 company: response.data.company,
@@ -57,6 +78,28 @@ export class EstablishmentAdapter {
         }
     }
 
+    async getAllEstab(): Promise<EstablishmentFullResponseDto[] | null> {
+        try {
+    
+            const response = await axios.get(`${this.apiUrl}/establishments/api/full`, this.getRequestOptions());
+    
+            const establishments = response.data.map((establishment: any) => ({
+                establishment: establishment.establishmentResponses,
+                employees: establishment.employees,
+                filters: establishment.filters,
+                products: establishment.products
+            })) as EstablishmentFullResponseDto[];
+    
+            return establishments;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+    
+    
+
     async register(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
         try {
             const { 
@@ -70,7 +113,7 @@ export class EstablishmentAdapter {
     
             if (response.status === 200) {
                 return {
-                    establishmentId: response.data.id,
+                    id: response.data.id,
                     name: response.data.name,
                     imgUrl: response.data.imgUrl,
                     company: response.data.company,
@@ -103,7 +146,7 @@ export class EstablishmentAdapter {
             const response = await axios.patch(`${this.apiUrl}/establishments/${establishmentId}`, updatedFields, this.getRequestOptions());
     
             return {
-                establishmentId: response.data.id,
+                id: response.data.id,
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
                 company: response.data.company,

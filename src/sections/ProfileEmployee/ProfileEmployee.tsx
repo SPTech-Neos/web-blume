@@ -49,7 +49,6 @@ const ProfileEmployee: React.FC = () => {
     }, [tokenFromCookie, isAuthenticatedEmployee]);
 
     const [modalProps, setModalProps] = useState<ModalProps | null>(null);
-    const [isOpenState, setIsOpenState] = useState(false);
 
     useEffect(() => {
         if (tokenFromCookie) {
@@ -87,7 +86,7 @@ const ProfileEmployee: React.FC = () => {
             <E.ContainerProfile direction="column">
                 <HeaderProfile  />
 
-                <EditModal id="editModal"/>
+                <EditModal id="editModal" tipo="employee"/>
 
                 <E.ProfileContainer>
                     <h1>PERFIL</h1>
@@ -133,15 +132,17 @@ const ProfileEmployee: React.FC = () => {
                             Editar
                         </S.ButtonUpdate>
                     </S.ContainerAtencaoButtons>
-                </S.ContainerAtencao>
-                <Modal
-                    type={modalProps?.type || ""}
-                    message={modalProps?.message || ""}
-                    isOpen={isOpenState}
-                    linkTo={modalProps?.linkTo || "/"}
-                    onConfirm={modalProps?.onConfirm}
-                    onClose={() => setIsOpenState(false)}
-                />
+                    {modalProps && (
+                        <Modal
+                            type={modalProps.type}
+                            message={modalProps.message}
+                            isOpen={modalProps.isOpen}
+                            linkTo={modalProps.linkTo}
+                            onConfirm={modalProps.onConfirm}
+                            onClose={() => setModalProps(null)}
+                        />
+                    )}
+                    </S.ContainerAtencao>
             </E.ContainerProfile>
     );
 };

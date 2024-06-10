@@ -64,18 +64,18 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
               console.log("ADDRESS: " + JSON.stringify(address));
   
               const userLocal: LocalRequestDto = {
-                cep: address.postcode || '',
-                address: {
+                /*cep: address.postcode || '',*/
+                /*address: {
                   idAddress: 0,
-                  street: address.road || '', 
-                  city: address.city || '', 
+                  street: address.road || '',
+                  city: address.city || '',
                   state: address.state || ''
-                },
+                },*/
                 number: 0,
                 floor: 0,
-                bloc: '',
-                complement: ''
-                ,
+                block: '',
+                complement: '',
+                address: 0
               };
   
               setUserLocation(userLocal);

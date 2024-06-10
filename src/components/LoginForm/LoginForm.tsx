@@ -12,7 +12,7 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import * as S from './loginForm.styled';
 
 import Link from "../../components/Texts/Link/Link";
-import Subtitle from "../../components/Texts/Subtitle/Subtitle";
+// import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
 import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
@@ -109,6 +109,9 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                     setLinkTo("/employee")
                     setOpen(true);
                 }
+
+                const redirectPath = window.sessionStorage.getItem('location') || '/';
+                navigate(redirectPath, { replace: true });
             } else {
                 newErrors.push({ account: 'Credenciais inválidas' });
                 setErrors(newErrors);
@@ -177,10 +180,14 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             ENTRAR
         </PrimaryButton>
 
-        <Subtitle size="sm">
+        <S.SubtitleStyled size="sm">
+            <S.LinkContainer>
             <span> Não tem uma conta ainda? </span>
-            <Link href="google.com">Crie uma conta!</Link>
-        </Subtitle>
+                <S.LinkEmblashiment id="establish" href="/auth?mode=register&acc=establishment">Crie um estabelecimento!</S.LinkEmblashiment>
+                <span>OU</span>
+                <S.LinkClient id="client" href="/auth?mode=register&acc=client">Crie uma conta de cliente!</S.LinkClient>
+            </S.LinkContainer>
+        </S.SubtitleStyled>
         </S.LoginForm>
     </>
         

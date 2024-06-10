@@ -17,38 +17,41 @@ import Logo from "../../components/Images/Logo/Logo";
 import Modal from "../../components/Modals/FormModal/Modal";
 import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
 
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import { colors as c, Themes } from '../../styles/Colors';
-import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
-import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
+
+import { FilterResponseDto } from "../../utils/Filter/filters.types";
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 
 
 const ProfileB2B: React.FC = () => {
     const { establishmentId } = useParams<{establishmentId: string}>();
+
     const navigate = useNavigate();
     
     function getTheme(theme: string) {
         return theme === "B2C"? Themes.client : Themes.establishment;
     }
 
-    const { isAuthenticated: isAuthenticatedEmployee, handleDeleteEmployee } = useContext(AuthContextEmployee);
-    const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
-    const { getEstablishmentById } = useContext(AuthContextEstablishment);
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
   
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
+    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentFullResponseDto | null>(null);
+    const establishmentAdapter = new EstablishmentAdapter;
+
+    const estabAdapter = new EstablishmentAdapter;
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
 
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
-              const data = await getEstablishmentById(Number(establishmentId));
+              const data = await establishmentAdapter.getAllOfEstab(Number(establishmentId));
               console.log("ESTABLISHMENTINFO: " + JSON.stringify(data));
               setEstablishmentInfo(data);
             };
@@ -73,54 +76,22 @@ const ProfileB2B: React.FC = () => {
     const openDeleteModal = () => {
         setModalProps({
             type: "error",
-            message: "Tem certeza que deseja excluir a conta?",
+            message: "Tem certeza que deseja excluir esse estabelecimento?",
             isOpen: true,
             linkTo: "/",
             onConfirm: handleDeleteConfirmation
         });
     };
 
-    const handleDeleteConfirmation = () => {
+    const handleDeleteConfirmation = async () => {
         if (token) {
-            handleDeleteEmployee(token.employeeId);
+            estabAdapter.delete(token.establishment.id);
             setModalProps(null);
             navigate("/");
         }
     };
     
-    if(isAuthenticatedClient){
-        return (
-            establishmentInfo ? (
-                <S.ProfileB2BSection>
-                    <S.ContainerProfile direction="column">
-                        <S.HeaderProfile>
-                            <S.NavBody>
-                                <S.NavItem>
-                                    <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
-                                        <CaretLeft size={22} />
-                                    </S.NavLink>
-                                </S.NavItem>
-                            </S.NavBody>
-                            <Logo />
-                        </S.HeaderProfile>
-                        <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo?.imgUrl} />
-                            <S.AvaliacaoContainer>
-                                <Badge>
-                                    <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                    <span>aaaaaa</span>
-                                </Badge>
-                                <Badge>Deixar</Badge>
-                                <Badge>Dinamico</Badge>
-                            </S.AvaliacaoContainer>
-                        </S.PerfilContainer>
-                        <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
-                        <Tab theme='client' establishmentInfo={establishmentInfo}/>
-                    </S.ContainerProfile>
-                </S.ProfileB2BSection>
-            ) : null
-        )
-    }else if(isAuthenticatedEmployee){
+    if(isAuthenticatedEmployee){
         return (
             token && establishmentInfo ? (
                 <S.ProfileB2BSection>
@@ -130,7 +101,7 @@ const ProfileB2B: React.FC = () => {
     
                         <EditModal id="editModal"/>
     
-                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.name} />
+                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.establishment.name} />
                         <Tab theme='establishment' establishmentInfo={establishmentInfo}/>
                         <S.ContainerAtencao>
                             <S.ContainerTitle>
@@ -163,8 +134,45 @@ const ProfileB2B: React.FC = () => {
                 </ S.ProfileB2BSection>
             ) : null
         );
-    }else{
-        return null;
+    } else {
+        return (
+            establishmentInfo ? (
+                <S.ProfileB2BSection>
+                    <S.ContainerProfile direction="column">
+                        <S.HeaderProfile>
+                            <S.NavBody>
+                                <S.NavItem>
+                                    <S.NavLink  to= '/feed' className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                                        <CaretLeft size={22} />
+                                    </S.NavLink>
+                                </S.NavItem>
+                            </S.NavBody>
+                            <Logo />
+                        </S.HeaderProfile>
+                        <S.PerfilContainer>
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.establishment.imgUrl} />
+                            <S.AvaliacaoContainer>
+                                <Badge>
+                                    <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
+                                    <span>{(Math.random() + 4).toFixed(1)}</span>
+                                </Badge>
+
+                                {establishmentInfo && establishmentInfo.filters && (
+                                    Array.isArray(establishmentInfo.filters)
+                                        ? establishmentInfo.filters.slice(0, 2).map((filter: FilterResponseDto, index: number) => (
+                                            <Badge key={index}>{filter.service.specification}</Badge>
+                                        ))
+                                        : null  
+                                )}
+
+                            </S.AvaliacaoContainer>
+                        </S.PerfilContainer>
+                        <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
+                        <Tab theme='client' establishmentInfo={establishmentInfo}/>
+                    </S.ContainerProfile>
+                </S.ProfileB2BSection>
+            ) : null
+        )
     }
 
     

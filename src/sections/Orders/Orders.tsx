@@ -1,15 +1,23 @@
 import React, {useEffect, useContext, useState} from "react";
+import { useParams } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
-import { CardPedido } from "../../components/Cards/CardPedido/CardPedido";
+import { CardPedidoProduto, CardPedidoServico } from "../../components/Cards/CardPedido/CardPedido";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import Cookies from 'js-cookie';
+import { SchedulingAdapter } from "../../adapters/Scheduling/Scheduling";
+import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
+import { PaymentResponseDto } from "../../utils/Payment/payment.types";
+import { PaymentAdapter } from "../../adapters/Payments/Payment";
 import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 const Orders: React.FC = () => {
 
+    const { id } = useParams();
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const selected = document.getElementsByClassName("active");
@@ -24,44 +32,137 @@ const Orders: React.FC = () => {
     const handlePast = (event: React.MouseEvent<HTMLDivElement>) => {
         console.log(event.target as HTMLElement);
     }
+    const scheduleAdapter = new SchedulingAdapter();
+    const paymentAdapter = new PaymentAdapter();
 
-    const { isAuthenticated: isAuthenticatedEmployee, getEmployeeById } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
-    const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
 
-    const tokenFromCookie = Cookies.get('employeeInfo');
-    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+    const [scheduleInfo, setSchedule] = useState<SchedulingResponseDto[] | null>(null);
+    const [paymentsInfo, setPayments] = useState<PaymentResponseDto[] | null>(null);
 
+
+    const tokenEmployeeFromCookie = Cookies.get('employeeInfo');
+    const tokenEmployee: EmployeeResponseDto = tokenEmployeeFromCookie ? JSON.parse(tokenEmployeeFromCookie) : null;
+
+    const tokenClientFromCookie = Cookies.get('clientInfo');
+    const tokenClient: ClientResponseDto = tokenClientFromCookie ? JSON.parse(tokenClientFromCookie) : null;
+
+    +
+    /*const handleGetSchedulings = async () => {
+        try {
+            const allSchedule = await scheduleAdapter.getAllSchedulings(); 
+            setSchedule(allSchedule);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const handleGetPayments = async () => {
+        try {
+            const allPayments = await paymentAdapter.getAllPayments(); 
+            setPayments(allPayments);
+        }catch(error){
+            console.log(error);
+        }
+    }
+    
+    useEffect(() => {   
+        handleGetSchedulings();
+        handleGetPayments();
+    },[])
+    
+    */
+
+
+
+    // const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
+    // const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
+
+    /*useEffect(() => {
+        paymentsInfo?.forEach(e => {
+            listaProdutos.push({
+                produto: e.product.name,
+                cliente: e.client.name,
+                estabelecimento: e.establishment.name,
+                preco: e.product.value
+            })
+        });
+
+        console.log(listaProdutos)
+
+        scheduleInfo?.forEach(e => {
+            listaScheduling.push({
+                servico: e.service.specification,
+                funcionario: e.employee.name,
+                cliente: e.client.name,
+            })
+        })
+
+
+    },[paymentsInfo, scheduleInfo])*/
+
+
+    // LOAD SCHEDULINGS =====================
     useEffect(() => {
-        const fetchEmployeeData = async () => {
-            const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
-            console.log("emplyoyee Stab na profileEmployee" + JSON.stringify(employeeEstab));
-            setEmployeeInfo(employeeEstab);
+        if (tokenClient && id) {
+
+            const fetchPaymentData = async () => {
+                try {
+                    const paymentsData = await paymentAdapter.getPaymentsByClientId(Number(id)); 
+                    setPayments(paymentsData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            const fetchSchedulingData = async () => {
+                try {
+                    const scheduleData = await scheduleAdapter.getSchedulingsByClientId(Number(id)); 
+                    setSchedule(scheduleData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            fetchPaymentData();
+            fetchSchedulingData();
+
+        } else if (tokenEmployee && id) {
+
+            const fetchPaymentData = async () => {
+                try {
+                    const establishmentId: number = tokenEmployee.establishment.id;
+
+                    const paymentsData = await paymentAdapter.getPaymentsByEstablishmentId(establishmentId); 
+                    setPayments(paymentsData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            const fetchSchedulingData = async () => {
+                try {
+                    const scheduleData = await scheduleAdapter.getSchedulingsByEmployeeId(Number(id)); 
+                    setSchedule(scheduleData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+            
+            fetchPaymentData();
+            fetchSchedulingData();
+
         }
 
-        fetchEmployeeData();
-
-
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedEmployee);
-        }
-    }, [tokenFromCookie, isAuthenticatedEmployee]);
-
-
-    useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedClient);
-        }
-    }, [tokenFromCookie, isAuthenticatedClient]);
+    }, []);
 
     let theme = "";
 
     if(isAuthenticatedEmployee){
         theme ="B2B";
         return (
-            token ? (
+            tokenEmployee ? (
                 <S.OrdersSectionContainer tema={theme}>
                     <S.OrdersHeader>
                         <Logo />
@@ -90,15 +191,28 @@ const Orders: React.FC = () => {
                         </S.FiltersContainer>
 
                         <S.OrdersContainer>
-                            <CardPedido 
-                                client="deixar dinamico" 
-                                employee={employeeInfo?.name}
-                                establishment={employeeInfo?.establishment.name}
-                                preco={20}
-                                service="deixar"
-                                status="Em Andamento"
-                                imgUrl=""
-                            />
+                            {paymentsInfo && paymentsInfo.map((data) => (
+                                <CardPedidoProduto 
+                                    id={data.id}
+                                    client={data.client.name}
+                                    establishment={data.establishment.name}
+                                    preco={data.product.value}
+                                    service={data.product.name}
+                                    status={"Em Andamento"}
+                                    imgUrl={data.product.imgUrl || ""}
+                                />
+                            ))}
+                            {scheduleInfo && scheduleInfo.map((data) => (
+                                <CardPedidoServico 
+                                    id={data.idSchedulig}
+                                    client={data.client.name}
+                                    establishment={data.employee.establishment.name}
+                                    employee={data.employee.name}
+                                    service={data.service.specification}
+                                    status={data.schedulingStatus.description}
+                                    imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
+                                />
+                            ))}
                         </S.OrdersContainer>    
                     </S.OrdersBody>
 
@@ -109,51 +223,7 @@ const Orders: React.FC = () => {
     }else if(isAuthenticatedClient){
         theme = "B2C";
         return (
-            <S.OrdersSectionContainer tema={theme}>
-                <S.OrdersHeader>
-                    <Logo />
-                </S.OrdersHeader>
-                <S.OrdersBody>
-                    <S.FiltersContainer>
-
-                        <S.BadgesContainer tema={theme}>
-                        <S.Badge onClick={handleClick}>
-                                Todos
-                            </S.Badge >
-                            <S.Badge onClick={handleClick}>
-                                Em andamento
-                            </S.Badge >
-                            <S.Badge onClick={handleClick}>
-                                Cancelado
-                            </S.Badge>
-                            <S.Badge onClick={handleClick}>
-                                Concluído
-                            </S.Badge>
-
-                        </S.BadgesContainer>
-                        <S.HistoricoContainer tema={theme}>
-                            <h2 onClick={handlePast}>HISTÓRICO</h2>
-                        </S.HistoricoContainer>    
-                    </S.FiltersContainer>
-
-                    <S.OrdersContainer>
-                        <CardPedido 
-                            client="deixar dinamico" 
-                            employee="deixar"
-                            establishment="dinamico"
-                            preco={20}
-                            service="deixar"
-                            status="Em Andamento"
-                            imgUrl=""
-                        />
-                    </S.OrdersContainer>    
-                </S.OrdersBody>
-
-            </S.OrdersSectionContainer>
-        );
-    }
-        return (
-                token ? (
+            tokenClient ? (
                 <S.OrdersSectionContainer tema={theme}>
                     <S.OrdersHeader>
                         <Logo />
@@ -182,7 +252,68 @@ const Orders: React.FC = () => {
                         </S.FiltersContainer>
 
                         <S.OrdersContainer>
-                            <CardPedido 
+                            {paymentsInfo && paymentsInfo.map((data) => (
+                                <CardPedidoProduto 
+                                    id={data.id}
+                                    client={data.client.name}
+                                    establishment={data.establishment.name}
+                                    preco={data.product.value}
+                                    service={data.product.name}
+                                    status={"Em Andamento"}
+                                    imgUrl={data.product.imgUrl || ""}
+                                />
+                            ))}
+
+                            {scheduleInfo && scheduleInfo.map((data) => (
+                                <CardPedidoServico 
+                                    id={data.idSchedulig}
+                                    client={data.client.name}
+                                    establishment={data.employee.establishment.name}
+                                    employee={data.employee.name}
+                                    service={data.service.specification}
+                                    status={data.schedulingStatus.description}
+                                    imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
+                                />
+                            ))}
+                        </S.OrdersContainer>    
+                    </S.OrdersBody>
+
+                </S.OrdersSectionContainer>
+            ): null
+        );
+    }
+        return (
+                tokenClient ? (
+                <S.OrdersSectionContainer tema={theme}>
+                    <S.OrdersHeader>
+                        <Logo />
+                    </S.OrdersHeader>
+                    <S.OrdersBody>
+                        <S.FiltersContainer>
+
+                            <S.BadgesContainer tema={theme}>
+                            <S.Badge onClick={handleClick}>
+                                    Todos
+                                </S.Badge >
+                                <S.Badge onClick={handleClick}>
+                                    Em andamento
+                                </S.Badge >
+                                <S.Badge onClick={handleClick}>
+                                    Cancelado
+                                </S.Badge>
+                                <S.Badge onClick={handleClick}>
+                                    Concluído
+                                </S.Badge>
+
+                            </S.BadgesContainer>
+                            <S.HistoricoContainer tema={theme}>
+                                <h2 onClick={handlePast}>HISTÓRICO</h2>
+                            </S.HistoricoContainer>    
+                        </S.FiltersContainer>
+
+                        <S.OrdersContainer>
+                            <CardPedidoServico 
+                                
                                 client="deixar dinamico" 
                                 employee="deixar"
                                 establishment="dinamico"

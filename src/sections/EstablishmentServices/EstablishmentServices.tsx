@@ -15,8 +15,6 @@ import { EstablishmentFullResponseDto } from "../../utils/Establishment/establis
 
 
 const EstablishmentServices:React.FC = () => {
-
-    const listaEmployee: (string | undefined)[] = [];
     
     const estabAdapter = new EstablishmentAdapter;
     const [establishmentFull, setEstablishmentFull] = useState<EstablishmentFullResponseDto | null>(null);
@@ -31,8 +29,7 @@ const EstablishmentServices:React.FC = () => {
             console.log("Resultado: " + result);
             if(result){
                 setEstablishmentFull(result);
-                console.log("filterssss: " + JSON.stringify(establishmentFull?.employees[0].services))
-                console.log("filterssss2: " + JSON.stringify(establishmentFull?.employees[1].services))
+                // console.log("filterssss: " + JSON.stringify(establishmentFull?.filters[0].id))
             }
         }catch (error) {
             console.log(error);
@@ -65,23 +62,14 @@ const EstablishmentServices:React.FC = () => {
                     <h2 onClick={handleAddService}>ADICIONAR SERVIÇO</h2>  
                 </S.ServicesButtons>
                 <S.ServicesBody>
-                    {/* {establishmentFull &&
-                    establishmentFull.filters.map((data) => (
-                        // <CardServico
-                        //     service=""
-                        //     preco={90}
-                        //     status="Ativo"
-                        //     employee="aa"
-                        // />
-                    ))} */}
-                    {establishmentFull && establishmentFull.filters.map((data: {
+                    {establishmentFull?.filters && establishmentFull.filters.map((data: {
                         price: number | undefined;
-                        service: any; id: number | undefined; name: string | undefined; }, index : number) => (
+                        service: any; id: number | undefined; name: string | undefined; }) => (
                         <CardServico
+                            id={data.id}
                             service={data.service.specification}
                             preco={data.price}
                             status="Ativo"
-                            employee={listaEmployee[index]}
                         />
                     ))}
 

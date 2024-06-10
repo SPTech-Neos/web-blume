@@ -7,6 +7,7 @@ import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 import RequestLocation from '../components/RequestLocation/RequestLocation';
 import { ServiceAdapter } from '../adapters/Products/Service/Service';
 import { ServiceTypeAdapter } from '../adapters/Products/Service/ServiceType';
+import { SchedulingAdapter } from '../adapters/Scheduling/Scheduling';
 
 const Test: React.FC = () => {
   const [adapter, setAdapter] = useState<any>(null);
@@ -125,6 +126,16 @@ const Test: React.FC = () => {
 
                     }
                     break;
+                case 'Scheduling' :
+                    const scheduling = new SchedulingAdapter();
+                    switch (method) {
+                        case 'getAll':
+                            const getAllResult = await scheduling.getAllSchedulings();
+                            setResult(getAllResult);
+                        break;
+
+                    }
+                    break;
                 default:
                     break;
             }
@@ -165,6 +176,12 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option> */}
                     <option value={JSON.stringify({ type: 'ServiceType', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                     <option value={JSON.stringify({ type: 'ServiceType', method: 'getAll'})}>Get All</option>
+                </optgroup>
+                <optgroup label="Scheduling Adapter">
+                    {/* <option value={JSON.stringify({ type: 'ServiceType', method: 'create', params: { createDto: { specification: 'Corte', serviceType: 1}}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Service', method: 'update', params: { id: 1, updateFields: { specification: 'Pintura' } } })}>Update</option> */}
+                    {/* <option value={JSON.stringify({ type: 'ServiceType', method: 'getById', params: { id: 1 } })}>Get by ID</option> */}
+                    <option value={JSON.stringify({ type: 'Scheduling', method: 'getAll'})}>Get All</option>
                 </optgroup>
             </select>
             <button onClick={testAdapter}>Test</button>

@@ -96,9 +96,12 @@ export const HistoricoContainer = styled.div<PropsOrder>`
 export const OrdersContainer = styled.div`
     width: 100%;
     height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+    display: grid;
+    grid-template-columns: 90%;
+    grid-auto-rows: 22%;
+    justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    
 
 `;

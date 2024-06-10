@@ -66,12 +66,26 @@ const App: React.FC = () => {
           }
         />
         <Route path="/employee" element={<Employee />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/details/:type/:id" element={<Details />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              isAuthenticated={isAuthenticated}
+              outlet={<Orders />}
+            />
+          }
+        />
+
+        {
+          // <Route path="/orders" element={<Orders/>}/>
+        }
+
         <Route path="/services" element={<Services />} />
         <Route path="/products" element={<Products />} />
         <Route path="/employees" element={<Employees />} />
-        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

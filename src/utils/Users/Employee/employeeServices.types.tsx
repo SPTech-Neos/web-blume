@@ -9,6 +9,7 @@ export interface EmployeeServicesRequestDto {
 }
 
 export interface EmployeeServicesResponseDto {
+    id: number;
     employeeTypeId: number;
     hoursSpent: string | Date | number;
     expertise: string;

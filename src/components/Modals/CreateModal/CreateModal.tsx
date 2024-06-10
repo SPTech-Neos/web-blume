@@ -217,6 +217,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                         />
                     </S.InputContainer>
 
+                    {titulo === "Produto"? (
                     <S.InputContainer>
                         <InputText
                             type="text"
@@ -227,6 +228,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             placeholder={`Marca do ${titulo}....`}
                         />
                     </S.InputContainer>
+                    ) : null}
                     {titulo === "Produto"? (
                         <S.SelectType name="Selecione o tipo do produto" onChange={(e => handleChange(e, setProductType))}>
                                 <option value="" disabled selected>Selecione a marca do produto....</option>

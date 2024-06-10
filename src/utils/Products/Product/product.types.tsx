@@ -11,7 +11,7 @@ export interface ProductRequestDto {
 }
 
 export interface ProductResponseDto {
-    id: number;
+    id: number | string;
     name: string;
     brand: string; 
     type: ProductTypeResponseDto

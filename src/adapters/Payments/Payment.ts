@@ -1,9 +1,9 @@
 import axios from "axios";
-import { environment } from "../../../../environment.config";
+import { environment } from "../../../environment.config";
+import { PaymentResponseDto } from "../../utils/Payment/payment.types";
 
-import { ProductResponseDto, ProductRequestDto } from "../../../utils/Products/Product/product.types";
 
-export class ProductAdapter {
+export class PaymentAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
@@ -24,26 +24,24 @@ export class ProductAdapter {
         };
     }
 
-    async create(productDto: ProductRequestDto): Promise<ProductResponseDto | null> {
+    async getAllPayments(): Promise<PaymentResponseDto[] | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/products`, productDto, this.getRequestOptions());
-            return {
-                id: response.data.id,
-                name: response.data.name,
-                brand: response.data.brand,
-                type: response.data.type,
-                value: response.data.value,
-                establishment: response.data.establishment,
-            } as ProductResponseDto;
+            const response = await axios.get(`${this.apiUrl}/payment`, this.getRequestOptions());
+            const scheduling: PaymentResponseDto[] | PromiseLike<PaymentResponseDto[] | null> | null = [];
+            response.data.forEach((e: PaymentResponseDto) => {
+                scheduling.push(e)
+            });
+        
+            return scheduling
         } catch (error) {
-            console.error("Error insert product: ", error);
+            console.error("Error getting service by token:", error);
             return null;
         }
     }
 
-    async delete(productId: number): Promise<boolean> {
+    async delete(paymentId: number): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/products/${productId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/payment/${paymentId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting service:", error);

@@ -63,19 +63,11 @@ const EstablishmentServices:React.FC = () => {
                     <h2 onClick={handleAddService}>ADICIONAR SERVIÇO</h2>  
                 </S.ServicesButtons>
                 <S.ServicesBody>
-                    {/* {establishmentFull &&
-                    establishmentFull.filters.map((data) => (
-                        // <CardServico
-                        //     service=""
-                        //     preco={90}
-                        //     status="Ativo"
-                        //     employee="aa"
-                        // />
-                    ))} */}
                     {establishmentFull && establishmentFull.filters.map((data: {
                         price: number | undefined;
                         service: any; id: number | undefined; name: string | undefined; }) => (
                         <CardServico
+                            id={data.id}
                             service={data.service.specification}
                             preco={data.price}
                             status="Ativo"

@@ -38,4 +38,14 @@ export class FilterAdapter {
             return null;
         }
     }
+
+    async delete(filterId: number): Promise<boolean> {
+        try {
+            await axios.delete(`${this.apiUrl}/filter/${filterId}`, this.getRequestOptions());
+            return true;
+        } catch (error) {
+            console.error("Error deleting service:", error);
+            return false;
+        }
+    }
 }

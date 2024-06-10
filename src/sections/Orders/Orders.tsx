@@ -2,11 +2,14 @@ import React, {useEffect, useContext, useState} from "react";
 import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
-import { CardPedido } from "../../components/Cards/CardPedido/CardPedido";
+import { CardPedidoProduto, CardPedidoServico } from "../../components/Cards/CardPedido/CardPedido";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from 'js-cookie';
-import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { SchedulingAdapter } from "../../adapters/Scheduling/Scheduling";
+import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
+import { PaymentResponseDto } from "../../utils/Payment/payment.types";
+import { PaymentAdapter } from "../../adapters/Payments/Payment";
 
 const Orders: React.FC = () => {
 
@@ -24,22 +27,71 @@ const Orders: React.FC = () => {
     const handlePast = (event: React.MouseEvent<HTMLDivElement>) => {
         console.log(event.target as HTMLElement);
     }
+    const scheduleAdapter = new SchedulingAdapter();
+    const paymentAdapter = new PaymentAdapter();
 
-    const { isAuthenticated: isAuthenticatedEmployee, getEmployeeById } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
-    const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
+    const [scheduleInfo, setSchedule] = useState<SchedulingResponseDto[] | null>(null);
+    const [paymentsInfo, setPayments] = useState<PaymentResponseDto[] | null>(null);
+
 
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-    useEffect(() => {
-        const fetchEmployeeData = async () => {
-            const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
-            console.log("emplyoyee Stab na profileEmployee" + JSON.stringify(employeeEstab));
-            setEmployeeInfo(employeeEstab);
+    const handleGetSchedulings = async () => {
+        try {
+            const allSchedule = await scheduleAdapter.getAllSchedulings(); 
+            setSchedule(allSchedule);
+            console.log("scheduleeee: " + JSON.stringify(scheduleInfo))
+        }catch(error){
+            console.log(error);
         }
+    }
 
-        fetchEmployeeData();
+    const handleGetPayments = async () => {
+        try {
+            const allPayments = await paymentAdapter.getAllPayments(); 
+            setPayments(allPayments);
+            console.log("Paymentsssssss: " + JSON.stringify(paymentsInfo))
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+
+    useEffect(() => {   
+        handleGetSchedulings();
+        handleGetPayments();
+    },[])
+
+    const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
+    const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
+
+    useEffect(() => {
+        paymentsInfo?.forEach(e => {
+            listaProdutos.push({
+                produto: e.product.name,
+                cliente: e.client.name,
+                estabelecimento: e.establishment.name,
+                preco: e.product.value
+            })
+        });
+
+        console.log(listaProdutos)
+
+        scheduleInfo?.forEach(e => {
+            listaScheduling.push({
+                servico: e.service.specification,
+                funcionario: e.employee.name,
+                cliente: e.client.name,
+            })
+        })
+
+
+    },[paymentsInfo, scheduleInfo])
+
+    useEffect(() => {
 
 
         if (tokenFromCookie) {
@@ -90,15 +142,28 @@ const Orders: React.FC = () => {
                         </S.FiltersContainer>
 
                         <S.OrdersContainer>
-                            <CardPedido 
-                                client="deixar dinamico" 
-                                employee={employeeInfo?.name}
-                                establishment={employeeInfo?.establishment.name}
-                                preco={20}
-                                service="deixar"
-                                status="Em Andamento"
-                                imgUrl=""
-                            />
+                            {paymentsInfo && paymentsInfo.map((data) => (
+                                <CardPedidoProduto 
+                                    id={data.id}
+                                    client={data.client.name}
+                                    establishment={data.establishment.name}
+                                    preco={data.product.value}
+                                    service={data.product.name}
+                                    status="Em Andamento"
+                                    imgUrl=""
+                                />
+                            ))}
+                            {scheduleInfo && scheduleInfo.map((data) => (
+                                <CardPedidoServico 
+                                    id={data.idSchedulig}
+                                    client={data.client.name}
+                                    establishment={data.employee.establishment.name}
+                                    employee={data.employee.name}
+                                    service={data.service.specification}
+                                    status="Em Andamento"
+                                    imgUrl=""
+                                />
+                            ))}
                         </S.OrdersContainer>    
                     </S.OrdersBody>
 
@@ -137,7 +202,7 @@ const Orders: React.FC = () => {
                     </S.FiltersContainer>
 
                     <S.OrdersContainer>
-                        <CardPedido 
+                        <CardPedidoProduto 
                             client="deixar dinamico" 
                             employee="deixar"
                             establishment="dinamico"
@@ -182,7 +247,8 @@ const Orders: React.FC = () => {
                         </S.FiltersContainer>
 
                         <S.OrdersContainer>
-                            <CardPedido 
+                            <CardPedidoServico 
+                                
                                 client="deixar dinamico" 
                                 employee="deixar"
                                 establishment="dinamico"

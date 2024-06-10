@@ -1,4 +1,5 @@
 import { EstablishmentResponseDto } from "../Establishment/establishment.types";
+import { ProductResponseDto } from "../Products/Product/product.types";
 import { ClientResponseDto } from "../Users/Client/client.types";
 
 export interface PaymentRequestDto {
@@ -9,9 +10,9 @@ export interface PaymentRequestDto {
 }
 
 export interface PaymentResponseDto {
-    paymentId: number;
+    id: number;
     dateTime: string;
-    /* product: ProductResponseDto; */
+    product: ProductResponseDto;
     client: ClientResponseDto;
     establishment: EstablishmentResponseDto;
 }

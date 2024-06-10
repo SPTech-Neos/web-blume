@@ -5,8 +5,13 @@ import iconProfile from '../../../assets/icon-profile.png';
 import Subtitle from "../../Texts/Subtitle/Subtitle";
 
 export const PrimaryCardResult:React.FC<S.PropsCardResult> = ({ id, imgUrl, name, servicesName}) => {
+    const handleCardClick = () => {
+        window.location.href = `/establishment/${id}`;
+    };
+
+
     return (
-        <S.PrimaryCardResult data-id={id}>
+        <S.PrimaryCardResult data-id={id} onClick={handleCardClick}>
             <S.PrimaryCardResultContainer>
                 <S.EstablishmentImgUrl 
                     alt={`Imagem de perfil da loja: ${name}`}
@@ -33,8 +38,12 @@ export const PrimaryCardResult:React.FC<S.PropsCardResult> = ({ id, imgUrl, name
 }
 
 export const SecondaryCardResult: React.FC<S.PropsCardResult> = ({ id, imgUrl, name, servicesName }) => {
+    const handleCardClick = () => {
+        window.location.href = `/establishment/${id}`;
+    };
+
     return (
-        <S.SecondaryCardResult data-id={id}>
+        <S.SecondaryCardResult data-id={id} onClick={handleCardClick}>
             <S.SecondaryCardResultContainer>
                 <S.EstablishmentImgUrl 
                     alt={`Imagem de perfil da loja: ${name}`}
@@ -62,6 +71,7 @@ export const SecondaryCardResult: React.FC<S.PropsCardResult> = ({ id, imgUrl, n
 }
 
 export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ filters }) => {
+
     return (
         <S.ServiceCardResult>
             <S.ServiceCardResultContainer>

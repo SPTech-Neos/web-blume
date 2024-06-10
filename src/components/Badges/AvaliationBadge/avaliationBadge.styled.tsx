@@ -8,6 +8,8 @@ export const BadgeBody = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+
     border-radius: 15px;
     font-weight: bold;
     font-size: 12px;

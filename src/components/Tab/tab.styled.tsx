@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Container from "../Containers/Container/Container";
-import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 export interface SectionProps {
     result?: string;
     theme?: 'client' | 'establishment' | string;
-    establishmentInfo?: EstablishmentResponseDto;
+    establishmentInfo?: EstablishmentFullResponseDto;
 }
 
 

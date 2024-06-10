@@ -149,7 +149,7 @@ export const ProfileInfoContainer = styled.div`
     padding-left: 5px;
 `;
 
-export const ProfileImg = styled.div`
+export const ProfileImg = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -212,5 +212,4 @@ export const CardContainer = styled.div`
     }
 `;
 export const BadgeService = styled(Badge)`
-
 `;

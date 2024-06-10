@@ -16,6 +16,7 @@ export interface ProductResponseDto {
     id: number | string;
     name: string;
     brand: string; 
+    imgUrl: string;
     type: ProductTypeResponseDto
     value: number;
     establishment: EstablishmentResponseDto;

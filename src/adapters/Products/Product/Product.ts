@@ -57,6 +57,7 @@ export class ProductAdapter {
             return {
                 id: response.data.id,
                 name: response.data.name,
+                imgUrl: response.data.imgUrl,
                 brand: response.data.brand, 
                 type: response.data.type,
                 value: response.data.value,

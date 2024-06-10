@@ -5,10 +5,11 @@ import { Info } from "phosphor-react";
 import { colors as c } from "../../../styles/Colors";
 import Modal from "../../Modals/FormModal/Modal";
 import { ModalProps } from "../../Modals/FormModal/modal.styled";
-import { ServiceAdapter } from "../../../adapters/Products/Service/Service";
+// import { ServiceAdapter } from "../../../adapters/Products/Service/Service";
 import { PaymentAdapter } from "../../../adapters/Payments/Payment";
 import { SchedulingAdapter } from "../../../adapters/Scheduling/Scheduling";
 import { ProductAdapter } from "../../../adapters/Products/Product/Product";
+import { FilterAdapter } from "../../../adapters/Filters/Filters";
 
 
 export const CardPedidoProduto: React.FC<S.PedidoProps> = ({id, service, client, establishment, preco, status, imgUrl}) => {
@@ -204,7 +205,8 @@ export const CardServico: React.FC<S.PedidoProps> = ({id, service, preco, status
     
     const [modalProps, setModalProps] = useState<ModalProps | null>(null);
     
-    const serviceAdapter = new ServiceAdapter;
+    // const serviceAdapter = new ServiceAdapter;
+    const filterAdapter = new FilterAdapter;
 
     const openDeleteModal = () => {
         setModalProps({
@@ -222,13 +224,13 @@ export const CardServico: React.FC<S.PedidoProps> = ({id, service, preco, status
     }
 
     const handleDeleteConfirmation = async () => {
-       const resultDelete = await serviceAdapter.delete(Number(id));
+        const resultDelete = await filterAdapter.delete(Number(id));
        
-       if(resultDelete){
-           setModalProps(null);
-           console.log(resultDelete);
+        if(resultDelete){
+            setModalProps(null);
+            console.log(resultDelete);
             handleReload();
-       }
+        }
        
     };
 
@@ -302,13 +304,14 @@ export const CardProduto: React.FC<S.PedidoProps> = ({id, service, preco, status
     const productAdapter = new ProductAdapter
 
     const handleDeleteConfirmation = async () => {
-       const resultDelete = await productAdapter.delete(Number(id));
+        console.log("iddddddddddd " + id)
+        const resultDelete = await productAdapter.delete(Number(id));
        
-       if(resultDelete){
-           setModalProps(null);
-           console.log(resultDelete);
+        if(resultDelete){
+            setModalProps(null);
+            console.log(resultDelete);
             handleReload();
-       }
+        }
        
     };
 

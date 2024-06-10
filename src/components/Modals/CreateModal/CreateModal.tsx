@@ -148,26 +148,30 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                 console.log("entrei no if serviço")
                 const serviceCreated = await adapterService.register(serviceNew);  
                 console.log("serviço criando" + JSON.stringify(serviceCreated));
-
-                const employeeServicesNew = {
-                    hoursSpent: new Date().getDate(),
-                    expertise: 1,
-                    fkEmployee: Number(funcionario),
-                    fkService: serviceCreated?.id
-                }
-
-                if(employeeServicesNew){
-                    const employeeServiceCreated = await employeeServiceAdapter.create(employeeServicesNew)
-                    console.log("serviço criando" + JSON.stringify(employeeServiceCreated));
-
-                    const filterNew = {
-                        price: Number(preco),
-                        fkService: Number(serviceCreated?.id),
-                        fkEstablishment: Number(token.establishment.id)
+            
+                if(serviceCreated){
+                    const employeeServicesNew = {
+                        hoursSpent: new Date().getDate(),
+                        expertise: 1,
+                        fkEmployee: Number(funcionario),
+                        fkService: serviceCreated.serviceId
                     }
 
-                    const filterCreated = await filterAdapter.create(filterNew);
-                    console.log("filtro criado" + filterCreated);
+                    if(employeeServicesNew){
+                        const employeeServiceCreated = await employeeServiceAdapter.create(employeeServicesNew)
+                        console.log("serviço employee criado" + JSON.stringify(employeeServiceCreated));
+    
+                        const filterNew = {
+                            price: Number(preco),
+                            fkService: serviceCreated.serviceId,
+                            fkEstablishment: Number(token.establishment.id)
+                        }
+    
+                        const filterCreated = await filterAdapter.create(filterNew);
+                        console.log("filtro criado" + filterCreated);
+                }
+
+
                 }
             }
 

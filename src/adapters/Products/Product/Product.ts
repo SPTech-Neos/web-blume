@@ -51,5 +51,22 @@ export class ProductAdapter {
         }
     }
 
+    async getProductById(id: number): Promise<ProductResponseDto | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/products/${id}`, this.getRequestOptions());
+            return {
+                id: response.data.id,
+                name: response.data.name,
+                brand: response.data.brand, 
+                type: response.data.type,
+                value: response.data.value,
+                establishment: response.data.establishment
+            } as ProductResponseDto;
+        } catch (error) {
+            console.error("Error getting service by token:", error);
+            return null;
+        }
+    }
+
 }
 

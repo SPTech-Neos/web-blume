@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
         theme = "employee";
         handleLogout = handleLogoutEmployee;
         
-    } else if(isAuthenticatedClient) {
+    } else {
         theme = "client";
         handleLogout = handleLogoutClient;
     }
@@ -63,7 +63,7 @@ const Sidebar: React.FC = () => {
 
                 <S.NavList>
                     <S.NavItem>
-                        <S.NavLink to={theme == "client"? "/feed" : "/services"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to={theme == "employee"? "/services" : "/feed"} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                         {theme == "establishment" || theme == "employee"?(
                                 <Article size={24} />
                             ) :

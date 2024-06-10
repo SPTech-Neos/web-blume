@@ -59,7 +59,7 @@ const App: React.FC = () => {
           <Client />}
         />
         <Route path="/employee" element={<Employee/>}/>
-        <Route path="/details" element={<Details/>}/>
+        <Route path="/details/:type/:id" element={<Details />} />
         <Route path="/orders" element={<Orders/>}/>
         <Route path="/services" element={<Services/>}/>
         <Route path="/products" element={<Products/>}/>

@@ -157,7 +157,7 @@ export const ProfileImg = styled.div`
 `;
 
 
-export const DetailsImg = styled.div`
+export const DetailsImg = styled.img`
     width: 280px;
     height: 260px;
     border-radius: 20px;

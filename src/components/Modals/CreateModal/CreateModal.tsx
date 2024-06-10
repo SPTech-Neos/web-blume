@@ -186,7 +186,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                 name: name, 
                 email: email, 
                 password: password, 
-                fkEstablishment: 1, 
+                fkEstablishment: token.establishment.id, 
                 employeeType: 1 
             }
 

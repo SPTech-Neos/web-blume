@@ -1,5 +1,6 @@
 import React from "react";
 import * as S from './cardFeedResult.styled';
+// teste
 
 import iconProfile from '../../../assets/icon-profile.png';
 import Subtitle from "../../Texts/Subtitle/Subtitle";

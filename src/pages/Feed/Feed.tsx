@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { colors as c } from '../../styles/Colors';
 
 import * as S from "./feed.styled";
 

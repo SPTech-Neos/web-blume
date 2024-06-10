@@ -50,9 +50,7 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
 
     <S.Col>
       <SecondaryTitle>Melhor Serviço</SecondaryTitle>
-      {/* Mapeia os resultados para coletar os filtros válidos */}
       {(() => {
-        // Define uma variável local para armazenar os filtros válidos
         let validFilters: FilterResponseDto[] = [];
 
         // Reduz os resultados para coletar os filtros válidos
@@ -79,7 +77,7 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
             />
           );
         } else {
-          return null; // Não há filtros válidos, não renderiza nada
+          return null;
         }
       })()}
     </S.Col>

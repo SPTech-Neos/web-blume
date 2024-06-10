@@ -153,7 +153,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                     hoursSpent: new Date().getDate(),
                     expertise: 1,
                     fkEmployee: Number(funcionario),
-                    fkService: serviceCreated?.serviceId
+                    fkService: serviceCreated?.id
                 }
 
                 if(employeeServicesNew){
@@ -162,7 +162,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
                     const filterNew = {
                         price: Number(preco),
-                        fkService: Number(serviceCreated?.serviceId),
+                        fkService: Number(serviceCreated?.id),
                         fkEstablishment: Number(token.establishment.id)
                     }
 

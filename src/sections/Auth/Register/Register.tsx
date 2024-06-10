@@ -17,19 +17,22 @@ import InputImage from "../../../components/Input/InputImage/InputImage";
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
 import { LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import Dropdown from "../../../components/Input/Dropdown/Dropdown";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishment";
 import { EmployeeAdapter } from "../../../adapters/User/Employee/Employee";
 import { ClientAdapter } from "../../../adapters/User/Client/Client";
-import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
-import { EstablishmentRequestDto } from "../../../utils/Establishment/establishment.types";
-import { ClientRequestDto } from "../../../utils/Users/Client/client.types";
+import {  EmployeeResponseDto } from "../../../utils/Users/Employee/employee.types";
+import {  EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
+import {  ClientResponseDto } from "../../../utils/Users/Client/client.types";
+import { AddressAdapter } from "../../../adapters/Address/Address";
+import { LocalAdapter } from "../../../adapters/Local/Local";
 
-const Register: React.FC<S.RegisterProps> = ({}) => {
+const Register: React.FC<S.RegisterProps> = () => {
   // const [isClient, setIsClient] = useState("");
   const [cats, setCats] = useState<string[]>(["cate", "goria", "legal"]);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
 
   const acc = searchParams.get("acc") || "none";
@@ -49,16 +52,10 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
   const establishAdapter = new EstablishmentAdapter;
   const employeeAdapter = new EmployeeAdapter;
   const clientAdapter = new ClientAdapter;
+  const addressAdapter = new AddressAdapter;
+  const localAdapter = new LocalAdapter;
   
-  function handleSubmit(dto: EstablishmentRequestDto | ClientRequestDto, dtoE: EmployeeRequestDto | null) {
-    if(acc == "client"){
-      console.log(acc);
-      console.log(dto);
-      console.log(dtoE);
-    }else{
-      console.log(dto);
-      console.log(dtoE);
-    }
+  function handleSubmit() {
 
   }
 
@@ -287,6 +284,11 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     const [email, setEmail] = useState("");  
     const [senha, setSenha] = useState("");  
     const [confSenha, setConfSenha] = useState("");  
+
+
+    const [establishmentResponse, setEstablishmentResponse] = useState<EstablishmentResponseDto | null>(null);
+    const [employeeResponse, setEmployeeResponse] = useState<EmployeeResponseDto | null>(null);
+    const [clientResponse, setClientResponse] = useState<ClientResponseDto | null>(null);
     // const [maxStep, setMaxStep] = useState();
     // const [minStep, setMinStep] = useState();
 
@@ -342,6 +344,11 @@ const Establishment: React.FC<S.RegisterProps> = () => {
     };
 
     function handleFormEstablishment(step: number) {
+      if(step > 4){
+        handleMapCreate();
+        navigate("auth?mode=login")
+      }
+
       switch (step) {
         case 1: {
           return (
@@ -545,26 +552,60 @@ const Establishment: React.FC<S.RegisterProps> = () => {
           );
         }
         default: {
-          return <h1>DEFAULT</h1>;
+          return <h1>Cadastrado com sucesso!</h1>
         }
       }
     }
 
 
     const handleMapCreate = async () => {
-      const newLocal = {
-        publicPlace: string
-        street: string;
-        city: string;
-        state: string;
+      
+      const newAddress = {
+        publicPlace: "logradouro",
+        street: "aaa",
+        city: "aa",
+        state: "SP"
       }
 
-      const newEstablishment = {
-        name: string,
-        imgUrl?: string,
-        companyId: number,
-        localId: LocalRequestDto
+      const addressCreated = await addressAdapter.create(newAddress);
+
+      
+      if(addressCreated){
+
+        const newLocal = {
+          number: 190,
+          address: 1,
+        }
+        
+        const localCreated = await localAdapter.create(newLocal);
+
+        if(localCreated){
+          const newEstablishment = {
+            name: "estabName",
+            companyId: 1,
+            localId: 1
+          }
+
+          const establishmentCreated = await establishAdapter.register(newEstablishment);
+          if(establishmentCreated){
+            
+            const employeeNew = {
+              name: "name", 
+              email: "email@email.com", 
+              password: "1234", 
+              fkEstablishment: 1, 
+              employeeType: 1 
+            }
+            
+            const employeeCreated = await employeeAdapter.create(employeeNew);
+            console.log(employeeCreated);
+          }
+
+        }
+
       }
+
+
     }
 
     return (

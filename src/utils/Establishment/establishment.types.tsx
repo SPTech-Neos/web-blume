@@ -2,14 +2,14 @@
 import { ProductResponseDto } from "../../utils/Products/Product/product.types"
 import { CompanyResponseDto } from "../Company/company.types";
 import { FilterResponseDto } from "../Filter/filters.types";
-import { LocalRequestDto, LocalResponseDto } from "../Local/local.types";
+import { LocalResponseDto } from "../Local/local.types";
 import {EmployeeResponseFullDto } from "../Users/Employee/employee.types";
 
 export interface EstablishmentRequestDto {
     name: string;
     imgUrl?: string;
     companyId: number;
-    localId: LocalRequestDto
+    localId: number;
 }
 
 export interface EstablishmentResponseDto {

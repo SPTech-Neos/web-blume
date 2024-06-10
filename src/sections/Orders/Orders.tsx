@@ -196,7 +196,7 @@ const Orders: React.FC = () => {
                                     id={data.id}
                                     client={data.client.name}
                                     establishment={data.establishment.name}
-                                    preco={data.product.value}
+                                    preco={30}
                                     service={data.product.name}
                                     status={"Em Andamento"}
                                     imgUrl={data.product.imgUrl || ""}

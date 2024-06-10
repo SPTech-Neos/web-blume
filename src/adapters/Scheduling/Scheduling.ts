@@ -1,6 +1,6 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
+import { SchedulingRequestDto, SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
 
 
 export class SchedulingAdapter {
@@ -55,6 +55,27 @@ export class SchedulingAdapter {
             return response.data;
         } catch (error) {
             console.error("Error getting schedulings by employee ID:", error);
+            return null;
+        }
+    }
+
+    
+    async register(schedulingDto: SchedulingRequestDto): Promise<SchedulingResponseDto | null> {
+        try {
+            const response = await axios.post(`${this.apiUrl}/scheduling`, schedulingDto, this.getRequestOptions());
+            return {
+                serviceId: response.data.id,
+                specification: response.data.specification,
+                imgUrl: response.data.imgUrl,
+                serviceType: response.data.serviceType,
+                client: response.data.client,
+                employee: response.data.employee,
+                idSchedulig: response.data.id,
+                service: response.data.service,
+                schedulingStatus: response.data.schedulingStatus
+            }  as SchedulingResponseDto;
+        } catch (error) {
+            console.error("Error creating service:", error);
             return null;
         }
     }

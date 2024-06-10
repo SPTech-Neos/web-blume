@@ -7,7 +7,7 @@ import Subtitle from "../../Texts/Subtitle/Subtitle";
 
 export const PrimaryCardResult:React.FC<S.PropsCardResult> = ({ id, imgUrl, name, servicesName}) => {
     const handleCardClick = () => {
-        window.location.href = `/establishment/${id}`;
+        window.location.href = `/establishment/${id - 1}`;
     };
 
 

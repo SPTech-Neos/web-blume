@@ -10,6 +10,7 @@ import * as S from './scheduleModal.styled';
 
 import { SecondaryTitle } from '../../Texts/Title/title.styled';
 import { PrimaryButton as Button } from '../../Button/button.styled';
+import { SchedulingAdapter } from '../../../adapters/Scheduling/Scheduling';
 
 interface props {
     id?: string
@@ -26,7 +27,7 @@ const Schedule: React.FC<props> = ({id}) => {
 
 
     const [value, setValue] = React.useState<Dayjs | null>(dayjs(currentDate));
-    
+    const schedulingAdapter = new SchedulingAdapter
 
     const closeModal = () => {
         const schedule = document.getElementById("schedule");
@@ -36,14 +37,28 @@ const Schedule: React.FC<props> = ({id}) => {
         
     }
 
-    const handleSelect = () => {
+    const handleSelect = async () => {
         const selected = document.getElementsByClassName("active");
         const hourScheduled = selected[0].textContent;
         if(value != undefined){
             const date = value.valueOf();
             const formattedDate = moment(date).format('YYYY/MM/DD ' + hourScheduled + ':00');
             console.log(formattedDate);
-            alert(formattedDate);
+
+            const newSchedule = {
+                fkScheduligStatus: 2,
+                fkService: 2,
+                fkEmployee: 2,
+                fkClient: 2,
+            }
+
+            try {
+                const scheduling = schedulingAdapter.register(newSchedule);
+                console.log(JSON.stringify(scheduling));
+            }catch(error){
+                console.log(error);
+            }
+
             closeModal();
         }
     }

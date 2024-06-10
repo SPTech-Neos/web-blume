@@ -1,6 +1,6 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-import { PaymentResponseDto } from "../../utils/Payment/payment.types";
+import { PaymentRequestDto, PaymentResponseDto } from "../../utils/Payment/payment.types";
 
 
 export class PaymentAdapter {
@@ -35,6 +35,22 @@ export class PaymentAdapter {
             return scheduling
         } catch (error) {
             console.error("Error getting service by token:", error);
+            return null;
+        }
+    }
+
+    async create(paymentDto: PaymentRequestDto): Promise<PaymentResponseDto | null> {
+        try {
+            const response = await axios.post(`${this.apiUrl}/payment`, paymentDto, this.getRequestOptions());
+            return {
+                id: response.data.id,
+                value: response.data.value,
+                product: response.data.product,
+                client: response.data.client,
+                establishment: response.data.establishment
+            } as PaymentResponseDto;
+        } catch (error) {
+            console.error("Error creating employee:", error);
             return null;
         }
     }

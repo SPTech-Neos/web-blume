@@ -65,7 +65,7 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                             establishmentInfo && establishmentInfo.filters ? (
                                 Array.isArray(establishmentInfo.filters) && establishmentInfo.filters.length > 0 ? 
                                     establishmentInfo.filters.map((filter: FilterResponseDto, index: number) => (
-                                        <ServiceCard key={index} id={filter.service.id} theme={theme} nome={filter.service.specification} valor={filter.price} img={filter.service.imgUrl}/>
+                                        <ServiceCard key={index} id={filter.service.id - 1 } theme={theme} nome={filter.service.specification} valor={filter.price} img={filter.service.imgUrl}/>
                                     ))
                                 : "Sem serviços no momento"
                             ) : null

@@ -52,15 +52,7 @@ const ChooseModal:React.FC<S.SelectEmployee> = () => {
                         <S.EmployeeChoiceContainer id="container-employees">
                             <S.ProfileEmployee id="1" onClick={handleClick}>
                                 <S.ProfileImg />
-                                <h4>Nome</h4>
-                            </S.ProfileEmployee>
-                            <S.ProfileEmployee id="2" onClick={handleClick}>
-                                <S.ProfileImg />
-                                <h4>Nome</h4>
-                            </S.ProfileEmployee>
-                            <S.ProfileEmployee id="3" onClick={handleClick}>
-                                <S.ProfileImg />
-                                <h4>Nome</h4>
+                                <h4>Kevin</h4>
                             </S.ProfileEmployee>
                         </S.EmployeeChoiceContainer>
                     <Button width="180px" onClick={handleSelect}>

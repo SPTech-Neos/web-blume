@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import * as S from './details.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
+import Cookies from "js-cookie";
 
 import { PrimaryButton as Button } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { CaretLeft } from "phosphor-react";
@@ -16,6 +17,8 @@ import { ProductResponseDto } from "../../utils/Products/Product/product.types";
 
 import { FilterAdapter } from "../../adapters/Filters/Filters";
 import { FilterResponseDto } from "../../utils/Filter/filters.types";
+import { PaymentAdapter } from "../../adapters/Payments/Payment";
+// import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
  
 const Details: React.FC<S.detailsProps> = () => {
 
@@ -27,11 +30,19 @@ const Details: React.FC<S.detailsProps> = () => {
         editModal?.classList.add("active-modal");
     }
 
+        
+    // const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
+    const tokenFromCookie = Cookies.get('clientInfo');
+    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
     const [productInfo, setProductInfo] = useState<ProductResponseDto | null>(null);
     const [filterInfo, setFilterInfo] = useState<FilterResponseDto | null>(null);
 
     const productAdapter = new ProductAdapter;
     const filterAdapter = new FilterAdapter;
+    const paymentAdapter = new PaymentAdapter;
+
+    console.log("tokenn " + token);
 
     // LOAD PRODUTO/SERVIÇO =========================
     useEffect(() => {
@@ -54,6 +65,30 @@ const Details: React.FC<S.detailsProps> = () => {
         }
 
     }, []);
+
+    const handleComprarProduto = async () => {
+        console.log("aloooo")
+        try{
+            if(productInfo){
+                console.log(productInfo)
+
+                const newPayment = {
+                    productId: Number(productInfo.id),
+                    value: 30.0,
+                    clientId: token.clientId,
+                    establishmentId: productInfo.establishment.id
+                }
+    
+                const paymentCreated = await paymentAdapter.create(newPayment);
+                console.log(JSON.stringify(paymentCreated));
+            }
+
+        }catch(error){
+            console.log(error);
+        }
+
+
+    }
 
     return (
         productInfo || filterInfo ? (
@@ -108,7 +143,10 @@ const Details: React.FC<S.detailsProps> = () => {
 
                                 <S.PrecificacaoContainer>
                                     <h1>R$ {(filterInfo?.price)?.toFixed(2) || (productInfo?.value)?.toFixed(2)}</h1>
-                                    <Button width="180px" size="md" onClick={openModal}>{filterInfo ? "Agendar" : "Comprar"}</Button>
+                                    {filterInfo ? 
+                                       <Button width="180px" size="md" onClick={openModal}>Agendar</Button>
+                                        : <Button width="180px" size="md" onClick={handleComprarProduto}>Comprar</Button>
+                                    }
                                 </S.PrecificacaoContainer>
                             </S.NameInfoContainer>
                         </S.DetailsInfoContainer>

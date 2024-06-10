@@ -6,6 +6,7 @@ export interface ServiceRequestDto {
 }
 
 export interface ServiceResponseDto {
+    [x: string]: any;
     serviceId: number;
     specification: string;
     imgUrl?: string; 

@@ -8,7 +8,7 @@ export interface FilterRequestDto {
 }
 
 export interface FilterResponseDto {
-    filterId: number;
+    id: number;
     price: number;
     establishment: EstablishmentResponseDto;
     service: ServiceResponseDto;

@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { colors as c } from "../../../styles/Colors";
 import { device } from "../../../styles/breakpoints.styled";
+import { FilterResponseDto } from "../../../utils/Filter/filters.types";
 
-export interface PropsCardResult {
-  estabId: number;
-  imgUrl: string | undefined;
-  name: string;
-  servicesName: string[] | null;
+export interface PropsCardResult{
+  id?: number;
+  imgUrl?: string | undefined;
+  name?: string;
+  servicesName?: string[] | null;
+  filters?: FilterResponseDto[];
+  specification?: string;
+  price?: string; 
 }
 
 
@@ -115,4 +119,65 @@ export const SecondaryCardResultContainer = styled.div`
   gap: 15px;
 
   text-align:center;
+`;
+
+// SERVICE CARD RESULT ================
+
+export const ServiceCardResult = styled.div`
+  width: 100%;
+  max-width: 550px;
+  height: 35%;
+  min-height: 250px;
+
+  background-color: ${c.gray100};
+  border: none;
+  border-radius: 16px;
+  box-shadow: 2px 2px 50px -15px ${c.gray500};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media ${device.tablet} {
+
+  }
+
+  @media ${device.mobileL} {
+
+  }
+`;
+
+export const ServiceCardResultContainer = styled.div`
+  width: 90%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const ServiceImgUrl = styled.img`
+  width: 150px;
+  height: 100px;
+
+  border-radius: 8px;
+`;
+
+export const ServiceCard = styled.div`
+  width: 100%;
+  height: 100px;
+
+  display: flex;
+  gap: 8px;
+`;
+
+// UTILS ======================
+
+export const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
 `;

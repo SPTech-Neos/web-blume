@@ -14,16 +14,13 @@ import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
 import { useLocation } from "react-router-dom";
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
-import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
-import { ServiceAdapter } from "../../adapters/Products/Service/Service";
-// import Link from "../../components/Texts/Link/Link";
+import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
 
 const Feed: React.FC<S.FeedProps> = () => {
   const establishmentAdapter = new EstablishmentAdapter;
-  const serviceAdapter = new ServiceAdapter;
 
   const location = useLocation();
-  const searchResultsHome: EstablishmentResponseDto[] = location.state
+  const searchResultsHome: EstablishmentFullResponseDto[] = location.state
     ? location.state.searchResults
     : [];
 
@@ -32,7 +29,7 @@ const Feed: React.FC<S.FeedProps> = () => {
     : "";
 
   const [searchQuery, setSearchQuery] = useState(searchQueryHome);
-  const [searchResults, setSearchResults] = useState<EstablishmentResponseDto[]>(searchResultsHome);
+  const [searchResultsEstablishment, setSearchResultsEstablishment] = useState<EstablishmentFullResponseDto[]>(searchResultsHome);
   const [searchClicked, setSearchClicked] = useState(false);
 
   const handleSearchClick = () => {
@@ -45,20 +42,10 @@ const Feed: React.FC<S.FeedProps> = () => {
 
   const fetchEstablishments = async () => {
     try {
-        const results = await establishmentAdapter.getAllEstablishments();
+        const results = await establishmentAdapter.getAllEstab();
         if (results) {
-            setSearchResults(results);
-        }
-    } catch (error) {
-        console.error("Failed to fetch establishments:", error);
-    }
-  };
-
-  const fetchServices = async () => {
-    try {
-        const results = await establishmentAdapter.getAllEstablishments();
-        if (results) {
-            setSearchResults(results);
+            console.log(`RESULTADOS PESQUISA: ${JSON.stringify(results)}`)
+            setSearchResultsEstablishment(results);
         }
     } catch (error) {
         console.error("Failed to fetch establishments:", error);
@@ -66,10 +53,10 @@ const Feed: React.FC<S.FeedProps> = () => {
   };
 
   const handleResultClick = () => {
-    setSearchResults([]);
+    setSearchResultsEstablishment([]);
     
     if (searchQuery) {
-        fetchEstablishments(1);
+        fetchEstablishments();
     }
   };
 
@@ -108,8 +95,8 @@ const Feed: React.FC<S.FeedProps> = () => {
           />
         </>
 
-        {(searchResults.length > 0 || searchResultsHome.length > 0) && searchQuery.length !== 0 ? (
-          <Results searchResults={searchResults} />
+        {(searchResultsEstablishment.length > 0 || searchResultsHome.length > 0) && searchQuery.length !== 0 ? (
+          <Results searchResultsEstablishment={searchResultsEstablishment} />
         ) : searchClicked || searchQuery.length === 1 ? (
           <Search searchQuery={searchQuery} />
         ) : (

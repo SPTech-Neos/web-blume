@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ProductResponseDto } from "../../adapters/Products/Product/Product";
+import { ProductResponseDto } from "../../utils/Products/Product/product.types"
 import { CompanyResponseDto } from "../Company/company.types";
 import { FilterResponseDto } from "../Filter/filters.types";
 import { LocalRequestDto, LocalResponseDto } from "../Local/local.types";

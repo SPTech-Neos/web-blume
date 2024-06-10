@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // TO REDO
 import React, { useState } from "react";
 import * as S from "./register.styled";
@@ -17,6 +18,12 @@ import { Column } from "../../../components/Input/InputImage/inputImage.styled";
 import { LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
 import Dropdown from "../../../components/Input/Dropdown/Dropdown";
 import { useLocation } from "react-router-dom";
+import { EstablishmentAdapter } from "../../../adapters/Establishment/Establishment";
+import { EmployeeAdapter } from "../../../adapters/User/Employee/Employee";
+import { ClientAdapter } from "../../../adapters/User/Client/Client";
+import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
+import { EstablishmentRequestDto } from "../../../utils/Establishment/establishment.types";
+import { ClientRequestDto } from "../../../utils/Users/Client/client.types";
 
 const Register: React.FC<S.RegisterProps> = ({}) => {
   // const [isClient, setIsClient] = useState("");
@@ -39,9 +46,23 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
     }
   }
 
-  function handleSubmit() {}
+  const establishAdapter = new EstablishmentAdapter;
+  const employeeAdapter = new EmployeeAdapter;
+  const clientAdapter = new ClientAdapter;
+  
+  function handleSubmit(dto: EstablishmentRequestDto | ClientRequestDto, dtoE: EmployeeRequestDto | null) {
+    if(acc == "client"){
+      console.log(acc);
+      console.log(dto);
+      console.log(dtoE);
+    }else{
+      console.log(dto);
+      console.log(dtoE);
+    }
 
-  const Client: React.FC<S.RegisterProps> = ({}) => {
+  }
+
+  const Client: React.FC<S.RegisterProps> = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -75,7 +96,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                   label="Nome"
                   type={"text"}
                   placeholder="Joana Silva"
-                  onChange={() => {}}
+                  onChange={(e) => {setName(e.target.value)}}
                 />
 
                 <InputText
@@ -83,7 +104,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                   label="E-mail"
                   type={"email"}
                   placeholder="exemplo@servidor.com"
-                  onChange={() => {}}
+                  onChange={(e) => {setEmail(e.target.value)}}
                 />
                 <Column>
                   <InputContainer>
@@ -93,7 +114,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       label="Senha"
                       type={"password"}
                       placeholder="Bananina123"
-                      onChange={() => {}}
+                      onChange={(e) => {setSenha(e.target.value)}}
                     />
                     <InputText
                       theme={acc}
@@ -101,7 +122,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       label="Confirmar Senha"
                       type={"password"}
                       placeholder="***********"
-                      onChange={() => {}}
+                      onChange={(e) => {setConfSenha(e.target.value)}}
                     />
                   </InputContainer>
 
@@ -140,7 +161,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     label="CEP"
                     placeholder="01414001"
                     type={"text"}
-                    onChange={() => {}}
+                    onChange={(e) => {setCep(e.target.value)}}
                   />
 
                   <InputContainer>
@@ -150,7 +171,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       label="Logradouro"
                       placeholder="Rua Haddock Lobo"
                       type={"text"}
-                      onChange={() => {}}
+                      onChange={(e) => {setLogradouro(e.target.value)}}
                     />
                     <InputText
                       theme={acc}
@@ -158,7 +179,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       label="Número"
                       placeholder="575"
                       type={"text"}
-                      onChange={() => {}}
+                      onChange={(e) => {setNumero(e.target.value)}}
                     />
                   </InputContainer>
 
@@ -197,14 +218,14 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                         "SP",
                         "TO",
                       ]}
-                      onChange={() => {}}
+                      onChange={(e) => {setEstado(e.target.value)}}
                     />
                     <InputText
                       theme={acc}
                       size="big"
                       label="Complemento"
                       type={"text"}
-                      onChange={() => {}}
+                      onChange={(e) => {setComplemento(e.target.value)}}
                     />
                   </InputContainer>
                 </S.FormPartSmall>
@@ -250,10 +271,24 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
     );
   };
 
-  const Establishment: React.FC<S.RegisterProps> = ({}) => {
+const Establishment: React.FC<S.RegisterProps> = () => {
     const [step, setStep] = useState(1);
-    const [maxStep, setMaxStep] = useState();
-    const [minStep, setMinStep] = useState();
+    const [estabName, setEstabName] = useState("");
+    const [cnpj, setCnpj] = useState("");
+    const [startShift, setStartShift] = useState("");
+    const [endShift, setEndShift] = useState("");
+    const [cep, setCep] = useState("");
+    const [logradouro, setLogradouro] = useState("");
+    const [estado, setEstado] = useState("");
+    const [numero, setNumero] = useState("");
+    const [complemento, setComplemento] = useState("");
+    const [name, setName] = useState("");
+    const [descricao, setDescricao] = useState("");  
+    const [email, setEmail] = useState("");  
+    const [senha, setSenha] = useState("");  
+    const [confSenha, setConfSenha] = useState("");  
+    // const [maxStep, setMaxStep] = useState();
+    // const [minStep, setMinStep] = useState();
 
     function handleNext() {
       setStep(step + 1);
@@ -288,7 +323,8 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
     }
 
     const HandleCategories: React.FC<CategoriesProps> = ({ v }) => {
-      let elements = [];
+
+      const elements = [];
 
       for (let i = 0; i < v.length; i++) {
         const el = v[i];
@@ -315,7 +351,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 label="Nome do Estabelecimento"
                 type={"text"}
                 placeholder="Casa da Mãe Joana"
-                onChange={() => {}}
+                onChange={(e) => {setEstabName(e.target.value)}}
               />
 
               <InputText
@@ -323,7 +359,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 label="CNPJ"
                 type={"text"}
                 placeholder="XXXXXXX"
-                onChange={() => {}}
+                onChange={(e) => {setCnpj(e.target.value)}}
               />
 
               <InputContainer>
@@ -333,7 +369,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                   label="Horário de Entrada"
                   type={"time"}
                   placeholder=""
-                  onChange={() => {}}
+                  onChange={(e) => {setStartShift(e.target.value)}}
                 />
                 <InputText
                   theme={acc}
@@ -341,7 +377,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                   label="Horário de Saída"
                   type={"time"}
                   placeholder=""
-                  onChange={() => {}}
+                  onChange={(e) => {setEndShift(e.target.value)}}
                 />
               </InputContainer>
 
@@ -352,7 +388,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                   label="CEP"
                   placeholder="01414001"
                   type={"text"}
-                  onChange={() => {}}
+                  onChange={(e) => {setCep(e.target.value)}}
                 />
 
                 <InputContainer>
@@ -362,7 +398,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     label="Logradouro"
                     placeholder="Rua Haddock Lobo"
                     type={"text"}
-                    onChange={() => {}}
+                    onChange={(e) => {setLogradouro(e.target.value)}}
                   />
                   <InputText
                     theme={acc}
@@ -370,7 +406,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     label="Número"
                     placeholder="575"
                     type={"text"}
-                    onChange={() => {}}
+                    onChange={(e) => {setNumero(e.target.value)}}
                   />
                 </InputContainer>
 
@@ -409,14 +445,14 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                       "SP",
                       "TO",
                     ]}
-                    onChange={() => {}}
+                    onChange={(e) => {setEstado(e.target.value)}}
                   />
                   <InputText
                     theme={acc}
                     size="big"
                     label="Complemento"
                     type={"text"}
-                    onChange={() => {}}
+                    onChange={(e) => {setComplemento(e.target.value)}}
                   />
                 </InputContainer>
               </S.FormPartSmall>
@@ -432,7 +468,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 label="Descrição"
                 type={"text"}
                 placeholder="Como é seu estabelecimento..."
-                onChange={() => {}}
+                onChange={(e) => {setDescricao(e.target.value)}}
               />
             </S.FormPart>
           );
@@ -454,7 +490,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 label="Nome Completo"
                 type={"text"}
                 placeholder="Joana Silva"
-                onChange={() => {}}
+                onChange={(e) => {setName(e.target.value)}}
               />
 
               <InputText
@@ -462,7 +498,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                 label="E-mail"
                 type={"email"}
                 placeholder="exemplo@servidor.com"
-                onChange={() => {}}
+                onChange={(e) => {setEmail(e.target.value)}}
               />
               <Column>
                 <InputContainer>
@@ -472,7 +508,7 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     label="Senha"
                     type={"password"}
                     placeholder="Bananina123"
-                    onChange={() => {}}
+                    onChange={(e) => {setSenha(e.target.value)}}
                   />
                   <InputText
                     theme={acc}
@@ -480,12 +516,12 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
                     label="Confirmar Senha"
                     type={"password"}
                     placeholder="***********"
-                    onChange={() => {}}
+                    onChange={(e) => {setConfSenha(e.target.value)}}
                   />
                 </InputContainer>
 
                 <S.TextWrapper>
-                  <S.Text>
+                  <S.Text>  
                     Tamanho mínimo:{" "}
                     <S.CBText theme={acc}>8 caracteres</S.CBText>
                   </S.Text>
@@ -511,6 +547,23 @@ const Register: React.FC<S.RegisterProps> = ({}) => {
         default: {
           return <h1>DEFAULT</h1>;
         }
+      }
+    }
+
+
+    const handleMapCreate = async () => {
+      const newLocal = {
+        publicPlace: string
+        street: string;
+        city: string;
+        state: string;
+      }
+
+      const newEstablishment = {
+        name: string,
+        imgUrl?: string,
+        companyId: number,
+        localId: LocalRequestDto
       }
     }
 

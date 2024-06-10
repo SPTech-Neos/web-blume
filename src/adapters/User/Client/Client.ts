@@ -27,7 +27,7 @@ export class ClientAdapter {
 
             const response = await axios.get(`${this.apiUrl}/client/${id}`, requestOptions);
             return {
-                clientId: response.data.idClient,
+                clientId: response.data.clientId,
                 name: response.data.name,
                 email: response.data.email,
                 token: response.data.token,
@@ -59,7 +59,7 @@ export class ClientAdapter {
                 console.log(`TOKEN: ` + response.data.token)
 
                 return {
-                    clientId: response.data.idClient,
+                    clientId: response.data.clientId,
                     name: response.data.name,
                     email: response.data.email,
                     token: response.data.token,
@@ -100,7 +100,7 @@ export class ClientAdapter {
 
             if (response.status === 201) {
                 return {
-                    clientId: response.data.idClient,
+                    clientId: response.data.clientId,
                     name: response.data.name,
                     email: response.data.email,
                     token: response.data.token,

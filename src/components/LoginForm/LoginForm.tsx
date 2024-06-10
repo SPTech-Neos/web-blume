@@ -109,6 +109,9 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                     setLinkTo("/employee")
                     setOpen(true);
                 }
+
+                const redirectPath = window.sessionStorage.getItem('location') || '/';
+                navigate(redirectPath, { replace: true });
             } else {
                 newErrors.push({ account: 'Credenciais inválidas' });
                 setErrors(newErrors);

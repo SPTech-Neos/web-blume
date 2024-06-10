@@ -16,15 +16,12 @@ import { ProductResponseDto } from "../../utils/Products/Product/product.types";
 
 import { FilterAdapter } from "../../adapters/Filters/Filters";
 import { FilterResponseDto } from "../../utils/Filter/filters.types";
-
-import Badge from '../../components/Badges/AvaliationBadge/AvaliationBadge';
  
 const Details: React.FC<S.detailsProps> = () => {
 
     const { type, id } = useParams();
 
     const openModal = () => {
-        console.log("estou aqui");
         const editModal = document.getElementById("editModal");
         console.log(editModal);
         editModal?.classList.add("active-modal");

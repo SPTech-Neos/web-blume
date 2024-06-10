@@ -60,7 +60,20 @@ const App: React.FC = () => {
         />
         <Route path="/employee" element={<Employee/>}/>
         <Route path="/details/:type/:id" element={<Details />} />
-        <Route path="/orders" element={<Orders/>}/>
+        <Route
+          path='/orders'
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              isAuthenticated={isAuthenticated}
+              outlet={<Orders />}
+            />
+          }
+        />
+
+        { // <Route path="/orders" element={<Orders/>}/> 
+        }
+
         <Route path="/services" element={<Services/>}/>
         <Route path="/products" element={<Products/>}/>
         <Route path="/employees" element={<Employees/>}/>

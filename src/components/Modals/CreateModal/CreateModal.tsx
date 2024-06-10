@@ -245,7 +245,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                         <S.InputContainer>
                             <S.SelectType name="Selecione o funcionário do serviço" onChange={(e => handleChange(e, setFuncionario))}>
                             <option value="" disabled selected>Selecione o funcionário do serviço....</option>
-                            {establishmentFull && establishmentFull.employees.map((data: { id: string | number, name: string }) => (
+                            {establishmentFull?.employees && establishmentFull.employees.map((data: { id: string | number, name: string }) => (
                                 <option  value={data.id}> {data.name} </option>
                             ))}
                         </S.SelectType>

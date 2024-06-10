@@ -150,7 +150,7 @@ const ProfileB2B: React.FC = () => {
                             <Logo />
                         </S.HeaderProfile>
                         <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.establishment.name} profile={establishmentInfo?.establishment.imgUrl} />
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.establishment.imgUrl} />
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
@@ -162,7 +162,7 @@ const ProfileB2B: React.FC = () => {
                                         ? establishmentInfo.filters.slice(0, 2).map((filter: FilterResponseDto, index: number) => (
                                             <Badge key={index}>{filter.service.specification}</Badge>
                                         ))
-                                        : null
+                                        : null  
                                 )}
 
                             </S.AvaliacaoContainer>

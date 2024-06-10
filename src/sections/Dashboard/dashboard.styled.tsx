@@ -2,10 +2,7 @@ import styled from "styled-components";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { colors as c, Themes } from "../../styles/Colors";
 import Container from "../../components/Containers/Container/Container";
-import Rating from "../../components/Rating/Rating";
-import { propsRating } from "../../components/Rating/rating.styled";
-import Badge from "../../components/Badges/AvaliationBadge/AvaliationBadge";
-import Card from "../../components/Cards/Card/Card";
+import { PieChart } from "@mui/x-charts/PieChart";
 
 export interface detailsProps {
   theme?: "client" | "establishmente" | "employee";
@@ -46,7 +43,7 @@ export const NavBody = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background-color: ${c.green300};
+  background-color: ${c.green500};
   padding-top: 10px;
   display: flex;
   justify-content: center;
@@ -69,7 +66,7 @@ export const DetailsContainer = styled(Container)`
   max-width: 85%;
   height: 90%;
   display: flex;
-  padding-top: 10px;
+  padding: 10px 0 20px;
 `;
 
 export const DetailsProfile = styled.div`
@@ -100,4 +97,29 @@ export const DashTitle = styled.h3`
 
 export const DashData = styled.h1`
   font-size: 32px;
+`;
+
+export const DashPieChart = styled(PieChart)`
+  position: fixed;
+  z-index: 0;
+`;
+
+export const DashPieInfo = styled.div`
+  width: 150px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-74%, -70%);
+  z-index: 1;
+  text-align: center;
+`;
+
+export const DashGraph = styled(DashBox)`
+  width: auto;
+  max-width: 800px;
+  height: 40vh;
+  align-items: start;
+  background: none;
+  padding: none;
 `;

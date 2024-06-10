@@ -83,7 +83,7 @@ export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ filters }) => {
                             <S.ServiceImgUrl alt={`Imagem do serviço: ${filter.service.specification}`} src={filter.service.imgUrl} />
                             <S.Col>
                                 <Subtitle>{filter.service.specification}</Subtitle>
-                                <Subtitle>{`R$ ${filter.price}`}</Subtitle>
+                                <Subtitle>{`R$ ${(filter.price).toFixed(2)}`}</Subtitle>
                             </S.Col>
                         </S.ServiceCard>
                         

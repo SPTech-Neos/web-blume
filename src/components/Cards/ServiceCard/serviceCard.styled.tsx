@@ -57,6 +57,7 @@ export const ImgService = styled.div<serviceProps>`
     width: 80%;
     height: 70px; 
     background: ${c.gray200} url(${(props) => props.img});
+    background-size: cover;
     border-radius: 5px;
 
 `;

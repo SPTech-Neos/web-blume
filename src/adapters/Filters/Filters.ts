@@ -48,4 +48,19 @@ export class FilterAdapter {
             return false;
         }
     }
+
+    async getFilterById(id: number): Promise<FilterResponseDto | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/filter/${id}`, this.getRequestOptions());
+            return {
+                id: response.data.od,
+                price: response.data.price,
+                establishment: response.data.establishment,
+                service: response.data.service,
+            } as FilterResponseDto;
+        } catch (error) {
+            console.error("Error getting service by token:", error);
+            return null;
+        }
+    }
 }

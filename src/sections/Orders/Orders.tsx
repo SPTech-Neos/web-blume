@@ -1,18 +1,23 @@
 import React, {useEffect, useContext, useState} from "react";
+import { useParams } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
 import { CardPedidoProduto, CardPedidoServico } from "../../components/Cards/CardPedido/CardPedido";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import Cookies from 'js-cookie';
 import { SchedulingAdapter } from "../../adapters/Scheduling/Scheduling";
 import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
 import { PaymentResponseDto } from "../../utils/Payment/payment.types";
 import { PaymentAdapter } from "../../adapters/Payments/Payment";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 const Orders: React.FC = () => {
 
+    const { id } = useParams();
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const selected = document.getElementsByClassName("active");
@@ -32,18 +37,22 @@ const Orders: React.FC = () => {
 
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
+
     const [scheduleInfo, setSchedule] = useState<SchedulingResponseDto[] | null>(null);
     const [paymentsInfo, setPayments] = useState<PaymentResponseDto[] | null>(null);
 
 
-    const tokenFromCookie = Cookies.get('employeeInfo');
-    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+    const tokenEmployeeFromCookie = Cookies.get('employeeInfo');
+    const tokenEmployee: EmployeeResponseDto = tokenEmployeeFromCookie ? JSON.parse(tokenEmployeeFromCookie) : null;
 
-    const handleGetSchedulings = async () => {
+    const tokenClientFromCookie = Cookies.get('clientInfo');
+    const tokenClient: ClientResponseDto = tokenClientFromCookie ? JSON.parse(tokenClientFromCookie) : null;
+
+    +
+    /*const handleGetSchedulings = async () => {
         try {
             const allSchedule = await scheduleAdapter.getAllSchedulings(); 
             setSchedule(allSchedule);
-            console.log("scheduleeee: " + JSON.stringify(scheduleInfo))
         }catch(error){
             console.log(error);
         }
@@ -53,22 +62,24 @@ const Orders: React.FC = () => {
         try {
             const allPayments = await paymentAdapter.getAllPayments(); 
             setPayments(allPayments);
-            console.log("Paymentsssssss: " + JSON.stringify(paymentsInfo))
         }catch(error){
             console.log(error);
         }
     }
-
-
+    
     useEffect(() => {   
         handleGetSchedulings();
         handleGetPayments();
     },[])
+    
+    */
 
-    const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
-    const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
 
-    useEffect(() => {
+
+    // const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
+    // const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
+
+    /*useEffect(() => {
         paymentsInfo?.forEach(e => {
             listaProdutos.push({
                 produto: e.product.name,
@@ -89,31 +100,69 @@ const Orders: React.FC = () => {
         })
 
 
-    },[paymentsInfo, scheduleInfo])
+    },[paymentsInfo, scheduleInfo])*/
 
+
+    // LOAD SCHEDULINGS =====================
     useEffect(() => {
+        if (tokenClient && id) {
 
+            const fetchPaymentData = async () => {
+                try {
+                    const paymentsData = await paymentAdapter.getPaymentsByClientId(Number(id)); 
+                    setPayments(paymentsData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
 
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedEmployee);
+            const fetchSchedulingData = async () => {
+                try {
+                    const scheduleData = await scheduleAdapter.getSchedulingsByClientId(Number(id)); 
+                    setSchedule(scheduleData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            fetchPaymentData();
+            fetchSchedulingData();
+
+        } else if (tokenEmployee && id) {
+
+            const fetchPaymentData = async () => {
+                try {
+                    const establishmentId: number = tokenEmployee.establishment.id;
+
+                    const paymentsData = await paymentAdapter.getPaymentsByEstablishmentId(establishmentId); 
+                    setPayments(paymentsData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            const fetchSchedulingData = async () => {
+                try {
+                    const scheduleData = await scheduleAdapter.getSchedulingsByEmployeeId(Number(id)); 
+                    setSchedule(scheduleData);
+                }catch(error){
+                    console.log(error);
+                }
+            }
+            
+            fetchPaymentData();
+            fetchSchedulingData();
+
         }
-    }, [tokenFromCookie, isAuthenticatedEmployee]);
 
-
-    useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedClient);
-        }
-    }, [tokenFromCookie, isAuthenticatedClient]);
+    }, []);
 
     let theme = "";
 
     if(isAuthenticatedEmployee){
         theme ="B2B";
         return (
-            token ? (
+            tokenEmployee ? (
                 <S.OrdersSectionContainer tema={theme}>
                     <S.OrdersHeader>
                         <Logo />
@@ -149,8 +198,8 @@ const Orders: React.FC = () => {
                                     establishment={data.establishment.name}
                                     preco={data.product.value}
                                     service={data.product.name}
-                                    status="Em Andamento"
-                                    imgUrl=""
+                                    status={"Em Andamento"}
+                                    imgUrl={data.product.imgUrl || ""}
                                 />
                             ))}
                             {scheduleInfo && scheduleInfo.map((data) => (
@@ -160,8 +209,8 @@ const Orders: React.FC = () => {
                                     establishment={data.employee.establishment.name}
                                     employee={data.employee.name}
                                     service={data.service.specification}
-                                    status="Em Andamento"
-                                    imgUrl=""
+                                    status={data.schedulingStatus.description}
+                                    imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
                                 />
                             ))}
                         </S.OrdersContainer>    
@@ -174,51 +223,67 @@ const Orders: React.FC = () => {
     }else if(isAuthenticatedClient){
         theme = "B2C";
         return (
-            <S.OrdersSectionContainer tema={theme}>
-                <S.OrdersHeader>
-                    <Logo />
-                </S.OrdersHeader>
-                <S.OrdersBody>
-                    <S.FiltersContainer>
+            tokenClient ? (
+                <S.OrdersSectionContainer tema={theme}>
+                    <S.OrdersHeader>
+                        <Logo />
+                    </S.OrdersHeader>
+                    <S.OrdersBody>
+                        <S.FiltersContainer>
 
-                        <S.BadgesContainer tema={theme}>
-                        <S.Badge onClick={handleClick}>
-                                Todos
-                            </S.Badge >
+                            <S.BadgesContainer tema={theme}>
                             <S.Badge onClick={handleClick}>
-                                Em andamento
-                            </S.Badge >
-                            <S.Badge onClick={handleClick}>
-                                Cancelado
-                            </S.Badge>
-                            <S.Badge onClick={handleClick}>
-                                Concluído
-                            </S.Badge>
+                                    Todos
+                                </S.Badge >
+                                <S.Badge onClick={handleClick}>
+                                    Em andamento
+                                </S.Badge >
+                                <S.Badge onClick={handleClick}>
+                                    Cancelado
+                                </S.Badge>
+                                <S.Badge onClick={handleClick}>
+                                    Concluído
+                                </S.Badge>
 
-                        </S.BadgesContainer>
-                        <S.HistoricoContainer tema={theme}>
-                            <h2 onClick={handlePast}>HISTÓRICO</h2>
-                        </S.HistoricoContainer>    
-                    </S.FiltersContainer>
+                            </S.BadgesContainer>
+                            <S.HistoricoContainer tema={theme}>
+                                <h2 onClick={handlePast}>HISTÓRICO</h2>
+                            </S.HistoricoContainer>    
+                        </S.FiltersContainer>
 
-                    <S.OrdersContainer>
-                        <CardPedidoProduto 
-                            client="deixar dinamico" 
-                            employee="deixar"
-                            establishment="dinamico"
-                            preco={20}
-                            service="deixar"
-                            status="Em Andamento"
-                            imgUrl=""
-                        />
-                    </S.OrdersContainer>    
-                </S.OrdersBody>
+                        <S.OrdersContainer>
+                            {paymentsInfo && paymentsInfo.map((data) => (
+                                <CardPedidoProduto 
+                                    id={data.id}
+                                    client={data.client.name}
+                                    establishment={data.establishment.name}
+                                    preco={data.product.value}
+                                    service={data.product.name}
+                                    status={"Em Andamento"}
+                                    imgUrl={data.product.imgUrl || ""}
+                                />
+                            ))}
 
-            </S.OrdersSectionContainer>
+                            {scheduleInfo && scheduleInfo.map((data) => (
+                                <CardPedidoServico 
+                                    id={data.idSchedulig}
+                                    client={data.client.name}
+                                    establishment={data.employee.establishment.name}
+                                    employee={data.employee.name}
+                                    service={data.service.specification}
+                                    status={data.schedulingStatus.description}
+                                    imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
+                                />
+                            ))}
+                        </S.OrdersContainer>    
+                    </S.OrdersBody>
+
+                </S.OrdersSectionContainer>
+            ): null
         );
     }
         return (
-                token ? (
+                tokenClient ? (
                 <S.OrdersSectionContainer tema={theme}>
                     <S.OrdersHeader>
                         <Logo />

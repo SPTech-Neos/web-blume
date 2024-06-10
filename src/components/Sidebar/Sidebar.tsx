@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from "react";
-
 import { useLocation } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 import * as S from './sidebar.styled';
 
 import { Bell, GearSix, House, MagnifyingGlass, Receipt, UserCircle, Cube, Article, UserList } from "@phosphor-icons/react";
@@ -9,12 +10,20 @@ import { SignOut } from "phosphor-react";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 
 const Sidebar: React.FC = () => {
     const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
     const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
     const { handleLogoutEstablishment, isAuthenticated: isAuthenticatedEstablishment } = useContext(AuthContextEstablishment);
+
+    const tokenEmployeeFromCookie = Cookies.get('employeeInfo');
+    const tokenEmployee: EmployeeResponseDto = tokenEmployeeFromCookie ? JSON.parse(tokenEmployeeFromCookie) : null;
+
+    const tokenClientFromCookie = Cookies.get('clientInfo');
+    const tokenClient: ClientResponseDto = tokenClientFromCookie ? JSON.parse(tokenClientFromCookie) : null;
     
     let handleLogout: () => void;
     let theme: string = '';
@@ -81,7 +90,7 @@ const Sidebar: React.FC = () => {
                         </S.NavLink>
                     </S.NavItem>
                     <S.NavItem>
-                        <S.NavLink to="/orders" className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
+                        <S.NavLink to={`/orders/${tokenClient?.clientId || tokenEmployee?.employeeId}`} className={({isActive})=>isActive? "nav-link active" : "nav-link"}>
                             <Receipt size={24}/>
                         </S.NavLink>
                     </S.NavItem>

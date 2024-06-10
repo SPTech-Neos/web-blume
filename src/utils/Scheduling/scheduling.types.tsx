@@ -1,6 +1,7 @@
 import { ServiceResponseDto } from "../Products/Service/service.types";
 import { ClientResponseDto } from "../Users/Client/client.types";
 import { EmployeeResponseDto } from "../Users/Employee/employee.types";
+import { SchedulingStatusResponseDto } from "./schedulingStatus.types";
 
 export interface SchedulingRequestDto {
     dateTime: string; 
@@ -15,6 +16,6 @@ export interface SchedulingResponseDto {
     client: ClientResponseDto;  
     service: ServiceResponseDto; 
     employee: EmployeeResponseDto; 
-    schedulingStatus: SchedulingResponseDto;
+    schedulingStatus: SchedulingStatusResponseDto;
     dateTime: string;
 }

@@ -1,8 +1,8 @@
-export interface SchedulingRequestDto {
+export interface SchedulingStatusRequestDto {
     description: string;
 }
 
-export interface SchedulingResponseDto {
+export interface SchedulingStatusResponseDto {
     schedulingStatusId: number; // id, 
     description: string;
 }

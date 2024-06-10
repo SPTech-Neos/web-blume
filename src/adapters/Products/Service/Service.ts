@@ -32,7 +32,7 @@ export class ServiceAdapter {
                 specification: response.data.specification,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
-            } as ServiceResponseDto;
+            } as unknown as ServiceResponseDto;
         } catch (error) {
             console.error("Error getting service by token:", error);
             return null;
@@ -46,7 +46,7 @@ export class ServiceAdapter {
             const response = await axios.get(url.toString(), this.getRequestOptions());
     
             const services = response.data.map((service: ServiceResponseDto) => ({
-                serviceId: service.serviceId,
+                serviceId: service.id,
                 specification: service.specification,
                 imgUrl: service.imgUrl,
                 serviceType: service.serviceType
@@ -68,7 +68,7 @@ export class ServiceAdapter {
                 specification: response.data.specification,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
-            } as ServiceResponseDto;
+            } as unknown as ServiceResponseDto;
         } catch (error) {
             console.error("Error creating service:", error);
             return null;
@@ -93,7 +93,7 @@ export class ServiceAdapter {
                 specification: response.data.specification,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
-            } as ServiceResponseDto;
+            } as unknown as ServiceResponseDto;
         } catch (error) {
             console.error("Error updating Service:", error);
             return null;

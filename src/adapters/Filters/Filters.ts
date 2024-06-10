@@ -28,7 +28,7 @@ export class FilterAdapter {
         try {
             const response = await axios.post(`${this.apiUrl}/filter`, employeeDto, this.getRequestOptions());
             return {
-                filterId: response.data.id,
+                id: response.data.id,
                 price: response.data.price,
                 establishment: response.data.establishment,
                 service: response.data.service

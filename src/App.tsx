@@ -20,6 +20,8 @@ import Services from "./pages/Services/Services";
 import Employees from "./pages/Employees/Employees";
 import Dashboard from "./pages/Dashboard/Dashoboard";
 
+
+
 const defaultProtectedRouteProps = {
   authenticationPath: "/auth",
 };

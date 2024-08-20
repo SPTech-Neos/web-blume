@@ -229,7 +229,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             label={titulo =="Produto"? `Marca do ${titulo}` : `Nome do ${titulo}` }
                             theme="establishment"
                             value={brand}
-                            placeholder={`Marca do ${titulo}....`}
+                            placeholder={`Tipo do ${titulo}....`}
                         />
                     </S.InputContainer>
                     ) : null}

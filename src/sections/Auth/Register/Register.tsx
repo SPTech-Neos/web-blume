@@ -385,10 +385,10 @@ const Establishment: React.FC<S.RegisterProps> = () => {
           </S.Category>
         );
       }
-
+      
       return elements;
     };
-
+    
     function handleFormEstablishment(step: number) {
 
       switch (step) {
@@ -517,6 +517,7 @@ const Establishment: React.FC<S.RegisterProps> = () => {
                 label="Descrição"
                 type={"text"}
                 placeholder="Como é seu estabelecimento..."
+                value={descricao}
                 onChange={(e) => {setDescricao(e.target.value)}}
               />
             </S.FormPart>

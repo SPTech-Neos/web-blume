@@ -83,7 +83,9 @@ const Register: React.FC<S.RegisterProps> = () => {
         publicPlace: logradouro,
         street: logradouro,
         city: logradouro,
-        state: "sp"
+        state: "sp",
+        postalCode: cep
+
       }
 
       const addressCreated = await addressAdapter.create(newAddress);
@@ -606,7 +608,8 @@ const Establishment: React.FC<S.RegisterProps> = () => {
           publicPlace: logradouro,
           street: logradouro,
           city: logradouro,
-          state: "sp"
+          state: "sp",
+          postalCode: cep
         }
   
         const addressCreated = await addressAdapter.create(newAddress);

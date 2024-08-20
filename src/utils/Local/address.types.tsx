@@ -3,6 +3,7 @@ export interface AddressRequestDto {
     street: string;
     city: string;
     state: string;
+    postalCode: string;
 }
 
 export interface AddressResponseDto {
@@ -11,4 +12,5 @@ export interface AddressResponseDto {
     street: string;
     city: string;
     state: string;    
+    postalCode: string;
 }

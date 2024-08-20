@@ -33,7 +33,8 @@ export class AddressAdapter {
                 city: response.data.city,
                 publicPlace: response.data.publicPlace,
                 state: response.data.state,
-                street: response.data.street
+                street: response.data.street,
+                postalCode: response.data.publicPlace
             } as AddressResponseDto
 
         } catch (error) {

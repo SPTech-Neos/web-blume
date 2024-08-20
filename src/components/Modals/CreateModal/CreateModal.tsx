@@ -229,13 +229,13 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
                             label={titulo =="Produto"? `Marca do ${titulo}` : `Nome do ${titulo}` }
                             theme="establishment"
                             value={brand}
-                            placeholder={`Tipo do ${titulo}....`}
+                            placeholder={`Marca do ${titulo}....`}
                         />
                     </S.InputContainer>
                     ) : null}
                     {titulo === "Produto"? (
                         <S.SelectType name="Selecione o tipo do produto" onChange={(e => handleChange(e, setProductType))}>
-                                <option value="" disabled selected>Selecione a marca do produto....</option>
+                                <option value="" disabled selected>Selecione o tipo do produto....</option>
                                 {productTypeInfo && productTypeInfo.map((data) => (
                                     <option  value={data.id}> {data.name} </option>
                                 ))}

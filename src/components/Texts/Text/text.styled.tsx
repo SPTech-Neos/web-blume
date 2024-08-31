@@ -13,7 +13,7 @@ export interface TextProps {
     | "success"
     | "warning"
     | "error";
-  size?: "extraSmall" | "small" | "medium" | "large" | "extraLarge";
+  size?: "xsm" | "sm" | "md" | "lg" | "xlg";
 }
 
 const colorVariants = {
@@ -28,11 +28,11 @@ const colorVariants = {
 };
 
 const sizeVariants = {
-  extraSmall: "12px",
-  small: "14px",
-  medium: "16px",
-  large: "20px",
-  extraLarge: "24px",
+  xsm: "12px",
+  sm: "14px",
+  md: "16px",
+  lg: "20px",
+  xlg: "24px",
 };
 
 export const Text = styled.p<TextProps>`
@@ -41,5 +41,5 @@ export const Text = styled.p<TextProps>`
   color: ${(props) =>
     props.color ? colorVariants[props.color] : colorVariants.black};
   font-size: ${(props) =>
-    props.size ? sizeVariants[props.size] : sizeVariants.medium};
+    props.size ? sizeVariants[props.size] : sizeVariants.md};
 `;

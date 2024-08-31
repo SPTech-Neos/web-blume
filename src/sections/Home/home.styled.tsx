@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 
 import { device } from "../../styles/breakpoints.styled";
 
-import { colors as c } from '../../styles/Colors';;
+import { colors as c } from "../../styles/Colors";
 
 export interface Props {
   children: string | JSX.Element | JSX.Element[];
@@ -80,7 +80,6 @@ export const HomeSvg = styled.img`
 
   &.home-svg-03 {
     bottom: 0%;
-    left: 10%;
     animation: ${infiniteFloat} 2s ease-in-out infinite;
   }
 

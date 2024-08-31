@@ -4,12 +4,14 @@ import { TextField } from "@radix-ui/themes";
 
 export interface InputTextProps {
   type?: "text" | "password" | "email" | string;
+  name?: string;
   placeholder?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
   label: string;
   theme: 'client' | 'establishment' | string;
-  value?: string
+  value?: string;
+  mask?: string;
 }
 
 export interface InputContainerProps {

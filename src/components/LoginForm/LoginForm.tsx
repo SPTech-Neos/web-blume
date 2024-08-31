@@ -184,8 +184,6 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             <S.LinkContainer>
             <span> Não tem uma conta ainda? </span>
                 <S.LinkEmblashiment id="establish" href="/auth?mode=register&acc=establishment">Crie um estabelecimento!</S.LinkEmblashiment>
-                <span>OU</span>
-                <S.LinkClient id="client" href="/auth?mode=register&acc=client">Crie uma conta de cliente!</S.LinkClient>
             </S.LinkContainer>
         </S.SubtitleStyled>
         </S.LoginForm>

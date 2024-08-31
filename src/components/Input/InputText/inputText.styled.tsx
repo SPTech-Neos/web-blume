@@ -1,10 +1,11 @@
+import React from "react";
+import InputMask from 'react-input-mask';
 import styled from "styled-components";
-import { colors as c, getTheme } from "../../../styles/Colors";
 import { TextField } from "@radix-ui/themes";
+import { colors as c, getTheme } from "../../../styles/Colors";
 
 export interface InputTextProps {
   type?: "text" | "password" | "email" | string;
-  name?: string;
   placeholder?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "full" | "big" | "small" | "half";
@@ -14,7 +15,7 @@ export interface InputTextProps {
   mask?: string;
 }
 
-export interface InputContainerProps {
+interface InputContainerProps {
   size?: "full" | "big" | "small" | "half";
 }
 
@@ -33,23 +34,43 @@ const SizeVariants = {
   },
 };
 
-{
-  /* <TextField.Root placeholder="Search the docs…">
-  <TextField.Slot>
-    <MagnifyingGlassIcon height="16" width="16" />
-  </TextField.Slot>
-</TextField.Root> */
-}
-
 export const InputContainer = styled.div<InputContainerProps>`
   background-color: ${c.gray100};
-  // margin: 25px 0;
   width: ${(props) => SizeVariants[props.size || "full"].width};
-
   color: ${c.gray900};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+export const StyledInput = styled(InputMask).attrs((props) => ({
+  type: props.type || "text",
+  placeholder: props.placeholder || "Digite aqui...",
+  required: props.required || false,
+}))<InputTextProps>`
+  position: relative;
+  z-index: 0;
+  font-size: 14px;
+  font-family: "Josefin Sans", "Arial";
+  height: 40px;
+  margin: 0;
+  padding-left: 25px;
+  background-color: ${c.gray100};
+  border: 3px solid ${c.gray900};
+  font-size: 16px;
+  font-weight: regular;
+  font-family: "Poppins", "Arial";
+  transition: all 0.2s ease-in;
+  border-radius: 0px;
+  width: 100%;
+
+  &::placeholder {
+    color: ${c.gray500};
+  }
+
+  &::selection {
+    background-color: ${(props) => getTheme(props.theme).mainColor};
+  }
 `;
 
 export const InputText = styled.input.attrs((props) => ({

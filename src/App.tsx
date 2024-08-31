@@ -19,8 +19,7 @@ import Products from "./pages/Products/Products";
 import Services from "./pages/Services/Services";
 import Employees from "./pages/Employees/Employees";
 import Dashboard from "./pages/Dashboard/Dashoboard";
-
-
+import TestComponents from "./pages/TestComponents";
 
 const defaultProtectedRouteProps = {
   authenticationPath: "/auth",
@@ -41,6 +40,7 @@ const App: React.FC = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/test-components" element={<TestComponents />} />
         <Route
           path="/establishment/:establishmentId"
           element={<Establishment />}
@@ -81,9 +81,7 @@ const App: React.FC = () => {
           }
         />
 
-        {
-          <Route path="/orders" element={<Orders/>}/>
-        }
+        {<Route path="/orders" element={<Orders />} />}
 
         <Route path="/services" element={<Services />} />
         <Route path="/products" element={<Products />} />

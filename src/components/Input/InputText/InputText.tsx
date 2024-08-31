@@ -12,6 +12,7 @@ const InputText: React.FC<S.InputTextProps> = ({
   value,
   onChange,
   mask,
+  error,
   ...rest
 }) => (
   <S.InputContainer size={size}>
@@ -24,8 +25,10 @@ const InputText: React.FC<S.InputTextProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      error={error}
       {...rest}
     />
+    {error && <S.ErrorText>{error}</S.ErrorText>} 
   </S.InputContainer>
 );
 

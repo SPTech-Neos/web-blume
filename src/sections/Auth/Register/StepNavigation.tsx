@@ -6,11 +6,17 @@ import { getTheme } from "../../../styles/Colors";
 interface StepNavigationProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  validateStep: () => boolean;
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
 }
 
-const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep }) => {
-  const handleNext = () => setStep(step + 1);
-  const handlePrevious = () => setStep(step - 1);
+const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validateStep, goToNextStep, goToPreviousStep }) => {
+  const handleNext = () => {
+    if (validateStep()) {
+      goToNextStep();
+    }
+  };
 
   return (
     <S.FormFooter>
@@ -20,7 +26,7 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep }) => {
           size="md"
           width="200px"
           type="button"
-          onClick={handlePrevious}
+          onClick={goToPreviousStep}
         >
           VOLTAR
         </LinkButton>

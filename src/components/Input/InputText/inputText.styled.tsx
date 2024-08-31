@@ -13,6 +13,7 @@ export interface InputTextProps {
   theme: 'client' | 'establishment' | string;
   value?: string;
   mask?: string;
+  error?: string;
 }
 
 interface InputContainerProps {
@@ -110,6 +111,13 @@ export const InputText = styled.input.attrs((props) => ({
   &::selection {
     background-color: ${(props) => getTheme(props.theme).mainColor};
   }
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
 `;
 
 export const Slot = styled(TextField.Slot)`

@@ -36,32 +36,17 @@ const ProfileEmployee: React.FC = () => {
     useEffect(() => {
             const fetchEmployeeData = async () => {
                 const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
-                console.log("emplyoyee Stab na profileEmployee" + JSON.stringify(employeeEstab));
                 setEmployeeInfo(employeeEstab);
             }
 
             fetchEmployeeData();
-
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedEmployee);
-        }
     }, [tokenFromCookie, isAuthenticatedEmployee]);
 
     const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
-    useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticated);
-        }
-    }, [tokenFromCookie, isAuthenticated]);
-
-
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
-        console.log(editModal);
     };
 
     const openDeleteModal = () => {

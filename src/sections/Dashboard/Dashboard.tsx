@@ -12,13 +12,6 @@ import { colors as c, Themes } from "../../styles/Colors";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 const Dashboard: React.FC<S.detailsProps> = () => {
-  // const openModal = () => {
-  //     console.log("estou aqui");
-  //     const editModal = document.getElementById("editModal");
-  //     console.log(editModal);
-  //     editModal?.classList.add("active-modal");
-  // }
-
   const [pieData, setPieData] = useState([
     { id: 0, value: 90, color: c.green500 },
     { id: 1, value: 10, color: c.violet50 },

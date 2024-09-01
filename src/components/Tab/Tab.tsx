@@ -12,28 +12,13 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
     const [result, setResult] = useState("");
     
-    // const teste = {
-    //     nome: "oi",
-    //     id: 1
-    // }
-    
-    // const { data } = teste;
-    // const [cardsData, setCardsData] = useState(data);
-    // setCardsData(data) ;
-    
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
         const myElement = document.getElementById(`${(event.target as HTMLDivElement).id}`);
         
     
-        if (!elementsActive) {
-            console.log("todo nao encontrada");
-        } else {
-            console.log();
-            if (!myElement) {
-                console.log("div nao encontrada");
-            } else {
-                console.log(elementsActive);
+        if (elementsActive) {
+            if (myElement) {
                 for (let i = 0; i < elementsActive.length; i++) {
                     (elementsActive[i] as HTMLDivElement).classList.remove('active');
                 }

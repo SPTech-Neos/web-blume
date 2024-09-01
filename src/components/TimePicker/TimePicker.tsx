@@ -22,9 +22,6 @@ const TimePicker: React.FC = () => {
     useEffect(() => {
         const { horarioAtual, horarioFinal } = estado;
 
-        console.log("horario atual: " + horarioAtual);
-        console.log("horario final:" + horarioFinal);
-
         if(horarioAtual != null && horarioFinal != null) {
             const novaLista: string[] = [];
 

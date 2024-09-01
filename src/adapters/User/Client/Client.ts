@@ -56,7 +56,6 @@ export class ClientAdapter {
             const response = await axios.post(`${this.apiUrl}/client/login`, { email, password }, requestOptions);
 
             if (response.status === 200 && response.data.clientId) {
-                console.log(`TOKEN: ` + response.data.token)
 
                 return {
                     clientId: response.data.clientId,

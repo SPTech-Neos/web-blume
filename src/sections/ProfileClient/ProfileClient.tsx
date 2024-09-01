@@ -26,17 +26,9 @@ const ProfileB2C: React.FC = () => {
     const [modalProps, setModalProps] = useState<ModalProps | null>(null);
     const [isOpenState, setIsOpenState] = useState(false);
 
-    useEffect(() => {
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticated);
-        }
-    }, [tokenFromCookie, isAuthenticated]);
-
     const showModal = () => {
         const editModal = document.getElementById("editModal");
         editModal?.classList.add("active");
-        console.log(editModal);
     };
 
     const openDeleteModal = () => {
@@ -49,7 +41,6 @@ const ProfileB2C: React.FC = () => {
         setIsOpenState(true); 
     };
 
-    console.log(token);
     const handleDeleteConfirmation = () => {
         if (token) {
             handleDeleteClient(token.clientId, token.token);

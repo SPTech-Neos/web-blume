@@ -33,7 +33,6 @@ const Schedule: React.FC<props> = ({id}) => {
         const schedule = document.getElementById("schedule");
         console.log(schedule)
         schedule?.classList.remove("active-schedule");
-        console.log("entrei na X")
         
     }
 

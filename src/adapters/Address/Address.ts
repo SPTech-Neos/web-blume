@@ -27,7 +27,6 @@ export class AddressAdapter {
 
     async create(addressDto: AddressRequestDto): Promise<AddressResponseDto | null> {
         try {
-            console.log("ENDEREÇO: ", addressDto)
             const response = await axios.post(`${this.apiUrl}/addresses`, addressDto, this.getRequestOptions());
             return {
                 id: response.data.id,

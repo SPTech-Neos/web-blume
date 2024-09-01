@@ -101,7 +101,6 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
     const handleClose = () => {
         const modal = document.getElementById("modal-adicionar");
         modal?.classList.remove("active");
-        console.log(serviceType);
         setName("")
         setDescription("")
         setEmail("")
@@ -180,8 +179,6 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
 
         if(titulo == "Funcionário"){
-            console.log("handle save")
-            
             const employeeNew = {
                 name: name, 
                 email: email, 
@@ -191,9 +188,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
             }
 
             if(employeeNew){
-                console.log("entrei no if")
                 const employeeEstab = handleCreateEmployee(employeeNew);  
-                console.log("emplyoyee criando" + JSON.stringify(employeeEstab));
             }
 
         }     

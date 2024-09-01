@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EstablishmentResponseDto } from "../../Establishment/establishment.types";
+import { LocalRequestDto } from "../../Local/local.types";
+import { PhoneRequestDto } from "../../Phone/phone.types";
 import { ServiceResponseDto } from "../../Products/Service/service.types";
+import { StatusRequestDto } from "../../Status/status.types";
 import { EmployeeTypeResponseDto } from "./employeeType.types";
 
 export interface EmployeeResponseDto {
@@ -37,5 +40,7 @@ export interface EmployeeRequestDto {
     description?: string,
     fkEstablishment: number;
     employeeType: number;
-    
+    local: LocalRequestDto;
+    phone: PhoneRequestDto;
+    fkStatus: number;
 }

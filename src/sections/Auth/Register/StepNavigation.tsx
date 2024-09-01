@@ -9,9 +9,10 @@ interface StepNavigationProps {
   validateStep: () => boolean;
   goToNextStep: () => void;
   goToPreviousStep: () => void;
+  handleSubmit: () => void;
 }
 
-const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validateStep, goToNextStep, goToPreviousStep }) => {
+const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validateStep, goToNextStep, goToPreviousStep, handleSubmit }) => {
   const handleNext = () => {
     if (validateStep()) {
       goToNextStep();
@@ -31,6 +32,8 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validate
           VOLTAR
         </LinkButton>
       )}
+
+      {step < 4 && (
       <PrimaryButton
         color={getTheme("none").mainColor}
         size="md"
@@ -40,6 +43,19 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validate
       >
         PRÓXIMO
       </PrimaryButton>
+      )}
+
+      {step >= 4 && (
+        <PrimaryButton
+        color={getTheme("none").mainColor}
+        size="md"
+        width="200px"
+        type="button"
+        onClick={handleSubmit}
+      >
+        FINALIZAR
+      </PrimaryButton>
+    )}
     </S.FormFooter>
   );
 };

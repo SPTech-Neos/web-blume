@@ -1,11 +1,11 @@
-import { AddressResponseDto } from "./address.types";
+import { AddressRequestDto, AddressResponseDto } from "./address.types";
 
 export interface LocalRequestDto {
-    number: number;
-    floor?: number;
-    block?: string;
-    complement?: string;
-    address: number; // address
+    number: string;
+    floor: number;
+    complement: string;
+    block: string;
+    address: AddressRequestDto; 
 }
 
 export interface LocalResponseDto {
@@ -14,5 +14,5 @@ export interface LocalResponseDto {
     floor: number;
     block: string;
     complement: string;
-    addressId: AddressResponseDto;
+    address: AddressResponseDto;
 }

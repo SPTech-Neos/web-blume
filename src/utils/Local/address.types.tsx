@@ -1,16 +1,14 @@
 export interface AddressRequestDto {
-    publicPlace: string
-    street: string;
+    publicPlace: string;
     city: string;
-    state: string;
-    postalCode: string;
+    zipCode: string;
+    uf: string;
 }
 
 export interface AddressResponseDto {
     id: number;
-    publicPlace: string
-    street: string;
+    publicPlace: string;
     city: string;
-    state: string;    
-    postalCode: string;
+    zipCode: string;
+    uf: string;
 }

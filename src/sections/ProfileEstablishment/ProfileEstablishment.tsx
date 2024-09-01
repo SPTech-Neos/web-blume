@@ -20,7 +20,7 @@ import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import { colors as c, Themes } from '../../styles/Colors';
-import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 import { FilterResponseDto } from "../../utils/Filter/filters.types";
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
@@ -41,26 +41,19 @@ const ProfileB2B: React.FC = () => {
     const tokenFromCookie = Cookies.get('employeeInfo');
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentFullResponseDto | null>(null);
+    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
     const establishmentAdapter = new EstablishmentAdapter;
 
     const estabAdapter = new EstablishmentAdapter;
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
-
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
-              const data = await establishmentAdapter.getAllOfEstab(Number(establishmentId));
-              console.log("ESTABLISHMENTINFO: " + JSON.stringify(data));
+              const data = await establishmentAdapter.getEstablishmentById(Number(establishmentId));
               setEstablishmentInfo(data);
             };
             fetchEstablishmentData();
-        }
-
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticatedEmployee);
         }
     }, [tokenFromCookie, isAuthenticatedEmployee]);
 
@@ -101,7 +94,7 @@ const ProfileB2B: React.FC = () => {
     
                         <EditModal id="editModal"/>
     
-                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.establishment.name} />
+                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.name} />
                         <Tab theme='establishment' establishmentInfo={establishmentInfo}/>
                         <S.ContainerAtencao>
                             <S.ContainerTitle>

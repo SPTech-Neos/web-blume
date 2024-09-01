@@ -1,6 +1,7 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 import { LocalRequestDto, LocalResponseDto } from "../../utils/Local/local.types";
+import { AddressAdapter } from "../Address/Address";
 
 
 export class LocalAdapter {
@@ -8,10 +9,14 @@ export class LocalAdapter {
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
 
+    private addressAdapter: AddressAdapter;
+
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
         this.SpringSecurityUsername = environment.springSecurityUsername;
         this.SpringSecurityPassword = environment.springSecurityPassword;
+
+        this.addressAdapter = new AddressAdapter();
     }
 
     private getRequestOptions() {
@@ -24,17 +29,28 @@ export class LocalAdapter {
         };
     }
 
-    async create(localDto: LocalRequestDto): Promise<LocalResponseDto | null> {
+    async create(localRequestDto: LocalRequestDto): Promise<LocalResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/local`, localDto, this.getRequestOptions());
+            // 1. Criar Local e obter fkLocal
+            const addressResponse = await this.addressAdapter.create(localRequestDto.address);
+            if (!addressResponse || !addressResponse.id) {
+                console.error("Erro ao criar Local");
+                return null;
+            }
+
+            const localDto = {
+                ...localRequestDto,
+                address: addressResponse.id,
+            };
+
+            const response = await axios.post(`${this.apiUrl}/locals`, localDto, this.getRequestOptions());
             return {
                 id: response.data.id,
-                address: response.data.address,
                 number: response.data.number,
                 floor: response.data.floor,
                 block: response.data.block,
                 complement: response.data.complement,
-                addressId: response.data.address
+                address: response.data.address
             } as LocalResponseDto;
         } catch (error) {
             console.error("Error creating employee:", error);

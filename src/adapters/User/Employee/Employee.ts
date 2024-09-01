@@ -1,16 +1,27 @@
 import axios from "axios";
 import { environment } from "../../../../environment.config";
-import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../../utils/Users/employees/employee.types";
+import { LocalResponseDto } from "../../../utils/Local/local.types";
+import { PhoneResponseDto } from "../../../utils/Phone/phone.types";
+import { StatusResponseDto } from "../../../utils/Status/status.types";
+import { LocalAdapter } from "../../Local/Local";
+import { PhoneAdapter } from "../../Phone/Phone";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
 
+    private localAdapter: LocalAdapter;
+    private phoneAdapter: PhoneAdapter;
+
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
         this.SpringSecurityUsername = environment.springSecurityUsername;
         this.SpringSecurityPassword = environment.springSecurityPassword;
+
+        this.localAdapter = new LocalAdapter();
+        this.phoneAdapter = new PhoneAdapter();
     }
 
     private getRequestOptions() {
@@ -26,7 +37,7 @@ export class EmployeeAdapter {
     // GET EMPLOYEE BY TOKEN
     async getEmployeeById(employeeId: number): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/employees/${employeeId}`, this.getRequestOptions());
             return {
                 employeeId: response.data.id,
                 name: response.data.name,
@@ -45,7 +56,7 @@ export class EmployeeAdapter {
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
         try {
             const { email, password } = employeeLoginDto;
-            const response = await axios.post(`${this.apiUrl}/employee/login`, { email, password }, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/employees/login`, { email, password }, this.getRequestOptions());
 
             if (response.status === 200 && response.data.id) {
                 return {
@@ -66,20 +77,42 @@ export class EmployeeAdapter {
         }
     }
 
-    // CREATE EMPLOYEE
-    async create(employeeDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> {
+    async create(employeeRequestDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/employee`, employeeDto, this.getRequestOptions());
+
+            // 1. Criar Local e obter fkLocal
+            const localResponse = await this.localAdapter.create(employeeRequestDto.local);
+            if (!localResponse || !localResponse.id) {
+                console.error("Erro ao criar Local");
+                return null;
+            }
+
+            // 2. Criar Phone e obter fkPhone
+            const phoneResponse = await this.phoneAdapter.create(employeeRequestDto.phone);
+            if (!phoneResponse || !phoneResponse.id) {
+                console.error("Erro ao criar Phone");
+                return null;
+            }
+
+            // 3. Criar o Employee com os FKs obtidos
+            const employeeDto = {
+                ...employeeRequestDto,
+                fkLocal: localResponse.id,
+                fkPhone: phoneResponse.id,
+                fkStatus: 1,
+            };
+
+            const response = await axios.post(`${this.apiUrl}/employees`, employeeDto, this.getRequestOptions());
             return {
-                employeeId: response.data.id,
-                name: response.data.name,
-                email: response.data.email,
-                imgUrl: response.data.imgUrl,
-                employeeType: response.data.employeeType,
-                establishment: response.data.establishment
+                id: response.data.number,
+                name: response.data.string,
+                imgUrl: response.data.string,
+                local: response.data.local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
             } as EmployeeResponseDto;
         } catch (error) {
-            console.error("Error creating employee:", error);
+            console.error("Erro ao registrar o Estabelecimento", error);
             return null;
         }
     }
@@ -87,7 +120,7 @@ export class EmployeeAdapter {
     // UPDATE EMPLOYEE
     async update(employeeId: number, updatedFields: Partial<EmployeeResponseDto>): Promise<EmployeeResponseDto | null> {
         try {
-            const response = await axios.patch(`${this.apiUrl}/employee/${employeeId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.patch(`${this.apiUrl}/employees/${employeeId}`, updatedFields, this.getRequestOptions());
             return {
                 employeeId: response.data.id,
                 name: response.data.name,
@@ -105,7 +138,7 @@ export class EmployeeAdapter {
     // DELETE EMPLOYEE
     async delete(employeeId: string): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/employee/${employeeId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/employees/${employeeId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting employee:", error);

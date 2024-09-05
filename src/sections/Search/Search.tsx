@@ -11,8 +11,6 @@ const Search: React.FC<SearchProps> = ({ searchQuery }) => {
     { id: 2, title: 'Categoria 2', description: 'Especialistas em cabelos cacheados' },
   ];
 
-  console.log(searchQuery);
-
   return (
     <div>
       {searchResults.map((result) => (

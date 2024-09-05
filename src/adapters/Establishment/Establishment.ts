@@ -2,17 +2,29 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
 
-import { EstablishmentResponseDto, EstablishmentRequestDto, EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
+import { LocalAdapter } from "../Local/Local" 
+import { PhoneAdapter } from "../Phone/Phone"; 
+
+import { EstablishmentResponseDto, EstablishmentRequestDto } from "../../utils/Establishment/establishment.types";
+import { LocalResponseDto } from "../../utils/Local/local.types";
+import { PhoneResponseDto } from "../../utils/Phone/phone.types";
+import { StatusResponseDto } from "../../utils/Status/status.types";
 
 export class EstablishmentAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
 
+    private localAdapter: LocalAdapter;
+    private phoneAdapter: PhoneAdapter;
+
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
         this.SpringSecurityUsername = environment.springSecurityUsername;
         this.SpringSecurityPassword = environment.springSecurityPassword;
+
+        this.localAdapter = new LocalAdapter();
+        this.phoneAdapter = new PhoneAdapter();
     }
 
     private getRequestOptions() {
@@ -54,8 +66,9 @@ export class EstablishmentAdapter {
                 id: response.data.id,
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
-                company: response.data.company,
-                local: response.data.local
+                local: response.data.local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
@@ -63,69 +76,42 @@ export class EstablishmentAdapter {
         }
     }
 
-    async getAllOfEstab(id: number): Promise<EstablishmentFullResponseDto | null> {
+    async registerEstablishment(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
         try {
 
-            const response = await axios.get(`${this.apiUrl}/establishments/api/full/${id}`, this.getRequestOptions());
-            return {
-                establishment: response.data[0].establishmentRespose,
-                employees: response.data[0].employees,
-                filters: response.data[0].filters,
-                products: response.data[0].products,
-            } as EstablishmentFullResponseDto;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
-    }
-
-    async getAllEstab(): Promise<EstablishmentFullResponseDto[] | null> {
-        try {
-    
-            const response = await axios.get(`${this.apiUrl}/establishments/api/full`, this.getRequestOptions());
-    
-            const establishments = response.data.map((establishment: any) => ({
-                establishment: establishment.establishmentResponses,
-                employees: establishment.employees,
-                filters: establishment.filters,
-                products: establishment.products
-            })) as EstablishmentFullResponseDto[];
-    
-            return establishments;
-    
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
-    }
-    
-    
-
-    async register(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
-        try {
-            const { 
-                name,
-                imgUrl,
-                companyId,
-                localId,
-            } = establishmentRequestDto;
-    
-            const response = await axios.post(`${this.apiUrl}/establishments`, {name, imgUrl, companyId, localId}, this.getRequestOptions());
-    
-            if (response.status === 200) {
-                return {
-                    id: response.data.id,
-                    name: response.data.name,
-                    imgUrl: response.data.imgUrl,
-                    company: response.data.company,
-                    local: response.data.local
-                } as EstablishmentResponseDto;
-            } else {
-                console.error("Erro durante execução do serviço", response.status, response.data);
+            // 1. Criar Local e obter fkLocal
+            const localResponse = await this.localAdapter.create(establishmentRequestDto.local);
+            if (!localResponse || !localResponse.id) {
+                console.error("Erro ao criar Local");
                 return null;
             }
+
+            // 2. Criar Phone e obter fkPhone
+            const phoneResponse = await this.phoneAdapter.create(establishmentRequestDto.phone);
+            if (!phoneResponse || !phoneResponse.id) {
+                console.error("Erro ao criar Phone");
+                return null;
+            }
+
+            // 3. Criar o Establishment com os FKs obtidos
+            const establishmentDto = {
+                ...establishmentRequestDto,
+                localId: localResponse.id,
+                phoneId: phoneResponse.id,
+                statusId: 1,
+            };
+
+            const response = await axios.post(`${this.apiUrl}/establishments`, establishmentDto, this.getRequestOptions());
+            return {
+                id: response.data.id,
+                name: response.data.name,
+                imgUrl: response.data.imgUrl,
+                local: response.data.local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
+            } as EstablishmentResponseDto;
         } catch (error) {
-            console.error(error);
+            console.error("Erro ao registrar o Estabelecimento", error);
             return null;
         }
     }

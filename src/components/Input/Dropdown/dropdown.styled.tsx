@@ -11,6 +11,7 @@ export interface DropDownProps {
   label: string;
   theme: string;
   list: string[];
+  error?: string;
   // children: string | JSX.Element | JSX.Element[];
 }
 
@@ -32,8 +33,6 @@ export interface InputContainerProps {
 }
 
 function getTheme(theme: string) {
-  //   console.log(theme);
-  // console.log(theme, theme == "client");
 
   return theme === "client" ? Themes.client : Themes.establishment;
 }
@@ -125,6 +124,13 @@ export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+export const ErrorText = styled.span`
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
 `;
 
 // export const DropDown = styled.input.attrs((props) => ({

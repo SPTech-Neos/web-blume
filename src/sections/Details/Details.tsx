@@ -26,7 +26,6 @@ const Details: React.FC<S.detailsProps> = () => {
 
     const openModal = () => {
         const editModal = document.getElementById("editModal");
-        console.log(editModal);
         editModal?.classList.add("active-modal");
     }
 
@@ -41,8 +40,6 @@ const Details: React.FC<S.detailsProps> = () => {
     const productAdapter = new ProductAdapter;
     const filterAdapter = new FilterAdapter;
     const paymentAdapter = new PaymentAdapter;
-
-    console.log("tokenn " + token);
 
     // LOAD PRODUTO/SERVIÇO =========================
     useEffect(() => {

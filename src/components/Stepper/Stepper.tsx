@@ -13,7 +13,6 @@ export const Stepper: React.FC<S.StepperProps> = ({
   currentStep,
   theme,
 }) => {
-  //   console.log(theme == "client");
 
   function generateSteps() {
     let stepsArray = [];

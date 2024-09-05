@@ -44,7 +44,6 @@ export const CardPedidoProduto: React.FC<S.PedidoProps> = ({id, service, client,
        
        if(resultDelete){
            setModalProps(null);
-           console.log(resultDelete);
             handleReload();
        }
        
@@ -135,7 +134,6 @@ export const CardPedidoServico: React.FC<S.PedidoProps> = ({id, service, client,
        
        if(resultDelete){
            setModalProps(null);
-           console.log(resultDelete);
             handleReload();
        }
        
@@ -228,7 +226,6 @@ export const CardServico: React.FC<S.PedidoProps> = ({id, service, preco, status
        
         if(resultDelete){
             setModalProps(null);
-            console.log(resultDelete);
             handleReload();
         }
        
@@ -304,12 +301,10 @@ export const CardProduto: React.FC<S.PedidoProps> = ({id, service, preco, status
     const productAdapter = new ProductAdapter
 
     const handleDeleteConfirmation = async () => {
-        console.log("iddddddddddd " + id)
         const resultDelete = await productAdapter.delete(Number(id));
        
         if(resultDelete){
             setModalProps(null);
-            console.log(resultDelete);
             handleReload();
         }
        

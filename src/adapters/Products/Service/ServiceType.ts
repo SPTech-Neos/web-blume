@@ -48,7 +48,6 @@ export class ServiceTypeAdapter {
                 
                 servicesType.push(e)
             });
-            console.log(response);
 
             return servicesType;
         } catch (error) {

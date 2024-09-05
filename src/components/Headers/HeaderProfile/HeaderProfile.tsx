@@ -24,20 +24,12 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
     useEffect(() => {
             const fetchEstablishmentData = async () => {
                 const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
-                console.log("emplyoyee Stab " + JSON.stringify(employeeEstab));
 
                 const data = await getEstablishmentById(Number(employeeEstab?.establishment.id));
-                console.log("ESTABLISHMENTINFO: " + JSON.stringify(data));
                 setEstablishmentInfo(data);
 
             }
             fetchEstablishmentData();
-
-        if (tokenFromCookie) {
-            console.log("Token de autenticação:", tokenFromCookie);
-            console.log("LOGADO: " + isAuthenticated);
-            console.log("estabelecimento: " + token.establishment.name)
-        }
     }, [tokenFromCookie, isAuthenticated]);
 
 

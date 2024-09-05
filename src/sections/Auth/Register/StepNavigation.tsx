@@ -6,11 +6,18 @@ import { getTheme } from "../../../styles/Colors";
 interface StepNavigationProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  validateStep: () => boolean;
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
+  handleSubmit: () => void;
 }
 
-const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep }) => {
-  const handleNext = () => setStep(step + 1);
-  const handlePrevious = () => setStep(step - 1);
+const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validateStep, goToNextStep, goToPreviousStep, handleSubmit }) => {
+  const handleNext = () => {
+    if (validateStep()) {
+      goToNextStep();
+    }
+  };
 
   return (
     <S.FormFooter>
@@ -20,11 +27,13 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep }) => {
           size="md"
           width="200px"
           type="button"
-          onClick={handlePrevious}
+          onClick={goToPreviousStep}
         >
           VOLTAR
         </LinkButton>
       )}
+
+      {step < 4 && (
       <PrimaryButton
         color={getTheme("none").mainColor}
         size="md"
@@ -34,6 +43,19 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep }) => {
       >
         PRÓXIMO
       </PrimaryButton>
+      )}
+
+      {step >= 4 && (
+        <PrimaryButton
+        color={getTheme("none").mainColor}
+        size="md"
+        width="200px"
+        type="button"
+        onClick={handleSubmit}
+      >
+        FINALIZAR
+      </PrimaryButton>
+    )}
     </S.FormFooter>
   );
 };

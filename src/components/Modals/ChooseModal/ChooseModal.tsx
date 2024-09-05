@@ -33,9 +33,7 @@ const ChooseModal:React.FC<S.SelectEmployee> = () => {
         const modal = document.getElementsByClassName("active-modal");
         modal[0].classList.remove("active-modal");
         const selected = document.getElementsByClassName("active");
-        console.log(selected[0].id);
         const schedule = document.getElementById("schedule");
-        console.log(schedule);
         schedule?.classList.add("active-schedule");
     }
 

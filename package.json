@@ -37,9 +37,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
+    "react-input-mask": "^2.0.4",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.22.3",
     "styled-components": "^6.1.11",
+    "sweetalert2": "^11.12.4",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -48,6 +50,7 @@
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.2.22",
+    "@types/react-input-mask": "^3.0.5",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",

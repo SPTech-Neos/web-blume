@@ -1,10 +1,9 @@
 import axios from "axios";
 import { environment } from "../../../environment.config";
-import { AddressRequestDto, AddressResponseDto } from "../../utils/Local/address.types";
+import { PhoneRequestDto, PhoneResponseDto } from "../../utils/Phone/phone.types";
 
 
-
-export class AddressAdapter {
+export class PhoneAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
@@ -25,17 +24,15 @@ export class AddressAdapter {
         };
     }
 
-    async create(addressDto: AddressRequestDto): Promise<AddressResponseDto | null> {
+    async create(phoneDto: PhoneRequestDto): Promise<PhoneResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/addresses`, addressDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/phones`, phoneDto, this.getRequestOptions());
             return {
                 id: response.data.id,
-                publicPlace: response.data.publicPlace,
-                city: response.data.city,
-                zipCode: response.data.zipCode,
-                uf: response.data.uf,
-            } as AddressResponseDto
-
+                countryCode: response.data.countryCode,
+                areaCode: response.data.areaCode,
+                number: response.data.number,
+            } as PhoneResponseDto;
         } catch (error) {
             console.error("Error creating employee:", error);
             return null;

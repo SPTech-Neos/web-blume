@@ -53,7 +53,6 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("LATITUDE: " + latitude + "LONGITUDE: " + longitude);
   
           // Fazer uma solicitação para obter os detalhes do endereço com base nas coordenadas de latitude e longitude
           fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
@@ -61,7 +60,6 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
             .then(data => {
               // Extrair os dados relevantes do objeto de resposta
               const { address } = data;
-              console.log("ADDRESS: " + JSON.stringify(address));
   
               const userLocal: LocalRequestDto = {
                 /*cep: address.postcode || '',*/
@@ -79,7 +77,6 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
               };
   
               setUserLocation(userLocal);
-              console.log("LOCAL: " + JSON.stringify(userLocal));
             })
             .catch(error => {
               console.error('Error fetching address details:', error);

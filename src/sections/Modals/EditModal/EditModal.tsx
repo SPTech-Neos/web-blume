@@ -22,17 +22,14 @@ const EditModal: React.FC<S.Props> = ({id, tipo}) => {
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
-        console.log(name)
     };
     
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
-        console.log(email)
     };
     
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-        console.log(password)
     };
     
     const closeModal = () => {
@@ -83,9 +80,7 @@ const EditModal: React.FC<S.Props> = ({id, tipo}) => {
                 } catch (error) {
                     console.error("Erro ao atualizar funcionário:", error);
                 }
-            } else{
-                console.log("nada pra atualizar");
-            }
+            } 
         }
     };
 
@@ -98,7 +93,6 @@ const EditModal: React.FC<S.Props> = ({id, tipo}) => {
     useEffect(() => {
         const fetchEmployeeData = async () => {
             const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
-            console.log("emplyoyee Stab na editModal" + JSON.stringify(employeeEstab));
             setEmployeeInfo(employeeEstab);
             console.log(employeeInfo);
         }

@@ -4,34 +4,32 @@ import Label from "../Label/Label";
 // import { TextField } from "@radix-ui/themes";
 
 const InputText: React.FC<S.InputTextProps> = ({
+  size,
   label,
-  type,
+  type = "text",
   placeholder,
-  name,
+  theme,
   value,
   onChange,
-  size,
-  theme,
-  mask, // Receba a prop mask
+  mask,
+  error,
+  ...rest
 }) => (
-  <div>
-    <label>{label}</label>
-    <InputMask
+  <S.InputContainer size={size}>
+    <Label label={label} />
+    <S.StyledInput
       mask={mask}
+      label={label}
+      theme={theme}
+      type={type}
+      placeholder={placeholder}
       value={value}
       onChange={onChange}
-    >
-      {(inputProps: any) => (
-        <input
-          {...inputProps}
-          type={type}
-          placeholder={placeholder}
-          name={name}
-          style={{ width: size === 'big' ? '100%' : size === 'small' ? '50%' : '75%' }}
-        />
-      )}
-    </InputMask>
-  </div>
+      error={error}
+      {...rest}
+    />
+    {error && <S.ErrorText>{error}</S.ErrorText>} 
+  </S.InputContainer>
 );
 
 export default InputText;

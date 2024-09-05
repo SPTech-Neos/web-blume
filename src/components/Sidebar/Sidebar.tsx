@@ -45,18 +45,13 @@ const Sidebar: React.FC = () => {
   }
 
   const location = useLocation();
-  console.log(location);
+
   const iconeAtual = document.getElementsByTagName("a");
   useEffect(() => {
     for (let i = 0; i < iconeAtual.length; i++) {
       if (iconeAtual[i].pathname == location.pathname) {
         iconeAtual[i].classList.add("active-location");
-        console.log(iconeAtual[i].pathname);
-        console.log(location.pathname);
       }
-      console.log("THEME " + theme);
-      console.log(isAuthenticatedClient + "client");
-      console.log(isAuthenticatedEmployee + "employee");
     }
   });
 

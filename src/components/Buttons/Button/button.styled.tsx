@@ -13,7 +13,7 @@ const themeVariants = {
     border: "none",
     background: c.violet100,
     color: c.gray100,
-    boxShadow: `0 0 24px 8px ${c.violet50}`,
+    boxShadow: `0 0 24px 8px #C0B4FF`,
   },
   establishment: {
     border: "none",
@@ -31,42 +31,42 @@ const themeVariants = {
     border: "none",
     background: c.error,
     color: c.gray100,
-    boxShadow: `0 0 24px 8px ${c.error}`,
+    boxShadow: `0 0 24px 0 ${c.error}`,
   },
   success: {
     border: "none",
     background: c.success,
     color: c.gray100,
-    boxShadow: `0 0 24px 8px ${c.success}`,
+    boxShadow: `0 0 24px 0 ${c.success}`,
   },
   outlineClient: {
     border: `3px solid ${c.violet300}`,
     background: c.violet50,
     color: c.violet500,
-    boxShadow: `0 0 24px 8px ${c.violet50}`,
+    boxShadow: `0 0 24px 0 ${c.violet50}`,
   },
   outlineEstablishment: {
     border: `3px solid ${c.green800}`,
     background: c.green50,
     color: c.green800,
-    boxShadow: `0 0 24px 8px ${c.green100}`,
+    boxShadow: `0 0 24px 0 ${c.green100}`,
   },
 };
 
 const sizeVariants = {
   sm: {
     fontSize: "small",
-    borderRadius: "8px",
+    borderRadius: "4px",
     padding: "6px 40px",
   },
   md: {
     fontSize: "medium",
-    borderRadius: "12px",
+    borderRadius: "8px",
     padding: "8px 50px",
   },
   lg: {
     fontSize: "large",
-    borderRadius: "16px",
+    borderRadius: "12px",
     padding: "10px 65px",
   },
 };

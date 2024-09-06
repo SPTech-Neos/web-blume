@@ -1,8 +1,8 @@
-import styled, {keyframes} from 'styled-components';
-import { colors as c } from '../../styles/Colors';
+import styled, { keyframes } from "styled-components";
+import { colors as c } from "../../styles/Colors";
 
-import importedContainer from '../../components/Containers/Container/Container';
-import { device } from '../../styles/breakpoints.styled';
+import importedContainer from "../../components/Containers/Container/Container";
+import { device } from "../../styles/breakpoints.styled";
 
 const lightAnimationCombined = keyframes`
     0% {
@@ -23,112 +23,113 @@ const lightAnimationCombined = keyframes`
 `;
 
 export const AboutApp = styled.section`
-    width: 100%;
-    height: 100vh;
-    max-height: 720px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: ${c.violet900};
+  width: 100%;
+  height: 100vh;
+  max-height: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(106deg, #96ffa0 0%, #969aff 100%);
 
-    @media ${device.tablet} {
-        max-height: 600px;
-    }
-`
+  @media ${device.tablet} {
+    max-height: 600px;
+  }
+`;
 
 export const ContainerWrapper = styled(importedContainer)`
-    position: relative;    
+  position: relative;
+  height: 100%;
+
+  // &::before,
+  // &::after {
+  //     content: "";
+  //     position: absolute;
+  //     top: 5%;
+  //     width: 2px;
+  //     height: 90%;
+  //     background-color: ${c.violet300};
+  // }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  // &::before,
+  // &::after {
+  //     content: "";
+  //     position: absolute;
+  //     top: 5%;
+  //     width: 2px;
+  //     height: 90%;
+  //     background-color: ${c.violet300};
+  // }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  .light-ball-wrapper {
+    position: absolute;
+    width: 100%;
     height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+  }
 
-    // &::before,
-    // &::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 5%;
-    //     width: 2px;
-    //     height: 90%;
-    //     background-color: ${c.violet300};
-    // }
+  .light-ball {
+    // transition: all .2s ease-in-out;
+    position: absolute;
+    width: 8px;
+    height: 10px;
+    border-radius: 5px;
+    animation: ${lightAnimationCombined} 3s linear infinite;
+    max-height: 90vh;
+  }
 
-    &::before {
-        left: 0;
-    }
+  .light-ball.right {
+    right: 0;
+  }
 
+  .light-ball.left {
+    left: 0;
+  }
+
+  @media ${device.tablet} {
+    &::before,
     &::after {
-        right: 0;
-    }
-
-    // &::before,
-    // &::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 5%;
-    //     width: 2px;
-    //     height: 90%;
-    //     background-color: ${c.violet300};
-    // }
-
-    &::before {
-        left: 0;
-    }
-
-    &::after {
-        right: 0;
-    }
-
-    .light-ball-wrapper {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        overflow: hidden;
+      display: none;
     }
 
     .light-ball {
-        // transition: all .2s ease-in-out;
-        position: absolute;
-        width: 8px;
-        height: 10px;
-        border-radius: 5px;
-        animation: ${lightAnimationCombined} 3s linear infinite;
-        max-height: 90vh;
+      display: none;
     }
-
-    .light-ball.right {
-        right: 0;
-    }
-
-    .light-ball.left {
-        left: 0;
-    }
-
-    @media ${device.tablet} {
-        &::before, &::after {
-            display: none;
-        }
-
-        .light-ball {
-            display: none;
-        }
-    }
+  }
 `;
 
 export const Container = styled(importedContainer)`
-    width: 95%;
-    max-width: 800px;
-    height: 100%;
-    text-align: center;
-    justify-content: space-around;
-    position: relative;
+  width: 95%;
+  max-width: 800px;
+  height: 100%;
+  text-align: center;
+  justify-content: space-around;
+  position: relative;
 `;
 
 export const Limiter = styled.span`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const AboutAppImg = styled.img`
-    width: 80%;
+  width: 80%;
 `;

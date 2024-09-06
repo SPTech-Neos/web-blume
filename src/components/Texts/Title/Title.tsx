@@ -41,22 +41,28 @@ export const SecondaryTitle: React.FC<S.PrimaryTitleProps> = ({
   );
 };
 
-export const Title: React.FC<S.TitleProps> = ({ theme, outline, children }) => {
+export const Title: React.FC<S.TitleProps> = ({ color, outline, children }) => {
   return (
-    <S.Title theme={theme} outline={outline}>
+    <S.Title color={color} outline={outline}>
       {children}
     </S.Title>
   );
 };
 
 export const Subtitle: React.FC<S.TitleProps> = ({
-  theme,
+  color,
   outline,
   children,
 }) => {
-  return (
-    <S.Subtitle theme={theme} outline={outline}>
-      {children}
-    </S.Subtitle>
-  );
+  if (outline) {
+    return (
+      <S.SubtitleRow>
+        <S.SubLine outline={outline} />
+        <S.Subtitle color={color}>{children}</S.Subtitle>
+        <S.SubLine outline={outline} />
+      </S.SubtitleRow>
+    );
+  } else {
+    return <S.Subtitle color={color}>{children}</S.Subtitle>;
+  }
 };

@@ -55,6 +55,6 @@ export const CardBodyText = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: 15px;
+  font-size: 14px;
   padding: 20px;
 `;

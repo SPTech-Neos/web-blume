@@ -5,7 +5,7 @@ import { Subtitle, Title } from "../components/Texts/Title/Title";
 
 const TestComponents: React.FC = () => (
   <>
-    <Text size="extraSmall" color="violet">
+    <Text size="xsm" color="violet">
       text
     </Text>
     <Button size="sm" theme="warning">

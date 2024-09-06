@@ -170,20 +170,70 @@ export const SecondaryTitle = styled.h2<PrimaryTitleProps>`
   }
 `;
 
+const colorVariants = {
+  violet: c.violet300,
+  green: c.green300,
+  black: c.gray900,
+  white: c.gray100,
+  gray: c.gray500,
+  warning: c.warning,
+  success: c.success,
+  error: c.error,
+};
+
 export interface TitleProps {
   children: string | string[] | JSX.Element[] | JSX.Element;
-  theme?: "light" | "dark";
-  outline?: boolean;
+  color?:
+    | "violet"
+    | "green"
+    | "black"
+    | "white"
+    | "gray"
+    | "success"
+    | "warning"
+    | "error";
+  outline?: "green" | "violet";
+}
+
+export interface LineProps {
+  outline?: "green" | "violet";
 }
 
 export const Title = styled.h1<TitleProps>`
   font-weight: bold;
   text-transform: uppercase;
   font-family: "Poppins";
+  font-size: 40px;
+  color: ${(props) =>
+    props.color ? colorVariants[props.color] : colorVariants.black};
 `;
 
 export const Subtitle = styled.h2<TitleProps>`
   font-weight: bold;
   text-transform: uppercase;
   font-family: "Poppins";
+  font-size: 32px;
+  color: ${(props) =>
+    props.color ? colorVariants[props.color] : colorVariants.black};
+  white-space: nowrap;
+`;
+
+export const SubtitleRow = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+`;
+
+export const SubLine = styled.hr<LineProps>`
+  width: 100%;
+  // min-width: 50px;
+  height: 4px;
+  border-radius: 5px;
+  background: ${(props) =>
+    props.outline != undefined && props.outline == "green"
+      ? colorVariants.green
+      : colorVariants.violet};
+  border: none;
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
 import { device } from "../../styles/breakpoints.styled";
 
 import Navbar from "../../components/Navbar/Navbar";
@@ -10,42 +10,43 @@ import Logo from "../../components/Images/Logo/Logo";
 import Searchbar from "../../components/Searchbar/Searchbar";
 
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
-import Subtitle from "../../components/Texts/Subtitle/Subtitle";
+import { Subtitle } from "../../components/Texts/Title/Title";
 
 import * as S from "./home.styled";
 
-import svg01 from "../../assets/home-svg01.svg";
-import svg02 from "../../assets/home-svg02.svg";
-import svg03 from "../../assets/scroll-down-icon.svg";
+import topDecor from "../../assets/LandingPageImgs/top-decor.svg";
+import bottomDecor from "../../assets/LandingPageImgs/bottom-decor.svg";
+import scrollDown from "../../assets/LandingPageImgs/scroll-down-icon.svg";
 import { MoveButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { Salon } from "../../utils/salon.types";
-
+import Text from "../../components/Texts/Text/Text";
 
 const Home: React.FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: device.tablet });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<Salon[]>([{id: 1, title: "Lirasalon"}]);
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [searchResults, setSearchResults] = useState<Salon[]>([
+  //   { id: 1, title: "Lirasalon" },
+  // ]);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
+  // const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchQuery(event.target.value);
+  // };
 
-  const handleSearchClick = () => {
-    setSearchResults([{id: 1, title: "Lirasalon"}]);
-    navigate("/feed", { state: { searchQuery, searchResults } });
-  };
+  // const handleSearchClick = () => {
+  //   setSearchResults([{ id: 1, title: "Lirasalon" }]);
+  //   navigate("/feed", { state: { searchQuery, searchResults } });
+  // };
 
   return (
     <S.Home id="home">
       <Navbar />
       <S.Cabecalho>
         <Container direction="column">
-
           <S.HomeSvg
             className="home-svg-01"
-            src={svg01}
+            src={topDecor}
             alt={`Imagem svg com detalhes de circulos no fundo`}
           />
 
@@ -56,32 +57,31 @@ const Home: React.FC = () => {
               Belo e Direto
             </PrimaryTitle>
 
-            <Subtitle display={isTabletOrMobile ? false : true}>
+            <Text size="lg">
               Pesquise aqui tudo que precisa, de cabelo à sobrancelha, de
               maquiagem à unhas. Aqui tem!
-            </Subtitle>
+            </Text>
           </S.TextCabecalho>
 
           <S.HomeSvg
             className="home-svg-02"
-            src={svg02}
+            src={bottomDecor}
             alt={`Imagem svg com detalhes de formas geométricas no fundo`}
           />
 
-          <Searchbar 
-            placeholderText="Salão para cabelos cacheados..." 
-            onChange={handleSearchChange}
-            onClick={handleSearchClick}
+          <Searchbar
+            placeholderText="Salão para cabelos cacheados..."
+            // onChange={handleSearchChange}
+            // onClick={handleSearchClick}
           />
 
           <MoveButton moveTo={"#footer"}>
             <S.HomeSvg
               className="home-svg-03"
-              src={svg03}
+              src={scrollDown}
               alt="Alerta de scroll"
             />
           </MoveButton>
-          
         </Container>
       </S.Cabecalho>
     </S.Home>

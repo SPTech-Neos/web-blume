@@ -13,6 +13,7 @@ export const colors = {
     violet800: '#423881',
     violet900: '#31335F',
 
+    green50: '#BDFFC3',
     green100: '#96FFA0',
     green300: '#62EE6F',
     green500: '#00CF5F',

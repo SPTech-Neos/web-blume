@@ -1,12 +1,9 @@
 import styled, { css } from "styled-components";
-
 import { colors as c } from "../../../styles/Colors";
-
 import { device } from "../../../styles/breakpoints.styled";
-
 import outlineSrc from "../../../assets/title-svg.svg";
 
-export interface TitleProps {
+export interface PrimaryTitleProps {
   children: string | string[] | JSX.Element[] | JSX.Element;
   size?: "sm" | "md" | "lg";
   theme?: "light" | "dark" | "blue" | undefined;
@@ -45,7 +42,7 @@ const getColor = (theme: string | undefined): string => {
   return c.gray900;
 };
 
-export const PrimaryTitle = styled.h1<TitleProps>`
+export const PrimaryTitle = styled.h1<PrimaryTitleProps>`
   font-family: var(--font-text);
   font-size: ${(props) => PrimarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
@@ -59,7 +56,10 @@ export const PrimaryTitle = styled.h1<TitleProps>`
   z-index: 2;
 
   @media ${device.tablet} {
-    font-size: ${(props) => props.size === "sm" ? PrimarySizeVariants["sm"].fontSize : PrimarySizeVariants["md"].fontSize};
+    font-size: ${(props) =>
+      props.size === "sm"
+        ? PrimarySizeVariants["sm"].fontSize
+        : PrimarySizeVariants["md"].fontSize};
   }
 
   @media ${device.mobileL} {
@@ -86,7 +86,7 @@ export const PrimaryTitle = styled.h1<TitleProps>`
       css`
         top: 25%;
         background-image: url(${outlineSrc});
-    `}
+      `}
   }
 `;
 
@@ -102,8 +102,8 @@ const SecondarySizeVariants = {
   },
 };
 
-export const SecondaryTitle = styled.h2<TitleProps>`
-  font-family: 'Poppins';
+export const SecondaryTitle = styled.h2<PrimaryTitleProps>`
+  font-family: "Poppins";
   font-size: ${(props) => SecondarySizeVariants[props.size || "md"].fontSize};
   color: ${(props) => getColor(props.theme)};
   font-weight: bold;
@@ -115,7 +115,10 @@ export const SecondaryTitle = styled.h2<TitleProps>`
   align-items: center;
 
   @media ${device.tablet} {
-    font-size: ${(props) => props.size === "sm" ? SecondarySizeVariants["sm"].fontSize : SecondarySizeVariants["md"].fontSize};
+    font-size: ${(props) =>
+      props.size === "sm"
+        ? SecondarySizeVariants["sm"].fontSize
+        : SecondarySizeVariants["md"].fontSize};
   }
 
   @media ${device.mobileL} {
@@ -153,16 +156,84 @@ export const SecondaryTitle = styled.h2<TitleProps>`
       }
     `}
 
-    @media ${device.tablet} {
-      &::before {
-        display: none;
-      }
-
-      &::after {
-        width: 100%;
-        max-width: none;
-        left: 0;
-        top: 100%;
-      }
+  @media ${device.tablet} {
+    &::before {
+      display: none;
     }
+
+    &::after {
+      width: 100%;
+      max-width: none;
+      left: 0;
+      top: 100%;
+    }
+  }
+`;
+
+const colorVariants = {
+  violet: c.violet300,
+  green: c.green300,
+  black: c.gray900,
+  white: c.gray100,
+  gray: c.gray500,
+  warning: c.warning,
+  success: c.success,
+  error: c.error,
+};
+
+export interface TitleProps {
+  children: string | string[] | JSX.Element[] | JSX.Element;
+  color?:
+    | "violet"
+    | "green"
+    | "black"
+    | "white"
+    | "gray"
+    | "success"
+    | "warning"
+    | "error";
+  outline?: "green" | "violet";
+}
+
+export interface LineProps {
+  outline?: "green" | "violet";
+}
+
+export const Title = styled.h1<TitleProps>`
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Poppins";
+  font-size: 40px;
+  color: ${(props) =>
+    props.color ? colorVariants[props.color] : colorVariants.black};
+`;
+
+export const Subtitle = styled.h2<TitleProps>`
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Poppins";
+  font-size: 32px;
+  color: ${(props) =>
+    props.color ? colorVariants[props.color] : colorVariants.black};
+  white-space: nowrap;
+`;
+
+export const SubtitleRow = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+`;
+
+export const SubLine = styled.hr<LineProps>`
+  width: 100%;
+  // min-width: 50px;
+  height: 4px;
+  border-radius: 5px;
+  background: ${(props) =>
+    props.outline != undefined && props.outline == "green"
+      ? colorVariants.green
+      : colorVariants.violet};
+  border: none;
 `;

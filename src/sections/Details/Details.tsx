@@ -64,7 +64,6 @@ const Details: React.FC<S.detailsProps> = () => {
     }, []);
 
     const handleComprarProduto = async () => {
-        console.log("aloooo")
         try{
             if(productInfo){
                 console.log(productInfo)

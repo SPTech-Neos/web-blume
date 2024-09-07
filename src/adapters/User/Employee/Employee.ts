@@ -1,11 +1,12 @@
 import axios from "axios";
 import { environment } from "../../../../environment.config";
-import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../../utils/Users/employees/employee.types";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
 import { LocalResponseDto } from "../../../utils/Local/local.types";
 import { PhoneResponseDto } from "../../../utils/Phone/phone.types";
 import { StatusResponseDto } from "../../../utils/Status/status.types";
 import { LocalAdapter } from "../../Local/Local";
 import { PhoneAdapter } from "../../Phone/Phone";
+import { EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
 
 export class EmployeeAdapter {
     private readonly apiUrl: string;
@@ -39,12 +40,14 @@ export class EmployeeAdapter {
         try {
             const response = await axios.get(`${this.apiUrl}/employees/${employeeId}`, this.getRequestOptions());
             return {
-                employeeId: response.data.id,
+                id: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
                 imgUrl: response.data.imgUrl,
-                employeeType: response.data.employeeType,
-                establishment: response.data.establishment,
+                local: response.data.Local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
+                establishment: response.data.establishment as EstablishmentResponseDto,
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error getting employee by token:", error);
@@ -55,17 +58,19 @@ export class EmployeeAdapter {
     // LOGIN EMPLOYEE
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {
         try {
-            const { email, password } = employeeLoginDto;
-            const response = await axios.post(`${this.apiUrl}/employees/login`, { email, password }, this.getRequestOptions());
+
+            const response = await axios.post(`${this.apiUrl}/employees/login`, employeeLoginDto, this.getRequestOptions());
 
             if (response.status === 200 && response.data.id) {
                 return {
-                    employeeId: response.data.id,
+                    id: response.data.id,
                     name: response.data.name,
                     email: response.data.email,
                     imgUrl: response.data.imgUrl,
-                    employeeType: response.data.employeeType,
-                    establishment: response.data.establishment
+                    local: response.data.local as LocalResponseDto,
+                    phone: response.data.phone as PhoneResponseDto,
+                    status: response.data.status as StatusResponseDto,
+                    establishment: response.data.establishment as EstablishmentResponseDto,
                 } as EmployeeResponseDto;
             } else {
                 console.error("Error during service execution", response.status, response.data);
@@ -104,12 +109,14 @@ export class EmployeeAdapter {
 
             const response = await axios.post(`${this.apiUrl}/employees`, employeeDto, this.getRequestOptions());
             return {
-                id: response.data.number,
-                name: response.data.string,
-                imgUrl: response.data.string,
+                id: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                imgUrl: response.data.imgUrl,
                 local: response.data.local as LocalResponseDto,
                 phone: response.data.phone as PhoneResponseDto,
                 status: response.data.status as StatusResponseDto,
+                establishment: response.data.establishment as EstablishmentResponseDto,
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Erro ao registrar o Estabelecimento", error);
@@ -122,12 +129,15 @@ export class EmployeeAdapter {
         try {
             const response = await axios.patch(`${this.apiUrl}/employees/${employeeId}`, updatedFields, this.getRequestOptions());
             return {
-                employeeId: response.data.id,
+                id: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
                 imgUrl: response.data.imgUrl,
                 employeeType: response.data.employeeType,
-                establishment: response.data.establishment
+                local: response.data.Local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
+                establishment: response.data.establishment as EstablishmentResponseDto,
             } as EmployeeResponseDto;
         } catch (error) {
             console.error("Error updating employee:", error);

@@ -152,7 +152,7 @@ const ProfileB2B: React.FC = () => {
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                    <span>{(Math.random() + 4).toFixed(1)}</span>
+                                    <span>{establishmentInfo.media}</span>
                                 </Badge>
 
                                 {establishmentInfo && servicesInfo && (

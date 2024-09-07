@@ -24,9 +24,8 @@ import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 const ProfileEmployee: React.FC = () => {
     const navigate = useNavigate();
-    const { isAuthenticated, handleDeleteEmployee } = useContext(AuthContextEmployee);
 
-    const { isAuthenticated: isAuthenticatedEmployee, getEmployeeById } = useContext(AuthContextEmployee);
+    const { isAuthenticated: isAuthenticatedEmployee, getEmployeeById, handleDeleteEmployee} = useContext(AuthContextEmployee);
     const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
     
 
@@ -35,7 +34,8 @@ const ProfileEmployee: React.FC = () => {
 
     useEffect(() => {
             const fetchEmployeeData = async () => {
-                const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+                const employeeEstab = await getEmployeeById(Number(token.id)); 
+                console.log(employeeEstab)
                 setEmployeeInfo(employeeEstab);
             }
 
@@ -61,7 +61,7 @@ const ProfileEmployee: React.FC = () => {
 
     const handleDeleteConfirmation = () => {
         if (token) {
-            handleDeleteEmployee(token.employeeId);
+            handleDeleteEmployee(token.id);
             setModalProps(null);
             navigate("/");
         }
@@ -90,14 +90,14 @@ const ProfileEmployee: React.FC = () => {
                             Endereço
                         </E.LabelInfo>
                         <S.TextInfo>
-                            {employeeInfo?.establishment.local.address.street}
+                            {employeeInfo?.local.address.publicPlace}
                         </S.TextInfo>
 
                         <E.LabelInfo>
                             CEP
                         </E.LabelInfo>
                         <S.TextInfo>
-                            {employeeInfo?.establishment.local.address.postalCode}
+                            {employeeInfo?.local.address.zipCode}
                         </S.TextInfo>
                     </S.Infos>
                 </S.InfoContainer>

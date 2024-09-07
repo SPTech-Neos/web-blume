@@ -14,6 +14,7 @@ export interface EstablishmentRequestDto {
     endShift: string;
     description: string;
     cnpj: string;
+    media: number;
 }
 
 export interface EstablishmentResponseDto {
@@ -28,4 +29,5 @@ export interface EstablishmentResponseDto {
     endShift: string;
     description: string;
     cnpj: string;
+    media: number;
 }

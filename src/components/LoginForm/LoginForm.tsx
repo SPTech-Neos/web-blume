@@ -6,7 +6,6 @@ import React, {
 
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import * as S from './loginForm.styled';
@@ -22,7 +21,6 @@ import InputText from "../../components/Input/InputText/InputText";
 
 import Modal from "../../components/Modals/FormModal/Modal";
 
-import { ClientLoginDto } from "../../utils/Users/Client/client.types";
 import { EmployeeLoginDto } from "../../utils/Users/Employee/employee.types";
 
 
@@ -38,7 +36,6 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         window.sessionStorage.setItem("location", location.pathname);
     }, [location]);
 
-    const { handleLoginClient } = useContext(AuthContextClient);
     const { handleLoginEmployee } = useContext(AuthContextEmployee);
 
     const [type, setType] = useState('');
@@ -77,38 +74,14 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         }
 
         try {
-            const clientLoginDto: ClientLoginDto = { email, password };
             const employeeLoginDto: EmployeeLoginDto = { email, password };
-
-            const clientToken = await handleLoginClient(clientLoginDto);
             const employeeToken = await handleLoginEmployee(employeeLoginDto);
 
-            if (clientToken || employeeToken) {
-                console.log('Login bem-sucedido!');
-
+            if (employeeToken) {  
                 setType("success");
                 setMessage("Login efetuado com sucesso!");
-                setLinkTo("/auth?mode=choose-auth")
+                setLinkTo("/employee")
                 setOpen(true);
-
-                if (clientToken && employeeToken) {
-                    setType("success");
-                    setMessage("Login efetuado com sucesso!");
-                    setLinkTo("/auth?mode=choose-auth")
-                    setOpen(true);
-                } else if (clientToken) {
-                    
-                    setType("success");
-                    setMessage("Login efetuado com sucesso!");
-                    setLinkTo("/feed")
-                    setOpen(true);
-                } else if (employeeToken) {
-                    
-                    setType("success");
-                    setMessage("Login efetuado com sucesso!");
-                    setLinkTo("/employee")
-                    setOpen(true);
-                }
 
                 const redirectPath = window.sessionStorage.getItem('location') || '/';
                 navigate(redirectPath, { replace: true });

@@ -42,12 +42,13 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleLoginEmployee = async (clientLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
+  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {
-      const { email, password } = clientLoginDto;
+      
+      const { email, password } = employeeLoginDto;
       const token = await employeeAdapter.login({ email, password });
 
-      if (token !== null && 'employeeId' in token) {
+      if (token !== null && 'id' in token) {
         setToken(token);
         setIsAuthenticated(true);
         Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
@@ -79,7 +80,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
       }
 
       const token = JSON.parse(tokenString);
-      const employee = await employeeAdapter.getEmployeeById(token.employeeId);
+      const employee = await employeeAdapter.getEmployeeById(token.id);
 
       if (employee) {
         setToken(token);
@@ -98,7 +99,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
       const tokenFromCookie = Cookies.get('employeeInfo');
       const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-      if (token && token.employeeId !== undefined) {
+      if (token && token.id !== undefined) {
         const updatedEmployee = await employeeAdapter.update(token.idEmployee, updatedFields);
 
         setToken(updatedEmployee);

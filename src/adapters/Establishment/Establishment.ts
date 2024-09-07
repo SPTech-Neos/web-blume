@@ -51,6 +51,7 @@ export class EstablishmentAdapter {
                 endShift: establishment.endShift,
                 description: establishment.description,
                 cnpj: establishment.cnpj,
+                media: establishment.media,
             })) as EstablishmentResponseDto[];
     
             return establishments;
@@ -77,6 +78,7 @@ export class EstablishmentAdapter {
                 endShift: response.data.endShift,
                 description: response.data.description,
                 cnpj: response.data.cnpj,
+                media: response.data.media,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
@@ -122,6 +124,7 @@ export class EstablishmentAdapter {
                 endShift: response.data.endShift,
                 description: response.data.description,
                 cnpj: response.data.cnpj,
+                media: response.data.media,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error("Erro ao registrar o Estabelecimento", error);
@@ -157,6 +160,7 @@ export class EstablishmentAdapter {
                 endShift: response.data.endShift,
                 description: response.data.description,
                 cnpj: response.data.cnpj,
+                media: response.data.media,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);

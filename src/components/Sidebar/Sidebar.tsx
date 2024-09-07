@@ -21,6 +21,7 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 const Sidebar: React.FC = () => {
 
@@ -62,6 +63,7 @@ const Sidebar: React.FC = () => {
 
   
   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+  const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
   const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
 
   const { getEstablishmentById } = useContext(AuthContextEstablishment);
@@ -69,7 +71,8 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
           const fetchEstablishmentData = async () => {
-              const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+              const employeeEstab = await getEmployeeById(Number(token.id)); 
+              setEmployeeInfo(employeeEstab);
 
               const data = await getEstablishmentById(Number(employeeEstab?.establishment.id));
               setEstablishmentInfo(data);
@@ -132,6 +135,7 @@ const Sidebar: React.FC = () => {
               <Receipt size={24} />
             </S.NavLink>
           </S.NavItem>
+          
           {theme == "establishment" || theme == "employee" ? (
             <S.NavItem>
               <S.NavLink
@@ -144,6 +148,7 @@ const Sidebar: React.FC = () => {
               </S.NavLink>
             </S.NavItem>
           ) : null}
+          
         </S.NavList>
 
         <S.NavList>

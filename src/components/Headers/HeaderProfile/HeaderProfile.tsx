@@ -23,7 +23,7 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
 
     useEffect(() => {
             const fetchEstablishmentData = async () => {
-                const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+                const employeeEstab = await getEmployeeById(Number(token.id)); 
 
                 const data = await getEstablishmentById(Number(employeeEstab?.establishment.id));
                 setEstablishmentInfo(data);

@@ -54,7 +54,7 @@ const EditModal: React.FC<S.Props> = ({id, tipo}) => {
                         password: password
                     }
     
-                    const resultUpdate = await employeeAdapter.update(token.employeeId,newEmployee);
+                    const resultUpdate = await employeeAdapter.update(token.id,newEmployee);
                     console.log(resultUpdate)
                     closeModal();
                     handleReload();
@@ -92,7 +92,7 @@ const EditModal: React.FC<S.Props> = ({id, tipo}) => {
 
     useEffect(() => {
         const fetchEmployeeData = async () => {
-            const employeeEstab = await getEmployeeById(Number(token.employeeId)); 
+            const employeeEstab = await getEmployeeById(Number(token.id)); 
             setEmployeeInfo(employeeEstab);
             console.log(employeeInfo);
         }

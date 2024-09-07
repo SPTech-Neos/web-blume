@@ -8,6 +8,7 @@ import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
 import { ProductResponseDto } from "../../utils/Products/Product/product.types";
 import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
 import { ServiceAdapter } from "../../adapters/Products/Service/Service";
+import { ProductAdapter } from "../../adapters/Products/Product/Product";
 
 const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
@@ -16,12 +17,18 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
     const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
     const serviceAdapter = new ServiceAdapter;
 
+    const [productsInfo, setProductsInfo] = useState<ProductResponseDto[] | null>(null);
+    const productAdapter = new ProductAdapter;
+
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
         if (establishmentInfo.id) {
             const fetchEstablishmentData = async () => {
               const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentInfo.id));
               setServicesInfo(serviceData);
+
+              const productData = await productAdapter.getProductsByEstablishmentId(Number(establishmentInfo.id));
+              setProductsInfo(productData);
             };
             fetchEstablishmentData();
         }
@@ -65,24 +72,25 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                             establishmentInfo && servicesInfo ? (
                                 Array.isArray(servicesInfo) && servicesInfo.length > 0 ? 
                                     servicesInfo.map((service: ServiceResponseDto, index: number) => (
-                                        <ServiceCard key={index} id={service.id - 1 } theme={theme} nome={service.specification} valor={service.price} img={service.imgUrl}/>
+                                        <ServiceCard key={index} id={service.serviceId - 1 } theme={theme} nome={service.specification} valor={service.price} img={service.imgUrl}/>
                                     ))
                                 : "Sem serviços no momento"
                             ) : null
                     
                         ) : result === 'produto' ? (
-                            establishmentInfo && establishmentInfo.products ? (
-                                Array.isArray(establishmentInfo.products) && establishmentInfo.products.length > 0 ? 
-                                    establishmentInfo.products.map((product: ProductResponseDto, index: number) => (
+                            establishmentInfo && productsInfo ? (
+                                Array.isArray(productsInfo) && productsInfo.length > 0 ? 
+                                    productsInfo.map((product: ProductResponseDto, index: number) => (
                                         <ProductCard key={index} id={Number(product.id)} nome={product.name} valor={product.value} img={product.imgUrl} />
                                     ))
                                 : "Sem serviços no momento"
                             ) : null
                         ) : (
-                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo?.establishment.imgUrl}>
+                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo.imgUrl}>
                                 {establishmentInfo && servicesInfo && (
                                     Array.isArray(servicesInfo)
                                         ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (
+                                            console.log(establishmentInfo),
                                             <Badge key={index}>{service.specification}</Badge>
                                         ))
                                         : <span>"Sem serviços"</span>

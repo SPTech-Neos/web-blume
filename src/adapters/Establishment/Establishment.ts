@@ -6,9 +6,6 @@ import { LocalAdapter } from "../Local/Local"
 import { PhoneAdapter } from "../Phone/Phone"; 
 
 import { EstablishmentResponseDto, EstablishmentRequestDto } from "../../utils/Establishment/establishment.types";
-import { LocalResponseDto } from "../../utils/Local/local.types";
-import { PhoneResponseDto } from "../../utils/Phone/phone.types";
-import { StatusResponseDto } from "../../utils/Status/status.types";
 
 export class EstablishmentAdapter {
     private readonly apiUrl: string;
@@ -42,12 +39,18 @@ export class EstablishmentAdapter {
     
             const response = await axios.get(`${this.apiUrl}/establishments`, this.getRequestOptions());
     
-            const establishments = response.data.map((establishment: any) => ({
-                establishmentId: establishment.id,
+            const establishments = response.data.map((establishment: EstablishmentResponseDto) => ({
+                id: establishment.id,
+                aditumId: "",
                 name: establishment.name,
                 imgUrl: establishment.imgUrl,
-                company: establishment.company,
-                local: establishment.local
+                local: establishment.local,
+                phone: establishment.phone,
+                status: establishment.status,
+                startShift: establishment.startShift,
+                endShift: establishment.endShift,
+                description: establishment.description,
+                cnpj: establishment.cnpj,
             })) as EstablishmentResponseDto[];
     
             return establishments;
@@ -64,11 +67,16 @@ export class EstablishmentAdapter {
             const response = await axios.get(`${this.apiUrl}/establishments/${id}`, this.getRequestOptions());
             return {
                 id: response.data.id,
+                aditumId: "",
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
-                local: response.data.local as LocalResponseDto,
-                phone: response.data.phone as PhoneResponseDto,
-                status: response.data.status as StatusResponseDto,
+                local: response.data.local,
+                phone: response.data.phone,
+                status: response.data.status,
+                startShift: response.data.startShift,
+                endShift: response.data.endShift,
+                description: response.data.description,
+                cnpj: response.data.cnpj,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);
@@ -104,11 +112,16 @@ export class EstablishmentAdapter {
             const response = await axios.post(`${this.apiUrl}/establishments`, establishmentDto, this.getRequestOptions());
             return {
                 id: response.data.id,
+                aditumId: "",
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
-                local: response.data.local as LocalResponseDto,
-                phone: response.data.phone as PhoneResponseDto,
-                status: response.data.status as StatusResponseDto,
+                local: response.data.local,
+                phone: response.data.phone,
+                status: response.data.status,
+                startShift: response.data.startShift,
+                endShift: response.data.endShift,
+                description: response.data.description,
+                cnpj: response.data.cnpj,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error("Erro ao registrar o Estabelecimento", error);
@@ -134,10 +147,16 @@ export class EstablishmentAdapter {
     
             return {
                 id: response.data.id,
+                aditumId: "",
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
-                company: response.data.company,
-                local: response.data.local
+                local: response.data.local,
+                phone: response.data.phone,
+                status: response.data.status,
+                startShift: response.data.startShift,
+                endShift: response.data.endShift,
+                description: response.data.description,
+                cnpj: response.data.cnpj,
             } as EstablishmentResponseDto;
         } catch (error) {
             console.error(error);

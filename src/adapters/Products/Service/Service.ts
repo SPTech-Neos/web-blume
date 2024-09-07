@@ -76,7 +76,6 @@ export class ServiceAdapter {
                 serviceType: service.serviceType
             })) as ServiceResponseDto[];
     
-            console.log(services)
             return services;
     
         } catch (error) {

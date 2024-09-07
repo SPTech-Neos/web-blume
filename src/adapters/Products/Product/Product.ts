@@ -32,8 +32,7 @@ export class ProductAdapter {
                 name: response.data.name,
                 brand: response.data.brand,
                 type: response.data.type,
-                value: response.data.value,
-                establishment: response.data.establishment,
+                value: response.data.value
             } as ProductResponseDto;
         } catch (error) {
             console.error("Error insert product: ", error);
@@ -60,14 +59,36 @@ export class ProductAdapter {
                 imgUrl: response.data.imgUrl,
                 brand: response.data.brand, 
                 type: response.data.type,
-                value: response.data.value,
-                establishment: response.data.establishment
+                value: response.data.value
             } as ProductResponseDto;
         } catch (error) {
             console.error("Error getting service by token:", error);
             return null;
         }
     }
+
+    async getProductsByEstablishmentId(estabId: number): Promise<ProductResponseDto[] | null> {
+        try {
+            const url = new URL(`${this.apiUrl}/products/establishment/${estabId}`);
+    
+            const response = await axios.get(url.toString(), this.getRequestOptions());
+    
+            const products = response.data.map((product: ProductResponseDto) => ({
+                id: product.id,
+                name: product.name,
+                imgUrl: product.imgUrl,
+                brand: product.brand, 
+                type: product.type,
+                value: product.value,
+            })) as ProductResponseDto[];
+    
+            return products;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
 
 }
 

@@ -30,6 +30,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                price: response.data.price,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as unknown as ServiceResponseDto;
@@ -48,10 +49,34 @@ export class ServiceAdapter {
             const services = response.data.map((service: ServiceResponseDto) => ({
                 serviceId: service.id,
                 specification: service.specification,
+                price: service.price,
                 imgUrl: service.imgUrl,
                 serviceType: service.serviceType
             })) as ServiceResponseDto[];
     
+            return services;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
+
+    async getServicesByEstablishmentId(estabId: number): Promise<ServiceResponseDto[] | null> {
+        try {
+            const url = new URL(`${this.apiUrl}/establishments/${estabId}/services`);
+    
+            const response = await axios.get(url.toString(), this.getRequestOptions());
+    
+            const services = response.data.map((service: ServiceResponseDto) => ({
+                serviceId: service.id,
+                specification: service.specification,
+                price: service.price,
+                imgUrl: service.imgUrl,
+                serviceType: service.serviceType
+            })) as ServiceResponseDto[];
+    
+            console.log(services)
             return services;
     
         } catch (error) {
@@ -66,6 +91,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                price: response.data.price,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as unknown as ServiceResponseDto;
@@ -91,6 +117,7 @@ export class ServiceAdapter {
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
+                price: response.data.price,
                 imgUrl: response.data.imgUrl,
                 serviceType: response.data.serviceType,
             } as unknown as ServiceResponseDto;

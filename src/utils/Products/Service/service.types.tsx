@@ -6,9 +6,10 @@ export interface ServiceRequestDto {
 }
 
 export interface ServiceResponseDto {
-    [x: string]: any;
+    [x: string]: unknown;
     serviceId: number;
     specification: string;
+    price: number;
     imgUrl?: string; 
     serviceType: number;
 }

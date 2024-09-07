@@ -22,8 +22,9 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import { colors as c, Themes } from '../../styles/Colors';
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
-import { FilterResponseDto } from "../../utils/Filter/filters.types";
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+import { ServiceAdapter } from "../../adapters/Products/Service/Service";
+import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
 
 
 const ProfileB2B: React.FC = () => {
@@ -42,16 +43,20 @@ const ProfileB2B: React.FC = () => {
     const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
     const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
+    const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
+    
     const establishmentAdapter = new EstablishmentAdapter;
-
-    const estabAdapter = new EstablishmentAdapter;
+    const serviceAdapter = new ServiceAdapter;
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
-              const data = await establishmentAdapter.getEstablishmentById(Number(establishmentId));
-              setEstablishmentInfo(data);
+              const establishmentData = await establishmentAdapter.getEstablishmentById(Number(establishmentId));
+              setEstablishmentInfo(establishmentData);
+
+              const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentId));
+              setServicesInfo(serviceData);
             };
             fetchEstablishmentData();
         }
@@ -78,7 +83,7 @@ const ProfileB2B: React.FC = () => {
 
     const handleDeleteConfirmation = async () => {
         if (token) {
-            estabAdapter.delete(token.establishment.id);
+            establishmentAdapter.delete(token.establishment.id);
             setModalProps(null);
             navigate("/");
         }
@@ -143,17 +148,17 @@ const ProfileB2B: React.FC = () => {
                             <Logo />
                         </S.HeaderProfile>
                         <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.establishment.imgUrl} />
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.imgUrl} />
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
                                     <span>{(Math.random() + 4).toFixed(1)}</span>
                                 </Badge>
 
-                                {establishmentInfo && establishmentInfo.filters && (
-                                    Array.isArray(establishmentInfo.filters)
-                                        ? establishmentInfo.filters.slice(0, 2).map((filter: FilterResponseDto, index: number) => (
-                                            <Badge key={index}>{filter.service.specification}</Badge>
+                                {establishmentInfo && servicesInfo && (
+                                    Array.isArray(servicesInfo)
+                                        ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (
+                                            <Badge key={index}>{service.specification}</Badge>
                                         ))
                                         : null  
                                 )}

@@ -1,16 +1,31 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as S from  './tab.styled';
 
 import TabOption from "../TabOption/TabOption";
 import { ServiceCard, ProductCard } from "../Cards/ServiceCard/ServiceCard";
 import About from "../About/About";
 import Badge from "../Badges/AvaliationBadge/AvaliationBadge";
-import { FilterResponseDto } from "../../utils/Filter/filters.types";
 import { ProductResponseDto } from "../../utils/Products/Product/product.types";
+import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
+import { ServiceAdapter } from "../../adapters/Products/Service/Service";
 
 const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
     const [result, setResult] = useState("");
+
+    const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
+    const serviceAdapter = new ServiceAdapter;
+
+    // LOAD DE DADOS DA PÁGINA =======================
+    useEffect(() => {
+        if (establishmentInfo.id) {
+            const fetchEstablishmentData = async () => {
+              const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentInfo.id));
+              setServicesInfo(serviceData);
+            };
+            fetchEstablishmentData();
+        }
+    }, [establishmentInfo.id]);
     
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
@@ -47,10 +62,10 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                 ):
                     <S.ResultBody id="section-escolhida">
                         {result === 'servico'? (
-                            establishmentInfo && establishmentInfo.filters ? (
-                                Array.isArray(establishmentInfo.filters) && establishmentInfo.filters.length > 0 ? 
-                                    establishmentInfo.filters.map((filter: FilterResponseDto, index: number) => (
-                                        <ServiceCard key={index} id={filter.service.id - 1 } theme={theme} nome={filter.service.specification} valor={filter.price} img={filter.service.imgUrl}/>
+                            establishmentInfo && servicesInfo ? (
+                                Array.isArray(servicesInfo) && servicesInfo.length > 0 ? 
+                                    servicesInfo.map((service: ServiceResponseDto, index: number) => (
+                                        <ServiceCard key={index} id={service.id - 1 } theme={theme} nome={service.specification} valor={service.price} img={service.imgUrl}/>
                                     ))
                                 : "Sem serviços no momento"
                             ) : null
@@ -65,10 +80,10 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                             ) : null
                         ) : (
                             <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo?.establishment.imgUrl}>
-                                {establishmentInfo && establishmentInfo.filters && (
-                                    Array.isArray(establishmentInfo.filters)
-                                        ? establishmentInfo.filters.slice(0, 2).map((filter: FilterResponseDto, index: number) => (
-                                            <Badge key={index}>{filter.service.specification}</Badge>
+                                {establishmentInfo && servicesInfo && (
+                                    Array.isArray(servicesInfo)
+                                        ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (
+                                            <Badge key={index}>{service.specification}</Badge>
                                         ))
                                         : <span>"Sem serviços"</span>
                                 )}

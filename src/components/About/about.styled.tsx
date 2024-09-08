@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Container from '../Containers/Container/Container';
 import svg01 from '../../assets/icon-profile.png';
-import { EstablishmentFullResponseDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 export interface AboutProps {
     imgUrl?: string,
-    children?: JSX.Element[] | JSX.Element,
-    establishmentInfo: EstablishmentFullResponseDto | null
+    children?: JSX.Element[] | JSX.Element | null,
+    establishmentInfo: EstablishmentResponseDto | null
 }
 
 

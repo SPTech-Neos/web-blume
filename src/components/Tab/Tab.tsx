@@ -22,17 +22,17 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
-        if (establishmentInfo.id) {
+        if (establishmentInfo?.id) {
             const fetchEstablishmentData = async () => {
-              const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentInfo.id));
+              const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentInfo?.id));
               setServicesInfo(serviceData);
 
-              const productData = await productAdapter.getProductsByEstablishmentId(Number(establishmentInfo.id));
+              const productData = await productAdapter.getProductsByEstablishmentId(Number(establishmentInfo?.id));
               setProductsInfo(productData);
             };
             fetchEstablishmentData();
         }
-    }, [establishmentInfo.id]);
+    }, [establishmentInfo?.id]);
     
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const elementsActive = document.getElementsByClassName("optionsTab");
@@ -81,12 +81,12 @@ const Tab: React.FC<S.SectionProps> = ({theme, establishmentInfo}) => {
                             establishmentInfo && productsInfo ? (
                                 Array.isArray(productsInfo) && productsInfo.length > 0 ? 
                                     productsInfo.map((product: ProductResponseDto, index: number) => (
-                                        <ProductCard key={index} id={Number(product.id)} nome={product.name} valor={product.value} img={product.imgUrl} />
+                                        <ProductCard key={index} id={Number(product.id)} theme={theme} nome={product.name} valor={product.value} img={product.imgUrl} />
                                     ))
                                 : "Sem serviços no momento"
                             ) : null
                         ) : (
-                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo.imgUrl}>
+                            <About establishmentInfo={establishmentInfo == null ? null : establishmentInfo} imgUrl={establishmentInfo?.imgUrl}>
                                 {establishmentInfo && servicesInfo && (
                                     Array.isArray(servicesInfo)
                                         ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (

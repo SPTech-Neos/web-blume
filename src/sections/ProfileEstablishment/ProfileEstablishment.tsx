@@ -47,22 +47,32 @@ const ProfileB2B: React.FC = () => {
     const employeeData = CookieEmployeeData ? JSON.parse(CookieEmployeeData) as EmployeeResponseDto : null;
     const establishmentData = CookieEstablishmentData ? JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto : null;
 
+    // Se o establishmentData (vindo dos cookies) não for carregado, pois é um cliente acessando
+    // Fazer a requisição setando establishmentData useState
     const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
-    
-    const establishmentAdapter = new EstablishmentAdapter;
-    const serviceAdapter = new ServiceAdapter;
+    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
+
+    const establishmentAdapter = new EstablishmentAdapter();
+    const serviceAdapter = new ServiceAdapter();
 
     // LOAD DE DADOS DA PÁGINA =======================
     useEffect(() => {
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
+                try {
+                    const fetchedEstablishmentInfo = await establishmentAdapter.getEstablishmentById(Number(establishmentId));
+                    setEstablishmentInfo(fetchedEstablishmentInfo);
 
-              const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentId));
-              setServicesInfo(serviceData);
+                    const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentId));
+                    setServicesInfo(serviceData);
+                } catch (error) {
+                    console.error("Error fetching establishment data:", error);
+                }
             };
+
             fetchEstablishmentData();
         }
-    }, [CookieEstablishmentData, CookieEmployeeData, isAuthenticatedEmployee]);
+    }, [establishmentId]);
 
 
     // MODAL =======================
@@ -136,7 +146,7 @@ const ProfileB2B: React.FC = () => {
         );
     } else {
         return (
-            establishmentData ? (
+            establishmentInfo ? (
                 <S.ProfileB2BSection>
                     <S.ContainerProfile direction="column">
                         <S.HeaderProfile>
@@ -150,14 +160,14 @@ const ProfileB2B: React.FC = () => {
                             <Logo />
                         </S.HeaderProfile>
                         <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentData.name} profile={establishmentData.imgUrl} />
+                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.imgUrl} />
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                    <span>{establishmentData.media}</span>
+                                    <span>{establishmentInfo.media}</span>
                                 </Badge>
 
-                                {establishmentData && servicesInfo && (
+                                {establishmentInfo && servicesInfo && (
                                     Array.isArray(servicesInfo)
                                         ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (
                                             <Badge key={index}>{service.specification}</Badge>
@@ -168,7 +178,7 @@ const ProfileB2B: React.FC = () => {
                             </S.AvaliacaoContainer>
                         </S.PerfilContainer>
                         <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
-                        <Tab theme='client' establishmentInfo={establishmentData}/>
+                        <Tab theme='client' establishmentInfo={establishmentInfo}/>
                     </S.ContainerProfile>
                 </S.ProfileB2BSection>
             ) : null

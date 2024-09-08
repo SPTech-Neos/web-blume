@@ -75,9 +75,20 @@ const Sidebar: React.FC = () => {
               <House size={24} />
             </S.NavLink>
           </S.NavItem>
-        </S.NavList>
 
-        <S.NavList>
+          <S.NavItem>
+            <S.NavLink
+              to="/employees"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              {theme == "establishment" || theme == "employee" ? (
+                <UserList size={24} />
+              ) : null}
+            </S.NavLink>
+          </S.NavItem>
+
           <S.NavItem>
             <S.NavLink
               to={theme == "client" ? "/feed" : "/services"}
@@ -92,30 +103,13 @@ const Sidebar: React.FC = () => {
               )}
             </S.NavLink>
           </S.NavItem>
-          <S.NavItem>
-            <S.NavLink
-              to="/employees"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              {theme == "establishment" || theme == "employee" ? (
-                <UserList size={24} />
-              ) : null}
-            </S.NavLink>
-          </S.NavItem>
-          <S.NavItem>
-            <S.NavLink
-              to="/orders"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              <Receipt size={24} />
-            </S.NavLink>
-          </S.NavItem>
-          
+
+        </S.NavList>
+
+
+        <S.NavList>          
           {theme == "establishment" || theme == "employee" ? (
+            <>
             <S.NavItem>
               <S.NavLink
                 to="/products"
@@ -126,6 +120,18 @@ const Sidebar: React.FC = () => {
                 <Cube size={24} />
               </S.NavLink>
             </S.NavItem>
+
+            <S.NavItem>
+              <S.NavLink
+                to="/orders"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <Receipt size={24} />
+              </S.NavLink>
+            </S.NavItem>
+            </>
           ) : null}
           
         </S.NavList>

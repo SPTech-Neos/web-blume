@@ -25,17 +25,18 @@ export const ServiceCard: React.FC<S.serviceProps> = ({id, nome, valor, img, the
     );
 }
 
-export const ProductCard: React.FC<S.serviceProps> = ({id, nome, valor, img, onclick}) => {
+export const ProductCard: React.FC<S.serviceProps> = ({id, nome, valor, img, theme, onclick}) => {
     const handleCardClick = () => {
         window.location.href = `/details/product/${id}`;
     };
 
     return (
-        <S.CardBody id={id} onclick={onclick} onClick={handleCardClick}>
+        <S.CardBody id={id} onclick={onclick} theme={theme} onClick={handleCardClick}>
             <S.CardImg>
                 <S.ImgService img={img}></S.ImgService>
             </S.CardImg>
             <S.CardInfo>
+                <Rating></Rating>
                 <span>
                     {nome}
                 </span>

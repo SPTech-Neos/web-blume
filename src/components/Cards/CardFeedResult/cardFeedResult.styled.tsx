@@ -163,6 +163,7 @@ export const ServiceCardResultContainer = styled.div`
 `;
 
 export const ServiceImgUrl = styled.img`
+  background: ${c.gray200};
   width: 150px;
   height: 100px;
 
@@ -182,6 +183,7 @@ export const ServiceCard = styled.div`
 export const Col = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   gap: 5px;
 `;

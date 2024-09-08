@@ -61,7 +61,6 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
       <SecondaryTitle>Melhor Serviço</SecondaryTitle>
       {(() => {
         let validServices: ServiceResponseDto[] = [];
-        console.log(`SERVIÇOS: ${servicesInfo}`)
 
         // Reduz os resultados para coletar os filtros válidos
         searchResultsEstablishment.forEach((establishment) => {
@@ -89,11 +88,7 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
       })()}
     </S.Col>
 
-
-
-
     </S.BestResults>
-
       <S.MoreResults>
         <SecondaryTitle> Outros resultados </SecondaryTitle>
         <S.MoreResultsContainer>

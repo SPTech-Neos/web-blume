@@ -76,11 +76,11 @@ export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ services }) => 
     return (
         <S.ServiceCardResult>
             <S.ServiceCardResultContainer>
-                {services !== null && services !== undefined && 
+                {services && 
                     services.slice(0, 2).map((service, index) => (
 
                         <S.ServiceCard key={index} data-id={service.id}>
-                            <S.ServiceImgUrl alt={`Imagem do serviço: ${service.specification}`} src={service.imgUrl} />
+                            <S.ServiceImgUrl alt={`Imagem do serviço: ${service.specification}`} src={service.imgUrl ?? "https://via.placeholder.com/150"} />
                             <S.Col>
                                 <Subtitle>{service.specification}</Subtitle>
                                 <Subtitle>{`R$ ${(service.price).toFixed(2)}`}</Subtitle>

@@ -16,7 +16,7 @@ export const PrimaryCardResult:React.FC<S.PropsCardResult> = ({ id, imgUrl, name
             <S.PrimaryCardResultContainer>
                 <S.EstablishmentImgUrl 
                     alt={`Imagem de perfil da loja: ${name}`}
-                    src={imgUrl}
+                    src={imgUrl ?? iconProfile}
                 />
 
                 <S.EstablishmentName>{name}</S.EstablishmentName>
@@ -48,7 +48,7 @@ export const SecondaryCardResult: React.FC<S.PropsCardResult> = ({ id, imgUrl, n
             <S.SecondaryCardResultContainer>
                 <S.EstablishmentImgUrl 
                     alt={`Imagem de perfil da loja: ${name}`}
-                    src={imgUrl !== null ? imgUrl : iconProfile}
+                    src={imgUrl ?? iconProfile}
                 />
 
                 <S.EstablishmentName>{name}</S.EstablishmentName>

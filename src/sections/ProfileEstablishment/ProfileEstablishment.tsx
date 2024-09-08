@@ -25,6 +25,7 @@ import { EstablishmentResponseDto } from "../../utils/Establishment/establishmen
 import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 import { ServiceAdapter } from "../../adapters/Products/Service/Service";
 import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 
 const ProfileB2B: React.FC = () => {
@@ -40,7 +41,7 @@ const ProfileB2B: React.FC = () => {
   
 
     const tokenFromCookie = Cookies.get('employeeInfo');
-    const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+    const employeeData = tokenFromCookie ? JSON.parse(tokenFromCookie) as EmployeeResponseDto : null;
 
     const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
     const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
@@ -82,8 +83,8 @@ const ProfileB2B: React.FC = () => {
     };
 
     const handleDeleteConfirmation = async () => {
-        if (token) {
-            establishmentAdapter.delete(token.establishment.id);
+        if (employeeData) {
+            establishmentAdapter.delete(employeeData.establishment.id);
             setModalProps(null);
             navigate("/");
         }
@@ -91,7 +92,7 @@ const ProfileB2B: React.FC = () => {
     
     if(isAuthenticatedEmployee){
         return (
-            token && establishmentInfo ? (
+            employeeData && establishmentInfo ? (
                 <S.ProfileB2BSection>
                     <HeaderProfile />
                     <S.ContainerProfile direction="column">

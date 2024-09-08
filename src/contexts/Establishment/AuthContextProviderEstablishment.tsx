@@ -9,7 +9,7 @@ interface AuthContextType {
   token: EstablishmentResponseDto | null;
   isAuthenticated: boolean;
   handleLogoutEstablishment: () => void;
-  handleUpdateEstablishment: (updatedFields: Partial<EstablishmentResponseDto>) => Promise<void>;
+  handleUpdateEstablishment: (updatedFields: Partial<EstablishmentRequestDto>) => Promise<void>;
   handleCreateEstablishment: (establishmentRequestDto: EstablishmentRequestDto) => Promise<EstablishmentResponseDto | null>;
   handleDeleteEstablishment: (establishmentId: number) => Promise<boolean>;
   getEstablishmentById: (establishmentId: number) => Promise<EstablishmentResponseDto | null>;
@@ -59,7 +59,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       }
 
       const token = JSON.parse(tokenString);
-      const establishment = await establishmentAdapter.getEstablishmentById(token.establishmentId);
+      const establishment = await establishmentAdapter.getEstablishmentById(token.id);
 
       if (establishment) {
         setToken(token);
@@ -73,13 +73,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
-  const handleUpdateEstablishment = async (updatedFields: Partial<EstablishmentResponseDto>) => {
+  const handleUpdateEstablishment = async (updatedFields: Partial<EstablishmentRequestDto>) => {
     try {
       const tokenFromCookie = Cookies.get('establishmentInfo');
-      const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+      const token = tokenFromCookie ? JSON.parse(tokenFromCookie) as EstablishmentResponseDto : null;
 
-      if (token && token.establishmentId !== undefined) {
-        const updatedEstablishment = await establishmentAdapter.update(token.idEstablishment, updatedFields);
+      if (token && token.id !== undefined) {
+        const updatedEstablishment = await establishmentAdapter.update(token.id, updatedFields);
 
         setToken(updatedEstablishment);
 
@@ -92,12 +92,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     } catch (error) {
       console.error("Erro ao atualizar os dados do estabelecimento:", error);
       throw error;
+      
     }
   };
 
   const handleCreateEstablishment = async (establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> => {
     try {
-      return await establishmentAdapter.register(establishmentRequestDto);
+      return await establishmentAdapter.registerEstablishment(establishmentRequestDto);
     } catch (error) {
       console.error("Erro ao criar estabelecimento:", error);
       return null;

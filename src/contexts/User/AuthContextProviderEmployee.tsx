@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Users/Employee/employee.types";
 
 import { EmployeeAdapter } from "../../adapters/User/Employee/Employee";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 interface AuthContextType {
   token: EmployeeResponseDto | null;
@@ -29,6 +30,7 @@ export const AuthContextEmployee = createContext<AuthContextType>({
 
 export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] | null }) => {
   const [token, setToken] = useState<EmployeeResponseDto | null>(null);
+  const [, setEstablishmentToken] = useState<EstablishmentResponseDto | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const employeeAdapter = new EmployeeAdapter();
@@ -44,15 +46,17 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
 
   const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {
-      
       const { email, password } = employeeLoginDto;
       const token = await employeeAdapter.login({ email, password });
-
+  
       if (token !== null && 'id' in token) {
         setToken(token);
+        setEstablishmentToken(token.establishment);
         setIsAuthenticated(true);
+  
         Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
-
+        Cookies.set('establishmentInfo', JSON.stringify(token.establishment), { expires: 7 });
+  
         return token as EmployeeResponseDto;
       } else {
         console.error("Login falhou: Token de autenticação é inválido ou nulo.");
@@ -63,6 +67,8 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
       throw error;
     }
   };
+  
+  
 
   const handleLogoutEmployee = () => {
     Cookies.remove('employeeInfo');
@@ -73,16 +79,21 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
   const renewSession = async () => {
     try {
       const tokenString = Cookies.get('employeeInfo');
-
+  
+      // Se algum dos cookies não estiver presente, faz o logout
       if (!tokenString) {
         handleLogoutEmployee();
         return;
       }
-
-      const token = JSON.parse(tokenString);
-      const employee = await employeeAdapter.getEmployeeById(token.id);
-
+  
+      // Parse dos tokens diretamente dos cookies
+      const token = JSON.parse(tokenString) as EmployeeResponseDto;
+  
+      // Obtendo os dados necessários a partir dos tokens
+      const employee = await employeeAdapter.getEmployeeById(Number(token.id));
+  
       if (employee) {
+        // Atualiza o estado com os tokens diretamente
         setToken(token);
         setIsAuthenticated(true);
       } else {
@@ -93,6 +104,7 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.
       handleLogoutEmployee();
     }
   };
+  
 
   const handleUpdateEmployee = async (updatedFields: Partial<EmployeeResponseDto>) => {
     try {

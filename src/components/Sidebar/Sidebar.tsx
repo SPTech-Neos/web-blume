@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -21,12 +21,8 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
-import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 
 const Sidebar: React.FC = () => {
-
-  const tokenFromCookie = Cookies.get('establismentInfo');
-
   const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } =
     useContext(AuthContextEmployee);
   const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } =
@@ -62,25 +58,8 @@ const Sidebar: React.FC = () => {
   });
 
   
-  const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
-  const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
-  const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
-
-  const { getEstablishmentById } = useContext(AuthContextEstablishment);
-  const { getEmployeeById } = useContext(AuthContextEmployee);
-
-  useEffect(() => {
-          const fetchEstablishmentData = async () => {
-              const employeeEstab = await getEmployeeById(Number(token.id)); 
-              setEmployeeInfo(employeeEstab);
-
-              const data = await getEstablishmentById(Number(employeeEstab?.establishment.id));
-              setEstablishmentInfo(data);
-
-          }
-          fetchEstablishmentData();
-  }, [tokenFromCookie]);
-
+  const CookieEstablishmentData = Cookies.get('establishmentInfo');
+  const establishmentData = CookieEstablishmentData ? JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto : null;
 
   return (
     <S.SidebarWrapper theme={theme}>
@@ -88,7 +67,7 @@ const Sidebar: React.FC = () => {
         <S.NavList>
           <S.NavItem>
             <S.NavLink
-              to={theme == "client" ? "/feed" : `/establishment/${establishmentInfo?.id}`}
+              to={theme == "client" ? "/feed" : `/establishment/${establishmentData?.id}`}
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }

@@ -42,7 +42,7 @@ export class ServiceAdapter {
 
     async getAllServices(): Promise<ServiceResponseDto[] | null> {
         try {
-            const url = new URL(`${this.apiUrl}/service`);
+            const url = new URL(`${this.apiUrl}/services`);
     
             const response = await axios.get(url.toString(), this.getRequestOptions());
     

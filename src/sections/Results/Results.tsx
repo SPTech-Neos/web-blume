@@ -1,79 +1,87 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import * as S from './results.styled';
-import { EstablishmentFullResponseDto, EstablishmentResponseDto } from '../../utils/Establishment/establishment.types';
+import { EstablishmentResponseDto } from '../../utils/Establishment/establishment.types';
 import { SecondaryTitle } from '../../components/Texts/Title/Title';
 import { PrimaryCardResult, SecondaryCardResult, ServiceCardResult } from '../../components/Cards/CardFeedResult/CardFeedResult';
-import { FilterResponseDto } from '../../utils/Filter/filters.types';
+import { ServiceAdapter } from '../../adapters/Products/Service/Service';
+import { ServiceResponseDto } from '../../utils/Products/Service/service.types';
+import { EstablishmentAdapter } from '../../adapters/Establishment/Establishment';
 
 interface SearchProps {
-  searchResultsEstablishment?: EstablishmentFullResponseDto[];
+  searchResultsEstablishment?: EstablishmentResponseDto[];
 }
 
 const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
+  const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
+  
+  const serviceAdapter = new ServiceAdapter;
+
+  // LOAD DE DADOS DA PÁGINA =======================
+  useEffect(() => {
+    const fetchServicesData = async () => {
+      const serviceData = await serviceAdapter.getAllServices();
+      setServicesInfo(serviceData);
+    };
+
+    fetchServicesData();
+  }, []);
+
   if (!searchResultsEstablishment) {
     return <div>Nenhum resultado encontrado.</div>;
   }
   
   return (
-    
-
     <S.Results>
-
       <S.BestResults>
+        <S.Col>
+          <SecondaryTitle>Melhor Lugar</SecondaryTitle>
+          {searchResultsEstablishment.slice(0, 1).map((establishment) => {
 
-      <S.Col>
-        <SecondaryTitle>Melhor Lugar</SecondaryTitle>
-        {searchResultsEstablishment.slice(0, 1).map((result) => {
-          const establishments = result.establishment;
+            if (!establishment) return null;
+                
+            const tags: string[] = Array.isArray(servicesInfo)
+                ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto) => service.specification)
+                : [];
 
-          if (!establishments) return null;
-          const establishmentsArray: EstablishmentResponseDto[] = Array.isArray(establishments) ? establishments : [establishments];
-              
-          const filters = result.filters;
-          const tags: string[] = Array.isArray(filters)
-              ? filters.slice(0, 2).map((filter: FilterResponseDto) => filter.service.specification)
-              : [];
-
-          return (
-            <PrimaryCardResult
-                key={establishmentsArray[0].id}
-                id={establishmentsArray[0].id}
-                imgUrl={establishmentsArray[0].imgUrl}
-                name={establishmentsArray[0].name}
-                servicesName={tags}
-            />
-          );
-      })}
-    </S.Col>
+            return (
+              <PrimaryCardResult
+                  key={establishment.id}
+                  id={establishment.id}
+                  imgUrl={establishment.imgUrl}
+                  name={establishment.name}
+                  servicesName={tags}
+              />
+            );
+        })}
+      </S.Col>
 
 
 
     <S.Col>
       <SecondaryTitle>Melhor Serviço</SecondaryTitle>
       {(() => {
-        let validFilters: FilterResponseDto[] = [];
+        let validServices: ServiceResponseDto[] = [];
+        console.log(`SERVIÇOS: ${servicesInfo}`)
 
         // Reduz os resultados para coletar os filtros válidos
-        searchResultsEstablishment.forEach((result) => {
-          const establishment = result.establishment;
+        searchResultsEstablishment.forEach((establishment) => {
           if (!establishment) return;
 
-          const filters = result.filters;
-
           // Verifica se filters é um array e filtra os que têm um serviço válido
-          const currentValidFilters: FilterResponseDto[] = Array.isArray(filters)
-            ? filters.filter((filter: FilterResponseDto) => filter.service)
+          const currentvalidServices: ServiceResponseDto[] = Array.isArray(servicesInfo)
+            ? servicesInfo.filter((service: ServiceResponseDto) => service)
             : [];
 
           // Adiciona os filtros válidos ao array acumulador
-          validFilters = validFilters.concat(currentValidFilters);
+          validServices = validServices.concat(currentvalidServices);
         });
 
         // Verifica se há filtros válidos e renderiza o componente ServiceCardResult
-        if (validFilters.length > 0) {
+        if (validServices.length > 0) {
           return (
             <ServiceCardResult
-              filters={validFilters}
+              services={validServices}
             />
           );
         } else {
@@ -90,17 +98,14 @@ const Results: React.FC<SearchProps> = ({ searchResultsEstablishment }) => {
       <S.MoreResults>
         <SecondaryTitle> Outros resultados </SecondaryTitle>
         <S.MoreResultsContainer>
-          {searchResultsEstablishment.map((result) => {
-            const establishments = result.establishment;
+          {searchResultsEstablishment.map((establishment) => {
 
-            if (!establishments) return null;
-            const establishmentsArray: EstablishmentResponseDto[] = Array.isArray(establishments) ? establishments : [establishments];
+            if (!establishment) return;
 
-            return establishmentsArray.map((establishment) => {
-                
-                const filters = result.filters;
-                const tags: string[] = Array.isArray(filters)
-                    ? filters.slice(0, 2).map((filter: FilterResponseDto) => filter.service.specification)
+            return searchResultsEstablishment.map((establishment) => {
+              
+                const tags: string[] = Array.isArray(servicesInfo)
+                    ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto) => service.specification)
                     : [];
 
                 return (

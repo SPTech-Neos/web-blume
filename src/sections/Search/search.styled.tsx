@@ -7,6 +7,10 @@ export interface Props {
   direction: "column" | "row";
 }
 
-export const Search = styled.section`
-
+export const SearchSection = styled.section`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;

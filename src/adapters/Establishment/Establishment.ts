@@ -62,6 +62,62 @@ export class EstablishmentAdapter {
         }
     }    
 
+    async getBestRating(top: number): Promise<EstablishmentResponseDto[] | null> {
+        try {
+    
+            const response = await axios.get(`${this.apiUrl}/establishments/best-rating/${top}`, this.getRequestOptions());
+    
+            const establishments = response.data.map((establishment: EstablishmentResponseDto) => ({
+                id: establishment.id,
+                aditumId: "",
+                name: establishment.name,
+                imgUrl: establishment.imgUrl,
+                local: establishment.local,
+                phone: establishment.phone,
+                status: establishment.status,
+                startShift: establishment.startShift,
+                endShift: establishment.endShift,
+                description: establishment.description,
+                cnpj: establishment.cnpj,
+                media: establishment.media,
+            })) as EstablishmentResponseDto[];
+    
+            return establishments;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }    
+
+    async getAllActiveEstablishments(): Promise<EstablishmentResponseDto[] | null> {
+        try {
+    
+            const response = await axios.get(`${this.apiUrl}/establishments/active`, this.getRequestOptions());
+    
+            const establishments = response.data.map((establishment: EstablishmentResponseDto) => ({
+                id: establishment.id,
+                aditumId: "",
+                name: establishment.name,
+                imgUrl: establishment.imgUrl,
+                local: establishment.local,
+                phone: establishment.phone,
+                status: establishment.status,
+                startShift: establishment.startShift,
+                endShift: establishment.endShift,
+                description: establishment.description,
+                cnpj: establishment.cnpj,
+                media: establishment.media,
+            })) as EstablishmentResponseDto[];
+    
+            return establishments;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }    
+
     async getEstablishmentById(id: number): Promise<EstablishmentResponseDto | null> {
         try {
 

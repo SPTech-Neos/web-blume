@@ -5,7 +5,7 @@ import Container from '../../components/Containers/Container/Container';
 import Rating from '../../components/Rating/Rating';
 import { propsRating } from '../../components/Rating/rating.styled';
 import Badge from "../../components/Badges/AvaliationBadge/AvaliationBadge";
-import Card from '../../components/Cards/Card/Card';
+import Card from '../../components/Cards/CardService/Card';
 
 export interface detailsProps {
     theme?: 'client' | 'establishmente' | 'employee'

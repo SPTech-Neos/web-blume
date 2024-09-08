@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./products.styled";
 
 import { Title } from "../../components/Texts/Title/Title";
-import Card from "../../components/Cards/Card/Card";
+import Card from "../../components/Cards/CardService/Card";
 
 import Calendario from "../../assets/calendario-2.svg";
 import Produtos from "../../assets/produtos.svg";

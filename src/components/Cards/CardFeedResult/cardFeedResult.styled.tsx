@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { colors as c } from "../../../styles/Colors";
 import { device } from "../../../styles/breakpoints.styled";
-import { FilterResponseDto } from "../../../utils/Filter/filters.types";
+import { ServiceResponseDto } from "../../../utils/Products/Service/service.types";
 
 export interface PropsCardResult{
   id?: number;
   imgUrl?: string | undefined;
   name?: string;
   servicesName?: string[] | null;
-  filters?: FilterResponseDto[];
+  services?: ServiceResponseDto[];
   specification?: string;
   price?: string; 
 }

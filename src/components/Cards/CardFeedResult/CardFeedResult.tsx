@@ -71,19 +71,19 @@ export const SecondaryCardResult: React.FC<S.PropsCardResult> = ({ id, imgUrl, n
     );
 }
 
-export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ filters }) => {
+export const ServiceCardResult: React.FC<S.PropsCardResult> = ({ services }) => {
 
     return (
         <S.ServiceCardResult>
             <S.ServiceCardResultContainer>
-                {filters !== null && filters !== undefined && 
-                    filters.slice(0, 2).map((filter, index) => (
+                {services !== null && services !== undefined && 
+                    services.slice(0, 2).map((service, index) => (
 
-                        <S.ServiceCard key={index} data-id={filter.service.id}>
-                            <S.ServiceImgUrl alt={`Imagem do serviço: ${filter.service.specification}`} src={filter.service.imgUrl} />
+                        <S.ServiceCard key={index} data-id={service.id}>
+                            <S.ServiceImgUrl alt={`Imagem do serviço: ${service.specification}`} src={service.imgUrl} />
                             <S.Col>
-                                <Subtitle>{filter.service.specification}</Subtitle>
-                                <Subtitle>{`R$ ${(filter.price).toFixed(2)}`}</Subtitle>
+                                <Subtitle>{service.specification}</Subtitle>
+                                <Subtitle>{`R$ ${(service.price).toFixed(2)}`}</Subtitle>
                             </S.Col>
                         </S.ServiceCard>
                         

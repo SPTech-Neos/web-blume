@@ -39,11 +39,14 @@ const ProfileB2B: React.FC = () => {
 
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
   
+    // Buscando dados nos cookies
+    const CookieEmployeeData = Cookies.get('employeeInfo');
+    const CookieEstablishmentData = Cookies.get('establishmentInfo');
 
-    const tokenFromCookie = Cookies.get('employeeInfo');
-    const employeeData = tokenFromCookie ? JSON.parse(tokenFromCookie) as EmployeeResponseDto : null;
+    // Convertendo para JSON
+    const employeeData = CookieEmployeeData ? JSON.parse(CookieEmployeeData) as EmployeeResponseDto : null;
+    const establishmentData = CookieEstablishmentData ? JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto : null;
 
-    const [establishmentInfo, setEstablishmentInfo] = useState<EstablishmentResponseDto | null>(null);
     const [servicesInfo, setServicesInfo] = useState<ServiceResponseDto[] | null>(null);
     
     const establishmentAdapter = new EstablishmentAdapter;
@@ -53,15 +56,13 @@ const ProfileB2B: React.FC = () => {
     useEffect(() => {
         if (establishmentId) {
             const fetchEstablishmentData = async () => {
-              const establishmentData = await establishmentAdapter.getEstablishmentById(Number(establishmentId));
-              setEstablishmentInfo(establishmentData);
 
               const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentId));
               setServicesInfo(serviceData);
             };
             fetchEstablishmentData();
         }
-    }, [tokenFromCookie, isAuthenticatedEmployee]);
+    }, [CookieEstablishmentData, CookieEmployeeData, isAuthenticatedEmployee]);
 
 
     // MODAL =======================
@@ -92,7 +93,7 @@ const ProfileB2B: React.FC = () => {
     
     if(isAuthenticatedEmployee){
         return (
-            employeeData && establishmentInfo ? (
+            employeeData && establishmentData ? (
                 <S.ProfileB2BSection>
                     <HeaderProfile />
                     <S.ContainerProfile direction="column">
@@ -100,8 +101,8 @@ const ProfileB2B: React.FC = () => {
     
                         <EditModal id="editModal"/>
     
-                        <S.Perfil tipoperfil="B2B" username={establishmentInfo.name} />
-                        <Tab theme='establishment' establishmentInfo={establishmentInfo}/>
+                        <S.Perfil tipoperfil="B2B" username={establishmentData.name} />
+                        <Tab theme='establishment' establishmentInfo={establishmentData}/>
                         <S.ContainerAtencao>
                             <S.ContainerTitle>
                                 <S.TracoAtencao />
@@ -135,7 +136,7 @@ const ProfileB2B: React.FC = () => {
         );
     } else {
         return (
-            establishmentInfo ? (
+            establishmentData ? (
                 <S.ProfileB2BSection>
                     <S.ContainerProfile direction="column">
                         <S.HeaderProfile>
@@ -149,14 +150,14 @@ const ProfileB2B: React.FC = () => {
                             <Logo />
                         </S.HeaderProfile>
                         <S.PerfilContainer>
-                            <S.Perfil tipoperfil="B2C" username={establishmentInfo.name} profile={establishmentInfo.imgUrl} />
+                            <S.Perfil tipoperfil="B2C" username={establishmentData.name} profile={establishmentData.imgUrl} />
                             <S.AvaliacaoContainer>
                                 <Badge>
                                     <S.StarImg weight="fill" color={getTheme("B2C").mainColor}></S.StarImg>
-                                    <span>{establishmentInfo.media}</span>
+                                    <span>{establishmentData.media}</span>
                                 </Badge>
 
-                                {establishmentInfo && servicesInfo && (
+                                {establishmentData && servicesInfo && (
                                     Array.isArray(servicesInfo)
                                         ? servicesInfo.slice(0, 2).map((service: ServiceResponseDto, index: number) => (
                                             <Badge key={index}>{service.specification}</Badge>
@@ -167,7 +168,7 @@ const ProfileB2B: React.FC = () => {
                             </S.AvaliacaoContainer>
                         </S.PerfilContainer>
                         <S.Searchbar placeholderText="Salão para cabelos cacheados..."></S.Searchbar>
-                        <Tab theme='client' establishmentInfo={establishmentInfo}/>
+                        <Tab theme='client' establishmentInfo={establishmentData}/>
                     </S.ContainerProfile>
                 </S.ProfileB2BSection>
             ) : null

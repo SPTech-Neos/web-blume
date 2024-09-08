@@ -6,7 +6,6 @@ import { SecondaryTitle } from '../../components/Texts/Title/Title';
 import { PrimaryCardResult, SecondaryCardResult, ServiceCardResult } from '../../components/Cards/CardFeedResult/CardFeedResult';
 import { ServiceAdapter } from '../../adapters/Products/Service/Service';
 import { ServiceResponseDto } from '../../utils/Products/Service/service.types';
-import { EstablishmentAdapter } from '../../adapters/Establishment/Establishment';
 
 interface SearchProps {
   searchResultsEstablishment?: EstablishmentResponseDto[];

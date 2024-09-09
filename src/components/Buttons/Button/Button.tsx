@@ -5,12 +5,13 @@ export const Button: React.FC<S.ButtonProps> = ({
   onClick,
   theme,
   size,
+  type,
   children,
 }) => {
   console.log(theme);
 
   return (
-    <S.Button theme={theme} onClick={onClick} size={size}>
+    <S.Button type={type} theme={theme} onClick={onClick} size={size}>
       {children}
     </S.Button>
   );

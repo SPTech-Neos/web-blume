@@ -1,10 +1,10 @@
-FROM node:21-slim
+FROM node:21-alpine3.19
 
 WORKDIR /app
 
 COPY yarn.lock package.json ./
 
-RUN yarn && yarn cache clean
+RUN yarn install
 
 COPY . .
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors as c } from "../../../styles/Colors";
 
 export interface TextProps {
-  children: string;
+  children: string | string[];
   weight?: string | number;
   color?:
     | "violet"

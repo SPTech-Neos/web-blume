@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import * as S from "./sidebar.styled";
 
 import {
@@ -15,12 +15,14 @@ import {
   Article,
   UserList,
 } from "@phosphor-icons/react";
-import { SignOut } from "phosphor-react";
+import { CalendarPlus, SignOut } from "phosphor-react";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+
+import navIcon from "../../assets/nav-icon.svg";
 
 const Sidebar: React.FC = () => {
   const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } =
@@ -57,9 +59,10 @@ const Sidebar: React.FC = () => {
     }
   });
 
-  
-  const CookieEstablishmentData = Cookies.get('establishmentInfo');
-  const establishmentData = CookieEstablishmentData ? JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto : null;
+  const CookieEstablishmentData = Cookies.get("establishmentInfo");
+  const establishmentData = CookieEstablishmentData
+    ? (JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto)
+    : null;
 
   return (
     <S.SidebarWrapper theme={theme}>
@@ -67,49 +70,42 @@ const Sidebar: React.FC = () => {
         <S.NavList>
           <S.NavItem>
             <S.NavLink
-              to={theme == "client" ? "/feed" : `/establishment/${establishmentData?.id}`}
+              to={
+                theme == "client"
+                  ? "/feed"
+                  : `/establishment/${establishmentData?.id}`
+              }
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              <House size={24} />
+              <S.NavIcon src={navIcon} />
             </S.NavLink>
           </S.NavItem>
-
-          <S.NavItem>
-            <S.NavLink
-              to="/employees"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              {theme == "establishment" || theme == "employee" ? (
-                <UserList size={24} />
-              ) : null}
-            </S.NavLink>
-          </S.NavItem>
-
-          <S.NavItem>
-            <S.NavLink
-              to={theme == "client" ? "/feed" : "/services"}
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              {theme == "establishment" || theme == "employee" ? (
-                <Article size={24} />
-              ) : (
-                <MagnifyingGlass size={24} />
-              )}
-            </S.NavLink>
-          </S.NavItem>
-
         </S.NavList>
 
-
-        <S.NavList>          
-          {theme == "establishment" || theme == "employee" ? (
-            <>
+        <S.NavList>
+          <>
+            <S.NavItem>
+              <S.NavLink
+                to={`/dashboard`}
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <House weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
+            <S.NavItem>
+              <S.NavLink
+                to="/employees"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <UserList weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
             <S.NavItem>
               <S.NavLink
                 to="/products"
@@ -117,7 +113,7 @@ const Sidebar: React.FC = () => {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                <Cube size={24} />
+                <Cube weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
 
@@ -128,12 +124,20 @@ const Sidebar: React.FC = () => {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                <Receipt size={24} />
+                <Article weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
-            </>
-          ) : null}
-          
+            <S.NavItem>
+              <S.NavLink
+                to="/orders"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <Receipt weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
+          </>
         </S.NavList>
 
         <S.NavList>
@@ -144,17 +148,7 @@ const Sidebar: React.FC = () => {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              <Bell size={24} />
-            </S.NavLink>
-          </S.NavItem>
-          <S.NavItem>
-            <S.NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              <GearSix size={24} />
+              <CalendarPlus weight="bold" size={28} />
             </S.NavLink>
           </S.NavItem>
           <S.NavItem>
@@ -164,10 +158,10 @@ const Sidebar: React.FC = () => {
                 isActive ? "nav-link active " : "nav-link"
               }
             >
-              <UserCircle size={24} />
+              <UserCircle weight="bold" size={28} />
             </S.NavLink>
           </S.NavItem>
-          <S.NavItem>
+          {/* <S.NavItem>
             <S.NavLink
               to={"/"}
               className={({ isActive }) =>
@@ -175,9 +169,9 @@ const Sidebar: React.FC = () => {
               }
               onClick={() => handleLogout()}
             >
-              <SignOut size={24} />
+              <SignOut weight="bold" size={28} />
             </S.NavLink>
-          </S.NavItem>
+          </S.NavItem> */}
         </S.NavList>
       </S.Container>
     </S.SidebarWrapper>

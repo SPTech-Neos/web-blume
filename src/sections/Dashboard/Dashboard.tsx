@@ -1,175 +1,211 @@
 import React, { useState } from "react";
 import * as S from "./dashboard.styled";
 import Logo from "../../components/Images/Logo/Logo";
-import { PrimaryButton as Button } from "../../components/Buttons/DefaultButton/DefaultButton";
-import { CaretLeft } from "phosphor-react";
-import Modal from "../../components/Modals/ChooseModal/ChooseModal";
-import Schedule from "../../components/Modals/ScheduleModal/ScheduleModal";
-import { PieChart } from "@mui/x-charts/PieChart";
-import { LineChart } from "@mui/x-charts/LineChart";
-import { BarChart } from "@mui/x-charts/BarChart";
+import { Button } from "../../components/Buttons/Button/Button";
+
+import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
+import { axisClasses } from "@mui/x-charts/ChartsAxis";
+
 import { colors as c, Themes } from "../../styles/Colors";
-import Subtitle from "../../components/Texts/Subtitle/Subtitle";
+import { Title, Subtitle } from "../../components/Texts/Title/Title";
+import Text from "../../components/Texts/Text/Text";
+import Container from "../../components/Containers/Container/Container";
 
 const Dashboard: React.FC<S.detailsProps> = () => {
-  const [pieData, setPieData] = useState([
-    { id: 0, value: 90, color: c.green500 },
-    { id: 1, value: 10, color: c.violet50 },
+  const [priorityData, setPriorityData] = useState([
+    "999.99",
+    "(5) Aguardando Pagamento",
   ]);
 
-  const [lineSeries, setLineSeries] = useState([
+  const [generalKpis, setGeneralKpis] = useState(["25", "99", "4.9"]);
+
+  const [dataset, setDataset] = useState([
     {
-      data: [2, 5.5, 2, 8.5, 1.5, 5],
+      canceled: 59,
+      complete: 57,
+      day: "Seg",
     },
     {
-      data: [2.5, 5, 5, 5, 1, 4],
+      canceled: 50,
+      complete: 52,
+      day: "Ter",
+    },
+    {
+      canceled: 47,
+      complete: 53,
+      day: "Qua",
+    },
+    {
+      canceled: 54,
+      complete: 56,
+      day: "Qui",
+    },
+    {
+      canceled: 57,
+      complete: 69,
+      day: "Sex",
+    },
+    {
+      canceled: 60,
+      complete: 63,
+      day: "Sáb",
+    },
+    {
+      canceled: 59,
+      complete: 60,
+      day: "Dom",
     },
   ]);
-
-  const [lineXAxis, setLineXAxis] = useState([1, 2, 3, 5, 8, 10]);
-
-  const [barSeries, setBarSeries] = useState([{ data: [4, 6, 2, 1, 8] }]);
 
   const [barXAxis, setBarXAxis] = useState([
-    "Corte",
-    "Pintura",
-    "Alisamento",
-    "Cacheamento",
-    "Estilização",
+    "Seg",
+    "Ter",
+    "Qua",
+    "Qui",
+    "Sex",
+    "Sáb",
+    "Dom",
   ]);
 
+  const [employees, setEmployees] = useState([
+    {
+      urlPic: "urlFoto",
+      empName: "Fulano da Silva",
+      empRate: 4.9,
+      empHours: "5h Agendadas",
+      empValue: 999.99,
+    },
+    {
+      urlPic: "urlFoto",
+      empName: "Fulano da Silva",
+      empRate: 4.9,
+      empHours: "5h Agendadas",
+      empValue: 999.99,
+    },
+    {
+      urlPic: "urlFoto",
+      empName: "Fulano da Silva",
+      empRate: 4.9,
+      empHours: "5h Agendadas",
+      empValue: 999.99,
+    },
+    {
+      urlPic: "urlFoto",
+      empName: "Fulano da Silva",
+      empRate: 4.9,
+      empHours: "5h Agendadas",
+      empValue: 999.99,
+    },
+    {
+      urlPic: "urlFoto",
+      empName: "Fulano da Silva",
+      empRate: 4.9,
+      empHours: "5h Agendadas",
+      empValue: 999.99,
+    },
+  ]);
+
+  const [orderKpis, setOrderKpis] = useState([
+    "Progressiva",
+    "Permanente",
+    "Maquiagem de Noiva",
+    "Cortar Unha",
+  ]);
+
+  const chartSetting = {
+    width: 500,
+    height: 300,
+  };
+
+  // const valueFormatter = (value: number | null) => `${value} pedidos`;
+  const valueFormatter = (value: number | null) => `${value}mm`;
+
+  const colors: string[] = [c.green800, c.green50];
+
   return (
-    <S.DetailsSection>
-      <Schedule id="schedule" />
-      <Modal id="editModal" />
+    <S.DashSection>
+      <Container direction="column">
+        <Title>Dashboard</Title>
+        <Text>de Hoje</Text>
+      </Container>
 
-      <S.DetaisHeader>
-        <S.NavBody>
-          <S.NavItem>
-            <S.NavLink
-              to="/feed"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              <CaretLeft size={22} />
-            </S.NavLink>
-          </S.NavItem>
-        </S.NavBody>
-        <Logo />
-      </S.DetaisHeader>
+      <S.DashTop>
+        <S.DashPriority>
+          <Container direction="column">
+            <Text>Valor:</Text>
+            <Text>R${priorityData[0]}</Text>
+          </Container>
+          <Container direction="column">
+            <Text>Status:</Text>
+            <Text>{priorityData[1]}</Text>
+          </Container>
+        </S.DashPriority>
+        <S.DashCard>
+          <Container direction="column">
+            <Text>Cancelados:</Text>
+            <S.DashLine />
+            <Container direction="row">
+              {/* <Icon /> */}
+              <Text>ad{generalKpis[0]}</Text>
+            </Container>
+          </Container>
+        </S.DashCard>
+      </S.DashTop>
 
-      <S.DetailsContainer direction="column">
-        <h1>PAINEL</h1>
-        <div className="row">
-          <S.DashBox>
-            <div className="column">
-              <Subtitle weight={500} size="md">
-                Taxa de
-              </Subtitle>
-              <Subtitle weight={700} size="lg">
-                CANCELAMENTO
-              </Subtitle>
-            </div>
-            <S.DashData>85%</S.DashData>
-          </S.DashBox>
-          {/* <h3>ocupação dos funcionarios</h3> */}
-          <S.DashPieChart
-            series={[
+      <S.DashMid>
+        <S.DashChart>
+          <Text size="lg">PEDIDOS</Text>
+          <BarChart
+            dataset={dataset}
+            xAxis={[
               {
-                data: pieData,
-                innerRadius: 80,
-                cornerRadius: 100,
+                scaleType: "band",
+                dataKey: "day",
               },
             ]}
-            width={400}
-            height={200}
+            series={[
+              { dataKey: "canceled", label: "Cancelado", valueFormatter },
+              { dataKey: "complete", label: "Concluído", valueFormatter },
+            ]}
+            colors={colors}
+            sx={() => ({
+              fontFamily: "Poppins",
+              backgroundColor: c.gray100,
+            })}
+            {...chartSetting}
           />
-          <S.DashPieInfo>
-            <Subtitle size="lg" weight={800}>
-              100%
-            </Subtitle>
-            <Subtitle size="sm" weight={500}>
-              de ocupação dos funcionarios
-            </Subtitle>
-          </S.DashPieInfo>
-          <S.DashBox>
-            <div className="column">
-              <Subtitle weight={700} size="lg">
-                RENDA TOTAL
-              </Subtitle>
-              <Subtitle weight={500} size="md">
-                do Mês
-              </Subtitle>
-            </div>
-            <S.DashData>R$1.000,00</S.DashData>
-          </S.DashBox>
-        </div>
-        <div className="row">
-          <S.DashGraph>
-            <div>
-              <Subtitle weight={700} size="lg">
-                CANCELAMENTO
-              </Subtitle>
-              <Subtitle weight={500} size="md">
-                por Funcionário
-              </Subtitle>
-            </div>
-            <LineChart
-              slotProps={{
-                loadingOverlay: { message: "Carregango gráfico..." },
-                noDataOverlay: { message: "Nenhum dado para mostrar." },
-              }}
-              xAxis={[
-                {
-                  data: lineXAxis,
-                },
-              ]}
-              series={lineSeries}
-              width={500}
-              height={300}
-            />
-          </S.DashGraph>
-          <S.DashGraph>
-            <div>
-              <Subtitle weight={700} size="lg">
-                RENDA TOTAL
-              </Subtitle>
-              <Subtitle weight={500} size="md">
-                por Categoria
-              </Subtitle>
-            </div>
-            <BarChart
-              slotProps={{
-                loadingOverlay: { message: "Carregango gráfico..." },
-                noDataOverlay: { message: "Nenhum dado para mostrar." },
-              }}
-              xAxis={[
-                {
-                  scaleType: "band",
-                  data: barXAxis,
-                  // colorMap: {
-                  //   type: "piecewise",
-                  //   thresholds: [1, 2],
-                  //   colors: [c.green500],
-                  // },
-                  colorMap: {
-                    type: "ordinal",
-                    values: barXAxis,
-                    colors: [c.green300, c.green500, c.green800],
-                    unknownColor: c.green100,
-                  },
-                },
-              ]}
-              series={barSeries}
-              colors={["#FF0000", "#00ff00", "#0000ff", "#00ff00", "#0000ff"]}
-              width={500}
-              height={300}
-            />
-          </S.DashGraph>
-        </div>
-      </S.DetailsContainer>
-    </S.DetailsSection>
+        </S.DashChart>
+        <S.DashEmployees>
+          <Text size="lg">Funcionários</Text>
+          {/* forEach(linha de employees) */}
+        </S.DashEmployees>
+      </S.DashMid>
+
+      <S.DashBottom>
+        <S.DashCard>
+          <Container direction="column">
+            <Text>Mais Pedido</Text>
+            <S.DashLine />
+            <Text>{orderKpis[0]}</Text>
+          </Container>
+          <Container direction="column">
+            <Text>Mais Pedido</Text>
+            <S.DashLine />
+            <Text>{orderKpis[1]}</Text>
+          </Container>
+          <Container direction="column">
+            <Text>Mais Pedido</Text>
+            <S.DashLine />
+            <Text>{orderKpis[2]}</Text>
+          </Container>
+          <Container direction="column">
+            <Text>Mais Pedido</Text>
+            <S.DashLine />
+            <Text>{orderKpis[3]}</Text>
+          </Container>
+        </S.DashCard>
+      </S.DashBottom>
+    </S.DashSection>
   );
 };
 

@@ -23,7 +23,7 @@ const InputText: React.FC<S.InputTextProps> = ({
   const [typeState, setTypeState] = useState(type);
 
   const handleToggle = () => {
-    if (typeState === "password") {
+    if (typeState !== "password") {
       setIcon(eye);
       setTypeState("text");
     } else {

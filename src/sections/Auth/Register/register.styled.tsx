@@ -17,16 +17,17 @@ export interface CategoryProps {
 
 export const Register = styled.main<RegisterProps>`
   // width: 100%;
-  height: 90vh;
+  height: 95vh;
   background-color: ${c.gray100};
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   padding: 30px 50px;
   box-shadow: 0 0 48px 2px rgba(0, 0, 0, 0.25);
   max-width: 45%;
-  overflow-y: scroll;
+  border-radius: 16px;
+  overflow: scroll;
 `;
 
 export const Text = styled.span`
@@ -45,6 +46,25 @@ export const RegisterForm = styled.form<RegisterFormProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  // &::-webkit-scrollbar {
+  //   width: 10px;
+  // }
+
+  // /* Track */
+  // &::-webkit-scrollbar-track {
+  //   background: #f1f1f1;
+  // }
+
+  // /* Handle */
+  // &::-webkit-scrollbar-thumb {
+  //   background: #888;
+  // }
+
+  // /* Handle on hover */
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background: #555;
+  // }
 `;
 
 export const FormPart = styled.section`

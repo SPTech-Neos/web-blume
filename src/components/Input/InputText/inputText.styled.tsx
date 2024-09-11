@@ -139,9 +139,11 @@ export const InputText = styled.input.attrs((props) => ({
 
 export const ErrorText = styled.span`
   color: red;
-  font-size: 0.875rem;
+  font-size: 12px;
   margin-top: 0.25rem;
+  margin-left: 5px;
   display: block;
+  font-family: "Poppins";
 `;
 
 export const Slot = styled(TextField.Slot)`

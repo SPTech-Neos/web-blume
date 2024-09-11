@@ -44,6 +44,8 @@ export const Step = styled.div<StepProps>`
     // width: 1.5rem;
     // height: 1.5rem;
   }
+
+  transition: all 0.25s ease-in-out;
 `;
 
 export const Stepper = styled.div<StepperProps>`
@@ -51,11 +53,13 @@ export const Stepper = styled.div<StepperProps>`
   justify-content: center;
   align-items: center;
   // gap: 0.5rem;
+  transition: all 0.25s ease-in-out;
 `;
 export const Line = styled.div<LineProps>`
   width: 2rem;
   background: ${(props) => getTheme(props.theme).mainColor};
   height: 3px;
+  transition: all 0.25s ease-in-out;
 `;
 
 // export const Circle = styled.div<StateProps>`

@@ -5,6 +5,7 @@ export interface ButtonProps {
   children: string | JSX.Element | JSX.Element[];
   size?: "sm" | "md" | "lg";
   theme?: string;
+  type?: string;
   onClick?: () => void;
 }
 

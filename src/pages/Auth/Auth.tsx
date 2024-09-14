@@ -6,7 +6,6 @@ import Login from "../../sections/Auth/Login/Login";
 // import Signup from '../../sections/Signup/Signup';
 import { colors as c } from "../../styles/Colors";
 
-import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Register from "../../sections/Auth/Register/Register";
 
@@ -31,11 +30,9 @@ const Auth: React.FC = () => {
       {mode === "register" && <Register></Register>}
       {/* {mode === 'signup' && <Signup></Signup>} */}
       {mode === "choose-auth" && (
-        <AuthContextProviderClient>
           <AuthContextProviderEmployee>
             <ChooseAuth />
           </AuthContextProviderEmployee>
-        </AuthContextProviderClient>
       )}
     </>
   );

@@ -21,7 +21,7 @@ const StepContent: React.FC<StepContentProps> = ({
   acc,
   fields,
   onFieldChange,
-  goToNextStep,
+//  goToNextStep,
 }) => {
   const [errors, setErrors] = useState({
     // OBRIGATÓRIOS
@@ -58,6 +58,7 @@ const StepContent: React.FC<StepContentProps> = ({
       estado: false,
       complemento: false,
       phone: false,
+      city: false,
 
       // DADOS EMPLOYEE
       employeeNome: false,

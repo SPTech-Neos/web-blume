@@ -18,15 +18,15 @@ import {
 import { SignOut } from "phosphor-react";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+// import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 const Sidebar: React.FC = () => {
   const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } =
     useContext(AuthContextEmployee);
-  const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } =
-    useContext(AuthContextClient);
+  // const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } =
+  //   useContext(AuthContextClient);
   const {
     handleLogoutEstablishment,
     isAuthenticated: isAuthenticatedEstablishment,
@@ -41,9 +41,6 @@ const Sidebar: React.FC = () => {
   } else if (isAuthenticatedEmployee) {
     theme = "employee";
     handleLogout = handleLogoutEmployee;
-  } else if (isAuthenticatedClient) {
-    theme = "client";
-    handleLogout = handleLogoutClient;
   }
 
   const location = useLocation();

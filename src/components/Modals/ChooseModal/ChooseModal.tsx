@@ -32,7 +32,7 @@ const ChooseModal:React.FC<S.SelectEmployee> = () => {
     const handleSelect = () => {
         const modal = document.getElementsByClassName("active-modal");
         modal[0].classList.remove("active-modal");
-        const selected = document.getElementsByClassName("active");
+        // const selected = document.getElementsByClassName("active");
         const schedule = document.getElementById("schedule");
         schedule?.classList.add("active-schedule");
     }

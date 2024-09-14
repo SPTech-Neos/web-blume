@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import * as S from './details.styled';
@@ -159,13 +159,13 @@ const Details: React.FC<S.detailsProps> = () => {
                                  </span>*/}
                             </S.ContainerDescText>
                         </S.DescContainer>
-                        <S.CardContainer>
+                        {/* <S.CardContainer>
                             <S.CardDesc titulo={filterInfo?.establishment.name ?? productInfo?.establishment.name ?? ""} texto={productInfo?.brand ?? ""}>
                                 <S.ProfileImg 
                                     src={filterInfo?.establishment.imgUrl || productInfo?.establishment.imgUrl} 
                                     alt={`Imagem de ${filterInfo?.establishment.imgUrl || productInfo?.establishment.imgUrl}`}/>
                             </S.CardDesc>
-                        </S.CardContainer>
+                        </S.CardContainer> */}
                     </S.DetailsDesc>
                     
                 </S.DetailsContainer>

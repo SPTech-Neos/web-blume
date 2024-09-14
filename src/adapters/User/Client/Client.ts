@@ -5,13 +5,13 @@ import { ClientResponseDto } from "../../../utils/Users/Client/client.types";
 
 export class ClientAdapter {
     private readonly apiUrl: string;
-    private readonly SpringSecurityUsername: string;
-    private readonly SpringSecurityPassword: string;
+    // private readonly SpringSecurityUsername: string;
+    // private readonly SpringSecurityPassword: string;
 
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
-        this.SpringSecurityUsername = environment.springSecurityUsername;
-        this.SpringSecurityPassword = environment.springSecurityPassword;
+        // this.SpringSecurityUsername = environment.springSecurityUsername;
+        // this.SpringSecurityPassword = environment.springSecurityPassword;
     }
 
     // GET CLIENTE BY TOKEN

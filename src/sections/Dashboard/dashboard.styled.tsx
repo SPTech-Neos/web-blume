@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { NavLink as RouterNavLink } from "react-router-dom";
-import { colors as c, Themes } from "../../styles/Colors";
+import { colors as c } from "../../styles/Colors";
 import Container from "../../components/Containers/Container/Container";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 export interface detailsProps {
-  theme?: "client" | "establishmente" | "employee";
+  theme?: "client" | "establishment" | "employee";
 }
 
-function getTheme(theme: string) {
-  return theme === "client" ? Themes.client : Themes.establishment;
-}
+// function getTheme(theme: string) {
+//   return theme === "client" ? Themes.client : Themes.establishment;
+// }
 
 export const DetailsSection = styled.section`
   width: 100%;

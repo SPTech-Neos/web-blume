@@ -19,12 +19,13 @@ const Profile: React.FC<S.ProfileProps> = ({profile, tipoperfil, username}) => {
         // LOAD DE DADOS DA PÁGINA =======================
         useEffect(() => {
                 if (establishmentData) {
-                const fetchEstablishmentData = async () => {
+                        const fetchEstablishmentData = async () => {
 
-                const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentData.id));
-                setServicesInfo(serviceData);
-                };
-                fetchEstablishmentData();
+                                const serviceData = await serviceAdapter.getServicesByEstablishmentId(Number(establishmentData.id));
+                                        setServicesInfo(serviceData);
+                                };
+
+                        fetchEstablishmentData();
                 }
         }, [CookieEstablishmentData]);
 

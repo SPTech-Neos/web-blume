@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import * as S from "./dashboard.styled";
 import Logo from "../../components/Images/Logo/Logo";
-import { PrimaryButton as Button } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { CaretLeft } from "phosphor-react";
 import Modal from "../../components/Modals/ChooseModal/ChooseModal";
 import Schedule from "../../components/Modals/ScheduleModal/ScheduleModal";
-import { PieChart } from "@mui/x-charts/PieChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { colors as c, Themes } from "../../styles/Colors";
+import { colors as c } from "../../styles/Colors";
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 const Dashboard: React.FC<S.detailsProps> = () => {
-  const [pieData, setPieData] = useState([
+  const [pieData, ] = useState([
     { id: 0, value: 90, color: c.green500 },
     { id: 1, value: 10, color: c.violet50 },
   ]);
 
-  const [lineSeries, setLineSeries] = useState([
+  const [lineSeries, ] = useState([
     {
       data: [2, 5.5, 2, 8.5, 1.5, 5],
     },
@@ -26,11 +24,11 @@ const Dashboard: React.FC<S.detailsProps> = () => {
     },
   ]);
 
-  const [lineXAxis, setLineXAxis] = useState([1, 2, 3, 5, 8, 10]);
+  const [lineXAxis, ] = useState([1, 2, 3, 5, 8, 10]);
 
-  const [barSeries, setBarSeries] = useState([{ data: [4, 6, 2, 1, 8] }]);
+  const [barSeries, ] = useState([{ data: [4, 6, 2, 1, 8] }]);
 
-  const [barXAxis, setBarXAxis] = useState([
+  const [barXAxis, ] = useState([
     "Corte",
     "Pintura",
     "Alisamento",

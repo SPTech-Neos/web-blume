@@ -1,13 +1,29 @@
-FROM node:21-alpine3.19
+# Etapa 1: Build da aplicação
+FROM node:18-alpine AS build
 
+# Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
-COPY yarn.lock package.json ./
+# Copiar os arquivos package.json e yarn.lock para instalar as dependências
+COPY package.json yarn.lock ./
 
+# Instalar as dependências
 RUN yarn install
 
+# Copiar todos os arquivos da aplicação para o container
 COPY . .
 
-EXPOSE 3000
+# Build da aplicação
+RUN yarn build
 
-CMD ["yarn", "dev", "--host", "0.0.0.0"]
+# Etapa 2: Servir a aplicação
+FROM nginx:alpine
+
+# Copiar os arquivos da build para o Nginx
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expor a porta 80 para acessar a aplicação
+EXPOSE 80
+
+# Comando para rodar o Nginx
+CMD ["nginx", "-g", "daemon off;"]

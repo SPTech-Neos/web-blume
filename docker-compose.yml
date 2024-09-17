@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:80" # Mapeia a porta 80 do container para a 3000 do host
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production

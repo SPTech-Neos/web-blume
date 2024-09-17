@@ -1,10 +1,9 @@
-import React from "react";
+// import React from "react";
 
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { Theme } from "@radix-ui/themes";
 
-import { AuthContextProvider as AuthContextProviderClient } from "./contexts/User/AuthContextProviderClient.tsx";
 import { AuthContextProvider as AuthContextProviderEmployee } from "./contexts/User/AuthContextProviderEmployee.tsx";
 
 import "./styles/global.styles.css";
@@ -25,11 +24,9 @@ import "./styles/global.styles.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Theme>
     {/* <React.StrictMode> */}
-      <AuthContextProviderClient>
         <AuthContextProviderEmployee>
           <App />
         </AuthContextProviderEmployee>
-      </AuthContextProviderClient>
     {/* </React.StrictMode> */}
   </Theme>
 );

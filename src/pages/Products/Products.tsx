@@ -6,15 +6,12 @@ import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile"
 import EstablishmentProducts from "../../sections/EstablishmentProducts/EstablishmentProducts";
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 
 const Products: React.FC = () => {
     return(
-        <AuthContextProviderEmployee>
-
-            <AuthContextProviderClient>      
+        <AuthContextProviderEmployee>   
                 <AuthContextProviderEstablishment>
                     <S.ProductsPage>
 
@@ -24,8 +21,6 @@ const Products: React.FC = () => {
                         
                     </S.ProductsPage>
                     </AuthContextProviderEstablishment>
-            </AuthContextProviderClient>
-
         </AuthContextProviderEmployee>
     );
 }

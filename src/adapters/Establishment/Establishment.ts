@@ -167,6 +167,19 @@ export class EstablishmentAdapter {
                 statusId: 1,
             };
 
+            // 
+
+            // establishmentDto json com todas as info {}
+            // const response = await axios.post(`${this.apiUrlAditum}/establishments`, establishmentDto);
+            // verificar se establismentDto tem tudo Necessario
+            // manter a resposta e depois fazer algo parecido com esse:
+
+            // const establishmentDto = {
+            //     ...establishmentRequestDto,
+            //     aditumId: responseAditum.id
+            // };
+
+
             const response = await axios.post(`${this.apiUrl}/establishments`, establishmentDto, this.getRequestOptions());
             return {
                 id: response.data.id,

@@ -6,7 +6,6 @@ import * as S from "./footer.styled";
 
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import {
-  PrimaryButton,
   MoveButton,
 } from "../../components/Buttons/DefaultButton/DefaultButton";
 import Link from "../../components/Texts/Link/Link";

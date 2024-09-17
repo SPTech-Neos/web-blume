@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Cookies from 'js-cookie';
 
 import { colors as c } from '../../styles/Colors';
@@ -9,7 +8,7 @@ import * as S from './profileClient.styled';
 import Logo from '../../components/Images/Logo/Logo';
 import Profile from "../../components/Profile/Profile";
 import EditModal from "../Modals/EditModal/EditModal";
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+// import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 import Modal from "../../components/Modals/FormModal/Modal";
@@ -17,13 +16,11 @@ import { ModalProps } from "../../components/Modals/FormModal/modal.styled";
 
 
 const ProfileB2C: React.FC = () => {
-    const navigate = useNavigate();
-    const { isAuthenticated, handleDeleteClient } = useContext(AuthContextClient);
 
     const tokenFromCookie = Cookies.get('clientInfo');
     const token: ClientResponseDto = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
+    const [modalProps, ] = useState<ModalProps | null>(null);
     const [isOpenState, setIsOpenState] = useState(false);
 
     const showModal = () => {
@@ -31,24 +28,24 @@ const ProfileB2C: React.FC = () => {
         editModal?.classList.add("active");
     };
 
-    const openDeleteModal = () => {
-        setModalProps({
-            type: "error",
-            message: "Tem certeza que deseja excluir a conta?",
-            linkTo: "/",
-            onConfirm: handleDeleteConfirmation
-        });
-        setIsOpenState(true); 
-    };
+    // const openDeleteModal = () => {
+    //     setModalProps({
+    //         type: "error",
+    //         message: "Tem certeza que deseja excluir a conta?",
+    //         linkTo: "/",
+    //         onConfirm: handleDeleteConfirmation
+    //     });
+    //     setIsOpenState(true); 
+    // };
 
-    const handleDeleteConfirmation = () => {
-        if (token) {
-            handleDeleteClient(token.clientId, token.token);
-            setModalProps(null);
-            setIsOpenState(false); // Fechar o modal após confirmação
-            navigate("/");
-        }
-    };
+    // const handleDeleteConfirmation = () => {
+    //     if (token) {
+    //         handleDeleteClient(token.clientId, token.token);
+    //         setModalProps(null);
+    //         setIsOpenState(false); // Fechar o modal após confirmação
+    //         navigate("/");
+    //     }
+    // };
 
     return(
         token ? (
@@ -97,7 +94,7 @@ const ProfileB2C: React.FC = () => {
                         <S.TracoAtencao />
                     </S.ContainerTitle>
                     <S.ContainerAtencaoButtons>
-                        <S.ButtonDelete width="180px" color={c.error} onClick={openDeleteModal}>
+                        <S.ButtonDelete width="180px" color={c.error} onClick={() => {}}>
                             Excluir
                         </S.ButtonDelete>
                         <S.ButtonUpdate width="180px" color={c.warning} onClick={showModal}>

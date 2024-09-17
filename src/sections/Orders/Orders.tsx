@@ -6,7 +6,7 @@ import * as S from './orders.styled';
 
 import Logo from "../../components/Images/Logo/Logo";
 import { CardPedidoProduto, CardPedidoServico } from "../../components/Cards/CardPedido/CardPedido";
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import { SchedulingAdapter } from "../../adapters/Scheduling/Scheduling";
 import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
@@ -36,7 +36,6 @@ const Orders: React.FC = () => {
     const paymentAdapter = new PaymentAdapter();
 
     const { isAuthenticated: isAuthenticatedEmployee } = useContext(AuthContextEmployee);
-    const { isAuthenticated: isAuthenticatedClient } = useContext(AuthContextClient);
 
     const [scheduleInfo, setSchedule] = useState<SchedulingResponseDto[] | null>(null);
     const [paymentsInfo, setPayments] = useState<PaymentResponseDto[] | null>(null);
@@ -220,114 +219,53 @@ const Orders: React.FC = () => {
             ) : null
         );
     
-    }else if(isAuthenticatedClient){
-        theme = "B2C";
-        return (
-            tokenClient ? (
-                <S.OrdersSectionContainer tema={theme}>
-                    <S.OrdersHeader>
-                        <Logo />
-                    </S.OrdersHeader>
-                    <S.OrdersBody>
-                        <S.FiltersContainer>
-
-                            <S.BadgesContainer tema={theme}>
-                            <S.Badge onClick={handleClick}>
-                                    Todos
-                                </S.Badge >
-                                <S.Badge onClick={handleClick}>
-                                    Em andamento
-                                </S.Badge >
-                                <S.Badge onClick={handleClick}>
-                                    Cancelado
-                                </S.Badge>
-                                <S.Badge onClick={handleClick}>
-                                    Concluído
-                                </S.Badge>
-
-                            </S.BadgesContainer>
-                            <S.HistoricoContainer tema={theme}>
-                                <h2 onClick={handlePast}>HISTÓRICO</h2>
-                            </S.HistoricoContainer>    
-                        </S.FiltersContainer>
-
-                        <S.OrdersContainer>
-                            {paymentsInfo && paymentsInfo.map((data) => (
-                                <CardPedidoProduto 
-                                    id={data.id}
-                                    client={data.client.name}
-                                    establishment={data.establishment.name}
-                                    preco={data.product.value}
-                                    service={data.product.name}
-                                    status={"Em Andamento"}
-                                    imgUrl={data.product.imgUrl || ""}
-                                />
-                            ))}
-
-                            {scheduleInfo && scheduleInfo.map((data) => (
-                                <CardPedidoServico 
-                                    id={data.idSchedulig}
-                                    client={data.client.name}
-                                    establishment={data.employee.establishment.name}
-                                    employee={data.employee.name}
-                                    service={data.service.specification}
-                                    status={data.schedulingStatus.description}
-                                    imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
-                                />
-                            ))}
-                        </S.OrdersContainer>    
-                    </S.OrdersBody>
-
-                </S.OrdersSectionContainer>
-            ): null
-        );
     }
-        return (
-                tokenClient ? (
-                <S.OrdersSectionContainer tema={theme}>
-                    <S.OrdersHeader>
-                        <Logo />
-                    </S.OrdersHeader>
-                    <S.OrdersBody>
-                        <S.FiltersContainer>
+    return (
+            tokenClient ? (
+            <S.OrdersSectionContainer tema={theme}>
+                <S.OrdersHeader>
+                    <Logo />
+                </S.OrdersHeader>
+                <S.OrdersBody>
+                    <S.FiltersContainer>
 
-                            <S.BadgesContainer tema={theme}>
+                        <S.BadgesContainer tema={theme}>
+                        <S.Badge onClick={handleClick}>
+                                Todos
+                            </S.Badge >
                             <S.Badge onClick={handleClick}>
-                                    Todos
-                                </S.Badge >
-                                <S.Badge onClick={handleClick}>
-                                    Em andamento
-                                </S.Badge >
-                                <S.Badge onClick={handleClick}>
-                                    Cancelado
-                                </S.Badge>
-                                <S.Badge onClick={handleClick}>
-                                    Concluído
-                                </S.Badge>
+                                Em andamento
+                            </S.Badge >
+                            <S.Badge onClick={handleClick}>
+                                Cancelado
+                            </S.Badge>
+                            <S.Badge onClick={handleClick}>
+                                Concluído
+                            </S.Badge>
 
-                            </S.BadgesContainer>
-                            <S.HistoricoContainer tema={theme}>
-                                <h2 onClick={handlePast}>HISTÓRICO</h2>
-                            </S.HistoricoContainer>    
-                        </S.FiltersContainer>
+                        </S.BadgesContainer>
+                        <S.HistoricoContainer tema={theme}>
+                            <h2 onClick={handlePast}>HISTÓRICO</h2>
+                        </S.HistoricoContainer>    
+                    </S.FiltersContainer>
 
-                        <S.OrdersContainer>
-                            <CardPedidoServico 
-                                
-                                client="deixar dinamico" 
-                                employee="deixar"
-                                establishment="dinamico"
-                                preco={20}
-                                service="deixar"
-                                status="Em Andamento"
-                                imgUrl=""
-                            />
-                        </S.OrdersContainer>    
-                    </S.OrdersBody>
+                    <S.OrdersContainer>
+                        <CardPedidoServico 
+                            
+                            client="deixar dinamico" 
+                            employee="deixar"
+                            establishment="dinamico"
+                            preco={20}
+                            service="deixar"
+                            status="Em Andamento"
+                            imgUrl=""
+                        />
+                    </S.OrdersContainer>    
+                </S.OrdersBody>
 
-                </S.OrdersSectionContainer>
-            ) : null
-        );
+            </S.OrdersSectionContainer>
+        ) : null
+    );
 }
 
 export default Orders;

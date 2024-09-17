@@ -2,7 +2,6 @@ import React from "react";
 // import { colors as c } from '../../styles/Colors';
 
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 
 
@@ -15,21 +14,17 @@ import ProfileEmployeeSection from "../../sections/ProfileEmployee/ProfileEmploy
 const ProfileEmployee: React.FC = () => {
 
     return (
+		<AuthContextProviderEmployee>
 
-		<AuthContextProviderClient>
-			<AuthContextProviderEmployee>
+			<AuthContextProviderEstablishment>
+				<S.ProfileB2CSection>
+					<Sidebar /> {/*tipo perfil chumbado por enquanto */}
+					<ProfileEmployeeSection></ProfileEmployeeSection>
+				</S.ProfileB2CSection>
+			</AuthContextProviderEstablishment>
 
-				<AuthContextProviderEstablishment>
-					<S.ProfileB2CSection>
-						<Sidebar /> {/*tipo perfil chumbado por enquanto */}
-						<ProfileEmployeeSection></ProfileEmployeeSection>
-					</S.ProfileB2CSection>
-				</AuthContextProviderEstablishment>
-
-			</AuthContextProviderEmployee>
-			
-		</AuthContextProviderClient>
-
+		</AuthContextProviderEmployee>
+		
 	);
 
       

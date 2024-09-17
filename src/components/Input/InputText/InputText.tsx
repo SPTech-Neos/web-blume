@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./inputText.styled";
 import Label from "../Label/Label";
-import Text from "../../Texts/Text/Text";
+// import Text from "../../Texts/Text/Text";
 
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";

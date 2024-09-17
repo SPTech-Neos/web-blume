@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Text from "../components/Texts/Text/Text";
 import { Button } from "../components/Buttons/Button/Button";
 import { Subtitle, Title } from "../components/Texts/Title/Title";

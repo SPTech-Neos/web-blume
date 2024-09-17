@@ -5,14 +5,13 @@ import { getTheme } from "../../../styles/Colors";
 
 interface StepNavigationProps {
   step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
   validateStep: () => boolean;
   goToNextStep: () => void;
   goToPreviousStep: () => void;
   handleSubmit: () => void;
 }
 
-const StepNavigation: React.FC<StepNavigationProps> = ({ step, setStep, validateStep, goToNextStep, goToPreviousStep, handleSubmit }) => {
+const StepNavigation: React.FC<StepNavigationProps> = ({ step, validateStep, goToNextStep, goToPreviousStep, handleSubmit }) => {
   const handleNext = () => {
     if (validateStep()) {
       goToNextStep();

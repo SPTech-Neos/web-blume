@@ -4,7 +4,6 @@ import { EmployeeServicesAdapter} from '../adapters/User/Employee/EmployeeServic
 import { ClientAdapter } from '../adapters/User/Client/Client';
 import { EstablishmentAdapter } from '../adapters/Establishment/Establishment';
 
-import RequestLocation from '../components/RequestLocation/RequestLocation';
 import { ServiceAdapter } from '../adapters/Products/Service/Service';
 import { ServiceTypeAdapter } from '../adapters/Products/Service/ServiceType';
 import { SchedulingAdapter } from '../adapters/Scheduling/Scheduling';
@@ -51,16 +50,16 @@ const Test: React.FC = () => {
                     const clientAdapter = new ClientAdapter();
                     switch (method) {
                         case 'login':
-                            const loginResult = await clientAdapter.login(params.loginDto);
-                            setResult(loginResult);
+                            //const loginResult = await clientAdapter.(params.loginDto);
+                            // setResult(loginResult);
                             break;
                         case 'create':
-                            const createResult = await clientAdapter.register(params.createDto);
-                            setResult(createResult);
+                            // const createResult = await clientAdapter.register(params.createDto);
+                            // setResult(createResult);
                             break;
                         case 'update':
-                            const updateResult = await clientAdapter.update(params.id, params.updateFields, token);
-                            setResult(updateResult);
+                            // const updateResult = await clientAdapter.update(params.id, params.updateFields, token);
+                            // setResult(updateResult);
                             break;
                         case 'getById':
                             const getByIdResult = await clientAdapter.getClientById(params.id, token);
@@ -74,8 +73,8 @@ const Test: React.FC = () => {
                     const establishmentAdapter = new EstablishmentAdapter();
                     switch (method) {
                         case 'create':
-                            const createResult = await establishmentAdapter.register(params.createDto);
-                            setResult(createResult);
+                            // const createResult = await establishmentAdapter.register(params.createDto);
+                            // setResult(createResult);
                             break;
                         case 'update':
                             const updateResult = await establishmentAdapter.update(params.id, params.updateFields);
@@ -86,8 +85,8 @@ const Test: React.FC = () => {
                             setResult(getByIdResult);
                             break;
                         case 'getAll':
-                                const getAllResult = await establishmentAdapter.getAllOfEstab(params.id);
-                                setResult(getAllResult);
+                                // const getAllResult = await establishmentAdapter.getAllOfEstab(params.id);
+                                // setResult(getAllResult);
                                 break;
                         default:
                             break;
@@ -161,7 +160,7 @@ const Test: React.FC = () => {
                     <option value={JSON.stringify({ type: 'Client', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                 </optgroup>
                 <optgroup label="Establishment Adapter">
-                    <option value={JSON.stringify({ type: 'Establishment', method: 'create', params: { createDto: { name: 'ABC Company', companyId: 1, localId: 1, imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU' }}})}>Register</option>
+                    <option value={JSON.stringify({ type: 'Establishment', method: 'create', params: { createDto: { name: 'ABC Company', companyId: 1, aditumId: "asdkasdksk123" ,localId: 1, imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3rBWVF3ujofB707ALZWHYPV2tY6NCml8jg&usqp=CAU' }}})}>Register</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'update', params: { id: 1, updateFields: { imgUrl: 'https://i.pinimg.com/236x/44/46/4c/44464c4660f6ec0701a506353a41e1e2.jpg', name: 'Salão maneiro' }}})}>Update</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'getById', params: { id: 1 } })}>Get by ID</option>
                     <option value={JSON.stringify({ type: 'Establishment', method: 'getAll', params: { id: 1 } })}>Get All</option>
@@ -189,7 +188,6 @@ const Test: React.FC = () => {
                 <div>
                     <h2>Result</h2>
                     <pre>{JSON.stringify(result, null, 2)}</pre>
-                    <RequestLocation />
                 </div>
             )}
         </div>

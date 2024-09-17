@@ -12,7 +12,7 @@ import * as S from "./loginForm.styled";
 import Link from "../../components/Texts/Link/Link";
 // import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
-import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
+// import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
 
 import InputContainer from "../../components/Input/InputContainer/InputContainer";

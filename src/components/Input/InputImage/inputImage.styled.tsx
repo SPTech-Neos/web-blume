@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {
   colors as c,
-  Themes,
+  // Themes,
   getTheme,
   ThemeProps,
 } from "../../../styles/Colors";
@@ -31,7 +31,7 @@ export interface ImagePreviewProps {
 //     }
 //   };
 
-export const InputImage = styled.input.attrs((props) => ({
+export const InputImage = styled.input.attrs(() => ({
   type: "file",
   accept: "image/*",
 }))<InputImageProps>`

@@ -106,7 +106,11 @@ export const DashChart = styled.div`
   max-width: 40vw;
 `;
 
-export const DashEmployees = styled(DashChart)``;
+export const DashEmployees = styled(DashChart)`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 export const DashBottom = styled(DashTop)`
   height: 15vh;
@@ -142,3 +146,14 @@ export const EmployeePic = styled.img`
 `;
 
 export const DashButton = styled(Button)``;
+
+export const Rating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+`;
+
+export const Employee = styled(Rating)`
+  gap: 10px;
+`;

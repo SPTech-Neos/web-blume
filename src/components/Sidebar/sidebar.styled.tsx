@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors as c } from "../../styles/Colors";
-import { NavLink as RouterNavLink } from "react-router-dom";
+// import { NavLink as RouterNavLink } from "react-router-dom";
 import { Themes } from "../../styles/Colors";
 
 import ImportedContainer from "../Containers/Container/Container";
@@ -93,7 +93,7 @@ export const NavItem = styled.div`
   font-size: 20px;
 `;
 
-export const NavLink = styled(RouterNavLink)``;
+export const NavLink = styled.a``;
 
 export const NavLogin = styled.div`
   width: 17%;

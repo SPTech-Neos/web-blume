@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
               <S.NavLink
                 href="#about"
                 onMouseEnter={() => handleNavLink(2)}
-                className={isActive1 ? "nav-link active" : "nav-link"}
+                className={isActive2 ? "nav-link active" : "nav-link"}
               >
                 O que é
               </S.NavLink>
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
               <S.NavLink
                 href="#services"
                 onMouseEnter={() => handleNavLink(3)}
-                className={isActive1 ? "nav-link active" : "nav-link"}
+                className={isActive3 ? "nav-link active" : "nav-link"}
               >
                 Serviços
               </S.NavLink>

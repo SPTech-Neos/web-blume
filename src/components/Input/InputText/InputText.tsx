@@ -3,9 +3,9 @@ import * as S from "./inputText.styled";
 import Label from "../Label/Label";
 // import Text from "../../Texts/Text/Text";
 
-import { Icon } from "react-icons-kit";
-import { eyeOff } from "react-icons-kit/feather/eyeOff";
-import { eye } from "react-icons-kit/feather/eye";
+// import { Icon } from "react-icons-kit";
+// import { eyeOff } from "react-icons-kit/feather/eyeOff";
+// import { eye } from "react-icons-kit/feather/eye";
 
 const InputText: React.FC<S.InputTextProps> = ({
   size,
@@ -19,18 +19,21 @@ const InputText: React.FC<S.InputTextProps> = ({
   error,
   ...rest
 }) => {
-  const [icon, setIcon] = useState(eyeOff);
-  const [typeState, setTypeState] = useState(type);
+  // const [icon, setIcon] = useState(eyeOff);
+  const [
+    typeState,
+    //  setTypeState
+  ] = useState(type);
 
-  const handleToggle = () => {
-    if (typeState !== "password") {
-      setIcon(eye);
-      setTypeState("text");
-    } else {
-      setIcon(eyeOff);
-      setTypeState("password");
-    }
-  };
+  // const handleToggle = () => {
+  //   if (typeState !== "password") {
+  //     setIcon(eye);
+  //     setTypeState("text");
+  //   } else {
+  //     setIcon(eyeOff);
+  //     setTypeState("password");
+  //   }
+  // };
 
   return (
     <S.InputContainer size={size}>
@@ -46,9 +49,9 @@ const InputText: React.FC<S.InputTextProps> = ({
         error={error}
         {...rest}
       />
-      <S.IconSpan $ispassword={type == "password"} onClick={handleToggle}>
+      {/* <S.IconSpan $ispassword={type == "password"} onClick={handleToggle}>
         <Icon className="absolute mr-10" icon={icon} size={25} />
-      </S.IconSpan>
+      </S.IconSpan> */}
       {error && <S.ErrorText>{error}</S.ErrorText>}
     </S.InputContainer>
   );

@@ -9,6 +9,8 @@ import { colors as c } from "../../styles/Colors";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Register from "../../sections/Auth/Register/Register";
 
+import loginImg from "../../assets/Auth/login-left.svg";
+
 const Auth: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -21,18 +23,14 @@ const Auth: React.FC = () => {
   return (
     <>
       {mode === "login" && (
-        <Login
-          imgUrl={"/happy-woman.svg"}
-          bgColor={colorBg}
-          imgAlt={"Login"}
-        ></Login>
+        <Login imgUrl={loginImg} bgColor={colorBg} imgAlt={"Login"}></Login>
       )}
       {mode === "register" && <Register></Register>}
       {/* {mode === 'signup' && <Signup></Signup>} */}
       {mode === "choose-auth" && (
-          <AuthContextProviderEmployee>
-            <ChooseAuth />
-          </AuthContextProviderEmployee>
+        <AuthContextProviderEmployee>
+          <ChooseAuth />
+        </AuthContextProviderEmployee>
       )}
     </>
   );

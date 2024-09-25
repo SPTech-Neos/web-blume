@@ -1,49 +1,65 @@
-import React from "react";
+import React, { MouseEventHandler, useState } from "react";
 
 import * as S from "./navbar.styled";
 
 import Container from "../Containers/Container/Container";
-import { PrimaryButton } from "../Buttons/DefaultButton/DefaultButton";
 import Logo from "../Images/Logo/Logo";
 import Link from "../Texts/Link/Link";
 import { Button } from "../Buttons/Button/Button";
 
 const Navbar: React.FC = () => {
+  const [isActive1, setIsActive1] = useState(false);
+  const [isActive2, setIsActive2] = useState(false);
+  const [isActive3, setIsActive3] = useState(false);
+
+  const handleNavLink = (isActiveIndex: number) => {
+    if (isActiveIndex == 1) {
+      setIsActive1(true);
+      setIsActive2(false);
+      setIsActive3(false);
+    } else if (isActiveIndex == 2) {
+      setIsActive1(false);
+      setIsActive2(true);
+      setIsActive3(false);
+    } else {
+      setIsActive1(false);
+      setIsActive2(false);
+      setIsActive3(true);
+    }
+  };
+
   return (
     <S.NavContainer id="navbar">
       <Container direction="row">
         <S.Row>
-          <S.NavLink to="/">
+          <S.NavLink href="#">
             <Logo />
           </S.NavLink>
 
           <S.NavList>
             <S.NavItem>
               <S.NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
+                href="#"
+                onMouseEnter={() => handleNavLink(1)}
+                className={isActive1 ? "nav-link active" : "nav-link"}
               >
                 Início
               </S.NavLink>
             </S.NavItem>
             <S.NavItem>
               <S.NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
+                href="#about"
+                onMouseEnter={() => handleNavLink(2)}
+                className={isActive2 ? "nav-link active" : "nav-link"}
               >
                 O que é
               </S.NavLink>
             </S.NavItem>
             <S.NavItem className="nav-item">
               <S.NavLink
-                to="/services"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
+                href="#services"
+                onMouseEnter={() => handleNavLink(3)}
+                className={isActive3 ? "nav-link active" : "nav-link"}
               >
                 Serviços
               </S.NavLink>

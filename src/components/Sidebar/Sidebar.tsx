@@ -1,32 +1,40 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useLocation } from "react-router-dom";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import * as S from "./sidebar.styled";
 
+import { colors as c } from "../../styles/Colors";
+
 import {
-  Bell,
-  GearSix,
-  House,
-  MagnifyingGlass,
+  // Bell,
+  // GearSix,
+  // House,
+  // MagnifyingGlass,
   Receipt,
   UserCircle,
   Cube,
   Article,
   UserList,
 } from "@phosphor-icons/react";
-import { SignOut } from "phosphor-react";
+import {
+  // CalendarPlus,
+  Gauge,
+  SignOut,
+} from "phosphor-react";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
+// import { AuthContextClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextEstablishment } from "../../contexts/Establishment/AuthContextProviderEstablishment";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+
+import navIcon from "../../assets/nav-icon.svg";
 
 const Sidebar: React.FC = () => {
   const { handleLogoutEmployee, isAuthenticated: isAuthenticatedEmployee } =
     useContext(AuthContextEmployee);
-  const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } =
-    useContext(AuthContextClient);
+  // const { handleLogoutClient, isAuthenticated: isAuthenticatedClient } =
+  //   useContext(AuthContextClient);
   const {
     handleLogoutEstablishment,
     isAuthenticated: isAuthenticatedEstablishment,
@@ -41,9 +49,6 @@ const Sidebar: React.FC = () => {
   } else if (isAuthenticatedEmployee) {
     theme = "employee";
     handleLogout = handleLogoutEmployee;
-  } else if (isAuthenticatedClient) {
-    theme = "client";
-    handleLogout = handleLogoutClient;
   }
 
   const location = useLocation();
@@ -57,9 +62,30 @@ const Sidebar: React.FC = () => {
     }
   });
 
-  
-  const CookieEstablishmentData = Cookies.get('establishmentInfo');
-  const establishmentData = CookieEstablishmentData ? JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto : null;
+  const CookieEstablishmentData = Cookies.get("establishmentInfo");
+  const establishmentData = CookieEstablishmentData
+    ? (JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto)
+    : null;
+
+  const [isActive1, setIsActive1] = useState(false);
+  const [isActive2, setIsActive2] = useState(false);
+  const [isActive3, setIsActive3] = useState(false);
+
+  const handleNavLink = (isActiveIndex: number) => {
+    if (isActiveIndex == 1) {
+      setIsActive1(true);
+      setIsActive2(false);
+      setIsActive3(false);
+    } else if (isActiveIndex == 2) {
+      setIsActive1(false);
+      setIsActive2(true);
+      setIsActive3(false);
+    } else {
+      setIsActive1(false);
+      setIsActive2(false);
+      setIsActive3(true);
+    }
+  };
 
   return (
     <S.SidebarWrapper theme={theme}>
@@ -67,115 +93,108 @@ const Sidebar: React.FC = () => {
         <S.NavList>
           <S.NavItem>
             <S.NavLink
-              to={theme == "client" ? "/feed" : `/establishment/${establishmentData?.id}`}
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
+              href={
+                theme == "client"
+                  ? "/feed"
+                  : `/establishment/${establishmentData?.id}`
               }
+              className="nav-link"
             >
-              <House size={24} />
+              <S.NavIcon src={navIcon} />
             </S.NavLink>
           </S.NavItem>
-
-          <S.NavItem>
-            <S.NavLink
-              to="/employees"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              {theme == "establishment" || theme == "employee" ? (
-                <UserList size={24} />
-              ) : null}
-            </S.NavLink>
-          </S.NavItem>
-
-          <S.NavItem>
-            <S.NavLink
-              to={theme == "client" ? "/feed" : "/services"}
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              {theme == "establishment" || theme == "employee" ? (
-                <Article size={24} />
-              ) : (
-                <MagnifyingGlass size={24} />
-              )}
-            </S.NavLink>
-          </S.NavItem>
-
         </S.NavList>
 
-
-        <S.NavList>          
-          {theme == "establishment" || theme == "employee" ? (
-            <>
-            <S.NavItem>
+        <S.NavList>
+          <>
+            {/* <S.NavItem>
               <S.NavLink
-                to="/products"
+                to={
+                  theme == "client"
+                    ? "/feed"
+                    : `/establishment/${establishmentData?.id}`
+                }
                 className={({ isActive }) =>
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                <Cube size={24} />
+                <House weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem> */}
+            <S.NavItem>
+              <S.NavLink
+                href={`/dashboard`}
+                onMouseEnter={() => handleNavLink(1)}
+                className={isActive1 ? "nav-link active" : "nav-link"}
+              >
+                <Gauge weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
 
             <S.NavItem>
               <S.NavLink
-                to="/orders"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
+                // to="/employees"
+                className="nav-link"
               >
-                <Receipt size={24} />
+                <UserList color={c.gray200} weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
-            </>
-          ) : null}
-          
+            <S.NavItem>
+              <S.NavLink
+                // to="/products"
+                className="nav-link"
+              >
+                <Cube color={c.gray200} weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
+
+            <S.NavItem>
+              <S.NavLink
+                // to="/orders"
+                className="nav-link"
+              >
+                <Article color={c.gray200} weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
+            <S.NavItem>
+              <S.NavLink
+                // to="/orders"
+                className="nav-link"
+              >
+                <Receipt color={c.gray200} weight="bold" size={28} />
+              </S.NavLink>
+            </S.NavItem>
+          </>
         </S.NavList>
 
         <S.NavList>
           <S.NavItem>
-            <S.NavLink
+            {/* <S.NavLink
               to="/"
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              <Bell size={24} />
-            </S.NavLink>
+              <CalendarPlus weight="bold" size={28} />
+            </S.NavLink> */}
           </S.NavItem>
           <S.NavItem>
             <S.NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
+              href={"/" + theme}
+              onMouseEnter={() => handleNavLink(2)}
+              className={isActive2 ? "nav-link active" : "nav-link"}
             >
-              <GearSix size={24} />
+              <UserCircle weight="bold" size={28} />
             </S.NavLink>
           </S.NavItem>
           <S.NavItem>
             <S.NavLink
-              to={"/" + theme}
-              className={({ isActive }) =>
-                isActive ? "nav-link active " : "nav-link"
-              }
-            >
-              <UserCircle size={24} />
-            </S.NavLink>
-          </S.NavItem>
-          <S.NavItem>
-            <S.NavLink
-              to={"/"}
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
+              href={"/"}
+              onMouseEnter={() => handleNavLink(3)}
+              className={isActive3 ? "nav-link active" : "nav-link"}
               onClick={() => handleLogout()}
             >
-              <SignOut size={24} />
+              <SignOut weight="bold" size={28} />
             </S.NavLink>
           </S.NavItem>
         </S.NavList>

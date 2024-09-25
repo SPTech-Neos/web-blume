@@ -9,10 +9,10 @@ import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmpl
 
 import * as S from "./loginForm.styled";
 
-import Link from "../../components/Texts/Link/Link";
+// import Link from "../../components/Texts/Link/Link";
 // import Subtitle from "../../components/Texts/Subtitle/Subtitle";
-import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
-import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
+// import { Checkbox } from "../../components/Input/Checkbox/Checkbox";
+// import { PrimaryButton } from "../../components/Buttons/DefaultButton/DefaultButton";
 import { PrimaryTitle } from "../../components/Texts/Title/Title";
 
 import InputContainer from "../../components/Input/InputContainer/InputContainer";
@@ -165,12 +165,12 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           </S.InputWrapper>
         </>
 
-        <div className="row">
+        {/* <div className="row">
           <Checkbox label="Lembrar de mim" />
           <Link size="sm" font="Poppins" href="google.com">
             Esqueci minha senha...
           </Link>
-        </div>
+        </div> */}
 
         <Button size="lg" type="submit">
           ENTRAR

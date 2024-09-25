@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useMediaQuery } from "react-responsive";
-import { device } from "../../styles/breakpoints.styled";
+// import { useMediaQuery } from "react-responsive";
+// import { device } from "../../styles/breakpoints.styled";
 
 import * as S from "./about.styled";
 
@@ -13,7 +13,7 @@ import item05 from "../../assets/item05.svg";
 
 import svg02 from "../../assets/pentagono-blume.png";
 
-import Container from "../../components/Containers/Container/Container";
+// import Container from "../../components/Containers/Container/Container";
 
 import {
   // PrimaryTitle,

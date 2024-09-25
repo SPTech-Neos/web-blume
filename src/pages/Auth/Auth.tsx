@@ -6,9 +6,10 @@ import Login from "../../sections/Auth/Login/Login";
 // import Signup from '../../sections/Signup/Signup';
 import { colors as c } from "../../styles/Colors";
 
-import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Register from "../../sections/Auth/Register/Register";
+
+import loginImg from "../../assets/Auth/login-left.svg";
 
 const Auth: React.FC = () => {
   const location = useLocation();
@@ -22,20 +23,14 @@ const Auth: React.FC = () => {
   return (
     <>
       {mode === "login" && (
-        <Login
-          imgUrl={"/happy-woman.svg"}
-          bgColor={colorBg}
-          imgAlt={"Login"}
-        ></Login>
+        <Login imgUrl={loginImg} bgColor={colorBg} imgAlt={"Login"}></Login>
       )}
       {mode === "register" && <Register></Register>}
       {/* {mode === 'signup' && <Signup></Signup>} */}
       {mode === "choose-auth" && (
-        <AuthContextProviderClient>
-          <AuthContextProviderEmployee>
-            <ChooseAuth />
-          </AuthContextProviderEmployee>
-        </AuthContextProviderClient>
+        <AuthContextProviderEmployee>
+          <ChooseAuth />
+        </AuthContextProviderEmployee>
       )}
     </>
   );

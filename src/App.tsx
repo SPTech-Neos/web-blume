@@ -13,7 +13,7 @@ import Employee from "./pages/ProfileEmployee/ProfileEmployee";
 import Details from "./pages/Details/Details";
 import Orders from "./pages/Orders/Orders";
 import { AuthContextEmployee } from "./contexts/User/AuthContextProviderEmployee";
-import { AuthContextClient } from "./contexts/User/AuthContextProviderClient";
+// import { AuthContextClient } from "./contexts/User/AuthContextProviderClient";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Products from "./pages/Products/Products";
 import Services from "./pages/Services/Services";
@@ -29,9 +29,9 @@ const App: React.FC = () => {
   // Verifica se pelo menos um dos contextos de autenticação está autenticado
   const { isAuthenticated: isAuthenticatedEmployee } =
     useContext(AuthContextEmployee);
-  const { isAuthenticated: isAuthenticatedClient } =
-    useContext(AuthContextClient);
-  const isAuthenticated = isAuthenticatedEmployee || isAuthenticatedClient;
+  // const { isAuthenticated: isAuthenticatedClient } =
+  //   useContext(AuthContextClient);
+  const isAuthenticated = isAuthenticatedEmployee
 
   return (
     <BrowserRouter>

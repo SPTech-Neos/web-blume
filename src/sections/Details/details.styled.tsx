@@ -8,7 +8,7 @@ import Badge from "../../components/Badges/AvaliationBadge/AvaliationBadge";
 import Card from '../../components/Cards/CardService/Card';
 
 export interface detailsProps {
-    theme?: 'client' | 'establishmente' | 'employee'
+    theme?: 'client' | 'establishment' | 'employee'
 }
 
 function getTheme(theme: string) {

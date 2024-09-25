@@ -11,7 +11,6 @@ const Dropdown: React.FC<S.DropDownProps> = ({
   theme,
   onChange,
   error,
-  ...rest
 }) => {
   const [text, setText] = useState("");
   const [isSelected, setIsSelected] = useState<boolean>(false);

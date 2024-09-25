@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useState } from "react";
 
 import * as S from "./inputImage.styled";
-import { SecondaryTitle } from "../../Texts/Title/Title";
+// import { SecondaryTitle } from "../../Texts/Title/Title";
 import Subtitle from "../../Texts/Subtitle/Subtitle";
 
-const inputImage: React.FC<S.InputImageProps> = ({ theme }) => {
-  const [currentImage, setCurrentImage] = useState<File>();
+const inputImage: React.FC<S.InputImageProps> = ({ }) => {
+  const [, setCurrentImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState<string>("");
   const [imageName, setImageName] = useState<string>("");
 

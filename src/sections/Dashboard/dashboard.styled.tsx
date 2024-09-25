@@ -1,125 +1,159 @@
 import styled from "styled-components";
-import { NavLink as RouterNavLink } from "react-router-dom";
+// import { NavLink as RouterNavLink } from "react-router-dom";
 import { colors as c, Themes } from "../../styles/Colors";
-import Container from "../../components/Containers/Container/Container";
-import { PieChart } from "@mui/x-charts/PieChart";
+// import Container from "../../components/Containers/Container/Container";
+import Text from "../../components/Texts/Text/Text";
+import Button from "@mui/material/Button";
 
 export interface detailsProps {
   theme?: "client" | "establishmente" | "employee";
 }
 
-function getTheme(theme: string) {
-  return theme === "client" ? Themes.client : Themes.establishment;
-}
-
-export const DetailsSection = styled.section`
+export const DashSection = styled.section`
   width: 100%;
-  height: 100vh;
-  font-family: "Poppins";
-  display: flex;
-  padding-left: 20px;
-  align-items: center;
-  flex-direction: column;
-
-  & .active-modal {
-    display: flex;
-  }
-
-  & .active-schedule {
-    display: flex;
-  }
-`;
-
-export const DetaisHeader = styled.div`
-  width: 80%;
-  height: 10%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 43%;
-`;
-
-export const NavBody = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  background-color: ${c.green500};
-  padding-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const NavItem = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 300;
-  font-size: 20px;
-`;
-
-export const NavLink = styled(RouterNavLink)`
-  color: white;
-`;
-
-export const DetailsContainer = styled(Container)`
-  max-width: 85%;
-  height: 90%;
-  display: flex;
-  padding: 10px 0 20px;
-`;
-
-export const DetailsProfile = styled.div`
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  gap: 5%;
-`;
-
-export const DashBox = styled.div`
-  width: 25vw;
-  max-width: 300px;
-  height: 30vh;
-  border: 2px solid ${c.green300};
-  background: #d2f7d6;
+  // height: 100vh;
+  height: 100%;
+  padding: 50px 125px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 10px;
+  justify-content: space-between;
+  gap: 25px;
+  background: ${c.gray100};
 `;
 
-export const DashTitle = styled.h3`
-  font-size: 20px;
+export const DashTop = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
 `;
 
-export const DashData = styled.h1`
-  font-size: 32px;
+export const DashPriority = styled.div`
+  width: 100%;
+  // height: 100vh;
+
+  background: ${c.green100};
+  border-radius: 8px;
+  padding: 35px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-export const DashPieChart = styled(PieChart)`
-  position: fixed;
-  z-index: 0;
+export const PrioriryItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
 `;
 
-export const DashPieInfo = styled.div`
-  width: 150px;
-  height: 200px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-74%, -70%);
-  z-index: 1;
+export const DashLine = styled.hr`
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background: ${c.green300};
+  border: none;
+`;
+
+export const DashCard = styled.div`
+  background: ${c.gray100};
+  box-shadow: 0px 0px 24px 4px ${c.gray300};
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 25px;
+`;
+
+export const DashFooter = styled(DashCard)`
+  height: 100%;
+  padding: 15px 25px;
+`;
+
+export const DashKpi = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-item: center;
+  justify-content: center;
+  gap: 5px;
+  width: min-content;
+
+  & * {
+    word-break: keep-all;
+    white-space: nowrap;
+    text-align: center;
+  }
+`;
+
+export const DashMid = styled(DashTop)`
+  height: 35vh;
+`;
+
+export const ChartContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  max-height: 30vh;
+`;
+
+export const DashChart = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 40vw;
+`;
+
+export const DashEmployees = styled(DashChart)`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const DashBottom = styled(DashTop)`
+  height: 15vh;
+`;
+
+export const DashText = styled(Text)`
+  word-break: keep-all;
+  white-space: nowrap;
   text-align: center;
 `;
 
-export const DashGraph = styled(DashBox)`
-  width: auto;
-  max-width: 800px;
-  height: 40vh;
-  align-items: start;
-  background: none;
-  padding: none;
+export const EmployeesContainer = styled(ChartContainer)`
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
+export const EmployeesLine = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const EmployeePic = styled.img`
+  height: 45px;
+  width: 45px;
+  border-radius: 45px;
+  background-color: ${c.gray500};
+`;
+
+export const DashButton = styled(Button)``;
+
+export const Rating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+`;
+
+export const Employee = styled(Rating)`
+  gap: 10px;
 `;

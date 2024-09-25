@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import * as S from "./register.styled";
 import { Stepper } from "../../../components/Stepper/Stepper";
 import {
-  PrimaryTitle,
-  SecondaryTitle,
-  Subtitle,
+  // PrimaryTitle,
+  // SecondaryTitle,
+  // Subtitle,
   Title,
 } from "../../../components/Texts/Title/Title";
 import StepContent, { getTitle } from "./StepContent";
@@ -198,7 +198,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         </S.RegisterForm>
         <StepNavigation
           step={step}
-          setStep={setStep}
           validateStep={validateStep}
           goToNextStep={goToNextStep}
           goToPreviousStep={goToPreviousStep}

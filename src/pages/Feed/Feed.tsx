@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import * as S from "./feed.styled";
 
-import { AuthContextProvider as AuthContextProviderClient } from "../../contexts/User/AuthContextProviderClient";
 import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import FeedSection from "../../sections/Feed/Feed";
@@ -68,11 +67,9 @@ const Feed: React.FC<S.FeedProps> = () => {
 
   return (
     <S.Feed id="feed">
-      <AuthContextProviderClient>
         <AuthContextProviderEmployee>
           <Sidebar /> 
         </AuthContextProviderEmployee>
-      </AuthContextProviderClient>
         
       <S.Container direction="column">
         <S.Header>

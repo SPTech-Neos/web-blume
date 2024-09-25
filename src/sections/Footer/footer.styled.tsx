@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 
 import importedContainer from '../../components/Containers/Container/Container';
 import { NavLink as RouterNavLink } from 'react-router-dom';
@@ -39,7 +40,7 @@ export const Row = styled.div`
 
       &.h-25 {
             width: 100%;
-            border-top: 3px solid var(--color-gray-500);
+            border-top: 3px solid ${c.gray500};
             justify-content: space-between;
             height: 25%;
       }
@@ -140,7 +141,7 @@ export const NavItem = styled.div`
 `;
 
 export const NavLink = styled(RouterNavLink)`
-    color: var(--color-gray-900);
+    color: ${c.gray900};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,8 +155,8 @@ export const NavLink = styled(RouterNavLink)`
         width: 100%;
         height: 4px;
         border-radius: 4px;
-        color: var(--color-gray-900);
-        background-color: var(--color-violet-100);
+        color: ${c.gray900};
+        background-color: ${c.violet100};
         bottom: -10px;
         transform-origin: right;
         transform: scaleX(0);

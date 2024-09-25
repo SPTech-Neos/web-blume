@@ -1,101 +1,215 @@
-import { createContext, useState, useEffect } from "react";
-import Cookies from 'js-cookie';
+// import { createContext, useState, useEffect, useRef } from "react";
+// import Cookies from 'js-cookie';
 
-import { ClientAdapter } from "../../adapters/User/Client";
-import { ClientResponseDto, ClientLoginDto } from "../../utils/client.types";
+// import { ClientAdapter } from "../../adapters/User/Client/Client";
+// import { ClientResponseDto, ClientLoginDto, ClientRequestDto } from "../../utils/Users/Client/client.types";
+// import { LocalRequestDto } from "../../utils/Local/local.types";
 
-interface AuthContextType {
-  token: object | ClientResponseDto | null;
-  isAuthenticated: boolean;
-  handleLoginClient: (clientLoginDto: ClientLoginDto) => Promise<object | ClientResponseDto | null>;
-  handleLogoutClient: () => void;
-}
+// interface AuthContextType {
+//   token: object | ClientResponseDto | null;
+//   isAuthenticated: boolean;
+//   handleLoginClient: (clientLoginDto: ClientLoginDto) => Promise<object | ClientResponseDto | null>;
+//   userLocation: LocalRequestDto | null;
+//   requestUserLocation: () => void;
+//   handleLogoutClient: () => void;
+//   handleUpdateClient: (updatedFields: Partial<ClientResponseDto>) => Promise<void>;
+//   handleCreateClient: (clientRequestDto: ClientRequestDto) => Promise<ClientResponseDto | null>;
+//   handleDeleteClient: (clientId: number, token: string) => Promise<boolean>;
+//   getClientById: (clientId: number, token: string) => Promise<ClientResponseDto | null>;
+// }
 
-export const AuthContextClient = createContext<AuthContextType>({
-  token: null,
-  isAuthenticated: false,
-  handleLoginClient: async () => null,
-  handleLogoutClient: () => {},
-});
+// export const AuthContextClient = createContext<AuthContextType>({
+//   token: null,
+//   isAuthenticated: false,
+//   userLocation: null,
+//   requestUserLocation: () => {},
+//   handleLoginClient: async () => null,
+//   handleLogoutClient: () => {},
+//   handleUpdateClient: async () => {},
+//   handleCreateClient: async () => null,
+//   handleDeleteClient: async () => false,
+//   getClientById: async () => null,
+// });
 
-export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
-  const [token, setToken] = useState<object | ClientResponseDto>({});
-  const [expiresAt, setExpiresAt] = useState(0);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+// export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
+//   const [token, setToken] = useState<object | ClientResponseDto>({});
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+//   const [userLocation, setUserLocation] = useState<LocalRequestDto | null>(null);
 
-  const clientAdapter = new ClientAdapter();
+//   const clientAdapter = new ClientAdapter();
+//   const renewedSession = useRef(false);
 
-  useEffect(() => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-          renewSession();
-      }
-  });
+//   useEffect(() => {
+//     if (!renewedSession.current) {
+//       renewSession();
+//       requestUserLocation();
+//       renewedSession.current = true;
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, []); 
 
-  const handleLoginClient = async (clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> =>{
-    try {
-      const { email, password } = clientLoginDto;
-      const token = await clientAdapter.login({ email, password});
-      
-      if (token) {
-        setToken(token);
-        setIsAuthenticated(true);
-        setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-        Cookies.set('clientInfo', JSON.stringify(token), { expires: 7 });
-      }
+//   const requestUserLocation = () => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const { latitude, longitude } = position.coords;
+  
+//           // Fazer uma solicitação para obter os detalhes do endereço com base nas coordenadas de latitude e longitude
+//           fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+//             .then(response => response.json())
+//             .then(data => {
+//               // Extrair os dados relevantes do objeto de resposta
+//               const { address } = data;
+  
+//               const userLocal: LocalRequestDto = {
+//                 /*cep: address.postcode || '',*/
+//                 /*address: {
+//                   idAddress: 0,
+//                   street: address.road || '',
+//                   city: address.city || '',
+//                   state: address.state || ''
+//                 },*/
+//                 number: 0,
+//                 floor: 0,
+//                 block: '',
+//                 complement: '',
+//                 address: 0
+//               };
+  
+//               setUserLocation(userLocal);
+//             })
+//             .catch(error => {
+//               console.error('Error fetching address details:', error);
+//             });
+//         },
+//         (error) => {
+//           console.error('Error fetching current location:', error);
+//         }
+//       );
+//     } else {
+//       console.error('Geolocation is not supported by this browser.');
+//     }
+//   };  
 
-      return token;
-    } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      throw error;
-    }
-  };
+//   const handleLoginClient = async (clientLoginDto: ClientLoginDto): Promise<object | ClientResponseDto | null> => {
+//     try {
+//       const { email, password } = clientLoginDto;
+//       const token = await clientAdapter.login({ email, password });
 
-  const handleLogoutClient = () => {
-      Cookies.remove('clientInfo');
-      setToken({});
-      setExpiresAt(0);
-      setIsAuthenticated(false);
-      localStorage.removeItem("isLoggedIn");
-  };
+//       if (token !== null && 'clientId' in token) {
+//         setToken(token);
+//         setIsAuthenticated(true);
+//         Cookies.set('clientInfo', JSON.stringify(token), { expires: 7 });
 
-  const renewSession = async () => {
-      try {
-          const tokenString = Cookies.get('clientInfo');
+//         return token as ClientResponseDto;
+//       } else {
+//         console.error("Login falhou: Token de autenticação é inválido ou nulo.");
+//         return null;
+//       }
+//     } catch (error) {
+//       console.error("Erro ao fazer login:", error);
+//       throw error;
+//     }
+//   };
 
-          if (isUserAuthenticated() || !tokenString) {
-              handleLogoutClient();
-              return;
-          }
+//   const handleLogoutClient = () => {
+//     Cookies.remove('clientInfo');
+//     setToken({});
+//     setIsAuthenticated(false);
+//   };
 
-          const token = JSON.parse(tokenString);
-          const client = await clientAdapter.getClientByToken(token);
+//   const renewSession = async () => {
+//     try {
+//       const tokenString = Cookies.get('clientInfo');
 
-          if (client) {
-              setToken(token);
-              setIsAuthenticated(true);
-              setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-          } else {
-              handleLogoutClient();
-          }
-      } catch (error) {
-          console.error("Erro ao renovar sessão:", error);
-          handleLogoutClient();
-      }
-  };
+//       if (!tokenString) {
+//         handleLogoutClient();
+//         return;
+//       }
 
-  const isUserAuthenticated = () => expiresAt > Date.now();
+//       const token = JSON.parse(tokenString);
+//       const client = await clientAdapter.getClientById(token.clientId, token.token);
 
-  const contextValue = {
-      token,
-      isAuthenticated,
-      handleLoginClient,
-      handleLogoutClient,
-  };
+//       if (client) {
+//         setToken(token);
+//         setIsAuthenticated(true);
+//       } else {
+//         handleLogoutClient();
+//       }
+//     } catch (error) {
+//       console.error("Erro ao renovar sessão:", error);
+//       handleLogoutClient();
+//     }
+//   };
 
-  return (
-      <AuthContextClient.Provider value={contextValue}>
-          {children}
-      </AuthContextClient.Provider>
-  );
-};
+//   const handleUpdateClient = async (updatedFields: Partial<ClientResponseDto>) => {
+//     try {
+//       const tokenFromCookie = Cookies.get('clientInfo');
+//       const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+
+//       if (token && token.clientId !== undefined) {
+//         const updatedClient = await clientAdapter.update(token.clientId, updatedFields, token.token);
+
+//         if (updatedClient) {
+//           setToken(updatedClient);
+
+//           const updatedClientToken = { ...token, ...updatedFields };
+//           Cookies.set('clientInfo', JSON.stringify(updatedClientToken), { expires: 7 });
+//         } else {
+//           console.error("Atualização do cliente falhou: resposta do servidor é nula.");
+//         }
+//       } else {
+//         console.error("ID do Client não encontrado no token.");
+//       }
+//     } catch (error) {
+//       console.error("Erro ao atualizar os dados do cliente:", error);
+//       throw error;
+//     }
+//   };
+
+//   const handleCreateClient = async (clientRequestDto: ClientRequestDto): Promise<ClientResponseDto | null> => {
+//     try {
+//       return await clientAdapter.register(clientRequestDto);
+//     } catch (error) {
+//       console.error("Erro ao criar cliente:", error);
+//       return null;
+//     }
+//   };
+
+//   const handleDeleteClient = async (clientId: number, token: string): Promise<boolean> => {
+//     try {
+//       return await clientAdapter.deleteClient(clientId, token);
+//     } catch (error) {
+//       console.error("Erro ao deletar cliente:", error);
+//       return false;
+//     }
+//   };
+
+//   const getClientById = async (clientId: number, token: string): Promise<ClientResponseDto | null> => {
+//     try {
+//       return await clientAdapter.getClientById(clientId, token);
+//     } catch (error) {
+//       console.error("Erro ao buscar cliente por ID:", error);
+//       return null;
+//     }
+//   };
+
+//   const contextValue = {
+//     token,
+//     isAuthenticated,
+//     userLocation,
+//     requestUserLocation,
+//     handleLoginClient,
+//     handleLogoutClient,
+//     handleUpdateClient,
+//     handleCreateClient,
+//     handleDeleteClient,
+//     getClientById
+//   };
+
+//   return (
+//     <AuthContextClient.Provider value={contextValue}>
+//       {children}
+//     </AuthContextClient.Provider>
+//   );
+// };

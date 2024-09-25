@@ -1,14 +1,17 @@
 import styled, { keyframes } from "styled-components";
+import { colors as c } from '../../../styles/Colors';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Link } from "react-router-dom";
+import { DangerButton } from "../../Buttons/DefaultButton/DefaultButton";
 
 export interface ModalProps {
   type: "error" | "success" | string;
   message: string;
-  isOpen: boolean;
+  isOpen?: boolean;
   linkTo: string;
   onClose?: () => void; 
+  onConfirm?: () => void;
 }
 
 export interface ModalButtonProps {
@@ -49,7 +52,7 @@ export const ModalOverlay = styled(Dialog.Overlay)`
   justify-content: center;
   align-items: center;
 
-  background-color: var(--color-gray-900);
+  background-color: ${c.gray900};
   animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0.5;
 `;
@@ -100,6 +103,10 @@ export const DialogDescription = styled(Dialog.Description)`
   font-weight: 400;
 `;
 
+export const DialogButton = styled(DangerButton)`
+  
+`;
+
 export const DialogLink = styled(Link)<ModalButtonProps>`
   text-transform: capitalize;
   text-decoration: underline;
@@ -108,5 +115,15 @@ export const DialogLink = styled(Link)<ModalButtonProps>`
   font-size: 32px;
   font-weight: bolder;
   
-  color: ${(props) => props.type == "success" ? "var(--color-status-success)" : "var(--color-status-error)"}
+  color: ${(props) => props.type == "success" ? c.success : c.error}
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 `;

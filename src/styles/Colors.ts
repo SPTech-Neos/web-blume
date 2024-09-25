@@ -1,4 +1,4 @@
-export const Colors = {
+export const colors = {
     gray100: '#FAFAFA',
     gray200: '#D6D6D6',
     gray300: '#BEBEBE',
@@ -13,6 +13,7 @@ export const Colors = {
     violet800: '#423881',
     violet900: '#31335F',
 
+    green50: '#BDFFC3',
     green100: '#96FFA0',
     green300: '#62EE6F',
     green500: '#00CF5F',
@@ -22,5 +23,39 @@ export const Colors = {
     warning: '#E5C46E',
     success: '#34CBE0',
 
+    blue: '#204DA4',
+
+    orange: '#F3BF8E',
+
     gradientDefault: 'linear-gradient(135deg, #96FFA0, #969AFF)',
+}
+
+export const Themes = {
+    client: {
+        active: false,
+        mainColor: colors.violet100,
+        secondaryColor: colors.violet500,
+        bgColor: colors.gray100
+    }, 
+    establishment: {
+        active: false,
+        mainColor: colors.green300,
+        secondaryColor: colors.green500,
+        bgColor: colors.green100
+    },
+    employee: {
+        active: false,
+        mainColor: colors.green300,
+        secondaryColor: colors.green500,
+        bgColor: colors.green100
+    }   
+}
+
+export function getTheme (theme: string) {
+
+    return theme === "client" ? Themes.client : Themes.establishment;
+}
+
+export interface ThemeProps {
+    theme: string;
 }

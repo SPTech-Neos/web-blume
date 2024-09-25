@@ -5,7 +5,7 @@ import { device } from "../../styles/breakpoints.styled";
 
 import * as S from './searchbar.styled';
 
-import { MagnifyingGlass } from "@phosphor-icons/react";
+// import { MagnifyingGlass } from "@phosphor-icons/react";
 
 type Props = {
     placeholderText: string;
@@ -21,7 +21,7 @@ const Searchbar: React.FC<Props> = ({placeholderText, value, onChange, onClickSe
     return (
         <S.InputContainer onChange={onChange}>
 
-            {isTabletOrMobile ? null : <MagnifyingGlass size={32} className="icon-search-bar"/> }
+            {isTabletOrMobile ? null : <S.SearchMagnifyingGlass size={32} className="icon-search-bar"/> }
             <S.InputSearch type="text" placeholder={placeholderText} onClick={onClickSearchbar} value={value}/>
             {isTabletOrMobile ? 
                 <S.MagnifyingGlass size={24} className="icon-search-bar"/> : 

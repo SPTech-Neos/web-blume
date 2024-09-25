@@ -5,7 +5,9 @@ import { device } from "../../styles/breakpoints.styled";
 import * as S from "./footer.styled";
 
 import Subtitle from "../../components/Texts/Subtitle/Subtitle";
-import { PrimaryButton, MoveButton } from "../../components/Buttons/DefaultButton/DefaultButton";
+import {
+  MoveButton,
+} from "../../components/Buttons/DefaultButton/DefaultButton";
 import Link from "../../components/Texts/Link/Link";
 
 import logoBlumeFooter from "../../assets/blume-footer.svg";
@@ -18,6 +20,7 @@ import {
   GithubLogo,
   InstagramLogo,
 } from "@phosphor-icons/react";
+import { Button } from "../../components/Buttons/Button/Button";
 
 const Footer: React.FC<S.FooterProps> = () => {
   const isTabletOrMobile = useMediaQuery({ query: device.tablet });
@@ -136,11 +139,8 @@ const Footer: React.FC<S.FooterProps> = () => {
           <S.Col className="align-center">
             {isTabletOrMobile ? null : (
               <Link href="/auth?mode=login">
-                  <PrimaryButton size={"md"} width={"190px"}>
-                    Entrar
-                  </PrimaryButton>
+                <Button size="lg">Entrar</Button>
               </Link>
-              
             )}
 
             <img
@@ -149,7 +149,6 @@ const Footer: React.FC<S.FooterProps> = () => {
               alt={`Imagem svg com detalhes de circulos no fundo`}
             />
           </S.Col>
-
         </S.Row>
 
         <S.Row className="h-25">

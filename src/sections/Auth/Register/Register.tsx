@@ -1,19 +1,26 @@
-// TO REDO
 import React from "react";
-import * as S from './register.styled';
+import { useLocation } from "react-router-dom";
+import RegisterForm from "./RegisterForm";
 
-import LoginForm from '../../../components/LoginForm/LoginForm';
-import AsideImg from '../../../components/AsideImg/AsideImg';
+const Register: React.FC = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const acc = searchParams.get("acc") || "none";
+  
+  const [step, setStep] = React.useState(1);
 
-const Login: React.FC<S.LoginProps> = ({ imgUrl, bgColor, imgAlt }) => {
-    return (
-        <>
-            <S.Login imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}>
-                <AsideImg imgUrl={imgUrl} bgColor={bgColor} imgAlt={imgAlt}></AsideImg>
-                <LoginForm></LoginForm>
-            </S.Login>
-        </>
-    );
-}
+  function handleSubmit() {
+    // Implement the submit logic if needed
+  }
 
-export default Login;
+  return (
+    <RegisterForm
+      step={step}
+      setStep={setStep}
+      handleSubmit={handleSubmit}
+      acc={acc}
+    />
+  );
+};
+
+export default Register;

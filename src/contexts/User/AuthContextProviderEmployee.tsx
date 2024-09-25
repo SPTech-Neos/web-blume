@@ -1,15 +1,20 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import Cookies from 'js-cookie';
 
-import { EmployeeResponseDto, EmployeeLoginDto } from "../../utils/employee.types";
-import { EmployeeAdapter } from "../../adapters/User/Employee";
+import { EmployeeResponseDto, EmployeeLoginDto, EmployeeRequestDto } from "../../utils/Users/Employee/employee.types";
+
+import { EmployeeAdapter } from "../../adapters/User/Employee/Employee";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 interface AuthContextType {
   token: EmployeeResponseDto | null;
   isAuthenticated: boolean;
-  handleLoginEmployee: (employeeLoginDto: EmployeeLoginDto) => Promise<EmployeeResponseDto | null>;
+  handleLoginEmployee: (clientLoginDto: EmployeeLoginDto) => Promise<object | EmployeeResponseDto | null>;
   handleLogoutEmployee: () => void;
-  updateEmployeeData: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
+  handleUpdateEmployee: (updatedFields: Partial<EmployeeResponseDto>) => Promise<void>;
+  handleCreateEmployee: (employeeRequestDto: EmployeeRequestDto) => Promise<EmployeeResponseDto | null>;
+  handleDeleteEmployee: (employeeId: string) => Promise<boolean>;
+  getEmployeeById: (employeeId: number) => Promise<EmployeeResponseDto | null>;
 }
 
 export const AuthContextEmployee = createContext<AuthContextType>({
@@ -17,98 +22,102 @@ export const AuthContextEmployee = createContext<AuthContextType>({
   isAuthenticated: false,
   handleLoginEmployee: async () => null,
   handleLogoutEmployee: () => {},
-  updateEmployeeData: async () => {}
+  handleUpdateEmployee: async () => {},
+  handleCreateEmployee: async () => null,
+  handleDeleteEmployee: async () => false,
+  getEmployeeById: async () => null,
 });
 
-export const AuthContextProvider = ({ children }: { children: JSX.Element }) => {
+export const AuthContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] | null }) => {
   const [token, setToken] = useState<EmployeeResponseDto | null>(null);
-  const [expiresAt, setExpiresAt] = useState(0);
+  const [, setEstablishmentToken] = useState<EstablishmentResponseDto | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const employeeAdapter = new EmployeeAdapter();
+  const renewedSession = useRef(false);
 
   useEffect(() => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-          renewSession();
-      }
-  });
+    if (!renewedSession.current) {
+      renewSession();
+      renewedSession.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> => {
+  const handleLoginEmployee = async (employeeLoginDto: EmployeeLoginDto): Promise<object | EmployeeResponseDto | null> => {
     try {
-        const { email, password } = employeeLoginDto;
-        const token = await employeeAdapter.login({ email, password });
-
-        if (token !== null) {
-            console.log("AUTHCONTEXT: " + token.idEmployee);
-
-            setToken(token);
-            setIsAuthenticated(true);
-            setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-            Cookies.set('employeeToken', JSON.stringify(token), { expires: 7 });
-
-            return token as EmployeeResponseDto;
-        } else {
-            console.error("Token de autenticação é nulo.");
-            return null;
-        }
+      const { email, password } = employeeLoginDto;
+      const token = await employeeAdapter.login({ email, password });
+  
+      if (token !== null && 'id' in token) {
+        setToken(token);
+        setEstablishmentToken(token.establishment);
+        setIsAuthenticated(true);
+  
+        Cookies.set('employeeInfo', JSON.stringify(token), { expires: 7 });
+        Cookies.set('establishmentInfo', JSON.stringify(token.establishment), { expires: 7 });
+  
+        return token as EmployeeResponseDto;
+      } else {
+        console.error("Login falhou: Token de autenticação é inválido ou nulo.");
+        return null;
+      }
     } catch (error) {
-        console.error("Erro ao fazer login:", error);
-        throw error;
+      console.error("Erro ao fazer login:", error);
+      throw error;
     }
   };
-
+  
+  
 
   const handleLogoutEmployee = () => {
-      Cookies.remove('employeeToken');
-
-      setToken(null);
-      setExpiresAt(0);
-      setIsAuthenticated(false);
-
-      localStorage.removeItem("isLoggedIn");
+    Cookies.remove('employeeInfo');
+    setToken(null);
+    setIsAuthenticated(false);
   };
 
   const renewSession = async () => {
-      try {
-          const tokenString = Cookies.get('employeeInfo');
-
-          if (isUserAuthenticated() || !tokenString) {
-              handleLogoutEmployee();
-              return;
-          }
-
-          const token = JSON.parse(tokenString);
-          const employee = await employeeAdapter.getEmployeeByToken(token);
-
-          if (employee) {
-              setToken(token);
-              setIsAuthenticated(true);
-              setExpiresAt(Date.now() + 7 * 24 * 60 * 60 * 1000); // Expira em 7 dias
-          } else {
-            handleLogoutEmployee();
-          }
-      } catch (error) {
-          console.error("Erro ao renovar sessão:", error);
-          handleLogoutEmployee();
-      }
-  };
-
-  const isUserAuthenticated = () => expiresAt > Date.now();
-
-  const updateEmployeeData = async (updatedFields: Partial<EmployeeResponseDto>) => {
     try {
-      const tokenFromCookie = Cookies.get('employeeToken');
+      const tokenString = Cookies.get('employeeInfo');
+  
+      // Se algum dos cookies não estiver presente, faz o logout
+      if (!tokenString) {
+        handleLogoutEmployee();
+        return;
+      }
+  
+      // Parse dos tokens diretamente dos cookies
+      const token = JSON.parse(tokenString) as EmployeeResponseDto;
+  
+      // Obtendo os dados necessários a partir dos tokens
+      const employee = await employeeAdapter.getEmployeeById(Number(token.id));
+  
+      if (employee) {
+        // Atualiza o estado com os tokens diretamente
+        setToken(token);
+        setIsAuthenticated(true);
+      } else {
+        handleLogoutEmployee();
+      }
+    } catch (error) {
+      console.error("Erro ao renovar sessão:", error);
+      handleLogoutEmployee();
+    }
+  };
+  
+
+  const handleUpdateEmployee = async (updatedFields: Partial<EmployeeResponseDto>) => {
+    try {
+      const tokenFromCookie = Cookies.get('employeeInfo');
       const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-      if (token && token.idEmployee !== undefined) {
-        const updatedEmployee = await employeeAdapter.updateEmployee(token.idEmployee, updatedFields);
+      if (token && token.id !== undefined) {
+        const updatedEmployee = await employeeAdapter.update(token.idEmployee, updatedFields);
 
         setToken(updatedEmployee);
-  
+
         const updatedEmployeeToken = { ...token, ...updatedFields };
-        Cookies.set('employeeToken', JSON.stringify(updatedEmployeeToken), { expires: 7 });
+        Cookies.set('employeeInfo', JSON.stringify(updatedEmployeeToken), { expires: 7 });
       } else {
         console.error("ID do funcionário não encontrado no token.");
       }
@@ -119,17 +128,47 @@ export const AuthContextProvider = ({ children }: { children: JSX.Element }) => 
     }
   };
 
+  const handleCreateEmployee = async (employeeRequestDto: EmployeeRequestDto): Promise<EmployeeResponseDto | null> => {
+    try {
+      return await employeeAdapter.create(employeeRequestDto);
+    } catch (error) {
+      console.error("Erro ao criar funcionário:", error);
+      return null;
+    }
+  };
+
+  const handleDeleteEmployee = async (employeeId: string): Promise<boolean> => {
+    try {
+      return await employeeAdapter.delete(employeeId);
+    } catch (error) {
+      console.error("Erro ao deletar funcionário:", error);
+      return false;
+    }
+  };
+
+  const getEmployeeById = async (employeeId: number): Promise<EmployeeResponseDto | null> => {
+    try {
+      return await employeeAdapter.getEmployeeById(employeeId);
+    } catch (error) {
+      console.error("Erro ao buscar funcionário por ID:", error);
+      return null;
+    }
+  };
+
   const contextValue = {
-      token,
-      isAuthenticated,
-      handleLoginEmployee,
-      handleLogoutEmployee,
-      updateEmployeeData
+    token,
+    isAuthenticated,
+    handleLoginEmployee,
+    handleLogoutEmployee,
+    handleUpdateEmployee,
+    handleCreateEmployee,
+    handleDeleteEmployee,
+    getEmployeeById
   };
 
   return (
-      <AuthContextEmployee.Provider value={contextValue}>
-          {children}
-      </AuthContextEmployee.Provider>
+    <AuthContextEmployee.Provider value={contextValue}>
+      {children}
+    </AuthContextEmployee.Provider>
   );
 };

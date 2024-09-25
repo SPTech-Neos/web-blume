@@ -11,6 +11,7 @@ export interface Props {
 export const Home = styled.section`
   width: 100%;
   height: 100vh;
+  padding-top: 80px;
   max-height: 725px;
   background-color: #fafafa;
 
@@ -77,7 +78,6 @@ export const HomeSvg = styled.img`
 
   &.home-svg-03 {
     bottom: 0%;
-    left: 10%;
     animation: ${infiniteFloat} 2s ease-in-out infinite;
   }
 

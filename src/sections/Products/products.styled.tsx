@@ -1,78 +1,76 @@
-import styled from 'styled-components';
-import Container from '../../components/Containers/Container/Container';
-import BgBranco from '../../assets/circulo-branco.png';
-import BgAzul from '../../assets/circulo-roxo.png';
-import { device } from '../../styles/breakpoints.styled';
+import styled from "styled-components";
+import Container from "../../components/Containers/Container/Container";
+import BgBranco from "../../assets/circulo-branco.png";
+import BgAzul from "../../assets/circulo-roxo.png";
+import { device } from "../../styles/breakpoints.styled";
+import { colors as c } from "../../styles/Colors";
 
 export const Products = styled.section`
-    width: 100%;
-    height: 150vh;
-    max-height: 750px;
+  width: 100%;
+  height: 150vh;
+  max-height: 750px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 
-    background-color: var(--color-violet-100);
-    font-family: 'Poppins';
-    text-align: center;
+  background-color: ${c.gray100};
+  font-family: "Poppins";
+  text-align: center;
 
-    @media ${device.tablet} {
-        height: 100%;
-        max-height: none;
-        min-height: 100vh;
+  @media ${device.tablet} {
+    height: 100%;
+    max-height: none;
+    min-height: 100vh;
 
-        padding: 20px 0;
-    }
-
+    padding: 20px 0;
+  }
 `;
 
 export const ProductsContainer = styled(Container)`
-    width: 90%;
-    height: 100%;
-    padding-top: 40px;
+  width: 90%;
+  height: 100%;
+  padding-top: 40px;
 
-    &>div>div:nth-child(1), div>div:nth-child(3)  { 
-        background: no-repeat url(${BgBranco});
-     }
-    
-    &>div>div:nth-child(3){
-        background-position: bottom right;
-    }
+  & > div > div:nth-child(1),
+  div > div:nth-child(3) {
+    background: no-repeat url(${BgBranco});
+  }
 
-    &>div>div:nth-child(2){
-        background: no-repeat url(${BgAzul}), no-repeat bottom right url(${BgAzul});
-    }
+  & > div > div:nth-child(3) {
+    background-position: bottom right;
+  }
 
+  & > div > div:nth-child(2) {
+    background: no-repeat url(${BgAzul}), no-repeat bottom right url(${BgAzul});
+  }
 `;
 
 export const ContainerCards = styled.div`
-    width: 100%;
-    height: 100%;
-    display:flex;
-    align-items:center;
-    justify-content: center;  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    @media ${device.tablet} {
-        padding-top: 100px;
-        flex-direction: column;
+  @media ${device.tablet} {
+    padding-top: 100px;
+    flex-direction: column;
 
-        gap: 100px;
-    }
-
+    gap: 100px;
+  }
 `;
 
 export const ContainerCard = styled.div`
-    width: 100%;
-    height: 80%;
+  width: 100%;
+  height: 80%;
 
-    display:flex;
-    align-items:center;
-    justify-content: center;    
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const CardImg = styled.img`
-    
-
+  max-width: 200px;
 `;

@@ -1,10 +1,9 @@
 import React from "react";
 
-import { useMediaQuery } from "react-responsive";
-import { device } from "../../styles/breakpoints.styled";
+// import { useMediaQuery } from "react-responsive";
+// import { device } from "../../styles/breakpoints.styled";
 
 import * as S from "./about.styled";
-import Subtitle from "../../components/Texts/Subtitle/Subtitle";
 
 import item01 from "../../assets/item01.svg";
 import item02 from "../../assets/item02.svg";
@@ -14,40 +13,38 @@ import item05 from "../../assets/item05.svg";
 
 import svg02 from "../../assets/pentagono-blume.png";
 
+// import Container from "../../components/Containers/Container/Container";
+
 import {
-  PrimaryTitle,
-  SecondaryTitle,
-} from "../../components/Texts/Title/title.styled";
+  // PrimaryTitle,
+  // SecondaryTitle,
+  Title,
+  Subtitle,
+} from "../../components/Texts/Title/Title";
+import Text from "../../components/Texts/Text/Text";
 
 const About: React.FC = () => {
-  const isTabletOrMobile = useMediaQuery({ query: device.tablet });
+  // const isTabletOrMobile = useMediaQuery({ query: device.tablet });
 
   return (
     <S.About id="about">
       <S.AboutWrapper direction="column">
         <>
-          <PrimaryTitle size="md" outline={!isTabletOrMobile} lines={false}>
-            Tudo em um só lugar
-          </PrimaryTitle>
+          <Title>Tudo em um só lugar</Title>
           <S.AboutContainer direction="row">
             <S.AsideRounded>
               <S.Limiter>
-                <SecondaryTitle
-                  size="sm"
-                  theme="light"
-                  outline={false}
-                  lines={true}
-                >
+                <Subtitle outline="violet" color="white">
                   De agenda a produtos
-                </SecondaryTitle>
+                </Subtitle>
 
-                <Subtitle size="sm" theme="light">
+                <Text size="md" color="white">
                   Na Blume, você encontra o lugar que você precisa, o serviço
                   que quer, o produto que gostou e agenda tudo isso.
-                </Subtitle>
-                <Subtitle size="sm" theme="light">
+                </Text>
+                <Text size="md" color="white">
                   Feche tudo em um único pacote e pronto!
-                </Subtitle>
+                </Text>
               </S.Limiter>
             </S.AsideRounded>
 

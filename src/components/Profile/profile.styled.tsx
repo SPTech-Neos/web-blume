@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors as c } from '../../styles/Colors';
 import Container from '../Containers/Container/Container';
 
 import svg01 from '../.././assets/icon-profile.png';
@@ -6,7 +7,7 @@ import svg01 from '../.././assets/icon-profile.png';
 export interface ProfileProps {
     profile?: string; 
     tipoperfil?: "B2B" | "B2C";
-    username: string;
+    username: string | null | undefined;
 }
 
 export interface ContainerProfileProps {
@@ -15,13 +16,16 @@ export interface ContainerProfileProps {
 }
 
 export const ContainerProfile = styled(Container)`
+    width: 100%;
     height: 24vh;
     justify-content: start;
 `
 
 export const ContainerProfileImg = styled.div<ContainerProfileProps>`
     width: 125px;
+    max-width: 110px;
     height: 75%;
+    max-height: 110px;
     display: flex;
     border-radius: 100%;
     background-image: url(${(props) => props.profile || svg01});
@@ -35,7 +39,7 @@ export const ContainerProfileInfo = styled.div`
     justify-content: center;
     align-items: left;
     flex-direction: column;
-    padding-left: 20px;
+    padding-left: 50px;
     gap: 20px;
     font-family: "Poppins", sans-serif;
 
@@ -56,7 +60,7 @@ export const TagsProfile = styled.div`
     width: 90px;
     height: 40px;
     border-radius: 20px;
-    background-color: var(--color-gray-200);
+    background-color: ${c.gray200};
     display: flex;
     justify-content: center;
     align-items: center;

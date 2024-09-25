@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import * as S from "./feed.styled";
+
+import { AuthContextProvider as AuthContextProviderEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 
 import FeedSection from "../../sections/Feed/Feed";
 import Searchbar from "../../components/Searchbar/Searchbar";
@@ -8,22 +10,24 @@ import Search from "../../sections/Search/Search";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Logo from "../../components/Images/Logo/Logo";
 import Results from "../../sections/Results/Results";
-import { Salon } from "../../utils/salon.types";
 import { useLocation } from "react-router-dom";
+import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
 const Feed: React.FC<S.FeedProps> = () => {
+  const establishmentAdapter = new EstablishmentAdapter;
+
   const location = useLocation();
-  const searchResultsHome: Salon[] = location.state
+  const searchResultsHome: EstablishmentResponseDto[] = location.state
     ? location.state.searchResults
     : [];
 
-    const searchQueryHome: string = location.state
+  const searchQueryHome: string = location.state
     ? location.state.searchQuery
     : "";
 
-  const [searchQuery, setSearchQuery] = useState(searchQueryHome);
-  const [searchResults, setSearchResults] =
-    useState<Salon[]>(searchResultsHome);
+  const [searchQuery, setSearchQuery] = useState(searchQueryHome || "");
+  const [searchResultsEstablishment, setSearchResultsEstablishment] = useState<EstablishmentResponseDto[]>(searchResultsHome || []);
   const [searchClicked, setSearchClicked] = useState(false);
 
   const handleSearchClick = () => {
@@ -34,34 +38,47 @@ const Feed: React.FC<S.FeedProps> = () => {
     setSearchQuery(event.target.value);
   };
 
-  const handleResultClick = () => {
-    setSearchResults([{ id: 1, title: "Lirasalon" }]); // quero fazer mockado aqui apenas para teste
-
-    // if (searchQuery) {
-    //   fetch(/* Your API endpoint */ /*searchQuery */)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       setSearchResults(data as Salon[]);
-    //     })
-    //     .catch(error => {
-    //       console.error("Error fetching search results:", error);
-    //     });
-    // } else {
-    //   console.warn("Search query is empty. Please enter a search term.");
-    // }
+  const fetchEstablishments = async (query: string) => {
+    try {
+      console.log(query)
+      const results = await establishmentAdapter.getAllActiveEstablishments();
+      if (results) {
+        console.log(`RESULTADOS PESQUISA: ${JSON.stringify(results)}`);
+        setSearchResultsEstablishment(results);
+      }
+    } catch (error) {
+      console.error("Failed to fetch establishments:", error);
+    }
   };
+
+  const handleResultClick = () => {
+    setSearchResultsEstablishment([]);
+    
+    if (searchQuery) {
+      fetchEstablishments(searchQuery);
+    }
+  };
+
+  useEffect(() => {
+    if (searchQueryHome) {
+        fetchEstablishments(searchQuery);
+    }
+  }, [searchQueryHome]);
 
   return (
     <S.Feed id="feed">
-      <Sidebar color="var(--color-violet-300)" tipoperfil="B2B"  /> {/*tipo perfil chumbado por enquanto */}
-
+        <AuthContextProviderEmployee>
+          <Sidebar /> 
+        </AuthContextProviderEmployee>
+        
       <S.Container direction="column">
         <S.Header>
           <S.LogoWrapper>
             <Logo />
           </S.LogoWrapper>
-
-          {/* <S.PrimaryButton width="180px">Entrar</S.PrimaryButton> */}
+          {/* <Link href="/auth?mode=login">
+                        <S.PrimaryButton width="180px" size="md">Entrar</S.PrimaryButton>
+          </Link> */}
         </S.Header>
 
         <>
@@ -74,13 +91,16 @@ const Feed: React.FC<S.FeedProps> = () => {
           />
         </>
 
-        {(searchResults.length > 0 || searchResultsHome.length > 0) && searchQuery.length != 0 ? (
-          <Results searchResults={searchResults} />
-        ) : searchClicked || searchQuery.length == 1 ? (
+        {(Array.isArray(searchResultsEstablishment) && searchResultsEstablishment.length > 0 || 
+          Array.isArray(searchResultsHome) && searchResultsHome.length > 0) && 
+          searchQuery.length !== 0 ? (
+          <Results searchResultsEstablishment={searchResultsEstablishment} />
+        ) : searchClicked && searchQuery.length >= 1 ? (
           <Search searchQuery={searchQuery} />
         ) : (
           <FeedSection />
         )}
+
       </S.Container>
     </S.Feed>
   );

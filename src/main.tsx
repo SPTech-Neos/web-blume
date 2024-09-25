@@ -1,9 +1,12 @@
-import React from 'react';
+// import React from "react";
 
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import { Theme } from "@radix-ui/themes";
 
-import './styles/global.styles.css';
+import { AuthContextProvider as AuthContextProviderEmployee } from "./contexts/User/AuthContextProviderEmployee.tsx";
+
+import "./styles/global.styles.css";
 
 // function PrivateRoute({ children }) {
 //   const navigate = useNavigate();
@@ -18,8 +21,12 @@ import './styles/global.styles.css';
 //   return isAuthenticated ? children : null;
 // }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <Theme>
+    {/* <React.StrictMode> */}
+        <AuthContextProviderEmployee>
+          <App />
+        </AuthContextProviderEmployee>
+    {/* </React.StrictMode> */}
+  </Theme>
+);

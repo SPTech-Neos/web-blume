@@ -1,29 +1,94 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
-import { 
-  BrowserRouter, 
-  Routes, 
-  Route 
-} from 'react-router-dom';
+import Test from "./pages/Test";
+import Auth from "./pages/Auth/Auth";
+import Feed from "./pages/Feed/Feed";
 
-import LandingPage from './pages/LandingPage/LandingPage';
-import Test from './pages/Test';
-import Auth from './pages/Auth/Auth';
-import Feed from './pages/Feed/Feed';
-import ProfileB2B from './pages/ProfileB2B/ProfileB2B';
-import ProfileB2C from './pages/ProfileB2C/ProfileB2C';
-const App: React.FC = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<LandingPage />} />
-      <Route path='/test' element={<Test />} />
-      <Route path='/auth' element={<Auth />} />
-      <Route path='/feed' element={<Feed />} />
-      <Route path='/profileB2B' element={<ProfileB2B />} />
-      <Route path='/profileB2C' element={<ProfileB2C />} />
-    </Routes>
-  </BrowserRouter>
-)
+import Establishment from "./pages/ProfileEstablishment/ProfileEstablishment";
+import Client from "./pages/ProfileClient/ProfileClient";
+import Employee from "./pages/ProfileEmployee/ProfileEmployee";
 
+import Details from "./pages/Details/Details";
+import Orders from "./pages/Orders/Orders";
+import { AuthContextEmployee } from "./contexts/User/AuthContextProviderEmployee";
+// import { AuthContextClient } from "./contexts/User/AuthContextProviderClient";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Products from "./pages/Products/Products";
+import Services from "./pages/Services/Services";
+import Employees from "./pages/Employees/Employees";
+import Dashboard from "./pages/Dashboard/Dashoboard";
+import TestComponents from "./pages/TestComponents";
 
-export default App
+const defaultProtectedRouteProps = {
+  authenticationPath: "/auth",
+};
+
+const App: React.FC = () => {
+  // Verifica se pelo menos um dos contextos de autenticação está autenticado
+  const { isAuthenticated: isAuthenticatedEmployee } =
+    useContext(AuthContextEmployee);
+  // const { isAuthenticated: isAuthenticatedClient } =
+  //   useContext(AuthContextClient);
+  const isAuthenticated = isAuthenticatedEmployee
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/test-components" element={<TestComponents />} />
+        <Route
+          path="/establishment/:establishmentId"
+          element={<Establishment />}
+        />
+        {/*<Route
+          path='/establishment/:establishmentId'
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              isAuthenticated={isAuthenticated}
+              outlet={<Establishment />}
+            />
+          }
+        />*/}
+        <Route
+          path="/client"
+          element={
+            //   <ProtectedRoute
+            //     {...defaultProtectedRouteProps}
+            //     isAuthenticated={isAuthenticated}
+            //     outlet={<Client />}
+            //   />
+            // }
+            <Client />
+          }
+        />
+        <Route path="/employee" element={<Employee />} />
+        <Route path="/details/:type/:id" element={<Details />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              isAuthenticated={isAuthenticated}
+              outlet={<Orders />}
+            />
+          }
+        />
+
+        {<Route path="/orders" element={<Orders />} />}
+
+        <Route path="/services" element={<Services />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/employees" element={<Employees />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

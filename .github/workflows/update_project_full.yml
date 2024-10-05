@@ -3,7 +3,7 @@ name: Update Project Full from Frontend
 on:
   push:
     branches:
-      - test
+      - main
 
 jobs:
   update_project_full:

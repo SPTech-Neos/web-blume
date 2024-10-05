@@ -170,7 +170,7 @@ export class DashboardAdapter {
             
             const response = await axios.post(`${this.apiUrl}/dashboard/mostProfitable`, dashboardRequestDtoId, this.getRequestOptions());
     
-            const mostProfitable = response.data.map((mostPurchased: any) => ({
+            const mostProfitable = response.data.map(() => ({
                 name: mostProfitable.name,
                 price: mostProfitable.price,
             })) as ProfitableResponseDto;

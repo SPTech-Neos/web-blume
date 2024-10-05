@@ -1,6 +1,4 @@
 import React, {
-  ReactNode,
-  // useEffect,
   useState,
 } from "react";
 import * as S from "./dashboard.styled";
@@ -100,7 +98,6 @@ const Dashboard: React.FC<S.detailsProps> = () => {
   ]);
 
   const [
-    employees,
     // setEmployees
   ] = useState([
     {

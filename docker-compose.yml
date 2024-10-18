@@ -2,10 +2,11 @@ services:
   app:
     build: .
     ports:
-      - "80:80" # Mapeia a porta 80 do container para a 80 do host
+      - "80:80"
     volumes:
       - .:/app
     environment:
       - VITE_API_PATH=${VITE_API_PATH}
-      - VITE_SPRINGSECURITY_USERNAME='admin'
-      - VITE_SPRINGSECURITY_PASSWORD='L12345'
+      - VITE_SPRINGSECURITY_USERNAME=admin
+      - VITE_SPRINGSECURITY_PASSWORD=L12345
+      

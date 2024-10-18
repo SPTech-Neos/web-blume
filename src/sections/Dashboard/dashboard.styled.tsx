@@ -1,6 +1,6 @@
 import styled from "styled-components";
 // import { NavLink as RouterNavLink } from "react-router-dom";
-import { colors as c, Themes } from "../../styles/Colors";
+import { colors as c } from "../../styles/Colors";
 // import Container from "../../components/Containers/Container/Container";
 import Text from "../../components/Texts/Text/Text";
 import Button from "@mui/material/Button";

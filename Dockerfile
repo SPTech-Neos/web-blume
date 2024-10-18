@@ -23,7 +23,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copiar a configuração customizada do Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./data/nginx/app.conf /etc/nginx/conf.d/default.conf
 
 # Expor a porta 80 para acessar a aplicação
 EXPOSE 80

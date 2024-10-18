@@ -1,4 +1,6 @@
 import React, {
+  // ReactNode,
+  // useEffect,
   useState,
 } from "react";
 import * as S from "./dashboard.styled";
@@ -98,6 +100,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
   ]);
 
   const [
+    // employees,
     // setEmployees
   ] = useState([
     {
@@ -275,6 +278,82 @@ const Dashboard: React.FC<S.detailsProps> = () => {
   //       }
   //     };
 
+  //     const countMarket = async () => {
+  //       const fetchBody = {
+  //         establishmentId: Number(establishmentData.id),
+  //         start: startDate,
+  //         end: endDate,
+  //       } as DashboardRequestDtoId;
+
+  //       const countMarketData = await dashboardAdapter.getCountMarket(
+  //         fetchBody
+  //       );
+  //       if (countMarketData) {
+  //         setGeneralKpis([
+  //           generalKpis[0],
+  //           countMarketData,
+  //           generalKpis[2],
+  //         ]);
+  //       }
+  //     };
+
+  //     const countMarketCanceled = async () => {
+  //       const fetchBody = {
+  //         establishmentId: Number(establishmentData.id),
+  //         start: startDate,
+  //         end: endDate,
+  //       } as DashboardRequestDtoId;
+
+  //       const countMarketCanceledData = await dashboardAdapter.getCountMarketCanceled(
+  //         fetchBody
+  //       );
+  //       if (countMarketCanceledData) {
+  //         setGeneralKpis([
+  //           countMarketCanceledData,
+  //           generalKpis[1],
+  //           generalKpis[2],
+  //         ]);
+  //       }
+  //     };
+
+  //     const ratingEstablishment = async () => {
+  //       const fetchBody = {
+  //         establishmentId: Number(establishmentData.id),
+  //         start: startDate,
+  //         end: endDate,
+  //       } as DashboardRequestDtoId;
+
+  //       const ratingEstablishmentData = await dashboardAdapter.getRatingEstablishment(
+  //         fetchBody
+  //       );
+  //       if (ratingEstablishmentData) {
+  //         setGeneralKpis([
+  //           generalKpis[0],
+  //           generalKpis[1],
+  //           ratingEstablishmentData,
+  //         ]);
+  //       }
+  //     };
+
+  //     const employeeStats = async () => {
+  //       const fetchBody = {
+  //         establishment: Number(establishmentData.id),
+  //         start: startDate,
+  //         end: endDate,
+  //       } as DashboardRequestDto;
+
+  //       const employeeStatsData = await dashboardAdapter.getEmployeeStats(
+  //         fetchBody
+  //       );
+  //       if (employeeStatsData) {
+  //         setGeneralKpis([
+  //           generalKpis[0],
+  //           generalKpis[1],
+  //           ratingEstablishmentData,
+  //         ]);
+  //       }
+  //     };
+
   //     fetchTotalGain();
 
   //     fetchQuantityStatus();
@@ -286,6 +365,12 @@ const Dashboard: React.FC<S.detailsProps> = () => {
   //     fetchMostProfitable();
 
   //     fetchLeastProfitable();
+
+  //     fetchCountMarket();
+
+  //     fetchCountMarketCanceled();
+
+  //     fetchRatingEstablishment();
   //   }
   // }, [CookieEstablishmentData]);
 

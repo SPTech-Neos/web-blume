@@ -28,7 +28,7 @@ type Props = {
 };
 
 const CreateModal: React.FC<Props> = ({ id, titulo }) => {
-  const { handleCreateEmployee } = useContext(AuthContextEmployee);
+  // const { handleCreateEmployee } = useContext(AuthContextEmployee);
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [email, setEmail] = useState("");
@@ -59,7 +59,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
   const tokenFromCookie = Cookies.get("employeeInfo");
   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-  const [establishment, setEstablishment] =
+  const [, setEstablishment] =
     useState<EstablishmentResponseDto | null>(null);
 
   const handleGetProductsType = async () => {

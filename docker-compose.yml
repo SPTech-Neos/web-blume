@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - VITE_API_PATH=http://10.0.0.129:8080
+      - VITE_API_PATH=http://10.0.0.154:8080
       - VITE_SPRINGSECURITY_USERNAME=admin
       - VITE_SPRINGSECURITY_PASSWORD=L12345
       

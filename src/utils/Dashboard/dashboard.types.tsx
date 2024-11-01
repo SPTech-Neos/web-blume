@@ -10,6 +10,10 @@ export interface DashboardRequestDtoId {
   end: string;
 }
 
+export interface DashboardRequestDtoIdOnly {
+  establishmentId: number;
+}
+
 // export interface TotalGainResponseDto {
 //   start: string;
 //   end: string;

@@ -1,6 +1,6 @@
 import React, {
   // ReactNode,
-  // useEffect,
+  useEffect,
   useState,
 } from "react";
 import * as S from "./dashboard.styled";
@@ -22,13 +22,14 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import HeaderProfile from "../../components/Headers/HeaderProfile/HeaderProfile";
 
-// import Cookies from "js-cookie";
-// import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
-// import { DashboardAdapter } from "../../adapters/Dashboard/Dashboard";
-// import {
-//   DashboardRequestDto,
-//   DashboardRequestDtoId,
-// } from "../../utils/Dashboard/dashboard.types";
+import Cookies from "js-cookie";
+import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { DashboardAdapter } from "../../adapters/Dashboard/Dashboard";
+import {
+  // DashboardRequestDto,
+  DashboardRequestDtoId,
+  DashboardRequestDtoIdOnly,
+} from "../../utils/Dashboard/dashboard.types";
 
 const Dashboard: React.FC<S.detailsProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -45,18 +46,20 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
   let todayDate = new Date();
   todayDate.setHours(0, 0, 0, 0);
-  // let todayStartDate = todayDate.toISOString();
-  // let todayEndDate = new Date().toISOString();
+  let todayStartDate = todayDate.toISOString();
+  let todayEndDate = new Date().toISOString();
 
-  const [
-    priorityData,
-    // setPriorityData
-  ] = useState([999.99, 5, "Aguardando Pagamento"]);
+  const [totalGain, setTotalGain] = useState(Number);
 
-  const [
-    generalKpis,
-    // setGeneralKpis
-  ] = useState(["25", "99", "4.9"]);
+  const [quantity, setQuantity] = useState(Number);
+
+  const [status, setStatus] = useState(String);
+
+  const [countMarketCanceled, setCountMarketCanceled] = useState(Number);
+
+  const [countMarket, setCountMarket] = useState(Number);
+
+  const [ratingEstablishment, setRatingEstablishment] = useState(Number);
 
   const [
     dataset,
@@ -140,249 +143,247 @@ const Dashboard: React.FC<S.detailsProps> = () => {
     },
   ]);
 
-  const [
-    orderKpis,
-    // setOrderKpis
-  ] = useState([
-    "Progressiva",
-    "Permanente",
-    "Maquiagem de Noiva",
-    "Cortar Unha",
-  ]);
+  const [mostPurchased, setMostPurchased] = useState(String);
 
-  // const [startDate, setStartDate] = useState(todayStartDate);
-  // const [endDate, setEndDate] = useState(todayEndDate);
+  const [leastPurchased, setLeastPurchased] = useState(String);
+
+  const [mostProfitable, setMostProfitable] = useState(String);
+
+  const [leastProfitable, setLeastProfitable] = useState(String);
+
+  const [
+    startDate,
+    // , setStartDate
+  ] = useState(todayStartDate);
+  const [
+    endDate,
+    // , setEndDate
+  ] = useState(todayEndDate);
 
   // Buscando dados nos cookies
-  // const CookieEstablishmentData = Cookies.get("establishmentInfo");
+  const CookieEstablishmentData = Cookies.get("establishmentInfo");
 
   // Convertendo para JSON
-  // const establishmentData = CookieEstablishmentData
-  //   ? (JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto)
-  //   : null;
+  const establishmentData = CookieEstablishmentData
+    ? (JSON.parse(CookieEstablishmentData) as EstablishmentResponseDto)
+    : null;
 
-  // const dashboardAdapter = new DashboardAdapter();
+  const dashboardAdapter = new DashboardAdapter();
 
   // FETCH TOTAL GAIN / PRIORITYDATA VALUE =======================
-  // useEffect(() => {
-  //   if (establishmentData) {
-  //     const fetchTotalGain = async () => {
-  //       const fetchBody = {
-  //         establishment: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDto;
+  useEffect(() => {
+    if (establishmentData) {
+      const fetchTotalGain = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDtoId;
 
-  //       const totalGainData = await dashboardAdapter.getTotalGain(fetchBody);
-  //       if (totalGainData) {
-  //         setPriorityData([totalGainData, priorityData[1], priorityData[2]]);
-  //       }
-  //     };
+        const totalGainData = await dashboardAdapter.getTotalGain(fetchBody);
 
-  //     const fetchQuantityStatus = async () => {
-  //       const fetchBody = {
-  //         establishment: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDto;
+        if (totalGainData != null) {
+          setTotalGain(totalGainData);
+        } else {
+          setTotalGain(0.0);
+        }
+      };
 
-  //       const quantityStatusData = await dashboardAdapter.getQuantityStatus(
-  //         fetchBody
-  //       );
-  //       if (quantityStatusData) {
-  //         setPriorityData([
-  //           priorityData[0],
-  //           quantityStatusData.quantity,
-  //           quantityStatusData.status,
-  //         ]);
-  //       }
-  //     };
+      const fetchQuantityStatus = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDtoId;
 
-  //     const fetchLeastPurchased = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+        const quantityStatusData = await dashboardAdapter.getQuantityStatus(
+          fetchBody
+        );
+        if (quantityStatusData != null) {
+          setQuantity(quantityStatusData.quantity);
 
-  //       const leastPurchasedData = await dashboardAdapter.getLeastPurchased(
-  //         fetchBody
-  //       );
-  //       if (leastPurchasedData) {
-  //         setOrderKpis([
-  //           orderKpis[0],
-  //           leastPurchasedData.name,
-  //           orderKpis[2],
-  //           orderKpis[3],
-  //         ]);
-  //       }
-  //     };
+          setStatus(quantityStatusData.status);
+        } else {
+          setQuantity(0);
 
-  //     const fetchMostPurchased = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+          setStatus("Sem Pedidos");
+        }
+      };
 
-  //       const mostPurchasedData = await dashboardAdapter.getMostPurchased(
-  //         fetchBody
-  //       );
-  //       if (mostPurchasedData) {
-  //         setOrderKpis([
-  //           mostPurchasedData.name,
-  //           orderKpis[1],
-  //           orderKpis[2],
-  //           orderKpis[3],
-  //         ]);
-  //       }
-  //     };
+      const fetchLeastPurchased = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+        } as DashboardRequestDtoIdOnly;
 
-  //     const fetchMostProfitable = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+        await dashboardAdapter.getLeastPurchased(fetchBody).then((result) => {
+          console.log(result?.name);
 
-  //       const mostProfitableData = await dashboardAdapter.getMostProfitable(
-  //         fetchBody
-  //       );
-  //       if (mostProfitableData) {
-  //         setOrderKpis([
-  //           orderKpis[0],
-  //           orderKpis[1],
-  //           mostProfitableData.name,
-  //           orderKpis[3],
-  //         ]);
-  //       }
-  //     };
+          if (result != null) {
+            setLeastPurchased(result.name);
+          } else {
+            setLeastPurchased("Sem Resultados");
+          }
 
-  //     const fetchLeastProfitable = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+          console.log(leastPurchased);
+        });
+      };
 
-  //       const leastProfitableData = await dashboardAdapter.getLeastProfitable(
-  //         fetchBody
-  //       );
-  //       if (leastProfitableData) {
-  //         setOrderKpis([
-  //           orderKpis[0],
-  //           orderKpis[1],
-  //           orderKpis[2],
-  //           leastProfitableData.name,
-  //         ]);
-  //       }
-  //     };
+      const fetchMostPurchased = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+        } as DashboardRequestDtoIdOnly;
 
-  //     const countMarket = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+        await dashboardAdapter.getMostPurchased(fetchBody).then((result) => {
+          console.log(result?.name);
 
-  //       const countMarketData = await dashboardAdapter.getCountMarket(
-  //         fetchBody
-  //       );
-  //       if (countMarketData) {
-  //         setGeneralKpis([
-  //           generalKpis[0],
-  //           countMarketData,
-  //           generalKpis[2],
-  //         ]);
-  //       }
-  //     };
+          if (result != null) {
+            setMostPurchased(result.name);
+          } else {
+            setMostPurchased("Sem Resultados");
+          }
+        });
+      };
 
-  //     const countMarketCanceled = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+      const fetchMostProfitable = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+        } as DashboardRequestDtoIdOnly;
 
-  //       const countMarketCanceledData = await dashboardAdapter.getCountMarketCanceled(
-  //         fetchBody
-  //       );
-  //       if (countMarketCanceledData) {
-  //         setGeneralKpis([
-  //           countMarketCanceledData,
-  //           generalKpis[1],
-  //           generalKpis[2],
-  //         ]);
-  //       }
-  //     };
+        await dashboardAdapter.getMostProfitable(fetchBody).then((result) => {
+          console.log(result?.name);
 
-  //     const ratingEstablishment = async () => {
-  //       const fetchBody = {
-  //         establishmentId: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDtoId;
+          if (result != null) {
+            setMostProfitable(result.name);
+          } else {
+            setMostProfitable("Sem Resultados");
+          }
+        });
+      };
 
-  //       const ratingEstablishmentData = await dashboardAdapter.getRatingEstablishment(
-  //         fetchBody
-  //       );
-  //       if (ratingEstablishmentData) {
-  //         setGeneralKpis([
-  //           generalKpis[0],
-  //           generalKpis[1],
-  //           ratingEstablishmentData,
-  //         ]);
-  //       }
-  //     };
+      const fetchLeastProfitable = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+        } as DashboardRequestDtoIdOnly;
 
-  //     const employeeStats = async () => {
-  //       const fetchBody = {
-  //         establishment: Number(establishmentData.id),
-  //         start: startDate,
-  //         end: endDate,
-  //       } as DashboardRequestDto;
+        await dashboardAdapter.getLeastProfitable(fetchBody).then((result) => {
+          console.log(result?.name);
 
-  //       const employeeStatsData = await dashboardAdapter.getEmployeeStats(
-  //         fetchBody
-  //       );
-  //       if (employeeStatsData) {
-  //         setGeneralKpis([
-  //           generalKpis[0],
-  //           generalKpis[1],
-  //           ratingEstablishmentData,
-  //         ]);
-  //       }
-  //     };
+          if (result != null) {
+            setLeastProfitable(result.name);
+          } else {
+            setLeastProfitable("Sem Resultados");
+          }
+        });
+      };
 
-  //     fetchTotalGain();
+      const fetchCountMarket = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDtoId;
 
-  //     fetchQuantityStatus();
+        const countMarketData = await dashboardAdapter.getCountMarket(
+          fetchBody
+        );
 
-  //     fetchLeastPurchased();
+        if (countMarketData != null) {
+          setCountMarket(countMarketData);
+        } else {
+          setCountMarket(0.0);
+        }
+      };
 
-  //     fetchMostPurchased();
+      const fetchCountMarketCanceled = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDtoId;
 
-  //     fetchMostProfitable();
+        const countMarketCanceledData =
+          await dashboardAdapter.getCountMarketCanceled(fetchBody);
+        if (countMarketCanceledData != null) {
+          setCountMarketCanceled(countMarketCanceledData);
+        } else {
+          setCountMarketCanceled(0.0);
+        }
+      };
 
-  //     fetchLeastProfitable();
+      const fetchRatingEstablishment = async () => {
+        const fetchBody = {
+          establishmentId: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDtoId;
 
-  //     fetchCountMarket();
+        const ratingEstablishmentData =
+          await dashboardAdapter.getRatingEstablishment(fetchBody);
+        if (ratingEstablishmentData != null) {
+          setRatingEstablishment(ratingEstablishmentData);
+        } else {
+          setRatingEstablishment(0.0);
+        }
+      };
 
-  //     fetchCountMarketCanceled();
+      //     const employeeStats = async () => {
+      //       const fetchBody = {
+      //         establishment: Number(establishmentData.id),
+      //         start: startDate,
+      //         end: endDate,
+      //       } as DashboardRequestDto;
 
-  //     fetchRatingEstablishment();
-  //   }
-  // }, [CookieEstablishmentData]);
+      //       const employeeStatsData = await dashboardAdapter.getEmployeeStats(
+      //         fetchBody
+      //       );
+      //       if (employeeStatsData) {
+      //         setGeneralKpis([
+      //           generalKpis[0],
+      //           generalKpis[1],
+      //           ratingEstablishmentData,
+      //         ]);
+      //       }
+      //     };
+
+      fetchTotalGain();
+
+      fetchQuantityStatus();
+
+      fetchMostPurchased();
+
+      fetchLeastPurchased();
+
+      fetchMostProfitable();
+
+      fetchLeastProfitable();
+
+      fetchCountMarket();
+
+      fetchCountMarketCanceled();
+
+      fetchRatingEstablishment();
+    }
+  }, [CookieEstablishmentData]);
 
   const handlePriorityColor = () => {
-    if (priorityData[2] == "Aguardando Pagamento") {
+    if (status == "Aguardando Pagamento") {
       return "error";
-    } else if (priorityData[2] == "Em Andamento") {
+    } else if (status == "Em Andamento") {
       return "warning";
     } else {
       return "black";
     }
   };
+
+  // const handleResultsColor = (result: String) => {
+  //   if (result != null) {
+  //     return "error";
+  //   } else if (priorityData[2] == "Em Andamento") {
+  //     return "warning";
+  //   } else {
+  //     return "black";
+  //   }
+  // };
 
   const valueFormatter = (value: number | null) => `${value} pedidos`;
 
@@ -447,7 +448,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
                 Valor:
               </S.DashText>
               <S.DashText weight="bold" size="lg" color="black">
-                R${priorityData[0].toString()}
+                R${totalGain.toString()}
               </S.DashText>
             </S.PrioriryItem>
             <S.PrioriryItem>
@@ -455,7 +456,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
                 Status:
               </S.DashText>
               <S.DashText weight="bold" size="lg" color={handlePriorityColor()}>
-                {`(${priorityData[1].toString()}) ${priorityData[2]}`}
+                {`(${quantity.toString()}) ${status}`}
               </S.DashText>
             </S.PrioriryItem>
           </S.DashPriority>
@@ -467,7 +468,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               <Container direction="row">
                 <XCircle weight="fill" color={c.green300} size={40} />
                 <S.DashText weight="bold" size="xlg">
-                  {generalKpis[0]}
+                  {countMarketCanceled}
                 </S.DashText>
               </Container>
             </S.DashKpi>
@@ -477,7 +478,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               <Container direction="row">
                 <Receipt weight="fill" color={c.green300} size={40} />
                 <S.DashText weight="bold" size="xlg">
-                  {generalKpis[1]}
+                  {countMarket}
                 </S.DashText>
               </Container>
             </S.DashKpi>
@@ -487,7 +488,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               <Container direction="row">
                 <Star weight="fill" color={c.green300} size={40} />
                 <S.DashText weight="bold" size="xlg">
-                  {generalKpis[2]}
+                  {ratingEstablishment}
                 </S.DashText>
               </Container>
             </S.DashKpi>
@@ -577,28 +578,28 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               <S.DashText size="sm">Mais Pedido</S.DashText>
               <S.DashLine />
               <S.DashText size="md" weight="bold" color="error">
-                {orderKpis[0]}
+                {mostPurchased}
               </S.DashText>
             </S.DashKpi>
             <S.DashKpi>
               <S.DashText size="sm">Menos Pedido</S.DashText>
               <S.DashLine />
               <S.DashText size="md" weight="bold" color="success">
-                {orderKpis[1]}
+                {leastPurchased}
               </S.DashText>
             </S.DashKpi>
             <S.DashKpi>
               <S.DashText size="sm">Mais Lucrativo</S.DashText>
               <S.DashLine />
               <S.DashText size="md" weight="bold" color="error">
-                {orderKpis[2]}
+                {mostProfitable}
               </S.DashText>
             </S.DashKpi>
             <S.DashKpi>
               <S.DashText size="sm">Menos Lucrativo</S.DashText>
               <S.DashLine />
               <S.DashText size="md" weight="bold" color="success">
-                {orderKpis[3]}
+                {leastProfitable}
               </S.DashText>
             </S.DashKpi>
           </S.DashCard>

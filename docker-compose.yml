@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - VITE_API_PATH=http://localhost/api
+      - VITE_API_PATH=http://host.docker.internal/api
       - VITE_SPRINGSECURITY_USERNAME=admin
       - VITE_SPRINGSECURITY_PASSWORD=L12345
       

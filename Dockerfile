@@ -6,7 +6,7 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Definindo variáveis de ambiente
-ARG VITE_API_PATH=http://localhost/api
+ARG VITE_API_PATH=http://host.docker.internal/api
 ARG VITE_SPRINGSECURITY_USERNAME=admin
 ARG VITE_SPRINGSECURITY_PASSWORD=L12345
 

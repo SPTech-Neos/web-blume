@@ -5,11 +5,6 @@ FROM node:18-alpine AS build
 # Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Definindo variáveis de ambiente
-ARG VITE_API_PATH=http://host.docker.internal/api
-ARG VITE_SPRINGSECURITY_USERNAME=admin
-ARG VITE_SPRINGSECURITY_PASSWORD=L12345
-
 # Copiar os arquivos package.json e yarn.lock para instalar as dependências
 COPY package.json yarn.lock ./
 

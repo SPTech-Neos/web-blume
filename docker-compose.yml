@@ -3,12 +3,12 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_API_PATH: http://localhost/api
+        VITE_SPRINGSECURITY_USERNAME: admin
+        VITE_SPRINGSECURITY_PASSWORD: L12345
     ports:
       - "80:80"
     volumes:
       - .:/app
-    environment:
-      - VITE_API_PATH=http://VITE_PUBLIC_IP/api
-      - VITE_SPRINGSECURITY_USERNAME=admin
-      - VITE_SPRINGSECURITY_PASSWORD=L12345
       

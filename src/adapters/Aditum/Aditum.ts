@@ -6,8 +6,8 @@ export class AditumAdapter {
     public static readonly urlAditumGateway = "https://payment-dev.aditum.com.br";
     public static readonly urlAditumReconciliation = "https://reconciliation-dev.aditum.com.br";
 
-    public static readonly merchantTokenAditum = "mk_fffFIKnpnkO63lTwwqoytQ";
-    public static readonly merchantIdAditum = "62291270-3ba7-495d-a025-4403728d874c";
+    public static readonly merchantTokenAditum = "mk_vG0pqXJjikVnUD/MBNaLw";
+    public static readonly merchantIdAditum = "a9296dbc-6372-4f8a-959d-40ff30135a2f";
 
     public static async GetAditumToken(): Promise<string | null> {
         try {
@@ -40,11 +40,10 @@ export class AditumAdapter {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${aditumAccessToken}`,
-                'MerchantId': AditumAdapter.merchantIdAditum,
+                'MerchantId': `a9296dbc-6372-4f8a-959d-40ff30135a2f`,
                 'Accept': '*/*'
             }
         };
     }
-
 
 }

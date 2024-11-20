@@ -15,4 +15,5 @@ jobs:
           docker-compose -f docker-compose.yml build
       - name: publish
         run: |
+          docker login -u victorlcdpaula -p ${{ secrets.DOCKER_HUB_TOKEN }}
           docker push victorlcdpaula/web-blume:latest

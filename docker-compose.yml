@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VITE_API_PATH: http://localhost/api
+        VITE_API_PATH: http://localhost:8080
         VITE_SPRINGSECURITY_USERNAME: admin
         VITE_SPRINGSECURITY_PASSWORD: L12345
     image: victorlcdpaula/web-blume

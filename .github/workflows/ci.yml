@@ -32,7 +32,7 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
 
-          sed -i "s|localhost|${{ secrets.PUBLIC_IP }}|g" /home/ubuntu/web-blume/docker-compose.yml
+          sed -i "s|localhost|${{ secrets.PUBLIC_IP }}|g" ./docker-compose.yml
           
           docker compose -f docker-compose.yml build
       - name: publish

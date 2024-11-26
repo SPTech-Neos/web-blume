@@ -71,6 +71,9 @@ export class DashboardAdapter {
                 start,
                 end
             }
+
+            console.log(dashboardRequestDto);
+            
             
             const response = await axios.post(`${this.apiUrl}/dashboard/quantityStatus`, dashboardRequestDto, this.getRequestOptions());
     
@@ -208,6 +211,93 @@ export class DashboardAdapter {
             })) as ProfitableResponseDto;
     
             return leastProfitable;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
+
+    async getCountMarket(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
+        try {
+    
+            let {start, end} = dashboardRequestDtoId;
+            
+            start = start.replaceAll("/", "-");
+            start = start.replaceAll(",", "");
+            
+            end = end.replaceAll("/", "-");
+            end = end.replaceAll(",", "");
+            
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
+                start,
+                end
+            }
+            
+            const response = await axios.post(`${this.apiUrl}/dashboard/countMarket`, dashboardRequestDtoId, this.getRequestOptions());
+    
+            const countMarket = response.data;
+    
+            return countMarket;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
+
+    async getCountMarketCanceled(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
+        try {
+    
+            let {start, end} = dashboardRequestDtoId;
+            
+            start = start.replaceAll("/", "-");
+            start = start.replaceAll(",", "");
+            
+            end = end.replaceAll("/", "-");
+            end = end.replaceAll(",", "");
+            
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
+                start,
+                end
+            }
+            
+            const response = await axios.post(`${this.apiUrl}/dashboard/countMarketCanceled`, dashboardRequestDtoId, this.getRequestOptions());
+    
+            const countMarketCanceled = response.data;
+    
+            return countMarketCanceled;
+    
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    } 
+
+    async getRatingEstablishment(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
+        try {
+    
+            let {start, end} = dashboardRequestDtoId;
+            
+            start = start.replaceAll("/", "-");
+            start = start.replaceAll(",", "");
+            
+            end = end.replaceAll("/", "-");
+            end = end.replaceAll(",", "");
+            
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
+                start,
+                end
+            }
+            
+            const response = await axios.post(`${this.apiUrl}/dashboard/ratingEstablishment`, dashboardRequestDtoId, this.getRequestOptions());
+    
+            const ratingEstablishment = response.data;
+    
+            return ratingEstablishment;
     
         } catch (error) {
             console.error(error);

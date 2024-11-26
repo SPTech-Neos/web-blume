@@ -42,7 +42,9 @@ export class EstablishmentAdapter {
         try {
     
             const response = await axios.get(`${this.apiUrl}/establishments`, this.getRequestOptions());
-    
+            console.log(this.getRequestOptions())
+
+
             const establishments = response.data.map((establishment: EstablishmentResponseDto) => ({
                 id: establishment.id,
                 aditumId: "",

@@ -60,6 +60,8 @@ export class EmployeeAdapter {
         try {
 
             const response = await axios.post(`${this.apiUrl}/employees/login`, employeeLoginDto, this.getRequestOptions());
+            console.log(this.getRequestOptions());
+            
 
             if (response.status === 200 && response.data.id) {
                 return {

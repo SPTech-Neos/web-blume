@@ -139,14 +139,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         },
         contacts: [
           {
-            name: "Joice", 
+            name: fields.employeeNome, 
             phone: {
               countryCode: "55", 
               areaCode: "11", 
               number: "98123-3131", 
               type: "Commercial", 
             },
-            email: "joice.matos@gmail.com", 
+            email: fields.employeeEmail, 
             type: "Administration", 
           },
         ],
@@ -207,9 +207,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       const establishmenteAdapter = new EstablishmentAdapter();
       const establishmentResponse =
       await establishmenteAdapter.registerEstablishment(establishmentFields, aditumEstablishmentReq);
-  
-      console.log(establishmentResponse);
-  
+    
       const employeeFields = {
         name: fields.employeeNome,
         email: fields.employeeEmail,
@@ -238,9 +236,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   
       const employeeAdapter = new EmployeeAdapter();
       const employeeResponse = await employeeAdapter.create(employeeFields);
-  
-      console.log(employeeFields);
-  
+    
       if (employeeResponse && establishmentResponse) {
         navigate(`/establishment/${establishmentResponse.id}`);
       } else {

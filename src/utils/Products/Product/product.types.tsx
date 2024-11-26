@@ -11,6 +11,15 @@ export interface ProductRequestDto {
     establishment: number;
 }
 
+export interface AditumProductDto {
+    name: string;
+    amount: number; 
+    description: string; 
+    isActive: boolean;
+    Sku: string;
+    merchantId: string;
+}
+
 export interface ProductResponseDto {
     [x: string]: any;
     id: number | string;

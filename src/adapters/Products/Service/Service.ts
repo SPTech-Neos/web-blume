@@ -1,17 +1,22 @@
 import axios from "axios";
 import { environment } from "../../../../environment.config";
+import { AditumAdapter } from "../../Aditum/Aditum";
 
-import { ServiceRequestDto, ServiceResponseDto } from "../../../utils/Products/Service/service.types";
+import { ServiceRequestDto, ServiceResponseDto, AditumServicetDto } from "../../../utils/Products/Service/service.types";
 
 export class ServiceAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
+    private aditumAdapter: AditumAdapter;
+
 
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
         this.SpringSecurityUsername = environment.springSecurityUsername;
         this.SpringSecurityPassword = environment.springSecurityPassword;
+
+        this.aditumAdapter = new AditumAdapter();
     }
 
     private getRequestOptions() {
@@ -84,8 +89,23 @@ export class ServiceAdapter {
         }
     } 
 
-    async register(serviceRequestDto: ServiceRequestDto): Promise<ServiceResponseDto | null> {
+    async register(serviceRequestDto: ServiceRequestDto, aditumServicetDto: AditumServicetDto): Promise<ServiceResponseDto | null> {
         try {
+
+            const aditumRequestOptions = await this.aditumAdapter.getRequestAditum();
+
+            const aditumResponse = await axios.post(
+                `${AditumAdapter.urlAditumPortal}/v1/product`,
+                aditumServicetDto,
+                aditumRequestOptions
+            );
+
+    
+            if (!aditumResponse.data) {
+                console.error("Erro ao criar Serviço na Aditum:", aditumResponse.data);
+                return null;
+            }
+            
             const response = await axios.post(`${this.apiUrl}/service`, serviceRequestDto, this.getRequestOptions());
             return {
                 serviceId: response.data.id,

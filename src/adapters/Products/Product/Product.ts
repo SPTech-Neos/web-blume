@@ -1,17 +1,22 @@
 import axios from "axios";
 import { environment } from "../../../../environment.config";
+import { AditumAdapter } from "../../Aditum/Aditum";
 
-import { ProductResponseDto, ProductRequestDto } from "../../../utils/Products/Product/product.types";
+import { ProductResponseDto, ProductRequestDto, AditumProductDto} from "../../../utils/Products/Product/product.types";
 
 export class ProductAdapter {
     private readonly apiUrl: string;
     private readonly SpringSecurityUsername: string;
     private readonly SpringSecurityPassword: string;
+    private aditumAdapter: AditumAdapter;
+
 
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
         this.SpringSecurityUsername = environment.springSecurityUsername;
         this.SpringSecurityPassword = environment.springSecurityPassword;
+        
+        this.aditumAdapter = new AditumAdapter();
     }
 
     private getRequestOptions() {
@@ -24,8 +29,27 @@ export class ProductAdapter {
         };
     }
 
-    async create(productDto: ProductRequestDto): Promise<ProductResponseDto | null> {
+    async create(productDto: ProductRequestDto, aditumProductDto: AditumProductDto): Promise<ProductResponseDto | null> {
         try {
+
+            const aditumRequestOptions = await this.aditumAdapter.getRequestAditum();
+
+
+            const aditumResponse = await axios.post(
+                `${AditumAdapter.urlAditumPortal}/v1/product`,
+                aditumProductDto,
+                aditumRequestOptions
+            );
+
+            console.log(aditumResponse.data);
+    
+            if (!aditumResponse.data || !aditumResponse.data.id) {
+                console.error("Erro ao criar Produto na Aditum:", aditumResponse.data);
+                return null;
+            }
+
+            console.log("Produto criado na Aditum com ID:", aditumResponse.data.id);
+
             const response = await axios.post(`${this.apiUrl}/products`, productDto, this.getRequestOptions());
             return {
                 id: response.data.id,

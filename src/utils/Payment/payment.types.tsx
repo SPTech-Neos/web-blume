@@ -9,6 +9,8 @@ export interface PaymentRequestDto {
     value: number;
 }
 
+
+
 export interface PaymentResponseDto {
     id: number;
     value: number;

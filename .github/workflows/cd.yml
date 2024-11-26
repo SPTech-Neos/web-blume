@@ -1,0 +1,36 @@
+name: CD WEB NEOS
+
+on:
+  workflow_run:
+    workflows: ["Terraform Configs"]
+    types:
+      - completed  # Executa o CD somente após a conclusão do CI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Etapa 1: Conectar à VM pública via SSH e atualizar a imagem Docker
+      - name: Deploy Docker image to VM
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # A chave SSH privada da sua VM
+          PUBLIC_IP: ${{ secrets.PUBLIC_IP }}  # O IP público da sua VM
+        run: |
+          # Salvar a chave privada SSH em um arquivo temporário
+          echo "$PRIVATE_KEY" > blume_key.pem
+          chmod 600 blume_key.pem
+
+          # Conectar à VM via SSH e executar os comandos para atualizar a imagem Docker
+          ssh -o StrictHostKeyChecking=no -i blume_key.pem ubuntu@$PUBLIC_IP << 'EOF'
+            # Atualiza a imagem Docker na VM
+            docker pull victorlcdpaula/web-blume:latest
+            docker run -d -p 80:80 victorlcdpaula/web-blume:latest
+          EOF
+
+      # Etapa 3: Limpar chave privada após o uso
+      - name: Clean up private key
+        run: rm -f blume_key.pem

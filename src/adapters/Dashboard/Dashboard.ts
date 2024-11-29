@@ -21,7 +21,7 @@ export class DashboardAdapter {
         return {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
                 'Accept': '*/*'
             }
         };

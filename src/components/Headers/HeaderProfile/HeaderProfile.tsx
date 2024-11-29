@@ -15,7 +15,7 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
 
   const tokenFromCookie = Cookies.get("employeeInfo");
   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
-  const [establishmentInfo, setEstablishmentInfo] =
+  const [, setEstablishmentInfo] =
     useState<EstablishmentResponseDto | null>(null);
   // const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
 

@@ -1,6 +1,11 @@
 # Etapa 1: Build da aplicação
 FROM node:18-alpine AS build
 
+# Declaração de argumentos
+ARG VITE_API_PATH
+ARG VITE_SPRINGSECURITY_USERNAME
+ARG VITE_SPRINGSECURITY_PASSWORD
+
 # Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
@@ -14,7 +19,7 @@ RUN yarn install
 COPY . .
 
 # Build da aplicação
-RUN yarn build
+RUN VITE_API_PATH=$VITE_API_PATH VITE_SPRINGSECURITY_USERNAME=$VITE_SPRINGSECURITY_USERNAME VITE_SPRINGSECURITY_PASSWORD=$VITE_SPRINGSECURITY_PASSWORD yarn build
 
 # Etapa 2: Servir a aplicação
 FROM nginx:alpine

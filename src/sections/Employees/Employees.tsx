@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./employees.styled";
 
 // import Cookies from "js-cookie";
@@ -7,32 +7,62 @@ import CardEmployee from "../../components/Cards/CardEmployee/CardEmployee";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 // import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
 // import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
-// import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
+import { EmployeeAdapter } from "../../adapters/User/Employee/Employee";
 // import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
+import Text from "../../components/Texts/Text/Text";
+
 const Employees: React.FC = () => {
-  //   const tokenFromCookie = Cookies.get("employeeInfo");
-  //   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
-  //   const estabAdapter = new EstablishmentAdapter();
+  // const tokenFromCookie = Cookies.get("employeeInfo");
+  // const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+  // const estabAdapter = new EstablishmentAdapter();
+  const employeeAdapter = new EmployeeAdapter();
 
-  // const [establishment, setEstablishment] = useState<EstablishmentResponseDto | null>(null);
+  // const [establishment, setEstablishment] =
+  //   useState<EstablishmentResponseDto | null>(null);
 
-  // useEffect(() => {
-  //     handleGetEmployees();
-  // }, []);
+  const [employees, getEmployees] = useState<EmployeeResponseDto[] | null>([]);
 
-  // const handleGetEmployees = async () => {
-  //     try{
-  //         const result = await estabAdapter.getEstablishmentById(token.establishment.id);
-  //         console.log("Resultado: " + result);
-  //         if(result){
-  //             setEstablishment(result);
+  useEffect(() => {
+    handleGetEmployees();
+  }, []);
 
-  //         }
-  //     }catch (error) {
-  //         console.log(error);
-  //     }
-  // }
+  const handleGetEmployees = async () => {
+    try {
+      // const result = await EmployeeAdapter.getAllEmployee(token.establishment.id);
+      const result = await employeeAdapter.getAllEmployee();
+      console.log("Resultado: " + result);
+
+      if (result) {
+        getEmployees(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function GenerateEmployees(): any {
+    if (employees != null) {
+      // console.log(employees[1]);
+
+      employees.forEach((employee) => {
+        return (
+          <CardEmployee
+            id={Number(employee.id)}
+            tipoCard="funcionario"
+            onClick={handleClickEmployee}
+            imgUrl={employee.imgUrl}
+            nome={employee.name}
+          />
+        );
+      });
+    } else {
+      // console.log(employees);
+
+      return <Text>Sem Funcionários</Text>;
+    }
+  }
 
   const handleClickEmployee = (event: React.MouseEvent<HTMLDivElement>) => {
     const lastSelected = document.getElementsByClassName("active");
@@ -40,7 +70,7 @@ const Employees: React.FC = () => {
     const selected = event.target as HTMLElement;
     const parent = selected?.parentElement;
 
-    console.log(selected);
+    // console.log(selected);
 
     if (parent?.id == "collection-cards") {
       console.log(selected);
@@ -57,7 +87,7 @@ const Employees: React.FC = () => {
     const selected = event.target as HTMLElement;
     const parent = selected?.parentElement;
 
-    console.log(selected);
+    // console.log(selected);
 
     if (parent?.id == "collection-cards") {
       console.log(selected);
@@ -83,8 +113,6 @@ const Employees: React.FC = () => {
         <h1> Funcionários </h1>
         <Searchbar placeholderText="Nome do funcionário..." />
         <S.CardsContainer id="collection-cards">
-          <CardEmployee tipoCard="adicionar" onClick={handleClickAdd} />
-          {/* {establishment && establishment.employees.map((data: { id: number | undefined; name: string | undefined; }) => ( */}
           <CardEmployee
             id={1}
             tipoCard="funcionario"
@@ -92,7 +120,8 @@ const Employees: React.FC = () => {
             imgUrl=""
             nome={"Nome Funcionário"}
           />
-          {/* ))} */}
+          <CardEmployee tipoCard="adicionar" onClick={handleClickAdd} />
+          {GenerateEmployees()}
         </S.CardsContainer>
       </S.EmployeeContainer>
     </S.EmployeeSection>

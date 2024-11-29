@@ -7,7 +7,10 @@ import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderE
 import { AuthContextEstablishment } from "../../../contexts/Establishment/AuthContextProviderEstablishment";
 
 import { EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
-import { Button, MenuItem } from "@mui/material";
+import {
+  Button,
+  // , MenuItem
+} from "@mui/material";
 // import { EmployeeResponseDto } from "../../../utils/Employee/employee.types";
 
 const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
@@ -38,9 +41,9 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -51,12 +54,22 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
       <S.ContainerSelect>
         <S.ContainerImg background={background}></S.ContainerImg>
         {/* <S.SelectEmpresa name="empresas" id="empresas"> */}
-        <Button onClick={handleClick}>Estabelecimento</Button>
-        <S.MenuDropdwon open={open}>
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <S.ButtonHeader
+          sx={{
+            color: "black",
+            fontFamily: "Poppins",
+            fontWeight: "semibold",
+            textTransform: "none",
+          }}
+          onClick={handleClick}
+        >
+          Estabelecimento
+        </S.ButtonHeader>
+        {/* <S.MenuDropdwon open={open}> */}
+        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
           <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </S.MenuDropdwon>
+          <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+        {/* </S.MenuDropdwon> */}
         {/* </S.SelectEmpresa> */}
       </S.ContainerSelect>
     </S.HeaderBody>

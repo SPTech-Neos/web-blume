@@ -150,7 +150,7 @@ export class EstablishmentAdapter {
             // 1. Criar Local e obter fkLocal
             const localResponse = await this.localAdapter.create(establishmentRequestDto.local);
             if (!localResponse || !localResponse.id) {
-                console.error("Erro ao criar Local");
+                console.error("Erro ao criar Local no Establishment.ts");
                 return null;
             }
 

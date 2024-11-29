@@ -54,6 +54,29 @@ export class EmployeeAdapter {
             return null;
         }
     }
+    
+    async getAllEmployee(): Promise<EmployeeResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/employees`, this.getRequestOptions());
+            const employees = response.data.map((employee: EmployeeResponseDto) => ({
+                id: response.data.id,
+                name: response.data.name,
+                email: response.data.email,
+                imgUrl: response.data.imgUrl,
+                local: response.data.Local as LocalResponseDto,
+                phone: response.data.phone as PhoneResponseDto,
+                status: response.data.status as StatusResponseDto,
+                establishment: response.data.establishment as EstablishmentResponseDto,
+            })) as EmployeeResponseDto[];
+
+            return employees;
+    
+
+        } catch (error) {
+            console.error("Error getting employee by token:", error);
+            return null;
+        }
+    }
 
     // LOGIN EMPLOYEE
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {

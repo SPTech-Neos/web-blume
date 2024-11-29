@@ -1,4 +1,5 @@
 import React, {
+  SetStateAction,
   // ReactNode,
   useEffect,
   useState,
@@ -26,9 +27,9 @@ import Cookies from "js-cookie";
 import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 import { DashboardAdapter } from "../../adapters/Dashboard/Dashboard";
 import {
-  // DashboardRequestDto,
-  DashboardRequestDtoId,
-  DashboardRequestDtoIdOnly,
+  // BarChartData,
+  DashboardRequestDto,
+  Employees,
 } from "../../utils/Dashboard/dashboard.types";
 
 const Dashboard: React.FC<S.detailsProps> = () => {
@@ -61,10 +62,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
   const [ratingEstablishment, setRatingEstablishment] = useState(Number);
 
-  const [
-    dataset,
-    // setDataset
-  ] = useState([
+  const [dataset, setDataset] = useState([
     {
       canceled: 59,
       complete: 57,
@@ -102,46 +100,43 @@ const Dashboard: React.FC<S.detailsProps> = () => {
     },
   ]);
 
-  const [
-    // employees,
-    // setEmployees
-  ] = useState([
-    {
-      urlPic: "urlFoto",
-      empName: "Fulano da Silva",
-      empRate: 4.9,
-      empHours: "5h Agendadas",
-      empValue: 999.99,
-    },
-    {
-      urlPic: "urlFoto",
-      empName: "Fulano da Silva",
-      empRate: 4.9,
-      empHours: "5h Agendadas",
-      empValue: 999.99,
-    },
-    {
-      urlPic: "urlFoto",
-      empName: "Fulano da Silva",
-      empRate: 4.9,
-      empHours: "5h Agendadas",
-      empValue: 999.99,
-    },
-    {
-      urlPic: "urlFoto",
-      empName: "Fulano da Silva",
-      empRate: 4.9,
-      empHours: "5h Agendadas",
-      empValue: 999.99,
-    },
-    {
-      urlPic: "urlFoto",
-      empName: "Fulano da Silva",
-      empRate: 4.9,
-      empHours: "5h Agendadas",
-      empValue: 999.99,
-    },
-  ]);
+  const [employees, setEmployees] = useState([
+    // {
+    //   urlPic: "urlFoto",
+    //   empName: "Fulano da Silva",
+    //   empRate: 4.9,
+    //   empHours: "5h Agendadas",
+    //   empValue: 999.99,
+    // },
+    // {
+    //   urlPic: "urlFoto",
+    //   empName: "Fulano da Silva",
+    //   empRate: 4.9,
+    //   empHours: "5h Agendadas",
+    //   empValue: 999.99,
+    // },
+    // {
+    //   urlPic: "urlFoto",
+    //   empName: "Fulano da Silva",
+    //   empRate: 4.9,
+    //   empHours: "5h Agendadas",
+    //   empValue: 999.99,
+    // },
+    // {
+    //   urlPic: "urlFoto",
+    //   empName: "Fulano da Silva",
+    //   empRate: 4.9,
+    //   empHours: "5h Agendadas",
+    //   empValue: 999.99,
+    // },
+    // {
+    //   urlPic: "urlFoto",
+    //   empName: "Fulano da Silva",
+    //   empRate: 4.9,
+    //   empHours: "5h Agendadas",
+    //   empValue: 999.99,
+    // },
+  ] as Employees[]);
 
   const [mostPurchased, setMostPurchased] = useState(String);
 
@@ -175,10 +170,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
     if (establishmentData) {
       const fetchTotalGain = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
+          establishment: Number(establishmentData.id),
           start: startDate,
           end: endDate,
-        } as DashboardRequestDtoId;
+        } as DashboardRequestDto;
 
         const totalGainData = await dashboardAdapter.getTotalGain(fetchBody);
 
@@ -191,10 +186,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchQuantityStatus = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
+          establishment: Number(establishmentData.id),
           start: startDate,
           end: endDate,
-        } as DashboardRequestDtoId;
+        } as DashboardRequestDto;
 
         const quantityStatusData = await dashboardAdapter.getQuantityStatus(
           fetchBody
@@ -212,8 +207,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchLeastPurchased = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
-        } as DashboardRequestDtoIdOnly;
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
 
         await dashboardAdapter.getLeastPurchased(fetchBody).then((result) => {
           console.log(result?.name);
@@ -230,8 +227,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchMostPurchased = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
-        } as DashboardRequestDtoIdOnly;
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
 
         await dashboardAdapter.getMostPurchased(fetchBody).then((result) => {
           console.log(result?.name);
@@ -246,8 +245,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchMostProfitable = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
-        } as DashboardRequestDtoIdOnly;
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
 
         await dashboardAdapter.getMostProfitable(fetchBody).then((result) => {
           console.log(result?.name);
@@ -262,8 +263,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchLeastProfitable = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
-        } as DashboardRequestDtoIdOnly;
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
 
         await dashboardAdapter.getLeastProfitable(fetchBody).then((result) => {
           console.log(result?.name);
@@ -278,10 +281,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchCountMarket = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
+          establishment: Number(establishmentData.id),
           start: startDate,
           end: endDate,
-        } as DashboardRequestDtoId;
+        } as DashboardRequestDto;
 
         const countMarketData = await dashboardAdapter.getCountMarket(
           fetchBody
@@ -296,10 +299,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchCountMarketCanceled = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
+          establishment: Number(establishmentData.id),
           start: startDate,
           end: endDate,
-        } as DashboardRequestDtoId;
+        } as DashboardRequestDto;
 
         const countMarketCanceledData =
           await dashboardAdapter.getCountMarketCanceled(fetchBody);
@@ -312,10 +315,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
       const fetchRatingEstablishment = async () => {
         const fetchBody = {
-          establishmentId: Number(establishmentData.id),
+          establishment: Number(establishmentData.id),
           start: startDate,
           end: endDate,
-        } as DashboardRequestDtoId;
+        } as DashboardRequestDto;
 
         const ratingEstablishmentData =
           await dashboardAdapter.getRatingEstablishment(fetchBody);
@@ -326,24 +329,40 @@ const Dashboard: React.FC<S.detailsProps> = () => {
         }
       };
 
-      //     const employeeStats = async () => {
-      //       const fetchBody = {
-      //         establishment: Number(establishmentData.id),
-      //         start: startDate,
-      //         end: endDate,
-      //       } as DashboardRequestDto;
+      const fetchEmployeeStats = async () => {
+        const fetchBody = {
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
 
-      //       const employeeStatsData = await dashboardAdapter.getEmployeeStats(
-      //         fetchBody
-      //       );
-      //       if (employeeStatsData) {
-      //         setGeneralKpis([
-      //           generalKpis[0],
-      //           generalKpis[1],
-      //           ratingEstablishmentData,
-      //         ]);
-      //       }
-      //     };
+        const employeeStatsData = await dashboardAdapter.getEmployeeStats(
+          fetchBody
+        );
+        if (employeeStatsData != null) {
+          setEmployees(employeeStatsData);
+        } else {
+          setEmployees([]);
+        }
+      };
+
+      const fetchBarChart = async () => {
+        const fetchBody = {
+          establishment: Number(establishmentData.id),
+          start: startDate,
+          end: endDate,
+        } as DashboardRequestDto;
+
+        const barChartData = await dashboardAdapter.getBarChart(fetchBody, 1);
+
+        if (barChartData != null) {
+          setDataset(barChartData);
+        } else {
+          setDataset([]);
+        }
+
+        console.log(dataset);
+      };
 
       fetchTotalGain();
 
@@ -362,6 +381,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
       fetchCountMarketCanceled();
 
       fetchRatingEstablishment();
+
+      fetchEmployeeStats();
+
+      fetchBarChart();
     }
   }, [CookieEstablishmentData]);
 
@@ -389,22 +412,34 @@ const Dashboard: React.FC<S.detailsProps> = () => {
 
   const colors: string[] = [c.green800, c.green50];
 
-  // const handleEmployees = () => {
-  //   employees.forEach((employee) => {
-  //     return (
-  //       <S.EmployeesLine>
-  //         <S.EmployeePic src={employee.urlPic} />
-  //         <Text>{employee.empName}</Text>
-  //         <>
-  //           <Star size={15} weight="fill" color={c.green500} />
-  //           <Text>{employee.empRate}</Text>
-  //         </>
-  //         <Text>{employee.empHours}</Text>
-  //         <Text>{employee.empValue}</Text>
-  //       </S.EmployeesLine>
-  //     );
-  //   });
-  // };
+  function GenerateEmployees(): any {
+    if (employees[1] != null) {
+      // console.log(employees[1]);
+
+      employees.forEach((employee) => {
+        return (
+          <S.EmployeesLine>
+            <S.Employee>
+              <S.EmployeePic src="" />
+              <Text>{employee.empName as string}</Text>
+            </S.Employee>
+            <S.Rating>
+              <Star size={20} weight="fill" color={c.green500} />
+              <Text>{employee.empRate as number}</Text>
+            </S.Rating>
+            <Text color="gray">{employee.empHours as string}h Agendadas</Text>
+            <Text color="green" weight={"bold"}>
+              R${String(employee.empValue)}
+            </Text>
+          </S.EmployeesLine>
+        );
+      });
+    } else {
+      // console.log(employees);
+
+      return <Text>Sem Funcionários</Text>;
+    }
+  }
 
   return (
     <>
@@ -506,7 +541,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
                 xAxis={[
                   {
                     scaleType: "band",
-                    dataKey: "day",
+                    dataKey: "period",
                   },
                 ]}
                 series={[
@@ -526,8 +561,10 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               FUNCIONÁRIOS
             </S.DashText>
 
-            {/* {handleEmployees() as ReactNode} */}
-            <S.EmployeesLine>
+            {/* <GenerateEmployees /> */}
+            {GenerateEmployees()}
+
+            {/* <S.EmployeesLine>
               <S.Employee>
                 <S.EmployeePic src="" />
                 <Text>Fulano</Text>
@@ -568,7 +605,7 @@ const Dashboard: React.FC<S.detailsProps> = () => {
               <Text color="green" weight={"bold"}>
                 R$999,99
               </Text>
-            </S.EmployeesLine>
+            </S.EmployeesLine> */}
           </S.DashEmployees>
         </S.DashMid>
 

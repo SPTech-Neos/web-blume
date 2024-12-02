@@ -5,6 +5,15 @@ export interface ServiceRequestDto {
     serviceType: number;
 }
 
+export interface AditumServicetDto{
+    name: string;
+    amount: number; 
+    description: string; 
+    isActive: boolean;
+    Sku: string;
+    merchantId: string;
+}
+
 export interface ServiceResponseDto {
     [x: string]: unknown;
     serviceId: number;

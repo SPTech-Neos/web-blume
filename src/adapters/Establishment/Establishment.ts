@@ -3,9 +3,11 @@ import axios from "axios";
 import { environment } from "../../../environment.config";
 
 import { LocalAdapter } from "../Local/Local" 
-import { PhoneAdapter } from "../Phone/Phone"; 
+import { PhoneAdapter } from "../Phone/Phone";
+import { AditumAdapter } from "../Aditum/Aditum";
 
-import { EstablishmentResponseDto, EstablishmentRequestDto } from "../../utils/Establishment/establishment.types";
+import { EstablishmentResponseDto, EstablishmentRequestDto, AditumEstablishmentRequest } from "../../utils/Establishment/establishment.types";
+
 
 export class EstablishmentAdapter {
     private readonly apiUrl: string;
@@ -14,6 +16,7 @@ export class EstablishmentAdapter {
 
     private localAdapter: LocalAdapter;
     private phoneAdapter: PhoneAdapter;
+    private aditumAdapter: AditumAdapter;
 
     constructor() {
         this.apiUrl = environment.apiUrl ? environment.apiUrl : "http://localhost:8080";
@@ -22,6 +25,7 @@ export class EstablishmentAdapter {
 
         this.localAdapter = new LocalAdapter();
         this.phoneAdapter = new PhoneAdapter();
+        this.aditumAdapter = new AditumAdapter();
     }
 
     private getRequestOptions() {
@@ -144,8 +148,21 @@ export class EstablishmentAdapter {
         }
     }
 
-    async registerEstablishment(establishmentRequestDto: EstablishmentRequestDto): Promise<EstablishmentResponseDto | null> {
+    async registerEstablishment(establishmentRequestDto: EstablishmentRequestDto, aditumEstablishmentReq : AditumEstablishmentRequest): Promise<EstablishmentResponseDto | null> {
         try {
+
+            const aditumRequestOptions = await this.aditumAdapter.getRequestAditum();
+            
+            const aditumResponse = await axios.post(
+                `${AditumAdapter.urlAditumPortal}/v1/Merchant`,
+                aditumEstablishmentReq,
+                aditumRequestOptions
+            );
+    
+            if (!aditumResponse.data || !aditumResponse.data.createMerchantResult?.id) {
+                console.error("Erro ao criar Estabelecimento na Aditum:", aditumResponse.data);
+                return null;
+            }
 
             // 1. Criar Local e obter fkLocal
             const localResponse = await this.localAdapter.create(establishmentRequestDto.local);
@@ -169,23 +186,10 @@ export class EstablishmentAdapter {
                 statusId: 1,
             };
 
-            // 
-
-            // establishmentDto json com todas as info {}
-            // const response = await axios.post(`${this.apiUrlAditum}/establishments`, establishmentDto);
-            // verificar se establismentDto tem tudo Necessario
-            // manter a resposta e depois fazer algo parecido com esse:
-
-            // const establishmentDto = {
-            //     ...establishmentRequestDto,
-            //     aditumId: responseAditum.id
-            // };
-
-
             const response = await axios.post(`${this.apiUrl}/establishments`, establishmentDto, this.getRequestOptions());
             return {
                 id: response.data.id,
-                aditumId: "",
+                aditumId: aditumResponse.data.createMerchantResult.id,
                 name: response.data.name,
                 imgUrl: response.data.imgUrl,
                 local: response.data.local,

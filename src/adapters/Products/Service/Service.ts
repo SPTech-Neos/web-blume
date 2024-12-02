@@ -31,7 +31,7 @@ export class ServiceAdapter {
 
     async getServiceById(id: number): Promise<ServiceResponseDto | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/service/${id}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/services/${id}`, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
@@ -106,7 +106,8 @@ export class ServiceAdapter {
                 return null;
             }
             
-            const response = await axios.post(`${this.apiUrl}/service`, serviceRequestDto, this.getRequestOptions());
+            // const response = await axios.post(`${this.apiUrl}/service`, serviceRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/services`, serviceRequestDto, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
@@ -122,7 +123,7 @@ export class ServiceAdapter {
     
     async delete(serviceId: number): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/service/${serviceId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/services/${serviceId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting service:", error);
@@ -132,7 +133,7 @@ export class ServiceAdapter {
     
     async update(serviceId: number, updatedFields: Partial<ServiceRequestDto>): Promise<ServiceResponseDto | null> {
         try {
-            const response = await axios.patch(`${this.apiUrl}/service/${serviceId}`, updatedFields, this.getRequestOptions());
+            const response = await axios.patch(`${this.apiUrl}/services/${serviceId}`, updatedFields, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,

@@ -34,7 +34,7 @@ export class LocalAdapter {
             // 1. Criar Local e obter fkLocal
             const addressResponse = await this.addressAdapter.create(localRequestDto.address);
             if (!addressResponse || !addressResponse.id) {
-                console.error("Erro ao criar Local");
+                console.error("Erro ao criar Local no Local.ts");
                 return null;
             }
 

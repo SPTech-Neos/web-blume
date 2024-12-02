@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import svg01 from "../../../assets/icon-profile.png";
 
-import { Menu } from "@mui/material";
+import { Menu, Button } from "@mui/material";
 
 export interface ProfileProps {
   background?: string;
@@ -48,3 +48,7 @@ export const SelectEmpresa = styled.select`
 `;
 
 export const MenuDropdwon = styled(Menu)``;
+
+export const ButtonHeader = styled(Button)`
+  color: black;
+`;

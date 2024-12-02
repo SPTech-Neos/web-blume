@@ -25,7 +25,7 @@ export class ClientAdapter {
                 }
             };
 
-            const response = await axios.get(`${this.apiUrl}/client/${id}`, requestOptions);
+            const response = await axios.get(`${this.apiUrl}/clients/${id}`, requestOptions);
             return {
                 clientId: response.data.clientId,
                 name: response.data.name,

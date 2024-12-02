@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import * as S from './cardPedido.styled';
-import { Trash } from "phosphor-react";
+import React, { useState } from "react";
+import * as S from "./cardPedido.styled";
+import { PencilSimpleLine, Trash } from "phosphor-react";
 import { Info } from "phosphor-react";
 import { colors as c } from "../../../styles/Colors";
 import Modal from "../../Modals/FormModal/Modal";
@@ -11,348 +11,380 @@ import { SchedulingAdapter } from "../../../adapters/Scheduling/Scheduling";
 import { ProductAdapter } from "../../../adapters/Products/Product/Product";
 import { FilterAdapter } from "../../../adapters/Filters/Filters";
 
+export const CardPedidoProduto: React.FC<S.PedidoProps> = ({
+  id,
+  service,
+  client,
+  establishment,
+  preco,
+  status,
+  imgUrl,
+}) => {
+  const classe =
+    status == "Cancelado"
+      ? "cancel"
+      : status == "Em Andamento"
+      ? "andamento"
+      : "concluido";
 
-export const CardPedidoProduto: React.FC<S.PedidoProps> = ({id, service, client, establishment, preco, status, imgUrl}) => {
-    
+  const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
-    const classe = status == "Cancelado"? "cancel" : 
-        status == "Em Andamento"? "andamento" 
-        : "concluido"; 
+  const openDeleteModal = () => {
+    setModalProps({
+      type: "error",
+      message: "Tem certeza que deseja cancelar o pedido?",
+      isOpen: true,
+      linkTo: "/",
+      onConfirm: handleDeleteConfirmation,
+    });
+  };
 
+  const handleReload = () => {
+    window.location.reload();
+  };
 
-    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
+  const paymentAdapter = new PaymentAdapter();
 
-    const openDeleteModal = () => {
-        setModalProps({
-            type: "error",
-            message: "Tem certeza que deseja cancelar o pedido?",
-            isOpen: true,
-            linkTo: "/",
-            onConfirm: handleDeleteConfirmation
-        });
-    };
+  const handleDeleteConfirmation = async () => {
+    const resultDelete = await paymentAdapter.delete(Number(id));
 
-    const handleReload = () => {
-        window.location.reload();
-
+    if (resultDelete) {
+      setModalProps(null);
+      handleReload();
     }
+  };
 
-    const paymentAdapter = new PaymentAdapter
+  return (
+    <S.CardContainer id={id}>
+      <S.ImgPedido imgUrl={imgUrl} />
 
-    const handleDeleteConfirmation = async () => {
-       const resultDelete = await paymentAdapter.delete(Number(id));
-       
-       if(resultDelete){
-           setModalProps(null);
-            handleReload();
-       }
-       
-    };
+      <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Produto </S.Label>
+          <S.LabelValue> {service} </S.LabelValue>
+        </S.InfoBody>
 
-    return (
-        <S.CardContainer id={id}>
-            <S.ImgPedido  imgUrl={imgUrl}/>
+        <S.InfoBody>
+          <S.Label> Cliente </S.Label>
+          <S.LabelValue> {client} </S.LabelValue>
+        </S.InfoBody>
 
-            <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Estabelecimento </S.Label>
+          <S.LabelValue> {establishment} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Produto </S.Label>
-                    <S.LabelValue> {service} </S.LabelValue>
-                </S.InfoBody>
-                
-                <S.InfoBody>
-                    <S.Label> Cliente </S.Label>
-                    <S.LabelValue> {client} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Status </S.Label>
+          <S.LabelValue className={classe}> {status} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Estabelecimento </S.Label>
-                    <S.LabelValue> {establishment} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Preço </S.Label>
+          <S.LabelValue> R$ {preco?.toFixed(2)} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label > Status </S.Label>
-                    <S.LabelValue className={classe}> {status} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoButtons>
+          <Trash
+            weight="bold"
+            color="red"
+            size={status == "Em Andamento" ? 25 : 0}
+            onClick={openDeleteModal}
+          />
+          <Info weight="bold" color={c.violet800} size={25} />
+        </S.InfoButtons>
+      </S.InfoContainer>
+      {modalProps && (
+        <Modal
+          type={modalProps.type}
+          message={modalProps.message}
+          isOpen={modalProps.isOpen}
+          linkTo={modalProps.linkTo}
+          onConfirm={modalProps.onConfirm}
+          onClose={() => setModalProps(null)}
+        />
+      )}
+    </S.CardContainer>
+  );
+};
 
-                <S.InfoBody>
-                    <S.Label> Preço </S.Label>
-                    <S.LabelValue> R$ {(preco)?.toFixed(2)} </S.LabelValue>
-                </S.InfoBody>
+export const CardPedidoServico: React.FC<S.PedidoProps> = ({
+  id,
+  service,
+  client,
+  employee,
+  establishment,
+  status,
+  imgUrl,
+}) => {
+  const classe =
+    status == "Cancelado"
+      ? "cancel"
+      : status == "Em Andamento"
+      ? "andamento"
+      : "concluido";
 
-                <S.InfoButtons>
-                    <Trash weight="bold" color="red" size={status == "Em Andamento" ? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.violet800} size={25}/>
-                </S.InfoButtons>
+  const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
+  const openDeleteModal = () => {
+    setModalProps({
+      type: "error",
+      message: "Tem certeza que deseja cancelar o pedido?",
+      isOpen: true,
+      linkTo: "/",
+      onConfirm: handleDeleteConfirmation,
+    });
+  };
 
-            </S.InfoContainer>
-            {modalProps && (
-                        <Modal
-                            type={modalProps.type}
-                            message={modalProps.message}
-                            isOpen={modalProps.isOpen}
-                            linkTo={modalProps.linkTo}
-                            onConfirm={modalProps.onConfirm}
-                            onClose={() => setModalProps(null)}
-                        />
-            )}
-         </S.CardContainer>
-    );
-}
+  const handleReload = () => {
+    window.location.reload();
+  };
 
-export const CardPedidoServico: React.FC<S.PedidoProps> = ({id, service, client, employee, establishment, status, imgUrl}) => {
+  const schedulingAdapter = new SchedulingAdapter();
 
-    
+  const handleDeleteConfirmation = async () => {
+    const resultDelete = await schedulingAdapter.delete(Number(id));
 
-    const classe = status == "Cancelado"? "cancel" : 
-        status == "Em Andamento"? "andamento" 
-        : "concluido"; 
-
-
-    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
-
-    const openDeleteModal = () => {
-        setModalProps({
-            type: "error",
-            message: "Tem certeza que deseja cancelar o pedido?",
-            isOpen: true,
-            linkTo: "/",
-            onConfirm: handleDeleteConfirmation
-        });
-    };
-
-    const handleReload = () => {
-        window.location.reload();
-
+    if (resultDelete) {
+      setModalProps(null);
+      handleReload();
     }
+  };
 
-    const schedulingAdapter = new SchedulingAdapter
+  return (
+    <S.CardContainer id={id}>
+      <S.ImgPedido imgUrl={imgUrl} />
 
-    const handleDeleteConfirmation = async () => {
-       const resultDelete = await schedulingAdapter.delete(Number(id));
-       
-       if(resultDelete){
-           setModalProps(null);
-            handleReload();
-       }
-       
-    };
+      <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Serviço </S.Label>
+          <S.LabelValue> {service} </S.LabelValue>
+        </S.InfoBody>
 
-    return (
-        <S.CardContainer id={id}>
-            <S.ImgPedido imgUrl={imgUrl}/>
+        <S.InfoBody>
+          <S.Label> Cliente </S.Label>
+          <S.LabelValue> {client} </S.LabelValue>
+        </S.InfoBody>
 
-            <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Funcionário </S.Label>
+          <S.LabelValue> {employee} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Serviço </S.Label>
-                    <S.LabelValue> {service} </S.LabelValue>
-                </S.InfoBody>
-                
-                <S.InfoBody>
-                    <S.Label> Cliente </S.Label>
-                    <S.LabelValue> {client} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Status </S.Label>
+          <S.LabelValue className={classe}> {status} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Funcionário </S.Label>
-                    <S.LabelValue> {employee} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Estabelecimento </S.Label>
+          <S.LabelValue> {establishment} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label > Status </S.Label>
-                    <S.LabelValue className={classe}> {status} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoButtons>
+          <Trash
+            weight="bold"
+            color="red"
+            size={status == "Em Andamento" ? 25 : 0}
+            onClick={openDeleteModal}
+          />
+          <Info weight="bold" color={c.violet800} size={25} />
+        </S.InfoButtons>
+      </S.InfoContainer>
+      {modalProps && (
+        <Modal
+          type={modalProps.type}
+          message={modalProps.message}
+          isOpen={modalProps.isOpen}
+          linkTo={modalProps.linkTo}
+          onConfirm={modalProps.onConfirm}
+          onClose={() => setModalProps(null)}
+        />
+      )}
+    </S.CardContainer>
+  );
+};
 
-                <S.InfoBody>
-                    <S.Label> Estabelecimento </S.Label>
-                    <S.LabelValue> {establishment} </S.LabelValue>
-                </S.InfoBody>
+export const CardServico: React.FC<S.PedidoProps> = ({
+  id,
+  service,
+  preco,
+  status,
+  imgUrl,
+}) => {
+  const classe =
+    status == "Cancelado"
+      ? "cancel"
+      : status == "Em Andamento"
+      ? "andamento"
+      : "concluido";
 
-                <S.InfoButtons>
-                    <Trash weight="bold" color="red" size={status == "Em Andamento"? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.violet800} size={25}/>
-                </S.InfoButtons>
+  const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
+  // const serviceAdapter = new ServiceAdapter;
+  const filterAdapter = new FilterAdapter();
 
-            </S.InfoContainer>
-            {modalProps && (
-                        <Modal
-                            type={modalProps.type}
-                            message={modalProps.message}
-                            isOpen={modalProps.isOpen}
-                            linkTo={modalProps.linkTo}
-                            onConfirm={modalProps.onConfirm}
-                            onClose={() => setModalProps(null)}
-                        />
-            )}
-         </S.CardContainer>
-    );
-}
+  const openDeleteModal = () => {
+    setModalProps({
+      type: "error",
+      message: "Tem certeza que deseja desativar o serviço?",
+      isOpen: true,
+      linkTo: "/",
+      onConfirm: handleDeleteConfirmation,
+    });
+  };
 
+  const handleReload = () => {
+    window.location.reload();
+  };
 
-export const CardServico: React.FC<S.PedidoProps> = ({id, service, preco, status, imgUrl}) => {
+  const handleDeleteConfirmation = async () => {
+    const resultDelete = await filterAdapter.delete(Number(id));
 
-    
-    
-    const classe = status == "Cancelado"? "cancel" : 
-    status == "Em Andamento"? "andamento" 
-    : "concluido"; 
-    
-    
-    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
-    
-    // const serviceAdapter = new ServiceAdapter;
-    const filterAdapter = new FilterAdapter;
-
-    const openDeleteModal = () => {
-        setModalProps({
-            type: "error",
-            message: "Tem certeza que deseja cancelar o pedido?",
-            isOpen: true,
-            linkTo: "/",
-            onConfirm: handleDeleteConfirmation
-        });
-    };
-    
-    const handleReload = () => {
-        window.location.reload();
-
+    if (resultDelete) {
+      setModalProps(null);
+      handleReload();
     }
+  };
 
-    const handleDeleteConfirmation = async () => {
-        const resultDelete = await filterAdapter.delete(Number(id));
-       
-        if(resultDelete){
-            setModalProps(null);
-            handleReload();
-        }
-       
-    };
+  return (
+    <S.CardContainer id={id}>
+      <S.ImgPedido imgUrl={imgUrl} />
 
-    return (
-        <S.CardContainer id={id}>
-            <S.ImgPedido imgUrl={imgUrl}/>
+      <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Serviço </S.Label>
+          <S.LabelValue> {service} </S.LabelValue>
+        </S.InfoBody>
 
-            <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Status </S.Label>
+          <S.LabelValue className={classe}> {status} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Serviço </S.Label>
-                    <S.LabelValue> {service} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Preço </S.Label>
+          <S.LabelValue> R$ {preco} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label > Status </S.Label>
-                    <S.LabelValue className={classe}> {status} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoButtons>
+          <Trash
+            weight="bold"
+            color="red"
+            size={status == "Em Andamento" || status == "Ativo" ? 25 : 0}
+            onClick={openDeleteModal}
+          />
+          <Info weight="bold" color={c.green300} size={25} />
+        </S.InfoButtons>
+      </S.InfoContainer>
+      {modalProps && (
+        <Modal
+          type={modalProps.type}
+          message={modalProps.message}
+          isOpen={modalProps.isOpen}
+          linkTo={modalProps.linkTo}
+          onConfirm={modalProps.onConfirm}
+          onClose={() => setModalProps(null)}
+        />
+      )}
+    </S.CardContainer>
+  );
+};
 
-                <S.InfoBody>
-                    <S.Label> Preço </S.Label>
-                    <S.LabelValue> R$ {preco} </S.LabelValue>
-                </S.InfoBody>
+export const CardProduto: React.FC<S.PedidoProps> = ({
+  id,
+  service,
+  preco,
+  status,
+  imgUrl,
+  brand,
+}) => {
+  const classe =
+    status == "Cancelado"
+      ? "cancel"
+      : status == "Em Andamento"
+      ? "andamento"
+      : "concluido";
 
-                <S.InfoButtons>
-                    <Trash weight="bold" color="red" size={status == "Em Andamento" || status == "Ativo"? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.green300} size={25}/>
-                </S.InfoButtons>
+  const [modalProps, setModalProps] = useState<ModalProps | null>(null);
 
+  const openDeleteModal = () => {
+    setModalProps({
+      type: "error",
+      message: "Tem certeza que deseja desativar o produto?",
+      isOpen: true,
+      linkTo: "/",
+      onConfirm: handleDeleteConfirmation,
+    });
+  };
 
-            </S.InfoContainer>
-            {modalProps && (
-                        <Modal
-                            type={modalProps.type}
-                            message={modalProps.message}
-                            isOpen={modalProps.isOpen}
-                            linkTo={modalProps.linkTo}
-                            onConfirm={modalProps.onConfirm}
-                            onClose={() => setModalProps(null)}
-                        />
-            )}
-         </S.CardContainer>
-    );
-}
+  const openEditModal = () => {};
 
-export const CardProduto: React.FC<S.PedidoProps> = ({id, service, preco, status, imgUrl, brand}) => {
+  const handleReload = () => {
+    window.location.reload();
+  };
 
-    
-    const classe = status == "Cancelado"? "cancel" : 
-        status == "Em Andamento"? "andamento" 
-        : "concluido"; 
+  const productAdapter = new ProductAdapter();
 
+  const handleDeleteConfirmation = async () => {
+    const resultDelete = await productAdapter.delete(Number(id));
 
-    const [modalProps, setModalProps] = useState<ModalProps | null>(null);
-
-    const openDeleteModal = () => {
-        setModalProps({
-            type: "error",
-            message: "Tem certeza que deseja cancelar o pedido?",
-            isOpen: true,
-            linkTo: "/",
-            onConfirm: handleDeleteConfirmation
-        });
-    };
-
-    const handleReload = () => {
-        window.location.reload();
-
+    if (resultDelete) {
+      setModalProps(null);
+      handleReload();
     }
+  };
 
-    const productAdapter = new ProductAdapter
+  return (
+    <S.CardContainer id={id}>
+      <S.ImgPedido imgUrl={imgUrl} />
 
-    const handleDeleteConfirmation = async () => {
-        const resultDelete = await productAdapter.delete(Number(id));
-       
-        if(resultDelete){
-            setModalProps(null);
-            handleReload();
-        }
-       
-    };
+      <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Produto </S.Label>
+          <S.LabelValue> {service} </S.LabelValue>
+        </S.InfoBody>
 
-    return (
-        <S.CardContainer id={id}>
-            <S.ImgPedido imgUrl={imgUrl}/>
+        <S.InfoBody>
+          <S.Label> Preço </S.Label>
+          <S.LabelValue> R$ {preco} </S.LabelValue>
+        </S.InfoBody>
 
-            <S.InfoContainer>
+        <S.InfoBody>
+          <S.Label> Marca </S.Label>
+          <S.LabelValue> {brand} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label> Produto </S.Label>
-                    <S.LabelValue> {service} </S.LabelValue>
-                </S.InfoBody>
-                
-                <S.InfoBody>
-                    <S.Label> Marca </S.Label>
-                    <S.LabelValue> {brand} </S.LabelValue>
-                </S.InfoBody>
+        <S.InfoBody>
+          <S.Label> Status </S.Label>
+          <S.LabelValue className={classe}> {status} </S.LabelValue>
+        </S.InfoBody>
 
-                <S.InfoBody>
-                    <S.Label > Status </S.Label>
-                    <S.LabelValue className={classe}> {status} </S.LabelValue>
-                </S.InfoBody>
-
-                <S.InfoBody>
-                    <S.Label> Preço </S.Label>
-                    <S.LabelValue> R$ {preco} </S.LabelValue>
-                </S.InfoBody>
-
-                <S.InfoButtons>
-                    <Trash weight="bold" color="red" size={status == "Em Andamento" || status == "Ativo"? 25 : 0} onClick={openDeleteModal}/>
-                    <Info weight="bold" color={c.green300} size={25}/>
-                </S.InfoButtons>
-
-
-            </S.InfoContainer>
-            {modalProps && (
-                        <Modal
-                            type={modalProps.type}
-                            message={modalProps.message}
-                            isOpen={modalProps.isOpen}
-                            linkTo={modalProps.linkTo}
-                            onConfirm={modalProps.onConfirm}
-                            onClose={() => setModalProps(null)}
-                        />
-            )}
-         </S.CardContainer>
-    );
-}
+        <S.InfoButtons>
+          <Trash
+            weight="bold"
+            color="red"
+            size={status == "Em Andamento" || status == "Ativo" ? 25 : 0}
+            onClick={openDeleteModal}
+          />
+          <PencilSimpleLine
+            onClick={openEditModal}
+            size={32}
+            color={c.green300}
+            weight="fill"
+          />
+        </S.InfoButtons>
+      </S.InfoContainer>
+      {modalProps && (
+        <Modal
+          type={modalProps.type}
+          message={modalProps.message}
+          isOpen={modalProps.isOpen}
+          linkTo={modalProps.linkTo}
+          onConfirm={modalProps.onConfirm}
+          onClose={() => setModalProps(null)}
+        />
+      )}
+    </S.CardContainer>
+  );
+};

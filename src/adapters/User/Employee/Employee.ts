@@ -54,6 +54,30 @@ export class EmployeeAdapter {
             return null;
         }
     }
+    
+    async getAllEmployee(establishmentId: string): Promise<EmployeeResponseDto[] | null> {
+        try {
+            const response = await axios.get(`${this.apiUrl}/employees/by-establishment/${establishmentId}`, this.getRequestOptions());
+            const employees = response.data.map((employee: EmployeeResponseDto) => ({
+                id: employee.id,
+                name: employee.name,
+                email: employee.email,
+                imgUrl: employee.imgUrl,
+                local: employee.local as LocalResponseDto,
+                phone: employee.phone as PhoneResponseDto,
+                status: employee.status as StatusResponseDto,
+                establishment: employee.establishment as EstablishmentResponseDto,
+            })) as EmployeeResponseDto[];
+
+            console.log(response);
+            
+            return employees;
+    
+        } catch (error) {
+            console.error("Error getting all employees:", error);
+            return null;
+        }
+    }
 
     // LOGIN EMPLOYEE
     async login(employeeLoginDto: EmployeeLoginDto): Promise<EmployeeResponseDto | null> {

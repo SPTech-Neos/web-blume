@@ -22,12 +22,13 @@ export const Register = styled.main<RegisterProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 50px;
   padding: 30px 50px;
   box-shadow: 0 0 48px 2px rgba(0, 0, 0, 0.25);
-  max-width: 45%;
+  max-width: 60%;
   border-radius: 16px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 export const Text = styled.span`

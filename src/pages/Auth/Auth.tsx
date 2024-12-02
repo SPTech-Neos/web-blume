@@ -22,11 +22,11 @@ const Auth: React.FC = () => {
 
   return (
     <>
+      {/* {mode === 'signup' && <Signup></Signup>} */}
       {mode === "login" && (
         <Login imgUrl={loginImg} bgColor={colorBg} imgAlt={"Login"}></Login>
       )}
       {mode === "register" && <Register></Register>}
-      {/* {mode === 'signup' && <Signup></Signup>} */}
       {mode === "choose-auth" && (
         <AuthContextProviderEmployee>
           <ChooseAuth />

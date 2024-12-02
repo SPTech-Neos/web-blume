@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { colors as c } from "../../../styles/Colors";
 
 export interface propsCard {
-  id?: number;
-  tipoCard?: "adicionar" | "funcionario";
+  id?: string;
+  tipocard?: "adicionar" | "funcionario";
   imgUrl?: string;
   nome?: string;
   onClick?: (

@@ -11,8 +11,9 @@ const Dropdown: React.FC<S.DropDownProps> = ({
   theme,
   onChange,
   error,
+  value,
 }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(value);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   function handleClick(text: string) {
@@ -20,7 +21,9 @@ const Dropdown: React.FC<S.DropDownProps> = ({
     setIsSelected(true);
     // Chama o onChange para propagar o valor selecionado para o pai
     if (onChange) {
-      onChange({ target: { value: text } } as React.ChangeEvent<HTMLInputElement>);
+      onChange({
+        target: { value: text },
+      } as React.ChangeEvent<HTMLInputElement>);
     }
   }
 

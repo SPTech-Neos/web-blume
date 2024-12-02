@@ -3,6 +3,10 @@ import { environment } from "../../../../environment.config";
 import { AditumAdapter } from "../../Aditum/Aditum";
 
 import { ProductResponseDto, ProductRequestDto, AditumProductDto} from "../../../utils/Products/Product/product.types";
+// import { ProductResponseDto, ProductRequestDto } from "../../../utils/Products/Product/product.types";
+import { ProductTypeResponseDto } from "../../../utils/Products/Product/productTypes.types";
+import { StatusResponseDto } from "../../../utils/Status/status.types";
+import { EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
 
 export class ProductAdapter {
     private readonly apiUrl: string;
@@ -100,11 +104,78 @@ export class ProductAdapter {
             const products = response.data.map((product: ProductResponseDto) => ({
                 id: product.id,
                 name: product.name,
-                imgUrl: product.imgUrl,
                 brand: product.brand, 
-                type: product.type,
+                imgUrl: product.imgUrl,
+                type: product.type as ProductTypeResponseDto,
                 value: product.value,
+                status: product.status as StatusResponseDto,
+                establishment: product.establishment as EstablishmentResponseDto
             })) as ProductResponseDto[];
+
+            // [
+            //     {
+            //       "id": 0,
+            //       "name": "string",
+            //       "brand": "string",
+            //       "imgUrl": "string",
+            //       "type": {
+            //         "id": 0,
+            //         "name": "string",
+            //         "specification": "string"
+            //       },
+            //       "value": 0,
+            //       "status": {
+            //         "statusId": 0,
+            //         "name": "string",
+            //         "type": "string"
+            //       },
+            //       "establishment": {
+            //         "id": 0,
+            //         "aditumId": "string",
+            //         "name": "string",
+            //         "imgUrl": "string",
+            //         "local": {
+            //           "id": 0,
+            //           "number": 0,
+            //           "floor": 0,
+            //           "complement": "string",
+            //           "block": "string",
+            //           "address": {
+            //             "id": 0,
+            //             "publicPlace": "string",
+            //             "city": "string",
+            //             "zipCode": "string",
+            //             "uf": "string"
+            //           }
+            //         },
+            //         "phone": {
+            //           "id": 0,
+            //           "countryCode": "string",
+            //           "areaCode": "string",
+            //           "number": "string"
+            //         },
+            //         "status": {
+            //           "statusId": 0,
+            //           "name": "string",
+            //           "type": "string"
+            //         },
+            //         "startShift": {
+            //           "hour": 0,
+            //           "minute": 0,
+            //           "second": 0,
+            //           "nano": 0
+            //         },
+            //         "endShift": {
+            //           "hour": 0,
+            //           "minute": 0,
+            //           "second": 0,
+            //           "nano": 0
+            //         },
+            //         "description": "string",
+            //         "cnpj": "string"
+            //       }
+            //     }
+            //   ]
     
             return products;
     

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import * as S from "./sidebar.styled";
 
-import { colors as c } from "../../styles/Colors";
+// import { colors as c } from "../../styles/Colors";
 
 import {
   // Bell,
@@ -132,36 +132,24 @@ const Sidebar: React.FC = () => {
             </S.NavItem>
 
             <S.NavItem>
-              <S.NavLink
-                // to="/employees"
-                className="nav-link"
-              >
-                <UserList color={c.gray200} weight="bold" size={28} />
+              <S.NavLink href="/employees" className="nav-link">
+                <UserList weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
             <S.NavItem>
-              <S.NavLink
-                // to="/products"
-                className="nav-link"
-              >
-                <Cube color={c.gray200} weight="bold" size={28} />
+              <S.NavLink href="/products" className="nav-link">
+                <Cube weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
 
             <S.NavItem>
-              <S.NavLink
-                // to="/orders"
-                className="nav-link"
-              >
-                <Article color={c.gray200} weight="bold" size={28} />
+              <S.NavLink href="/services" className="nav-link">
+                <Article weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
             <S.NavItem>
-              <S.NavLink
-                // to="/orders"
-                className="nav-link"
-              >
-                <Receipt color={c.gray200} weight="bold" size={28} />
+              <S.NavLink href="/orders" className="nav-link">
+                <Receipt weight="bold" size={28} />
               </S.NavLink>
             </S.NavItem>
           </>

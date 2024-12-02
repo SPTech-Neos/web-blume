@@ -25,7 +25,7 @@ export class EmployeeServicesAdapter {
 
     async create(employeeDto: EmployeeServicesRequestDto): Promise<EmployeeServicesResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/employeeServices`, employeeDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/employee-services`, employeeDto, this.getRequestOptions());
             return {
                 employeeTypeId: response.data.id,
                 hoursSpent: response.data.hoursSpent,
@@ -42,7 +42,7 @@ export class EmployeeServicesAdapter {
     async getAllEmployeeServices(): Promise<EmployeeServicesResponseDto[] | null> {
         try {
     
-            const response = await axios.get(`${this.apiUrl}/employeeServices`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/employee-services`, this.getRequestOptions());
     
             const employeeServices = response.data.map((employeeService: EmployeeServicesResponseDto) => ({
                 id: employeeService.id,
@@ -64,7 +64,7 @@ export class EmployeeServicesAdapter {
     async getEmployeeServiceById(id: number): Promise<EmployeeServicesResponseDto | null> {
         try {
 
-            const response = await axios.get(`${this.apiUrl}/employeeServices/${id}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/employee-services/${id}`, this.getRequestOptions());
             return {
                 employeeTypeId: response.data.id,
                 hoursSpent: response.data.hoursSpent,

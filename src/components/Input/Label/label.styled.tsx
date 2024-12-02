@@ -1,26 +1,25 @@
-import styled from 'styled-components';
-import { colors as c} from '../../../styles/Colors';
+import styled from "styled-components";
+import { colors as c } from "../../../styles/Colors";
 
 export interface LabelProps {
-    label: string;
+  label: string;
 }
 
 export const Label = styled.span`
-    position: relative;
-    z-index: 1;
-    top: 10px;
-    width: min-content;
-    word-break: keep-all;
-    text-wrap: nowrap;
-    align-self: left;
+  position: relative;
+  z-index: 1;
+  top: 10px;
+  width: min-content;
+  word-break: keep-all;
+  text-wrap: nowrap;
+  align-self: left;
 
-    background-color: ${c.gray100};
-    margin: 0 25px;
-    padding: 0 3px;
-    font-size: 14px;
-    font-family: 'Josefin Sans', 'Arial';
-    color: ${c.gray900};
-    
-    // font-weight: regular;
+  background-color: ${c.gray100};
+  margin: 0 16px;
+  padding: 0 3px;
+  font-size: 14px;
+  font-family: "Josefin Sans", "Arial";
+  color: ${c.gray900};
 
+  // font-weight: regular;
 `;

@@ -26,7 +26,7 @@ export class ProductTypeAdapter {
 
     async getAllProductsType(): Promise<ProductTypeResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/ProductType`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/product-types`, this.getRequestOptions());
             const productsType: ProductTypeResponseDto[] | PromiseLike<ProductTypeResponseDto[] | null> | null = [];
             response.data.forEach((e: ProductTypeResponseDto) => {
                 productsType.push(e)

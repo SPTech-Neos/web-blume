@@ -7,10 +7,10 @@ import { AuthContextEmployee } from "../../../contexts/User/AuthContextProviderE
 import { AuthContextEstablishment } from "../../../contexts/Establishment/AuthContextProviderEstablishment";
 
 import { EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
-import {
-  Button,
-  // , MenuItem
-} from "@mui/material";
+// import {
+//   Button,
+//   // , MenuItem
+// } from "@mui/material";
 // import { EmployeeResponseDto } from "../../../utils/Employee/employee.types";
 
 const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
@@ -18,7 +18,7 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
 
   const tokenFromCookie = Cookies.get("employeeInfo");
   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
-  const [, setEstablishmentInfo] =
+  const [establishmentInfo, setEstablishmentInfo] =
     useState<EstablishmentResponseDto | null>(null);
   // const [employeeInfo, setEmployeeInfo] = useState<EmployeeResponseDto | null>(null);
 
@@ -52,7 +52,13 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
   return (
     <S.HeaderBody>
       <S.ContainerSelect>
-        <S.ContainerImg background={background}></S.ContainerImg>
+        <S.ContainerImg
+          background={
+            establishmentInfo ? establishmentInfo?.imgUrl : background
+          }
+        >
+          {/* <img src={establishmentInfo?.imgUrl} alt="Foto Estabelecimento" /> */}
+        </S.ContainerImg>
         {/* <S.SelectEmpresa name="empresas" id="empresas"> */}
         <S.ButtonHeader
           sx={{
@@ -63,7 +69,7 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
           }}
           onClick={handleClick}
         >
-          Estabelecimento
+          {establishmentInfo?.name}
         </S.ButtonHeader>
         {/* <S.MenuDropdwon open={open}> */}
         {/* <MenuItem onClick={handleClose}>Profile</MenuItem>

@@ -59,7 +59,7 @@ export const StyledInput = styled(InputMask).attrs((props) => ({
   font-family: "Josefin Sans", "Arial";
   height: 40px;
   margin: 0;
-  padding: 22px 50px 22px 25px;
+  padding: 25px 16px 22px 16px;
   background-color: ${c.gray100};
   border: 3px solid ${c.gray900};
   font-size: 16px;

@@ -6,23 +6,23 @@ import { colors as c } from "../../../styles/Colors";
 
 const CardEmployee: React.FC<S.propsCard> = ({
   id,
-  tipoCard,
+  tipocard,
   imgUrl,
   nome,
   onClick,
 }) => {
-  if (tipoCard == "adicionar") {
+  if (tipocard == "adicionar") {
     return (
-      <S.CardContainer id={id} tipoCard={tipoCard} onClick={onClick}>
+      <S.CardContainer id={id} tipocard={tipocard} onClick={onClick}>
         <S.CardBody>
           <PlusCircle color={c.green500} size={60} />
           <h2> Adicionar </h2>
         </S.CardBody>
       </S.CardContainer>
     );
-  } else if (tipoCard == "funcionario") {
+  } else if (tipocard == "funcionario") {
     return (
-      <S.CardContainer id={id} tipoCard={tipoCard} onClick={onClick}>
+      <S.CardContainer id={id} tipocard={tipocard} onClick={onClick}>
         <S.CardBody>
           <S.ProfileImg imgUrl={imgUrl} />
           <h2>{nome}</h2>

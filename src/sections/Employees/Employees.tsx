@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./employees.styled";
 
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import CardEmployee from "../../components/Cards/CardEmployee/CardEmployee";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
@@ -11,11 +11,11 @@ import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
 import { EmployeeAdapter } from "../../adapters/User/Employee/Employee";
 // import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
 
-import Text from "../../components/Texts/Text/Text";
+// import Text from "../../components/Texts/Text/Text";
 
 const Employees: React.FC = () => {
-  // const tokenFromCookie = Cookies.get("employeeInfo");
-  // const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+  const tokenFromCookie = Cookies.get("employeeInfo");
+  const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
   // const estabAdapter = new EstablishmentAdapter();
   const employeeAdapter = new EmployeeAdapter();
 
@@ -30,39 +30,24 @@ const Employees: React.FC = () => {
 
   const handleGetEmployees = async () => {
     try {
+      // LIHA ANTIGA, NÃO É MAIS USADA
       // const result = await EmployeeAdapter.getAllEmployee(token.establishment.id);
-      const result = await employeeAdapter.getAllEmployee();
+
+      console.log(token.establishment.id);
+
+      const result = await employeeAdapter.getAllEmployee(
+        token.establishment.id
+      );
       console.log("Resultado: " + result);
 
       if (result) {
         getEmployees(result);
+        console.log(employees);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  function GenerateEmployees(): any {
-    if (employees != null) {
-      // console.log(employees[1]);
-
-      employees.forEach((employee) => {
-        return (
-          <CardEmployee
-            id={Number(employee.id)}
-            tipoCard="funcionario"
-            onClick={handleClickEmployee}
-            imgUrl={employee.imgUrl}
-            nome={employee.name}
-          />
-        );
-      });
-    } else {
-      // console.log(employees);
-
-      return <Text>Sem Funcionários</Text>;
-    }
-  }
 
   const handleClickEmployee = (event: React.MouseEvent<HTMLDivElement>) => {
     const lastSelected = document.getElementsByClassName("active");
@@ -75,6 +60,8 @@ const Employees: React.FC = () => {
     if (parent?.id == "collection-cards") {
       console.log(selected);
       selected.classList.add("active");
+
+      window.location.replace("/");
     } else {
       console.log(parent);
       parent?.classList.add("active");
@@ -113,15 +100,18 @@ const Employees: React.FC = () => {
         <h1> Funcionários </h1>
         <Searchbar placeholderText="Nome do funcionário..." />
         <S.CardsContainer id="collection-cards">
-          <CardEmployee
-            id={1}
-            tipoCard="funcionario"
-            onClick={handleClickEmployee}
-            imgUrl=""
-            nome={"Nome Funcionário"}
-          />
-          <CardEmployee tipoCard="adicionar" onClick={handleClickAdd} />
-          {GenerateEmployees()}
+          {employees &&
+            employees.map((employee, index) => (
+              <CardEmployee
+                id={employee.id}
+                tipocard="funcionario"
+                onClick={handleClickEmployee}
+                imgUrl={employee.imgUrl}
+                nome={employee.name}
+                key={index}
+              />
+            ))}
+          <CardEmployee tipocard="adicionar" onClick={handleClickAdd} />
         </S.CardsContainer>
       </S.EmployeeContainer>
     </S.EmployeeSection>

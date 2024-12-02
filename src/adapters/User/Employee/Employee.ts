@@ -55,25 +55,26 @@ export class EmployeeAdapter {
         }
     }
     
-    async getAllEmployee(): Promise<EmployeeResponseDto[] | null> {
+    async getAllEmployee(establishmentId: string): Promise<EmployeeResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/employees`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/employees/by-establishment/${establishmentId}`, this.getRequestOptions());
             const employees = response.data.map((employee: EmployeeResponseDto) => ({
-                id: response.data.id,
-                name: response.data.name,
-                email: response.data.email,
-                imgUrl: response.data.imgUrl,
-                local: response.data.Local as LocalResponseDto,
-                phone: response.data.phone as PhoneResponseDto,
-                status: response.data.status as StatusResponseDto,
-                establishment: response.data.establishment as EstablishmentResponseDto,
+                id: employee.id,
+                name: employee.name,
+                email: employee.email,
+                imgUrl: employee.imgUrl,
+                local: employee.local as LocalResponseDto,
+                phone: employee.phone as PhoneResponseDto,
+                status: employee.status as StatusResponseDto,
+                establishment: employee.establishment as EstablishmentResponseDto,
             })) as EmployeeResponseDto[];
 
+            console.log(response);
+            
             return employees;
     
-
         } catch (error) {
-            console.error("Error getting employee by token:", error);
+            console.error("Error getting all employees:", error);
             return null;
         }
     }

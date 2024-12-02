@@ -13,6 +13,27 @@
     accent-color: var(--color-violet-300);
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: #62EE6F;
+      cursor: pointer;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #295F2B;
+  }
+
 :root {
     --color-gray-100: #FAFAFA;
     --color-gray-200: #D6D6D6;

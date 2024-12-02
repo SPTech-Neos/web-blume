@@ -26,7 +26,7 @@ export class PaymentAdapter {
 
     async getAllPayments(): Promise<PaymentResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/payment`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/payments`, this.getRequestOptions());
             const scheduling: PaymentResponseDto[] | PromiseLike<PaymentResponseDto[] | null> | null = [];
             response.data.forEach((e: PaymentResponseDto) => {
                 scheduling.push(e)
@@ -41,7 +41,7 @@ export class PaymentAdapter {
 
     async create(paymentDto: PaymentRequestDto): Promise<PaymentResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/payment`, paymentDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/payments`, paymentDto, this.getRequestOptions());
             return {
                 id: response.data.id,
                 value: response.data.value,
@@ -57,7 +57,7 @@ export class PaymentAdapter {
 
     async delete(paymentId: number): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/payment/${paymentId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/payments/${paymentId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting service:", error);
@@ -67,7 +67,7 @@ export class PaymentAdapter {
 
     async getPaymentsByClientId(clientId: number): Promise<PaymentResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/payment/client/${clientId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/payments/client/${clientId}`, this.getRequestOptions());
             return response.data;
         } catch (error) {
             console.error("Error getting Payments by client ID:", error);
@@ -77,7 +77,7 @@ export class PaymentAdapter {
 
     async getPaymentsByEstablishmentId(establishmentId: number): Promise<PaymentResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/payment/employee/${establishmentId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/payments/employee/${establishmentId}`, this.getRequestOptions());
             return response.data;
         } catch (error) {
             console.error("Error getting Payments by establishment ID:", error);

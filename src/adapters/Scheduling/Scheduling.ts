@@ -26,7 +26,7 @@ export class SchedulingAdapter {
 
     async getAllSchedulings(): Promise<SchedulingResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/scheduling`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/schedulings`, this.getRequestOptions());
             const scheduling: SchedulingResponseDto[] | PromiseLike<SchedulingResponseDto[] | null> | null = [];
             response.data.forEach((e: SchedulingResponseDto) => {
                 scheduling.push(e)
@@ -41,7 +41,7 @@ export class SchedulingAdapter {
 
     async getSchedulingsByClientId(clientId: number): Promise<SchedulingResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/scheduling/client/${clientId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/schedulings/client/${clientId}`, this.getRequestOptions());
             return response.data;
         } catch (error) {
             console.error("Error getting schedulings by client ID:", error);
@@ -51,7 +51,7 @@ export class SchedulingAdapter {
 
     async getSchedulingsByEmployeeId(employeeId: number): Promise<SchedulingResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/scheduling/employee/${employeeId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/schedulings/employee/${employeeId}`, this.getRequestOptions());
             return response.data;
         } catch (error) {
             console.error("Error getting schedulings by employee ID:", error);
@@ -62,7 +62,7 @@ export class SchedulingAdapter {
     
     async register(schedulingDto: SchedulingRequestDto): Promise<SchedulingResponseDto | null> {
         try {
-            const response = await axios.post(`${this.apiUrl}/scheduling`, schedulingDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/schedulings`, schedulingDto, this.getRequestOptions());
             return {
                 serviceId: response.data.id,
                 specification: response.data.specification,
@@ -82,7 +82,7 @@ export class SchedulingAdapter {
 
     async delete(schedulingId: number): Promise<boolean> {
         try {
-            await axios.delete(`${this.apiUrl}/scheduling/${schedulingId}`, this.getRequestOptions());
+            await axios.delete(`${this.apiUrl}/schedulings/${schedulingId}`, this.getRequestOptions());
             return true;
         } catch (error) {
             console.error("Error deleting service:", error);

@@ -10,12 +10,14 @@ import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 
 import { AuthContextEmployee } from "../../contexts/User/AuthContextProviderEmployee";
 import Cookies from "js-cookie";
-import { EstablishmentAdapter } from "../../adapters/Establishment/Establishment";
-import { EstablishmentResponseDto } from "../../utils/Establishment/establishment.types";
+import { LinkButton } from "../../components/Buttons/DefaultButton/DefaultButton";
+import { colors as c } from "../../styles/Colors";
+import { ServiceAdapter } from "../../adapters/Products/Service/Service";
+import { ServiceResponseDto } from "../../utils/Products/Service/service.types";
 
 const EstablishmentServices: React.FC = () => {
-  const estabAdapter = new EstablishmentAdapter();
-  const [, setEstablishment] = useState<EstablishmentResponseDto | null>(null);
+  const serviceAdapter = new ServiceAdapter();
+  const [services, setServices] = useState<ServiceResponseDto[] | null>([]);
 
   const { isAuthenticated: isAuthenticatedEmployee } =
     useContext(AuthContextEmployee);
@@ -24,17 +26,24 @@ const EstablishmentServices: React.FC = () => {
 
   const handleGetServices = async () => {
     try {
-      const result = await estabAdapter.getEstablishmentById(
+      const result = await serviceAdapter.getServicesByEstablishmentId(
         token.establishment.id
       );
       console.log("Resultado: " + result);
       if (result) {
-        setEstablishment(result);
+        setServices(result);
+        console.log(result[0]);
+
         // console.log("filterssss: " + JSON.stringify(establishmentFull?.filters[0].id))
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleAddService = () => {
+    // const modal = document.getElementById("modal-adicionar");
+    // modal?.classList.add("active");
   };
 
   useEffect(() => {
@@ -46,18 +55,31 @@ const EstablishmentServices: React.FC = () => {
       <CreateModal id="modal-adicionar" titulo="Serviço" />
       <S.ServicesContainer>
         <h1> SERVIÇOS </h1>
-        <Searchbar placeholderText="Nome do produto..." />
+        {/* <Searchbar placeholderText="Nome do produto..." /> */}
         <S.ServicesButtons>
-          <h2
+          {/* <h2
             onClick={
               () => {}
               // handleAddService
             }
           >
             ADICIONAR SERVIÇO
-          </h2>
+          </h2> */}
+          <LinkButton color={c.green500} onClick={handleAddService}>
+            ADICIONAR SERVIÇO
+          </LinkButton>
         </S.ServicesButtons>
         <S.ServicesBody>
+          {services &&
+            services.map((service, index) => (
+              <CardServico
+                id={service.serviceId}
+                service={service.specification}
+                preco={service.price}
+                status={service.status}
+                key={index}
+              />
+            ))}
           {/* {establishment?.filters &&
             establishment.filters.map(
               (data: {

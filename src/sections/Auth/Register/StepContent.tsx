@@ -7,6 +7,7 @@ import Dropdown from "../../../components/Input/Dropdown/Dropdown";
 import CategorySelector from "./CategorySelector";
 
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
+import axios from "axios";
 
 interface StepContentProps {
   step: number;
@@ -21,8 +22,11 @@ const StepContent: React.FC<StepContentProps> = ({
   acc,
   fields,
   onFieldChange,
-//  goToNextStep,
+  //  goToNextStep,
 }) => {
+  const [isCepValid, setIsCepValid] = useState(false);
+  const [uf, setUf] = useState<string>();
+
   const [errors, setErrors] = useState({
     // OBRIGATÓRIOS
     cnpj: false,
@@ -70,12 +74,32 @@ const StepContent: React.FC<StepContentProps> = ({
 
     switch (step) {
       case 1:
+        if (!fields.nome) {
+          newErrors.nome = true;
+          isValid = false;
+        }
         if (!fields.cnpj) {
           newErrors.cnpj = true;
           isValid = false;
         }
-        if (!fields.cep) {
+        if (!fields.entrada) {
+          newErrors.entrada = true;
+          isValid = false;
+        }
+        if (!fields.phone) {
+          newErrors.phone = true;
+          isValid = false;
+        }
+        if (!fields.saida) {
+          newErrors.saida = true;
+          isValid = false;
+        }
+        if (!fields.cep && !isCepValid) {
           newErrors.cep = true;
+          isValid = false;
+        }
+        if (!fields.numero) {
+          newErrors.numero = true;
           isValid = false;
         }
         break;
@@ -111,6 +135,40 @@ const StepContent: React.FC<StepContentProps> = ({
 
     setErrors(newErrors);
     return isValid;
+  };
+
+  const validateCep = async (event: string) => {
+    console.log(event);
+
+    if (event.length >= 8 && !event.includes("_")) {
+      try {
+        let cep = event.replace("-", "");
+        const response = await axios.get(
+          `https://viacep.com.br/ws/${cep}/json/`
+        );
+
+        fields.city = response.data.localidade;
+        fields.logradouro = response.data.logradouro;
+        fields.estado = response.data.uf;
+        // onFieldChange("estado", response.data.uf);
+
+        setIsCepValid(true);
+        setUf(response.data.uf);
+
+        console.log(uf);
+
+        onFieldChange("cep", event);
+      } catch (error) {
+        console.error("Erro no CEP", error);
+
+        setIsCepValid(false);
+        onFieldChange("cep", event);
+      }
+    } else {
+      onFieldChange("cep", event);
+    }
+
+    console.log(event);
   };
 
   React.useEffect(() => {
@@ -173,28 +231,28 @@ const StepContent: React.FC<StepContentProps> = ({
           </InputContainer>
 
           <S.FormPartSmall>
-            <InputContainer>
-              <InputText
-                theme={acc}
-                size="half"
-                label="Cidade"
-                type="text"
-                value={fields.city}
-                onChange={(e) => onFieldChange("city", e.target.value)}
-                error={errors.city ? "*Campo obrigatório" : ""}
-              />
-              <InputText
-                theme={acc}
-                size="half"
-                label="CEP"
-                placeholder="01414-001"
-                mask="99999-999"
-                type="text"
-                value={fields.cep}
-                onChange={(e) => onFieldChange("cep", e.target.value)}
-                error={errors.cep ? "*Campo obrigatório" : ""}
-              />
-            </InputContainer>
+            <InputText
+              theme={acc}
+              size="full"
+              label="CEP"
+              placeholder="01414-001"
+              mask="99999-999"
+              type="text"
+              value={fields.cep}
+              onChange={(e) => validateCep(e.target.value)}
+              error={errors.cep ? "*Campo obrigatório" : ""}
+            />
+            {/* <InputContainer> */}
+            <InputText
+              theme={acc}
+              size="full"
+              label="Cidade"
+              type="text"
+              value={fields.city}
+              onChange={(e) => onFieldChange("city", e.target.value)}
+              error={errors.city ? "*Campo obrigatório" : ""}
+            />
+            {/* </InputContainer> */}
 
             <InputContainer>
               <InputText
@@ -220,6 +278,7 @@ const StepContent: React.FC<StepContentProps> = ({
             </InputContainer>
             <InputContainer>
               <Dropdown
+                value={uf ? uf : ""}
                 theme={acc}
                 size="small"
                 label="Estado"

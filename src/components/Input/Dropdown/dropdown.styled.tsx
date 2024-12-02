@@ -12,6 +12,7 @@ export interface DropDownProps {
   theme: string;
   list: string[];
   error?: string;
+  value: string;
   // children: string | JSX.Element | JSX.Element[];
 }
 
@@ -33,7 +34,6 @@ export interface InputContainerProps {
 }
 
 function getTheme(theme: string) {
-
   return theme === "client" ? Themes.client : Themes.establishment;
 }
 
@@ -48,26 +48,31 @@ const SizeVariants = {
     width: "45%",
   },
   small: {
-    width: "15%",
+    width: "18%",
   },
 };
 
 export const Container = styled(DropdownMenu.Root)`
   background-color: ${c.violet300};
+  height: 100%;
 `;
 
 export const Trigger = styled(DropdownMenu.Trigger)<TriggerProps>`
   background-color: ${c.gray100};
-  border-radius: 0px;
+  border-radius: 8px;
   border: 3px solid ${c.gray900};
   color: ${(props) => (props.isSelected ? c.gray900 : c.gray500)};
   outline: none;
   font-family: "Poppins", "Arial";
-  padding: 5px 25px;
   cursor: pointer;
   font-weight: 400;
   transition: all 0.25s ease-in-out;
   font-size: 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   &:hover,
   &:focus {
@@ -86,12 +91,15 @@ export const Content = styled(DropdownMenu.Content)`
   background-color: ${c.gray100};
   color: ${c.gray900};
   font-family: "Poppins";
-  border-radius: 0px;
+  border-radius: 8px;
 
-  border: 2px solid black;
+  border: 3px solid black;
 
   position: relative;
   z-index: 2;
+
+  max-height: 60vh;
+  overflow-y: scroll;
 `;
 
 export const Item = styled(DropdownMenu.Item)<ThemeProps>`
@@ -119,6 +127,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   background-color: ${c.gray100};
   // margin: 25px 0;
   width: ${(props) => SizeVariants[props.size || "full"].width};
+  height: 100%;
 
   color: ${c.gray900};
   display: flex;

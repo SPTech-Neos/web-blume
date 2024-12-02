@@ -59,8 +59,7 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
   const tokenFromCookie = Cookies.get("employeeInfo");
   const token = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
-  const [, setEstablishment] =
-    useState<EstablishmentResponseDto | null>(null);
+  const [, setEstablishment] = useState<EstablishmentResponseDto | null>(null);
 
   const handleGetProductsType = async () => {
     try {
@@ -142,6 +141,9 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
       };
 
       console.log(productNew);
+      // ADICIONAR REGRA ADITUM AQUI
+
+      // COLOCAR ADITUMDTO NO adapterProduct.create (OLHAR PARAMETROS QUE ELE RECEBE)
       const productCreated = await adapterProduct.create(productNew);
       console.log(productCreated);
     }
@@ -154,6 +156,9 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
 
       if (serviceNew) {
         console.log("entrei no if serviço");
+        // ADICIONAR REGRA ADITUM AQUI
+
+        // COLOCAR ADITUMDTO NO adapterService.register (OLHAR PARAMETROS QUE ELE RECEBE)
         const serviceCreated = await adapterService.register(serviceNew);
         console.log("serviço criando" + JSON.stringify(serviceCreated));
 

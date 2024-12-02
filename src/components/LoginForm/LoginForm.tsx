@@ -122,7 +122,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                 size="full"
                 label="E-mail"
                 type="email"
-                placeholder="email@exemplo.com"
+                placeholder="Digite seu e-mail..."
                 value={email}
                 onChange={handleEmailChange}
                 theme={"client"}
@@ -146,7 +146,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
                 size="full"
                 label="Senha"
                 type="password"
-                placeholder="digite sua senha..."
+                placeholder="Digite sua senha..."
                 value={password}
                 onChange={handlePasswordChange}
                 theme={"client"}

@@ -42,7 +42,7 @@ export class ServiceTypeAdapter {
 
     async getAllServicesType(): Promise<ServiceTypeResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/serviceType`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/service-types`, this.getRequestOptions());
             const servicesType: ServiceTypeResponseDto[] | PromiseLike<ServiceTypeResponseDto[] | null> | null = [];
             response.data.forEach((e: ServiceTypeResponseDto) => {
                 

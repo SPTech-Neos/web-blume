@@ -140,7 +140,8 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
         type: productType,
         value: Number(preco),
         establishment: token.establishment.id,
-        aditum_id: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+        aditumId: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+        status: 1,
       } as ProductRequestDto;
 
       console.log(productNew);

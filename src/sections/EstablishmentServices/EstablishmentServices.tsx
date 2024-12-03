@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import * as S from "./establishmentServices.styled";
 
-import Searchbar from "../../components/Searchbar/Searchbar";
+// import Searchbar from "../../components/Searchbar/Searchbar";
 import { CardServico } from "../../components/Cards/CardPedido/CardPedido";
 import CreateModal from "../../components/Modals/CreateModal/CreateModal";
 

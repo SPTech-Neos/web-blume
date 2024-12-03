@@ -77,7 +77,7 @@ export class PaymentAdapter {
 
     async getPaymentsByEstablishmentId(establishmentId: number): Promise<PaymentResponseDto[] | null> {
         try {
-            const response = await axios.get(`${this.apiUrl}/payments/employee/${establishmentId}`, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/payments/${establishmentId}`, this.getRequestOptions());
             return response.data;
         } catch (error) {
             console.error("Error getting Payments by establishment ID:", error);

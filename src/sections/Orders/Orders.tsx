@@ -16,10 +16,10 @@ import { SchedulingResponseDto } from "../../utils/Scheduling/scheduling.types";
 import { PaymentResponseDto } from "../../utils/Payment/payment.types";
 import { PaymentAdapter } from "../../adapters/Payments/Payment";
 import { EmployeeResponseDto } from "../../utils/Users/Employee/employee.types";
-import { ClientResponseDto } from "../../utils/Users/Client/client.types";
+// import { ClientResponseDto } from "../../utils/Users/Client/client.types";
 
 const Orders: React.FC = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const selected = document.getElementsByClassName("active");
@@ -51,15 +51,13 @@ const Orders: React.FC = () => {
     ? JSON.parse(tokenEmployeeFromCookie)
     : null;
 
-  const tokenClientFromCookie = Cookies.get("clientInfo");
-  const tokenClient: ClientResponseDto = tokenClientFromCookie
-    ? JSON.parse(tokenClientFromCookie)
-    : null;
-
   const handleGetSchedulings = async () => {
     try {
-      const allSchedule = await scheduleAdapter.getAllSchedulings();
+      const allSchedule = await scheduleAdapter.getSchedulingsByEmployeeId(
+        Number(tokenEmployee.id)
+      );
       setSchedule(allSchedule);
+      console.log(allSchedule);
     } catch (error) {
       console.log(error);
     }
@@ -69,6 +67,7 @@ const Orders: React.FC = () => {
     try {
       const allPayments = await paymentAdapter.getAllPayments();
       setPayments(allPayments);
+      console.log(allPayments);
     } catch (error) {
       console.log(error);
     }
@@ -107,112 +106,88 @@ const Orders: React.FC = () => {
 
   // LOAD SCHEDULINGS =====================
   useEffect(() => {
-    if (tokenClient && id) {
-      const fetchPaymentData = async () => {
-        try {
-          const paymentsData = await paymentAdapter.getPaymentsByClientId(
-            Number(id)
-          );
-          setPayments(paymentsData);
-        } catch (error) {
-          console.log(error);
-        }
-      };
+    const fetchPaymentData = async () => {
+      try {
+        const establishmentId: number = tokenEmployee.establishment.id;
 
-      const fetchSchedulingData = async () => {
-        try {
-          const scheduleData = await scheduleAdapter.getSchedulingsByClientId(
-            Number(id)
-          );
-          setSchedule(scheduleData);
-        } catch (error) {
-          console.log(error);
-        }
-      };
+        const paymentsData = await paymentAdapter.getPaymentsByEstablishmentId(
+          establishmentId
+        );
+        setPayments(paymentsData);
+        console.log(paymentsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-      fetchPaymentData();
-      fetchSchedulingData();
-    } else if (tokenEmployee && id) {
-      const fetchPaymentData = async () => {
-        try {
-          const establishmentId: number = tokenEmployee.establishment.id;
+    const fetchSchedulingData = async () => {
+      try {
+        const scheduleData = await scheduleAdapter.getSchedulingsByEmployeeId(
+          Number(tokenEmployee)
+        );
+        setSchedule(scheduleData);
+        console.log(scheduleData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-          const paymentsData =
-            await paymentAdapter.getPaymentsByEstablishmentId(establishmentId);
-          setPayments(paymentsData);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      const fetchSchedulingData = async () => {
-        try {
-          const scheduleData = await scheduleAdapter.getSchedulingsByEmployeeId(
-            Number(id)
-          );
-          setSchedule(scheduleData);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      fetchPaymentData();
-      fetchSchedulingData();
-    }
+    fetchPaymentData();
+    fetchSchedulingData();
   }, []);
 
   let theme = "";
 
-  // if (isAuthenticatedEmployee) {
-  // theme = "B2B";
-  // return tokenEmployee ? (
-  //   <S.OrdersSectionContainer tema={theme}>
-  //     <S.OrdersHeader>
-  //       <Logo />
-  //     </S.OrdersHeader>
-  //     <S.OrdersBody>
-  //       <S.FiltersContainer>
-  //         <S.BadgesContainer tema={theme}>
-  //           <S.Badge onClick={handleClick}>Todos</S.Badge>
-  //           <S.Badge onClick={handleClick}>Em andamento</S.Badge>
-  //           <S.Badge onClick={handleClick}>Cancelado</S.Badge>
-  //           <S.Badge onClick={handleClick}>Concluído</S.Badge>
-  //         </S.BadgesContainer>
-  //         <S.HistoricoContainer tema={theme}>
-  //           <h2 onClick={handlePast}>HISTÓRICO</h2>
-  //         </S.HistoricoContainer>
-  //       </S.FiltersContainer>
+  if (isAuthenticatedEmployee) {
+    theme = "B2B";
+    return tokenEmployee ? (
+      <S.OrdersSectionContainer tema={theme}>
+        <S.OrdersHeader>
+          <Logo />
+        </S.OrdersHeader>
+        <S.OrdersBody>
+          <S.FiltersContainer>
+            <S.BadgesContainer tema={theme}>
+              <S.Badge onClick={handleClick}>Todos</S.Badge>
+              <S.Badge onClick={handleClick}>Em andamento</S.Badge>
+              <S.Badge onClick={handleClick}>Cancelado</S.Badge>
+              <S.Badge onClick={handleClick}>Concluído</S.Badge>
+            </S.BadgesContainer>
+            <S.HistoricoContainer tema={theme}>
+              <h2 onClick={handlePast}>HISTÓRICO</h2>
+            </S.HistoricoContainer>
+          </S.FiltersContainer>
 
-  //       <S.OrdersContainer>
-  //         {paymentsInfo &&
-  //           paymentsInfo.map((data) => (
-  //             <CardPedidoProduto
-  //               id={data.id}
-  //               client={data.client.name}
-  //               establishment={data.establishment.name}
-  //               preco={30}
-  //               service={data.product.name}
-  //               status={"Em Andamento"}
-  //               imgUrl={data.product.imgUrl || ""}
-  //             />
-  //           ))}
-  //         {scheduleInfo &&
-  //           scheduleInfo.map((data) => (
-  //             <CardPedidoServico
-  //               id={data.idSchedulig}
-  //               client={data.client.name}
-  //               establishment={data.employee.establishment.name}
-  //               employee={data.employee.name}
-  //               service={data.service.specification}
-  //               status={data.schedulingStatus.description}
-  //               imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
-  //             />
-  //           ))}
-  //       </S.OrdersContainer>
-  //     </S.OrdersBody>
-  //   </S.OrdersSectionContainer>
-  // ) : null;
-  // }
+          <S.OrdersContainer>
+            {paymentsInfo &&
+              paymentsInfo.map((data) => (
+                <CardPedidoProduto
+                  id={data.id}
+                  client={data.client.name}
+                  establishment={data.establishment.name}
+                  preco={30}
+                  service={data.product.name}
+                  status={"Em Andamento"}
+                  imgUrl={data.product.imgUrl || ""}
+                />
+              ))}
+            {scheduleInfo &&
+              scheduleInfo.map((data) => (
+                <CardPedidoServico
+                  id={data.idSchedulig}
+                  client={data.client.name}
+                  establishment={data.employee.establishment.name}
+                  employee={data.employee.name}
+                  service={data.service.specification}
+                  status={data.schedulingStatus.description}
+                  imgUrl={data.service.imgUrl ? data.service.imgUrl : ""}
+                />
+              ))}
+          </S.OrdersContainer>
+        </S.OrdersBody>
+      </S.OrdersSectionContainer>
+    ) : null;
+  }
   return null;
 };
 

@@ -34,12 +34,14 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
         Number(employeeEstab?.establishment.id)
       );
       setEstablishmentInfo(data);
+
+      await console.log(employeeEstab);
     };
     fetchEstablishmentData();
   }, [tokenFromCookie, isAuthenticated]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  // const open = Boolean(anchorEl);
 
   // const handleClose = () => {
   //   setAnchorEl(null);
@@ -52,25 +54,49 @@ const HeaderProfile: React.FC<S.ProfileProps> = ({ background }) => {
   return (
     <S.HeaderBody>
       <S.ContainerSelect>
-        <S.ContainerImg
-          background={
-            establishmentInfo ? establishmentInfo?.imgUrl : background
-          }
-        >
-          {/* <img src={establishmentInfo?.imgUrl} alt="Foto Estabelecimento" /> */}
-        </S.ContainerImg>
-        {/* <S.SelectEmpresa name="empresas" id="empresas"> */}
-        <S.ButtonHeader
-          sx={{
-            color: "black",
-            fontFamily: "Poppins",
-            fontWeight: "semibold",
-            textTransform: "none",
-          }}
-          onClick={handleClick}
-        >
-          {establishmentInfo?.name}
-        </S.ButtonHeader>
+        {!establishmentInfo && (
+          <>
+            <S.ContainerImg background={background}>
+              {/* <img src={establishmentInfo?.imgUrl} alt="Foto Estabelecimento" /> */}
+            </S.ContainerImg>
+            {/* <S.SelectEmpresa name="empresas" id="empresas"> */}
+            <S.ButtonHeader
+              sx={{
+                color: "black",
+                fontFamily: "Poppins",
+                fontWeight: "semibold",
+                textTransform: "none",
+              }}
+              onClick={handleClick}
+            >
+              {"..."}
+            </S.ButtonHeader>
+          </>
+        )}
+
+        {establishmentInfo && (
+          <>
+            <S.ContainerImg
+              background={
+                establishmentInfo ? establishmentInfo?.imgUrl : background
+              }
+            >
+              {/* <img src={establishmentInfo?.imgUrl} alt="Foto Estabelecimento" /> */}
+            </S.ContainerImg>
+            {/* <S.SelectEmpresa name="empresas" id="empresas"> */}
+            <S.ButtonHeader
+              sx={{
+                color: "black",
+                fontFamily: "Poppins",
+                fontWeight: "semibold",
+                textTransform: "none",
+              }}
+              onClick={handleClick}
+            >
+              {establishmentInfo?.name}
+            </S.ButtonHeader>
+          </>
+        )}
         {/* <S.MenuDropdwon open={open}> */}
         {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
           <MenuItem onClick={handleClose}>My account</MenuItem>

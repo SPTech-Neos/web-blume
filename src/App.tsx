@@ -18,7 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Products from "./pages/Products/Products";
 import Services from "./pages/Services/Services";
 import Employees from "./pages/Employees/Employees";
-import Dashboard from "./pages/Dashboard/Dashoboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import TestComponents from "./pages/TestComponents";
 
 const defaultProtectedRouteProps = {
@@ -31,7 +31,7 @@ const App: React.FC = () => {
     useContext(AuthContextEmployee);
   // const { isAuthenticated: isAuthenticatedClient } =
   //   useContext(AuthContextClient);
-  const isAuthenticated = isAuthenticatedEmployee
+  const isAuthenticated = isAuthenticatedEmployee;
 
   return (
     <BrowserRouter>

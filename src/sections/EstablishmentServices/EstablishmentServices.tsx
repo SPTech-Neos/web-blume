@@ -90,7 +90,7 @@ const EstablishmentServices: React.FC = () => {
               }) => ( */}
           <CardServico
             id={1}
-            service={"Serviço/Espec."}
+            service={"Serviço/Espec. Mockado"}
             preco={9.9}
             status="Ativo"
           />

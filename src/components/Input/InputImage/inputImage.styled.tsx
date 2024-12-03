@@ -9,6 +9,7 @@ import {
 export interface InputImageProps {
   onChange?: (e: any) => void;
   theme: string;
+  label: string;
   // children: string | JSX.Element | JSX.Element[];
   // href: string;
   // size?: 'sm' | 'md' | 'lg';
@@ -33,7 +34,7 @@ export interface ImagePreviewProps {
 
 export const InputImage = styled.input.attrs(() => ({
   type: "file",
-  accept: "image/*",
+  accept: "image/png, image/jpeg, image/jpg, image/svg",
 }))<InputImageProps>`
   font-family: "Poppins";
   display: none;

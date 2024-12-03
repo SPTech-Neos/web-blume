@@ -19,6 +19,9 @@ import Swal from "sweetalert2";
 import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
 import { EmployeeAdapter } from "../../../adapters/User/Employee/Employee";
 import Text from "../../../components/Texts/Text/Text";
+import { ImageAdapter } from "../../../adapters/Image/Image";
+import { ImageRequestDto } from "../../../utils/Image/images.types";
+// import { AditumAdapter } from "../../../adapters/Aditum/Aditum";
 
 interface RegisterFormProps {
   step: number;
@@ -26,7 +29,7 @@ interface RegisterFormProps {
   handleSubmit: () => void;
   acc: string;
 }
-// adicionar Aditum 
+// adicionar Aditum
 const RegisterForm: React.FC<RegisterFormProps> = ({
   step,
   setStep,
@@ -45,9 +48,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     estado: "",
     complemento: "",
     phone: "",
-    imgUrl: "",
+    imgUrl: new File(["foo"], "foo.png", {
+      type: "image/*",
+    }),
     city: "",
-
+    descricao: "",
     employeeNome: "",
     employeeEmail: "",
     employeePhone: "",
@@ -69,6 +74,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   // Função de validação dos campos obrigatórios
   const validateStep = () => {
     let isValid = true;
+    console.log(fields.imgUrl);
 
     switch (step) {
       case 1:
@@ -78,9 +84,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         break;
       case 2:
         break;
+      // case 3:
+      //   break;
       case 3:
-        break;
-      case 4:
         break;
       default:
         isValid = true;
@@ -102,13 +108,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   const handleFinish = async () => {
     try {
       const aditumEstablishmentReq = {
-        cnpj: fields.cnpj, 
+        cnpj: fields.cnpj,
         documentType: "Cnpj",
-        email: fields.employeeEmail, 
-        merchantCode: "", 
-        fantasyName: fields.nome, 
-        socialName: fields.nome, 
-        mcc: 6010, 
+        email: fields.employeeEmail,
+        merchantCode: "",
+        fantasyName: fields.nome,
+        socialName: fields.nome,
+        mcc: 6010,
         acquirerSettings: [
           {
             acquirerId: 999,
@@ -128,62 +134,70 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           },
         ],
         address: {
-          street: fields.logradouro, 
-          number: fields.numero, 
-          neighborhood: fields.logradouro, 
-          city: fields.city, 
-          state: fields.estado, 
-          country: "Brasil", 
-          zipCode: fields.cep.replace(/[^\d]/g, "")
+          street: fields.logradouro,
+          number: fields.numero,
+          neighborhood: fields.logradouro,
+          city: fields.city,
+          state: fields.estado,
+          country: "Brasil",
+          zipCode: fields.cep.replace(/[^\d]/g, ""),
         },
         contacts: [
           {
-            name: fields.employeeNome, 
+            name: fields.employeeNome,
             phone: {
-              countryCode: "55", 
-              areaCode: "11", 
-              number: "98123-3131", 
-              type: "Commercial", 
+              countryCode: "55",
+              areaCode: "11",
+              number: "98123-3131",
+              type: "Commercial",
             },
-            email: fields.employeeEmail, 
-            type: "Administration", 
+            email: fields.employeeEmail,
+            type: "Administration",
           },
         ],
-        type: 2, 
+        type: 2,
         profile: {
-          smartCheckoutLimitAmount: 150000, 
-          antifraudMandatory: false, 
-          acceptForeignCustomer: false, 
-          disputeManagementEnabled: false, 
-          hideRefreshToken: true, 
-          antifraudCheckFirst: false, 
-          ignoreAcquirerSettingsOnUpdate: true, 
-          allowInheritTokenizationConfiguration: false, 
-          needsValidatePaymentLinkOnAcquirer: false, 
-          overridesChildsAntifraudSettings: false, 
-          encodeWebhookPayloadContent: true, 
-          verificationRequiredBeforeCancellation: false, 
-          useUuidOnMerchantChargeId: true, 
-          acquirerTransactionFilter: "Undefined", 
-          useParentAntifraudSettings: false, 
-          useParentMerchantPixSettings: false, 
-          disableSelfFinanceInSmartCheckout: false, 
+          smartCheckoutLimitAmount: 150000,
+          antifraudMandatory: false,
+          acceptForeignCustomer: false,
+          disputeManagementEnabled: false,
+          hideRefreshToken: true,
+          antifraudCheckFirst: false,
+          ignoreAcquirerSettingsOnUpdate: true,
+          allowInheritTokenizationConfiguration: false,
+          needsValidatePaymentLinkOnAcquirer: false,
+          overridesChildsAntifraudSettings: false,
+          encodeWebhookPayloadContent: true,
+          verificationRequiredBeforeCancellation: false,
+          useUuidOnMerchantChargeId: true,
+          acquirerTransactionFilter: "Undefined",
+          useParentAntifraudSettings: false,
+          useParentMerchantPixSettings: false,
+          disableSelfFinanceInSmartCheckout: false,
         },
-        bankSlipSettings: [], 
-        parentMerchantId: "a9296dbc-6372-4f8a-959d-40ff30135a2f", 
-        status: "Active", 
-        isActive: true, 
+        bankSlipSettings: [],
+        parentMerchantId: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+        status: "Active",
+        isActive: true,
         relatedMerchants: [
-          "a9296dbc-6372-4f8a-959d-40ff30135a2f", 
-          "ce869b77-a2b2-4b95-8863-2f74733a3929", 
+          "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+          "ce869b77-a2b2-4b95-8863-2f74733a3929",
         ],
-        
       } as AditumEstablishmentRequest;
+
+      const imageAdapter = new ImageAdapter();
+
+      const imageBody = {
+        file: fields.imgUrl,
+        entityId: 1,
+      } as unknown as ImageRequestDto;
+
+      const imageResponse = await imageAdapter.registerImageEstab(imageBody);
 
       const establishmentFields = {
         name: fields.nome,
-        imgUrl: fields.imgUrl,
-        aditumId: "aditumTeste", 
+        imgUrl: imageResponse,
+        aditumId: "aditumTeste",
         local: {
           number: fields.numero,
           floor: 0,
@@ -196,6 +210,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             uf: fields.estado,
           },
         },
+        description: fields.descricao,
         phone: {
           countryCode: fields.phone.replace(/[^\d]/g, "").slice(0, 2),
           areaCode: fields.phone.replace(/[^\d]/g, "").slice(2, 4),
@@ -204,9 +219,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       } as EstablishmentRequestDto;
 
       const establishmenteAdapter = new EstablishmentAdapter();
+
       const establishmentResponse =
-      await establishmenteAdapter.registerEstablishment(establishmentFields, aditumEstablishmentReq);
-    
+        await establishmenteAdapter.registerEstablishment(
+          establishmentFields,
+          aditumEstablishmentReq
+        );
+
       const employeeFields = {
         name: fields.employeeNome,
         email: fields.employeeEmail,
@@ -232,10 +251,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           number: fields.employeePhone.replace(/[^\d]/g, "").slice(4),
         },
       } as EmployeeRequestDto;
-  
+
       const employeeAdapter = new EmployeeAdapter();
       const employeeResponse = await employeeAdapter.create(employeeFields);
-    
+
       if (employeeResponse && establishmentResponse) {
         navigate(`/establishment/${establishmentResponse.id}`);
       } else {
@@ -254,13 +273,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       });
     }
   };
-  
 
   return (
     <ColorContainer bgColor={c.gray100}>
       <S.Register>
         <Title>CADASTRO</Title>
-        <Stepper theme={acc} steps={4} currentStep={step} />
+        <Stepper theme={acc} steps={3} currentStep={step} />
         <Text size="lg" weight="bold">
           {getTitle(step)}
         </Text>

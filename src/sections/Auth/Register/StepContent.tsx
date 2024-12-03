@@ -4,7 +4,7 @@ import InputText from "../../../components/Input/InputText/InputText";
 import InputContainer from "../../../components/Input/InputContainer/InputContainer";
 import InputImage from "../../../components/Input/InputImage/InputImage";
 import Dropdown from "../../../components/Input/Dropdown/Dropdown";
-import CategorySelector from "./CategorySelector";
+// import CategorySelector from "./CategorySelector";
 
 import { Column } from "../../../components/Input/InputImage/inputImage.styled";
 import axios from "axios";
@@ -12,7 +12,27 @@ import axios from "axios";
 interface StepContentProps {
   step: number;
   acc: string;
-  fields: Record<string, string>;
+  fields: {
+    cnpj: string;
+    cep: string;
+    nome: string;
+    entrada: string;
+    saida: string;
+    logradouro: string;
+    numero: string;
+    estado: string;
+    complemento: string;
+    phone: string;
+    city: string;
+    descricao: string;
+    imgUrl: File;
+    employeeNome: string;
+    employeeEmail: string;
+    senha: string;
+    confirmarSenha: string;
+    employeePhone: string;
+  };
+  // fields: Record<string, string | File>;
   onFieldChange: (field: string, value: string | string[]) => void;
   goToNextStep: () => void;
 }
@@ -26,6 +46,20 @@ const StepContent: React.FC<StepContentProps> = ({
 }) => {
   const [isCepValid, setIsCepValid] = useState(false);
   const [uf, setUf] = useState<string>();
+  const [image, setImage] = useState<string | null>(null);
+
+  let imgInput = document.getElementById("input-image");
+
+  const onImageChange = (event: any) => {
+    console.log(event);
+
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+      onFieldChange("imgUrl", URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
+  imgInput?.addEventListener("change", onImageChange);
 
   const [errors, setErrors] = useState({
     // OBRIGATÓRIOS
@@ -132,6 +166,8 @@ const StepContent: React.FC<StepContentProps> = ({
       default:
         isValid = true;
     }
+
+    console.log(image);
 
     setErrors(newErrors);
     return isValid;
@@ -331,31 +367,28 @@ const StepContent: React.FC<StepContentProps> = ({
     case 2:
       return (
         <S.FormPart>
-          <InputImage
-            theme={acc}
-            onChange={(e) => onFieldChange("imgUrl", e.target.value)}
-          />
+          <InputImage theme={acc} label={"Foto de Perfil"} />
           <InputText
             theme={acc}
             label="Descrição"
             type="text"
             placeholder="Como é seu estabelecimento..."
-            value={fields.descricao}
+            value={fields.descricao ? fields.descricao : ""}
             onChange={(e) => onFieldChange("descricao", e.target.value)}
           />
         </S.FormPart>
       );
+    // case 3:
+    //   return (
+    //     <S.FormPart>
+    //       <CategorySelector
+    //         onChange={(selectedCategories) =>
+    //           onFieldChange("categorias", selectedCategories)
+    //         }
+    //       />
+    //     </S.FormPart>
+    //   );
     case 3:
-      return (
-        <S.FormPart>
-          <CategorySelector
-            onChange={(selectedCategories) =>
-              onFieldChange("categorias", selectedCategories)
-            }
-          />
-        </S.FormPart>
-      );
-    case 4:
       return (
         <S.FormPart>
           <InputText
@@ -442,9 +475,9 @@ export const getTitle = (step: number) => {
       return "DADOS OBRIGATÓRIOS";
     case 2:
       return "DADOS OPCIONAIS";
+    // case 3:
+    //   return "DADOS DE CATEGORIA";
     case 3:
-      return "DADOS DE CATEGORIA";
-    case 4:
       return "DADOS DO ADMINISTRADOR";
     default:
       return "DADOS OBRIGATÓRIOS";

@@ -4,7 +4,7 @@ import * as S from "./inputImage.styled";
 // import { SecondaryTitle } from "../../Texts/Title/Title";
 import Subtitle from "../../Texts/Subtitle/Subtitle";
 
-const inputImage: React.FC<S.InputImageProps> = ({ }) => {
+const inputImage: React.FC<S.InputImageProps> = ({ label, onChange }) => {
   const [, setCurrentImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState<string>("");
   const [imageName, setImageName] = useState<string>("");
@@ -29,7 +29,7 @@ const inputImage: React.FC<S.InputImageProps> = ({ }) => {
     <S.Row>
       <S.ColumnCenter>
         <Subtitle weight={700} size="lg">
-          Foto de Perfil
+          {label}
         </Subtitle>
         {previewImage != "" ? (
           <S.ImagePreview src={previewImage} alt="Pré-Vizualização da Imagem" />
@@ -39,7 +39,14 @@ const inputImage: React.FC<S.InputImageProps> = ({ }) => {
         {/* {previewImage != '' && <S.Round />} */}
       </S.ColumnCenter>
       <S.Column>
-        <S.InputImage onChange={(e: any) => handleChange(e)} id="input-image" />
+        <S.InputImage
+          label={label}
+          onChange={(e: any) => {
+            handleChange(e);
+            onChange;
+          }}
+          id="input-image"
+        />
         <Subtitle weight={600} size="md">
           {imageName == "" ? "Nenhum arquivo encontrado" : imageName}
         </Subtitle>

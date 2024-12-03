@@ -1,6 +1,9 @@
 import React from "react";
 import * as S from "./register.styled";
-import { PrimaryButton, LinkButton } from "../../../components/Buttons/DefaultButton/DefaultButton";
+import {
+  PrimaryButton,
+  LinkButton,
+} from "../../../components/Buttons/DefaultButton/DefaultButton";
 import { getTheme } from "../../../styles/Colors";
 
 interface StepNavigationProps {
@@ -11,7 +14,13 @@ interface StepNavigationProps {
   handleSubmit: () => void;
 }
 
-const StepNavigation: React.FC<StepNavigationProps> = ({ step, validateStep, goToNextStep, goToPreviousStep, handleSubmit }) => {
+const StepNavigation: React.FC<StepNavigationProps> = ({
+  step,
+  validateStep,
+  goToNextStep,
+  goToPreviousStep,
+  handleSubmit,
+}) => {
   const handleNext = () => {
     if (validateStep()) {
       goToNextStep();
@@ -32,29 +41,29 @@ const StepNavigation: React.FC<StepNavigationProps> = ({ step, validateStep, goT
         </LinkButton>
       )}
 
-      {step < 4 && (
-      <PrimaryButton
-        color={getTheme("none").mainColor}
-        size="md"
-        width="200px"
-        type="button"
-        onClick={handleNext}
-      >
-        PRÓXIMO
-      </PrimaryButton>
+      {step < 3 && (
+        <PrimaryButton
+          color={getTheme("none").mainColor}
+          size="md"
+          width="200px"
+          type="button"
+          onClick={handleNext}
+        >
+          PRÓXIMO
+        </PrimaryButton>
       )}
 
-      {step >= 4 && (
+      {step >= 3 && (
         <PrimaryButton
-        color={getTheme("none").mainColor}
-        size="md"
-        width="200px"
-        type="button"
-        onClick={handleSubmit}
-      >
-        FINALIZAR
-      </PrimaryButton>
-    )}
+          color={getTheme("none").mainColor}
+          size="md"
+          width="200px"
+          type="button"
+          onClick={handleSubmit}
+        >
+          FINALIZAR
+        </PrimaryButton>
+      )}
     </S.FormFooter>
   );
 };

@@ -4,8 +4,8 @@ import axios from "axios";
 import { environment } from "../../../environment.config";
 import { 
     BarChartData,
-    // DashboardRequestDto, 
-    DashboardRequestDto, Employees, ProfitableResponseDto, PurchasedResponseDto, QuantityStatusResponseDto } from "../../utils/Dashboard/dashboard.types";
+    // DashboardRequestDtoId, 
+    DashboardRequestDtoId, Employees, ProfitableResponseDto, PurchasedResponseDto, QuantityStatusResponseDto } from "../../utils/Dashboard/dashboard.types";
 
 export class DashboardAdapter {
     private readonly apiUrl: string;
@@ -22,16 +22,16 @@ export class DashboardAdapter {
         return {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
+                // 'Authorization': 'Basic ' + btoa(this.SpringSecurityUsername + ':' + this.SpringSecurityPassword),
                 'Accept': '*/*'
             }
         };
     }
 
-    async getTotalGain(dashboardRequestDto: DashboardRequestDto): Promise<number | null> {
+    async getTotalGain(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
         try {
             
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -39,13 +39,13 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/totalGain`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/totalGain`, dashboardRequestDtoId, this.getRequestOptions());
 
             console.log("response totalGain = " + response.status);
             
@@ -65,10 +65,10 @@ export class DashboardAdapter {
         }
     } 
 
-    async getQuantityStatus(dashboardRequestDto: DashboardRequestDto): Promise<QuantityStatusResponseDto | null> {
+    async getQuantityStatus(dashboardRequestDtoId: DashboardRequestDtoId): Promise<QuantityStatusResponseDto | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -76,16 +76,17 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
 
-            console.log(dashboardRequestDto);
+            console.log(dashboardRequestDtoId);
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/quantityStatus`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/quantityStatus`, dashboardRequestDtoId, this.getRequestOptions());
             
+            console.log("response quantityStatus = " + response.data);
             console.log("response quantityStatus = " + response.status);
 
             if (response.status == 204) {
@@ -93,10 +94,7 @@ export class DashboardAdapter {
                 
             }
             
-            const quantityStatus = response.data.map((quantityStatus: any) => ({
-                quantity: quantityStatus.quantity,
-                status: quantityStatus.status,
-            })) as QuantityStatusResponseDto;
+            const quantityStatus = response.data
     
             return quantityStatus;
     
@@ -106,14 +104,14 @@ export class DashboardAdapter {
         }
     } 
 
-    async getLeastPurchased(dashboardRequestDto: DashboardRequestDto): Promise<PurchasedResponseDto | null> {
+    async getLeastPurchased(dashboardRequestDtoId: DashboardRequestDtoId): Promise<PurchasedResponseDto | null> {
         try {
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/leastPurchased`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/leastPurchased`, dashboardRequestDtoId, this.getRequestOptions());
 
             console.log("response leastPurchased = " + response.status);
             
@@ -132,13 +130,13 @@ export class DashboardAdapter {
         }
     } 
 
-    async getMostPurchased(dashboardRequestDto: DashboardRequestDto): Promise<PurchasedResponseDto | null> {
+    async getMostPurchased(dashboardRequestDtoId: DashboardRequestDtoId): Promise<PurchasedResponseDto | null> {
         try {
-            dashboardRequestDto = {
-                ...dashboardRequestDto
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/mostPurchased`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/mostPurchased`, dashboardRequestDtoId, this.getRequestOptions());
 
             console.log("response mostPurchased = " + response.status);
 
@@ -157,14 +155,14 @@ export class DashboardAdapter {
         }
     } 
 
-    async getMostProfitable(dashboardRequestDto: DashboardRequestDto): Promise<ProfitableResponseDto | null> {
+    async getMostProfitable(dashboardRequestDtoId: DashboardRequestDtoId): Promise<ProfitableResponseDto | null> {
         try {
 
-            dashboardRequestDto = {
-                ...dashboardRequestDto
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/mostProfitable`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/mostProfitable`, dashboardRequestDtoId, this.getRequestOptions());
 
             console.log("response mostProfitable = " + response.status);
 
@@ -183,14 +181,14 @@ export class DashboardAdapter {
         }
     } 
 
-    async getLeastProfitable(dashboardRequestDto: DashboardRequestDto): Promise<ProfitableResponseDto | null> {
+    async getLeastProfitable(dashboardRequestDtoId: DashboardRequestDtoId): Promise<ProfitableResponseDto | null> {
         try {
     
-            dashboardRequestDto = {
-                ...dashboardRequestDto
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/leastProfitable`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/leastProfitable`, dashboardRequestDtoId, this.getRequestOptions());
 
             console.log("response leastProfitable = " + response.status);
 
@@ -209,10 +207,10 @@ export class DashboardAdapter {
         }
     } 
 
-    async getCountMarket(dashboardRequestDto: DashboardRequestDto): Promise<number | null> {
+    async getCountMarket(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -220,13 +218,13 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/countMarket`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/countMarket`, dashboardRequestDtoId, this.getRequestOptions());
             
             if (response.status == 204) {
                 return null;
@@ -243,10 +241,10 @@ export class DashboardAdapter {
         }
     } 
 
-    async getCountMarketCanceled(dashboardRequestDto: DashboardRequestDto): Promise<number | null> {
+    async getCountMarketCanceled(dashboardRequestDtoId: DashboardRequestDtoId): Promise<number | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -254,13 +252,13 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/countMarketCanceled`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/countMarketCanceled`, dashboardRequestDtoId, this.getRequestOptions());
 
             if (response.status == 204) {
                 return null;
@@ -277,33 +275,33 @@ export class DashboardAdapter {
         }
     } 
 
-    async getRatingEstablishment(dashboardRequestDto: DashboardRequestDto): Promise<number | null> {
+    async getRatingEstablishment(id: number): Promise<number | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            // let {start, end} = dashboardRequestDtoId;
             
-            start = start.replaceAll("/", "-");
-            start = start.replaceAll(",", "");
+            // start = start.replaceAll("/", "-");
+            // start = start.replaceAll(",", "");
             
-            end = end.replaceAll("/", "-");
-            end = end.replaceAll(",", "");
+            // end = end.replaceAll("/", "-");
+            // end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
-                start,
-                end
-            }
+            // dashboardRequestDtoId = {
+            //     ...dashboardRequestDtoId,
+            //     start,
+            //     end
+            // }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/ratingEstablishment`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.get(`${this.apiUrl}/ratings/${id}`, this.getRequestOptions());
 
             if (response.status == 204) {
                 return null;
                 
             }
     
-            const ratingEstablishment = response.data;
+            // const ratingEstablishment = response.data;
     
-            return ratingEstablishment;
+            return response.data.nota;
     
         } catch (error) {
             console.error(error);
@@ -311,10 +309,10 @@ export class DashboardAdapter {
         }
     } 
 
-    async getEmployeeStats(dashboardRequestDto: DashboardRequestDto): Promise<Employees[] | null> {
+    async getEmployeeStats(dashboardRequestDtoId: DashboardRequestDtoId): Promise<Employees[] | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -322,13 +320,13 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/employeeStats`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/employeeStats`, dashboardRequestDtoId, this.getRequestOptions());
 
             if (response.status == 204) {
                 return null;
@@ -345,10 +343,10 @@ export class DashboardAdapter {
         }
     } 
 
-    async getBarChart(dashboardRequestDto: DashboardRequestDto, period: number): Promise<BarChartData[] | null> {
+    async getBarChart(dashboardRequestDtoId: DashboardRequestDtoId, period: number): Promise<BarChartData[] | null> {
         try {
     
-            let {start, end} = dashboardRequestDto;
+            let {start, end} = dashboardRequestDtoId;
             
             start = start.replaceAll("/", "-");
             start = start.replaceAll(",", "");
@@ -356,13 +354,13 @@ export class DashboardAdapter {
             end = end.replaceAll("/", "-");
             end = end.replaceAll(",", "");
             
-            dashboardRequestDto = {
-                ...dashboardRequestDto,
+            dashboardRequestDtoId = {
+                ...dashboardRequestDtoId,
                 start,
                 end
             }
             
-            const response = await axios.post(`${this.apiUrl}/dashboard/graficCountMarket/${period}`, dashboardRequestDto, this.getRequestOptions());
+            const response = await axios.post(`${this.apiUrl}/dashboard/graficCountMarket/${period}`, dashboardRequestDtoId, this.getRequestOptions());
 
             if (response.status == 204) {
                 return null;

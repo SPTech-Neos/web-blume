@@ -219,12 +219,11 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
       //     employeeType: 1
       // }
       // if(employeeNew){
-      //     const employeeEstab = handleCreateEmployee(employeeNew);
+      // //const employeeEstab = handleCreateEmployee(employeeNew);
       // }
     }
-
-    //handleClose();
-    //handleReload();
+    handleClose();
+    handleReload();
   };
 
   return (

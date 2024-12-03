@@ -51,37 +51,37 @@ const Orders: React.FC = () => {
     ? JSON.parse(tokenEmployeeFromCookie)
     : null;
 
-  const handleGetSchedulings = async () => {
-    try {
-      const allSchedule = await scheduleAdapter.getSchedulingsByEmployeeId(
-        Number(tokenEmployee.id)
-      );
-      setSchedule(allSchedule);
-      console.log(allSchedule);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleGetSchedulings = async () => {
+  //   try {
+  //     const allSchedule = await scheduleAdapter.getSchedulingsByEmployeeId(
+  //       Number(tokenEmployee.id)
+  //     );
+  //     setSchedule(allSchedule);
+  //     console.log(allSchedule);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleGetPayments = async () => {
-    try {
-      const allPayments = await paymentAdapter.getAllPayments();
-      setPayments(allPayments);
-      console.log(allPayments);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleGetPayments = async () => {
+  //   try {
+  //     const allPayments = await paymentAdapter.getAllPayments();
+  //     setPayments(allPayments);
+  //     console.log(allPayments);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleGetSchedulings();
+  //   handleGetPayments();
+  // }, []);
+
+  const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
+  const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
 
   useEffect(() => {
-    handleGetSchedulings();
-    handleGetPayments();
-  }, []);
-
-  // const listaProdutos: { produto: string; cliente: string; estabelecimento: string; preco: number; }[] = []
-  // const listaScheduling: { servico: string; funcionario: string; cliente: string; }[] = [];
-
-  /*useEffect(() => {
         paymentsInfo?.forEach(e => {
             listaProdutos.push({
                 produto: e.product.name,
@@ -102,7 +102,7 @@ const Orders: React.FC = () => {
         })
 
 
-    },[paymentsInfo, scheduleInfo])*/
+    },[paymentsInfo, scheduleInfo])
 
   // LOAD SCHEDULINGS =====================
   useEffect(() => {
@@ -138,7 +138,6 @@ const Orders: React.FC = () => {
 
   let theme = "";
 
-  if (isAuthenticatedEmployee) {
     theme = "B2B";
     return tokenEmployee ? (
       <S.OrdersSectionContainer tema={theme}>
@@ -187,7 +186,6 @@ const Orders: React.FC = () => {
         </S.OrdersBody>
       </S.OrdersSectionContainer>
     ) : null;
-  }
   return null;
 };
 

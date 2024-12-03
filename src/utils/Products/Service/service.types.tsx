@@ -3,6 +3,8 @@ export interface ServiceRequestDto {
   specification: string;
   imgUrl?: string;
   serviceType: number;
+  aditumId: string;
+  price: number;
 }
 
 export interface AditumServicetDto{

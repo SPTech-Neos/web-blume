@@ -42,8 +42,8 @@ const EstablishmentServices: React.FC = () => {
   };
 
   const handleAddService = () => {
-    // const modal = document.getElementById("modal-adicionar");
-    // modal?.classList.add("active");
+    const modal = document.getElementById("modal-adicionar");
+    modal?.classList.add("active");
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const EstablishmentServices: React.FC = () => {
                 id={service.serviceId}
                 service={service.specification}
                 preco={service.price}
-                status={service.status}
+                // status={service.status}
                 key={index}
               />
             ))}

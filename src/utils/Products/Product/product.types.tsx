@@ -9,6 +9,7 @@ export interface ProductRequestDto {
     type: number | string;
     value: number;
     establishment: number;
+    aditum_id: string;
 }
 
 export interface AditumProductDto {

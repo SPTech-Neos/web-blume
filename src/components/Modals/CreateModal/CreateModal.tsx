@@ -21,6 +21,9 @@ import { ProductTypeAdapter } from "../../../adapters/Products/Product/ProducTyp
 import { ProductTypeResponseDto } from "../../../utils/Products/Product/productTypes.types";
 import { ProductAdapter } from "../../../adapters/Products/Product/Product";
 import { EstablishmentResponseDto } from "../../../utils/Establishment/establishment.types";
+import { AditumProductDto } from "../../../utils/Products/Product/product.types";
+import { ProductRequestDto } from "../../../utils/Products/Product/product.types";
+import { AditumServicetDto, ServiceRequestDto } from "../../../utils/Products/Service/service.types"; 
 
 type Props = {
   id?: string;
@@ -129,7 +132,6 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
   };
 
   const adapterService = new ServiceAdapter();
-
   const handleSave = async () => {
     if (titulo == "Produto") {
       const productNew = {
@@ -138,13 +140,21 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
         type: productType,
         value: Number(preco),
         establishment: token.establishment.id,
-      };
+        aditum_id: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+      } as ProductRequestDto;
 
       console.log(productNew);
-      // ADICIONAR REGRA ADITUM AQUI
 
-      // COLOCAR ADITUMDTO NO adapterProduct.create (OLHAR PARAMETROS QUE ELE RECEBE)
-      const productCreated = await adapterProduct.create(productNew);
+      const productNewAditum ={
+        name: name,
+        amount: Number(preco),  
+        isActive: true,
+        description: "string", 
+        Sku: name,
+        merchantId: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+      } as AditumProductDto;
+
+      const productCreated = await adapterProduct.create(productNew, productNewAditum);
       console.log(productCreated);
     }
 
@@ -152,14 +162,22 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
       const serviceNew = {
         specification: name,
         serviceType: Number(serviceType),
-      };
+        aditumId: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+        price: Number(preco),
+      } as ServiceRequestDto;
 
       if (serviceNew) {
         console.log("entrei no if serviço");
-        // ADICIONAR REGRA ADITUM AQUI
+        const serviceNewAditum ={
+          name: name,
+          amount: Number(preco),  
+          isActive: true,
+          description: "string", 
+          Sku: name,
+          merchantId: "a9296dbc-6372-4f8a-959d-40ff30135a2f",
+        } as AditumServicetDto;
 
-        // COLOCAR ADITUMDTO NO adapterService.register (OLHAR PARAMETROS QUE ELE RECEBE)
-        const serviceCreated = await adapterService.register(serviceNew);
+        const serviceCreated = await adapterService.register(serviceNew , serviceNewAditum);
         console.log("serviço criando" + JSON.stringify(serviceCreated));
 
         if (serviceCreated) {
@@ -204,8 +222,8 @@ const CreateModal: React.FC<Props> = ({ id, titulo }) => {
       // }
     }
 
-    handleClose();
-    handleReload();
+    //handleClose();
+    //handleReload();
   };
 
   return (

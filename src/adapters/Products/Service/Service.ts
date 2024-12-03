@@ -101,7 +101,7 @@ export class ServiceAdapter {
             );
 
     
-            if (!aditumResponse.data) {
+            if (!aditumResponse.data || !aditumResponse.data.product.id) {
                 console.error("Erro ao criar Serviço na Aditum:", aditumResponse.data);
                 return null;
             }

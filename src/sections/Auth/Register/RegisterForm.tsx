@@ -19,7 +19,6 @@ import Swal from "sweetalert2";
 import { EmployeeRequestDto } from "../../../utils/Users/Employee/employee.types";
 import { EmployeeAdapter } from "../../../adapters/User/Employee/Employee";
 import Text from "../../../components/Texts/Text/Text";
-// import { AditumAdapter } from "../../../adapters/Aditum/Aditum";
 
 interface RegisterFormProps {
   step: number;

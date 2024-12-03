@@ -44,15 +44,13 @@ export class ProductAdapter {
                 aditumProductDto,
                 aditumRequestOptions
             );
-
-            console.log(aditumResponse.data);
-    
-            if (!aditumResponse.data || !aditumResponse.data.id) {
+                
+            if (!aditumResponse.data || !aditumResponse.data.product.id) {
                 console.error("Erro ao criar Produto na Aditum:", aditumResponse.data);
                 return null;
             }
 
-            console.log("Produto criado na Aditum com ID:", aditumResponse.data.id);
+            console.log("Produto criado na Aditum com ID:", aditumResponse.data.product.id);
 
             const response = await axios.post(`${this.apiUrl}/products`, productDto, this.getRequestOptions());
             return {
